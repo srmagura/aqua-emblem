@@ -1,7 +1,33 @@
-div.canvas-wrapper
+body
 {
+    font-family: sans-serif;
+}
+
+div.game-wrapper
+{
+    width: 700px;
+    margin: 0 auto;
 }
 
 canvas
 {
+    float: left;
+    /*display: block;
+    width:420px;
+    margin: 0 auto;*/
+}
+
+div.sidebar
+{
+    width: 120px;
+    float: left;
+    margin-right: 10px;
+}
+
+div.unit-info
+{
+    border: 2px solid #55F;
+    background-color: #B0B0FF;
+    padding: 5px;
+    visibility: hidden;
 }

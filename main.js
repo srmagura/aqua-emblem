@@ -40,7 +40,19 @@ function deselect(){
     map.clearOverlay()
 }
 
+function updateUnitInfoBox(){
+    var cursorUnit = getUnitAt(cursorPos)
+    if(cursorUnit == null){
+        $('.unit-info').css('visibility', 'hidden')
+    } else {
+        $('.unit-info').css('visibility', 'visible').
+            html(cursorUnit.name)
+    }
+}
+
 function cursorMoved(){
+    updateUnitInfoBox()
+
     if(selectedUnit != null){
         if(!posEquals(selectedUnit.pos, cursorPos) &&
             map.overlayTiles[cursorPos[0]][cursorPos[1]] ==
@@ -85,6 +97,7 @@ var csMap = {
             if(posEquals(destination, cursorPos)){
                 selectedUnit.pos = $.extend({}, destination)
                 deselect()
+                updateUnitInfoBox()
             }
         }
     },
