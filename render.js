@@ -62,18 +62,6 @@ function renderGrid(){
     }
 }
 
-function renderUnits(){
-    for(var k = 0; k < units.length; k++){
-        ctx.beginPath()
-        ctx.fillStyle = 'blue'
-
-        var pos = units[k].pos
-        ctx.arc((.5 + pos[1])*tw, (.5 + pos[0])*tw, .2*tw, 0,
-            2*Math.PI, false)
-        ctx.fill()
-    }
-}
-
 function renderDestination(){
     if(destination == null)
         return
@@ -95,6 +83,27 @@ function renderDestination(){
     ctx.stroke()
 }
 
+
+function renderUnits(){
+    for(var k = 0; k < units.length; k++){
+        ctx.beginPath()
+
+        switch(units[k].team){
+            case TEAM_PLAYER:
+                ctx.fillStyle = 'blue'
+                break
+            case TEAM_ENEMY:
+                ctx.fillStyle = 'red'
+                break
+        }
+
+        var pos = units[k].pos
+        ctx.arc((.5 + pos[1])*tw, (.5 + pos[0])*tw, .2*tw, 0,
+            2*Math.PI, false)
+        ctx.fill()
+    }
+}
+
 function renderCursor(){
     var s = 5
     ctx.strokeStyle = 'purple'
@@ -106,7 +115,7 @@ function renderCursor(){
 function render(){
     renderMap()
     renderGrid()
-    renderUnits()
     renderDestination()
+    renderUnits()
     renderCursor()
 }

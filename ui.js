@@ -5,6 +5,17 @@ function updateUnitInfoBox(){
     } else {
         $('.unit-info').css('visibility', 'visible').
             html(cursorUnit.name)
+
+        switch(cursorUnit.team){
+            case TEAM_PLAYER:
+                $('.unit-info').removeClass('red-box').
+                    addClass('blue-box')
+                break
+            case TEAM_ENEMY:
+                $('.unit-info').removeClass('blue-box').
+                    addClass('red-box')
+                break
+        }
     }
 }
 

@@ -1,5 +1,4 @@
-var w = window;
-requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
+requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.mozRequestAnimationFrame;
 
 var then
 var ctx
@@ -15,6 +14,15 @@ var gridWidth = 2
 var cursorPos = [0, 0]
 var selectedUnit = null
 var destination = null
+
+var csPrototype = {
+    up: function(){},
+    down: function(){},
+    left: function(){},
+    right: function(){},
+    f: function(){},
+    d: function(){}
+}
 
 function selectUnit(unit){
     selectedUnit = unit
@@ -32,6 +40,8 @@ function selectUnit(unit){
             }
         }
     }
+
+    updateDestination()
 }
 
 function deselect(){
@@ -40,16 +50,18 @@ function deselect(){
     map.clearOverlay()
 }
 
+function updateDestination(){
+    if(map.overlayTiles[cursorPos[0]][cursorPos[1]] ==
+        OVERLAY_AVAILABLE){
+        destination = $.extend({}, cursorPos)
+    }
+}
+
 function cursorMoved(){
     updateUnitInfoBox()
 
     if(selectedUnit != null){
-        if(posEquals(selectedUnit.pos, cursorPos)){
-            destination = null
-        } else if(map.overlayTiles[cursorPos[0]][cursorPos[1]] ==
-            OVERLAY_AVAILABLE){
-            destination = $.extend({}, cursorPos)
-        }
+        updateDestination()
     }
 }
 
@@ -63,15 +75,6 @@ function initMove(){
     }
 
     initActionMenu({"Wait": onWait});
-}
-
-var csPrototype = {
-    up: function(){},
-    down: function(){},
-    left: function(){},
-    right: function(){},
-    f: function(){},
-    d: function(){}
 }
 
 var csMap = Object.create(csPrototype)
@@ -106,7 +109,7 @@ csMap.right = function(){
 csMap.f = function(){
     if(selectedUnit == null){
         var unit = getUnitAt(cursorPos)
-        if(unit != null){
+        if(unit != null && unit.team == TEAM_PLAYER){
             selectUnit(unit)
         }
     } else if(posEquals(destination, cursorPos)){
@@ -164,13 +167,12 @@ function mainLoop(){
 }
 
 function init(){
-    map = new Map()
-    for(var k = 0; k < units.length; k++){
-        units[k].pos = map.playerPositions[k];
-    }
-
-    $(window).keydown(keydownHandler)
-    then = Date.now()
     ctx = $('canvas')[0].getContext('2d')
+    $(window).keydown(keydownHandler)
+
+    map = new Map()
+    initUnits()
+
+    then = Date.now()
     mainLoop()
 }
