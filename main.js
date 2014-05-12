@@ -13,13 +13,12 @@ var gridStyle = '#666'
 var gridWidth = 2
 
 var cursorPos = [0, 0]
-
-function onMap(pos){
-    return (0 <= pos[0] && pos[0] < map.height &&
-        0 <= pos[1] && pos[1] < map.width)
-}
+var selectedUnit = null
+var destination = null
 
 function selectUnit(unit){
+    selectedUnit = unit
+
     var i = unit.pos[0]
     var j = unit.pos[1]
 
@@ -35,28 +34,62 @@ function selectUnit(unit){
     }
 }
 
+function deselect(){
+    selectedUnit = null 
+    destination = null
+    map.clearOverlay()
+}
+
+function cursorMoved(){
+    if(selectedUnit != null){
+        if(!posEquals(selectedUnit.pos, cursorPos) &&
+            map.overlayTiles[cursorPos[0]][cursorPos[1]] ==
+            OVERLAY_AVAILABLE){
+            destination = $.extend({}, cursorPos)
+        }
+    }
+}
+
 var csMap = {
     up: function(){
-        if(cursorPos[0]-1 >= 0)
+        if(cursorPos[0]-1 >= 0){
             cursorPos[0]--
+            cursorMoved()
+        }
     },
     down: function(){
-        if(cursorPos[0]+1 < map.height)
+        if(cursorPos[0]+1 < map.height){
             cursorPos[0]++
+            cursorMoved()
+        }
     },
     left: function(){
-        if(cursorPos[1]-1 >= 0)
+        if(cursorPos[1]-1 >= 0){
             cursorPos[1]--
+            cursorMoved()
+        }
     },
     right: function(){
-        if(cursorPos[1]+1 < map.width)
+        if(cursorPos[1]+1 < map.width){
             cursorPos[1]++
+            cursorMoved()
+        }
     },
     f: function(){
-        var unit = getUnitAt(cursorPos)
-        if(unit != null){
-            selectUnit(unit)
+        if(selectedUnit == null){
+            var unit = getUnitAt(cursorPos)
+            if(unit != null){
+                selectUnit(unit)
+            }
+        } else {
+            if(posEquals(destination, cursorPos)){
+                selectedUnit.pos = $.extend({}, destination)
+                deselect()
+            }
         }
+    },
+    d: function(){
+        deselect()
     }
 }
 var controlState = csMap
@@ -78,6 +111,9 @@ function keydownHandler(e){
             break
         case 70:
             controlState.f()
+            break
+        case 68:
+            controlState.d()
             break
     }
 
