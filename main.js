@@ -24,23 +24,70 @@ var csPrototype = {
     d: function(){}
 }
 
-function selectUnit(unit){
-    selectedUnit = unit
+var directions = [[-1, 0], [1, 0], [0, -1], [0, 1]]
 
-    var i = unit.pos[0]
-    var j = unit.pos[1]
+function movementSearch(unit){
+    var queue = []
+    var dist = Array(map.height)
 
-    for(var di = -unit.move; di <= unit.move; di++){
-        for(var dj = -unit.move + Math.abs(di); 
-            dj <= unit.move - Math.abs(di); dj++){
-
-            if(onMap([i+di, j+dj]) &&
-                !terrainTypes[map.tiles[i+di][j+dj]].block){
-                map.overlayTiles[i+di][j+dj] = 1
-            }
+    for(var i = 0; i < map.height; i++){
+        dist[i] = Array(map.width)
+        for(var j = 0; j < map.width; j++){
+            dist[i][j] = Infinity
+            queue.push([i, j])
         }
     }
 
+    dist[unit.pos[0]][unit.pos[1]] = 0
+    map.overlayTiles[unit.pos[0]][unit.pos[1]] = 1
+
+    function popClosest(){
+        var minDist = Infinity
+        var minDistK = -1
+
+        for(var k = 0; k < queue.length; k++){
+            var alt = dist[queue[k][0]][queue[k][1]]
+            if(alt < minDist){
+                minDist = alt
+                minDistK = k
+            }
+        }
+
+        return [queue.splice(minDistK, 1)[0], minDist]
+    }
+
+    while(queue.length > 0){
+        var rv = popClosest()
+        var pos1 = rv[0]
+        var pos1Dist = rv[1]
+        if(pos1Dist == Infinity){
+            break
+        }
+
+        for(var k = 0; k < directions.length; k++){
+            var pos2 = posAdd(pos1, directions[k]) 
+
+            if(onMap(pos2) &&
+                map.overlayTiles[pos2[0]][pos2[1]] == 0 &&
+                !terrainTypes[map.tiles[pos2[0]][pos2[1]]].block){
+                var unitAt = getUnitAt(pos2)
+                var alt = pos1Dist + 1
+
+                if((unitAt == null || unitAt.team != TEAM_ENEMY) &&
+                    alt < dist[pos2[0]][pos2[1]]){
+                    dist[pos2[0]][pos2[1]] = alt
+
+                    if(alt <= unit.move)
+                        map.overlayTiles[pos2[0]][pos2[1]] = 1
+                }
+            }
+        }
+    }
+}
+
+function selectUnit(unit){
+    selectedUnit = unit
+    movementSearch(unit)
     updateDestination()
 }
 

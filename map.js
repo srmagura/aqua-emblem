@@ -2,15 +2,18 @@ function posEquals(pos1, pos2){
     return pos1[0] == pos2[0] && pos1[1] == pos2[1]
 }
 
-function getDist(pos1, pos2){
-    return Math.abs(pos1[0]-pos2[0]) + Math.abs(pos1[1]-pos2[1])
+function posAdd(pos1, pos2){
+    return [pos1[0] + pos2[0], pos1[1] + pos2[1]]
 }
+
+/*function getDist(pos1, pos2){
+    return Math.abs(pos1[0]-pos2[0]) + Math.abs(pos1[1]-pos2[1])
+}*/
 
 function onMap(pos){
     return (0 <= pos[0] && pos[0] < map.height &&
         0 <= pos[1] && pos[1] < map.width)
 }
-
 
 function getUnitAt(pos){
     for(var k = 0; k < units.length; k++){
