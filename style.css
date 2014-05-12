@@ -12,9 +12,6 @@ div.game-wrapper
 canvas
 {
     float: left;
-    /*display: block;
-    width:420px;
-    margin: 0 auto;*/
 }
 
 div.sidebar
@@ -24,10 +21,35 @@ div.sidebar
     margin-right: 10px;
 }
 
-div.unit-info
+div.sidebar > div
 {
+    margin-bottom: 10px;
+}
+
+.blue-box {
     border: 2px solid #55F;
     background-color: #B0B0FF;
+}
+
+div.unit-info
+{
     padding: 5px;
     visibility: hidden;
+}
+
+div.action-menu 
+{
+    padding: 4px;
+    visibility: hidden;
+}
+
+div.action-menu div
+{
+    padding: 4px;
+    padding-left: 6px;
+}
+
+div.action-menu div.selected
+{
+    background-color: #77F;
 }

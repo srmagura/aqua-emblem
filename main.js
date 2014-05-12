@@ -40,71 +40,84 @@ function deselect(){
     map.clearOverlay()
 }
 
-function updateUnitInfoBox(){
-    var cursorUnit = getUnitAt(cursorPos)
-    if(cursorUnit == null){
-        $('.unit-info').css('visibility', 'hidden')
-    } else {
-        $('.unit-info').css('visibility', 'visible').
-            html(cursorUnit.name)
-    }
-}
-
 function cursorMoved(){
     updateUnitInfoBox()
 
     if(selectedUnit != null){
-        if(!posEquals(selectedUnit.pos, cursorPos) &&
-            map.overlayTiles[cursorPos[0]][cursorPos[1]] ==
+        if(posEquals(selectedUnit.pos, cursorPos)){
+            destination = null
+        } else if(map.overlayTiles[cursorPos[0]][cursorPos[1]] ==
             OVERLAY_AVAILABLE){
             destination = $.extend({}, cursorPos)
         }
     }
 }
 
-var csMap = {
-    up: function(){
-        if(cursorPos[0]-1 >= 0){
-            cursorPos[0]--
-            cursorMoved()
-        }
-    },
-    down: function(){
-        if(cursorPos[0]+1 < map.height){
-            cursorPos[0]++
-            cursorMoved()
-        }
-    },
-    left: function(){
-        if(cursorPos[1]-1 >= 0){
-            cursorPos[1]--
-            cursorMoved()
-        }
-    },
-    right: function(){
-        if(cursorPos[1]+1 < map.width){
-            cursorPos[1]++
-            cursorMoved()
-        }
-    },
-    f: function(){
-        if(selectedUnit == null){
-            var unit = getUnitAt(cursorPos)
-            if(unit != null){
-                selectUnit(unit)
-            }
-        } else {
-            if(posEquals(destination, cursorPos)){
-                selectedUnit.pos = $.extend({}, destination)
-                deselect()
-                updateUnitInfoBox()
-            }
-        }
-    },
-    d: function(){
+function initMove(){
+    selectedUnit.pos = $.extend({}, destination)
+    destination = null
+    $('.unit-info').css('visibility', 'hidden')
+
+    var onWait = function(){
         deselect()
     }
+
+    initActionMenu({"Wait": onWait});
 }
+
+var csPrototype = {
+    up: function(){},
+    down: function(){},
+    left: function(){},
+    right: function(){},
+    f: function(){},
+    d: function(){}
+}
+
+var csMap = Object.create(csPrototype)
+csMap.up = function(){
+    if(cursorPos[0]-1 >= 0){
+        cursorPos[0]--
+        cursorMoved()
+    }
+}
+
+csMap.down = function(){
+    if(cursorPos[0]+1 < map.height){
+        cursorPos[0]++
+        cursorMoved()
+    }
+}
+
+csMap.left = function(){
+    if(cursorPos[1]-1 >= 0){
+        cursorPos[1]--
+        cursorMoved()
+    }
+}
+    
+csMap.right = function(){
+    if(cursorPos[1]+1 < map.width){
+        cursorPos[1]++
+        cursorMoved()
+    }
+}
+
+csMap.f = function(){
+    if(selectedUnit == null){
+        var unit = getUnitAt(cursorPos)
+        if(unit != null){
+            selectUnit(unit)
+        }
+    } else if(posEquals(destination, cursorPos)){
+        initMove()
+    }
+}
+
+csMap.d = function(){
+    deselect()
+}
+
 var controlState = csMap
 
 function keydownHandler(e){
