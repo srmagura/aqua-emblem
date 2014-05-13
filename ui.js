@@ -42,3 +42,12 @@ csActionMenu.f = function(){
 
     actionMenuItems[actionName]() 
 }
+
+csActionMenu.d = function(){
+    $('.action-menu').html('').css('visibility', 'hidden')
+    controlState = csMap
+
+    selectedUnit.pos = selectedUnit.oldPos 
+    cursorPos = $.extend({}, selectedUnit.pos)
+    deselect()
+}

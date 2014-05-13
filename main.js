@@ -113,15 +113,21 @@ function cursorMoved(){
 }
 
 function initMove(){
+    selectedUnit.oldPos = selectedUnit.pos
     selectedUnit.pos = $.extend({}, destination)
+    updateUnitInfoBox()
     destination = null
-    $('.unit-info').css('visibility', 'hidden')
 
-    var onWait = function(){
+    var handleWait = function(){
         deselect()
     }
 
-    initActionMenu({"Wait": onWait});
+    var handleAttack = function(){
+
+    }
+
+    var actions = {"Wait": handleWait}
+    initActionMenu(actions);
 }
 
 var csMap = Object.create(csPrototype)
