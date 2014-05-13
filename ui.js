@@ -1,10 +1,13 @@
 function updateUnitInfoBox(){
     var cursorUnit = getUnitAt(cursorPos)
     if(cursorUnit == null){
-        $('.unit-info').css('visibility', 'hidden')
+        hideUnitInfoBox()
     } else {
-        $('.unit-info').css('visibility', 'visible').
-            html(cursorUnit.name)
+        showUnitInfoBox()
+
+        $('.unit-info .name').text(cursorUnit.name)
+        $('.unit-info .hp').text(cursorUnit.hp)
+        $('.unit-info .base-hp').text(cursorUnit.baseHp)
 
         switch(cursorUnit.team){
             case TEAM_PLAYER:
@@ -17,6 +20,14 @@ function updateUnitInfoBox(){
                 break
         }
     }
+}
+
+function showUnitInfoBox(){
+    $('.unit-info').css('visibility', 'visible')
+}
+
+function hideUnitInfoBox(){
+    $('.unit-info').css('visibility', 'hidden')
 }
 
 var actionMenuItems
