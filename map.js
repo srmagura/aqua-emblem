@@ -61,7 +61,9 @@ var terrainTypes = {
 }
 
 var OVERLAY_AVAILABLE = 1
+var OVERLAY_ATTACK = 2
 
 var overlayTileTypes = {
-    1: {startColor: '#8ED6FF', endColor: '#004CB3'}
+    1: {startColor: '#AAF', endColor: '#22F'},
+    2: {startColor: '#FAA', endColor: '#F22'}
 }

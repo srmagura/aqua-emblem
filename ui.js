@@ -23,31 +23,107 @@ var actionMenuItems
 
 function initActionMenu(actions){
     actionMenuItems = actions
+    $('.action-menu').html('')
 
-    for(name in actions){
+    for(var k = 0; k < actions.length; k++){
         var menuItem = $(document.createElement('div'))
-        menuItem.appendTo('.action-menu').text(name)
+        menuItem.data('index', k).
+            appendTo('.action-menu').text(actions[k].name)
     }
 
     $('.action-menu div').first().toggleClass('selected')
-    $('.action-menu').css('visibility', 'visible')
+    showActionMenu()
     controlState = csActionMenu
 }
 
-var csActionMenu = Object.create(csPrototype)
+function showActionMenu(){
+    $('.action-menu').css('display', 'inline-block')
+}
+
+function hideActionMenu(){
+    $('.action-menu').css('display', 'none')
+}
+
+var csMenu = Object.create(ControlState)
+
+csMenu.up = function(){
+    var selected = $('.' + this.menuClass + ' .selected')
+
+    if(selected.prev().size() != 0){
+        selected.prev().addClass('selected')
+        selected.removeClass('selected')
+    }
+}
+
+csMenu.down = function(){
+    var selected = $('.' + this.menuClass + ' .selected')
+
+    if(selected.next().size() != 0){
+        selected.next().addClass('selected')
+        selected.removeClass('selected')
+    }
+}
+
+var csActionMenu = Object.create(csMenu)
+csActionMenu.menuClass = 'action-menu'
+
 csActionMenu.f = function(){
-    var actionName = $('.action-menu .selected').text()
-    $('.action-menu').html('').css('visibility', 'hidden')
+    var k = $('.action-menu .selected').data('index')
+    hideActionMenu()
     controlState = csMap
 
-    actionMenuItems[actionName]() 
+    actionMenuItems[k].handler() 
 }
 
 csActionMenu.d = function(){
-    $('.action-menu').html('').css('visibility', 'hidden')
+    hideActionMenu()
     controlState = csMap
 
     selectedUnit.pos = selectedUnit.oldPos 
     cursorPos = $.extend({}, selectedUnit.pos)
     deselect()
+}
+
+function initWeaponMenu(){
+    var menuItem = $(document.createElement('div'))
+    menuItem.addClass('selected').text('Plastic sword').
+        appendTo('.weapon-menu')
+    showWeaponMenu()
+    controlState = csWeaponMenu
+}
+
+function showWeaponMenu(){
+    $('.weapon-menu').css('display', 'inline-block')
+}
+
+function hideWeaponMenu(){
+    $('.weapon-menu').css('display', 'none')
+}
+
+var csWeaponMenu = Object.create(csMenu)
+csWeaponMenu.menuClass = 'weapon-menu'
+
+function initBattleStatsPanel(){
+    $('.battle-stats-panel .attacker-name').
+        text(battle.attacker.name)
+    $('.battle-stats-panel .attacker-hit').
+        text(battle.attackerBattleStats.hit)
+    $('.battle-stats-panel .attacker-dmg').
+        text(battle.attackerBattleStats.dmg)
+
+    $('.battle-stats-panel .defender-name').
+        text(battle.defender.name)
+    $('.battle-stats-panel .defender-hit').
+        text(battle.defenderBattleStats.hit)
+    $('.battle-stats-panel .defender-dmg').
+        text(battle.defenderBattleStats.dmg)
+    showBattleStatsPanel()
+}
+
+function showBattleStatsPanel(){
+    $('.battle-stats-panel').css('display', 'inline-block')
+}
+
+function hideBattleStatsPanel(){
+    $('.battle-stats-panel').css('display', 'none')
 }

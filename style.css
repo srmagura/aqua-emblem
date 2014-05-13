@@ -5,7 +5,7 @@ body
 
 div.game-wrapper
 {
-    width: 700px;
+    width: 800px;
     margin: 0 auto;
 }
 
@@ -16,7 +16,7 @@ canvas
 
 div.sidebar
 {
-    width: 120px;
+    width: 175px;
     float: left;
     margin-right: 10px;
 }
@@ -24,6 +24,8 @@ div.sidebar
 div.sidebar > div
 {
     margin-bottom: 10px;
+    float: right;
+    clear: both;
 }
 
 .blue-box {
@@ -42,19 +44,25 @@ div.unit-info
     visibility: hidden;
 }
 
-div.action-menu 
+div.menu  
 {
     padding: 4px;
-    visibility: hidden;
+    display: none;
 }
 
-div.action-menu div
+div.menu div
 {
     padding: 4px;
     padding-left: 6px;
 }
 
-div.action-menu div.selected
+div.menu div.selected
 {
     background-color: #77F;
 }
+
+div.battle-stats-panel
+{
+    display: none;
+}
+

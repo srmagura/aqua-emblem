@@ -11,6 +11,8 @@
     <script src="map.js"></script>
     <script src="unit.js"></script>
     <script src="ui.js"></script>
+    <script src="csmap.js"></script>
+    <script src="battle.js"></script>
 </head>
 <body>
 
@@ -23,7 +25,17 @@ $(document).ready(init)
     <div class="unit-info">
     .
     </div>
-    <div class="action-menu blue-box">
+    <div class="menu action-menu blue-box">
+    </div>
+    <div class="menu weapon-menu blue-box">
+    </div>
+    <div class="battle-stats-panel blue-box">
+        <div class="attacker-name"></div>
+        <div class="attacker-hit"></div>
+        <div class="attacker-dmg"></div>
+        <div class="defender-name"></div>
+        <div class="defender-hit"></div>
+        <div class="defender-dmg"></div>
     </div>
 </div>
 <canvas width="420" height="420">

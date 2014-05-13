@@ -22,7 +22,7 @@ function renderMap(){
                 grd.addColorStop(0, tileType.startColor);   
                 grd.addColorStop(1, tileType.endColor);
                 ctx.fillStyle = grd;
-                ctx.globalAlpha = .4
+                ctx.globalAlpha = .7
                 ctx.fill()
                 ctx.globalAlpha = 1
             }

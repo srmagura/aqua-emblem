@@ -15,7 +15,7 @@ var cursorPos = [0, 0]
 var selectedUnit = null
 var destination = null
 
-var csPrototype = {
+var ControlState = {
     up: function(){},
     down: function(){},
     left: function(){},
@@ -25,6 +25,8 @@ var csPrototype = {
 }
 
 var directions = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+var enemiesInRange
+var battle
 
 function movementSearch(unit){
     var queue = []
@@ -112,69 +114,55 @@ function cursorMoved(){
     }
 }
 
+function handleWait(){
+    deselect()
+}
+
+
+function handleAttack(){
+    cursorPos = $.extend({}, enemiesInRange[0].pos)
+    cursorMoved()
+
+    $('.action-menu').css('display', 'none')
+    controlState = csChooseTarget
+}
+
 function initMove(){
     selectedUnit.oldPos = selectedUnit.pos
     selectedUnit.pos = $.extend({}, destination)
     updateUnitInfoBox()
+
     destination = null
+    map.clearOverlay()
 
-    var handleWait = function(){
-        deselect()
+    var attackRange = []
+    for(var k = 0; k < directions.length; k++){
+        var alt = posAdd(selectedUnit.pos, directions[k])
+        if(onMap(alt)){
+            attackRange.push(alt)
+        }
     }
 
-    var handleAttack = function(){
-
+    enemiesInRange = []
+    for(var k = 0; k < attackRange.length; k++){
+        map.overlayTiles[attackRange[k][0]]
+            [attackRange[k][1]] = OVERLAY_ATTACK 
+        
+        var unit = getUnitAt(attackRange[k])
+        if(unit != null && unit.team == TEAM_ENEMY){
+            enemiesInRange.push(unit)
+        }
     }
 
-    var actions = {"Wait": handleWait}
+    var actions = []
+    if(enemiesInRange.length != 0){
+        actions.push({name: "Attack", handler: handleAttack})
+    }
+
+    actions.push({name: "Wait", handler: handleWait})
+
     initActionMenu(actions);
 }
-
-var csMap = Object.create(csPrototype)
-csMap.up = function(){
-    if(cursorPos[0]-1 >= 0){
-        cursorPos[0]--
-        cursorMoved()
-    }
-}
-
-csMap.down = function(){
-    if(cursorPos[0]+1 < map.height){
-        cursorPos[0]++
-        cursorMoved()
-    }
-}
-
-csMap.left = function(){
-    if(cursorPos[1]-1 >= 0){
-        cursorPos[1]--
-        cursorMoved()
-    }
-}
-    
-csMap.right = function(){
-    if(cursorPos[1]+1 < map.width){
-        cursorPos[1]++
-        cursorMoved()
-    }
-}
-
-csMap.f = function(){
-    if(selectedUnit == null){
-        var unit = getUnitAt(cursorPos)
-        if(unit != null && unit.team == TEAM_PLAYER){
-            selectUnit(unit)
-        }
-    } else if(posEquals(destination, cursorPos)){
-        initMove()
-    }
-}
-
-csMap.d = function(){
-    deselect()
-}
-
-var controlState = csMap
 
 function keydownHandler(e){
     //console.log(e.which)
