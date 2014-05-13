@@ -4,21 +4,22 @@ function updateUnitInfoBox(){
         hideUnitInfoBox()
     } else {
         showUnitInfoBox()
+        populateUnitInfoBox($('.unit-info'), cursorUnit)
+    }
+}
 
-        $('.unit-info .name').text(cursorUnit.name)
-        $('.unit-info .hp').text(cursorUnit.hp)
-        $('.unit-info .base-hp').text(cursorUnit.baseHp)
+function populateUnitInfoBox(box, unit){
+    box.find('.name').text(unit.name)
+    box.find('.hp').text(unit.hp)
+    box.find('.base-hp').text(unit.baseHp)
 
-        switch(cursorUnit.team){
-            case TEAM_PLAYER:
-                $('.unit-info').removeClass('red-box').
-                    addClass('blue-box')
-                break
-            case TEAM_ENEMY:
-                $('.unit-info').removeClass('blue-box').
-                    addClass('red-box')
-                break
-        }
+    switch(unit.team){
+        case TEAM_PLAYER:
+            box.removeClass('red-box').addClass('blue-box')
+            break
+        case TEAM_ENEMY:
+            box.removeClass('blue-box').addClass('red-box')
+            break
     }
 }
 
@@ -96,6 +97,7 @@ csActionMenu.d = function(){
 }
 
 function initWeaponMenu(){
+    $('.weapon-menu').html('')
     var menuItem = $(document.createElement('div'))
     menuItem.addClass('selected').text('Plastic sword').
         appendTo('.weapon-menu')
@@ -114,20 +116,37 @@ function hideWeaponMenu(){
 var csWeaponMenu = Object.create(csMenu)
 csWeaponMenu.menuClass = 'weapon-menu'
 
+csWeaponMenu.f = function(){
+    hideUnitInfoBox()
+    hideWeaponMenu()
+    hideBattleStatsPanel()
+    map.clearOverlay()
+    cursorVisible = false
+    controlState = ControlState
+
+    doBattle()
+}
+
+csWeaponMenu.d = function(){
+    hideWeaponMenu()
+    hideBattleStatsPanel()
+    controlState = csChooseTarget
+}
+
 function initBattleStatsPanel(){
     $('.battle-stats-panel .attacker-name').
         text(battle.attacker.name)
     $('.battle-stats-panel .attacker-hit').
-        text(battle.attackerBattleStats.hit)
+        text(battle.attacker.battleStats.hit)
     $('.battle-stats-panel .attacker-dmg').
-        text(battle.attackerBattleStats.dmg)
+        text(battle.attacker.battleStats.dmg)
 
     $('.battle-stats-panel .defender-name').
         text(battle.defender.name)
     $('.battle-stats-panel .defender-hit').
-        text(battle.defenderBattleStats.hit)
+        text(battle.defender.battleStats.hit)
     $('.battle-stats-panel .defender-dmg').
-        text(battle.defenderBattleStats.dmg)
+        text(battle.defender.battleStats.dmg)
     showBattleStatsPanel()
 }
 

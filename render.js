@@ -105,6 +105,9 @@ function renderUnits(){
 }
 
 function renderCursor(){
+    if(!cursorVisible)
+        return
+
     var s = 5
     ctx.strokeStyle = 'purple'
     ctx.beginPath()

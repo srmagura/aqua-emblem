@@ -11,7 +11,9 @@ var map
 var gridStyle = '#666'
 var gridWidth = 2
 
+var cursorVisible = true
 var cursorPos = [0, 0]
+
 var selectedUnit = null
 var destination = null
 

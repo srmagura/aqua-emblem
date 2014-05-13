@@ -11,7 +11,6 @@ div.game-wrapper
 
 canvas
 {
-    //float: left;
 }
 
 div.sidebar
@@ -66,3 +65,13 @@ div.battle-stats-panel
     display: none;
 }
 
+.battle-unit-info-container
+{
+    position: absolute;
+}
+
+.battle-unit-info-container .unit-info
+{
+    display: inline-block;
+    margin: 3px;
+}
