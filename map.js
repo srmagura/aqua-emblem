@@ -1,3 +1,30 @@
+var map
+var chapter
+
+function Chapter(map1, playerTeam, enemyTeam){
+    this.initUnits = function(){
+        for(var k = 0; k < this.playerTeam.units.length; k++){
+            this.playerTeam.units[k].pos = this.map.playerPositions[k]
+            units.push(playerTeam.units[k])
+        }
+
+        for(var k = 0; k < this.enemyTeam.units.length; k++){
+            units.push(this.enemyTeam.units[k])
+        }
+
+        for(var k = 0; k < units.length; k++){
+            units[k].hp = units[k].baseHp
+        }
+    }
+
+    this.map = map1
+    map = map1
+
+    this.playerTeam = playerTeam
+    this.enemyTeam = enemyTeam
+    this.initUnits()
+}
+
 function posEquals(pos1, pos2){
     return pos1[0] == pos2[0] && pos1[1] == pos2[1]
 }
@@ -25,7 +52,7 @@ function getUnitAt(pos){
     return null
 }
 
-function Map(){
+function Map(tiles, playerPositions){
     this.clearOverlay = function(){
         for(var i = 0; i < this.height; i++){
             for(var j = 0; j < this.width; j++){
@@ -34,14 +61,8 @@ function Map(){
         }
     }
 
-    this.tiles = [
-        [1,1,0,0,0],
-        [1,0,0,0,0],
-        [0,0,0,0,0],
-        [0,0,0,0,1],
-        [0,0,0,0,1]
-    ]
-    this.playerPositions = [[2,1]]
+    this.tiles = tiles
+    this.playerPositions = playerPositions
     this.height = this.tiles.length
     this.width = this.tiles[0].length
 
@@ -53,7 +74,6 @@ function Map(){
         }
     }
 }
-
 
 var terrainTypes = {
     0: {color: '#BFB', block: false},

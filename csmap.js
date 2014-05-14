@@ -49,7 +49,7 @@ csChooseTarget = Object.create(csMap)
 csChooseTarget.f = function(){
     target = getUnitAt(cursorPos)
 
-    if(target != null){
+    if(target != null && target.id in enemiesInRange){
         battle = new Battle(selectedUnit, target)
         initWeaponMenu()
         initBattleStatsPanel()

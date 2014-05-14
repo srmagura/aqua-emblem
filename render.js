@@ -1,6 +1,11 @@
+var tw = 35
+
+var gridStyle = '#666'
+var gridWidth = 2
+
 function renderMap(){
     ctx.fillStyle = 'white'
-    ctx.fillRect(0, 0, canvasWidth, canvasWidth)
+    ctx.fillRect(0, 0, canvas.width(), canvas.width())
 
     for(var i = 0; i < map.height; i++){
         for(var j = 0; j < map.width; j++){

@@ -3,13 +3,8 @@ requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnim
 var then
 var ctx
 
-var tw = 35
-var nTiles = 12
-var canvasWidth = tw*nTiles
-
-var map
-var gridStyle = '#666'
-var gridWidth = 2
+var maxNTiles = 12
+var canvas
 
 var cursorVisible = true
 var cursorPos = [0, 0]
@@ -122,7 +117,10 @@ function handleWait(){
 
 
 function handleAttack(){
-    cursorPos = $.extend({}, enemiesInRange[0].pos)
+    for(var id in enemiesInRange){
+        cursorPos = $.extend({}, enemiesInRange[id].pos)
+        break
+    }
     cursorMoved()
 
     $('.action-menu').css('display', 'none')
@@ -145,19 +143,19 @@ function initMove(){
         }
     }
 
-    enemiesInRange = []
+    enemiesInRange = {}
     for(var k = 0; k < attackRange.length; k++){
         map.overlayTiles[attackRange[k][0]]
             [attackRange[k][1]] = OVERLAY_ATTACK 
         
         var unit = getUnitAt(attackRange[k])
         if(unit != null && unit.team == TEAM_ENEMY){
-            enemiesInRange.push(unit)
+            enemiesInRange[unit.id] = unit
         }
     }
 
     var actions = []
-    if(enemiesInRange.length != 0){
+    if(!$.isEmptyObject(enemiesInRange)){
         actions.push({name: "Attack", handler: handleAttack})
     }
 
@@ -210,11 +208,14 @@ function mainLoop(){
 }
 
 function init(){
-    ctx = $('canvas')[0].getContext('2d')
+    canvas = $('canvas')
+    ctx = canvas[0].getContext('2d')
     $(window).keydown(keydownHandler)
 
-    map = new Map()
-    initUnits()
+    initChapter()
+
+    canvas.attr('width', map.width*tw)
+    canvas.attr('height', map.height*tw)
 
     then = Date.now()
     mainLoop()

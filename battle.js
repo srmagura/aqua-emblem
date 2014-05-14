@@ -61,11 +61,14 @@ function doBattle(){
 
     function battleDone(){
         container.remove()
-        controlState = csMap
-        cursorVisible = true
-        cursorPos = $.extend({}, selectedUnit.pos)
-        cursorMoved()
-        selectedUnit = null
+
+        if(battle.attacker.team == TEAM_PLAYER){
+            controlState = csMap
+            cursorVisible = true
+            cursorPos = $.extend({}, battle.attacker.pos)
+            cursorMoved()
+            selectedUnit = null
+        }
 
         if(battle.attacker.hp == 0)
             unitDeath(battle.attacker)
