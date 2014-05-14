@@ -43,8 +43,9 @@ function doBattle(){
         var recvr = battle.getOther(giver)
 
         recvr.hp -= giver.battleStats.dmg
-        if(recvr.hp < 0){
+        if(recvr.hp <= 0){
             recvr.hp = 0
+            setTimeout(battleDone, delay)
         }
 
         if(recvr.team == TEAM_ENEMY){
@@ -65,6 +66,11 @@ function doBattle(){
         cursorPos = $.extend({}, selectedUnit.pos)
         cursorMoved()
         selectedUnit = null
+
+        if(battle.attacker.hp == 0)
+            unitDeath(battle.attacker)
+        if(battle.defender.hp == 0)
+            unitDeath(battle.defender)
     }
 
     setTimeout(doAttack, delay)
