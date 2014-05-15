@@ -1,16 +1,27 @@
 function Battle(attacker, defender){
-    this.attacker = attacker
-    this.defender = defender
-
-    this.attacker.battleStats = {hit: 100, dmg: 5}
-    this.defender.battleStats = {hit: 100, dmg: 2}
-
     this.getOther = function(unit){
         if(unit == this.attacker)
             return this.defender
         else
             return this.attacker
     }
+
+    function calcDmg(unit1, unit2){
+        return unit1.str - unit2.def + 2
+    }
+
+    function calcBattleStats(unit1, unit2){
+        unit1.battleStats = {hit: 100}
+        unit1.battleStats.dmg = calcDmg(unit1, unit2)
+    }
+
+    this.attacker = attacker
+    this.defender = defender
+    
+    calcBattleStats(this.attacker, this.defender)
+    calcBattleStats(this.defender, this.attacker)
+
+    this.turns = [this.attacker, this.defender]
 }
 
 function doBattle(){
@@ -34,13 +45,12 @@ function doBattle(){
     var top = midpoint[0]*tw/2 + 1.5*tw + cpos.top
     container.css({left: left, top: top})
 
-    battle.whoseTurn = battle.attacker 
-
-    var delay = 350
+    var turnIndex = 0 
+    var delay = 500
 
     function doAttack(){
         var callMade = false
-        var giver = battle.whoseTurn 
+        var giver = battle.turns[turnIndex]
         var recvr = battle.getOther(giver)
 
         recvr.hp -= giver.battleStats.dmg
@@ -51,12 +61,12 @@ function doBattle(){
             callMade = true
         }
 
+        turnIndex++
         if(!callMade){
-            if(recvr.team == TEAM_ENEMY){
-                battle.whoseTurn = recvr
-                setTimeout(doAttack, delay)
-            } else {
+            if(turnIndex == battle.turns.length){
                 setTimeout(battleDone, delay)
+            } else {
+                setTimeout(doAttack, delay)
             }
         }
 
@@ -82,6 +92,5 @@ function doBattle(){
     }
 
     setTimeout(doAttack, delay)
-
 }
 
