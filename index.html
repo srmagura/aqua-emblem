@@ -36,13 +36,21 @@ $(document).ready(init)
     <div class="menu weapon-menu neutral-box">
         <ul></ul>
     </div>
-    <div class="battle-stats-panel neutral-box">
-        <div class="attacker-name"></div>
-        <div class="attacker-hit"></div>
-        <div class="attacker-dmg"></div>
-        <div class="defender-name"></div>
-        <div class="defender-hit"></div>
-        <div class="defender-dmg"></div>
+    <div class="battle-stats-panel">
+        <table>
+            <tr><td colspan="3" class="attacker-name blue-box"></td></tr>
+            <tr>
+                <td class="defender-hit red-box"></td>
+                <td class="hit neutral-box">Hit</td>
+                <td class="attacker-hit blue-box"></td>
+            </tr>
+            <tr>
+                <td class="defender-dmg red-box"></td>
+                <td class="dmg neutral-box">Dmg</td>
+                <td class="attacker-dmg blue-box"></td>
+            </tr>
+            <tr><td colspan="3" class="defender-name red-box"></td></tr>
+        </table>
     </div>
 </div>
 <canvas width="420" height="420">
