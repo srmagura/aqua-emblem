@@ -1,6 +1,7 @@
 body
 {
-    font-family: sans-serif;
+    font-family: monospace;
+    font-size: 11pt;
 }
 
 div.game-wrapper
@@ -102,6 +103,11 @@ div.battle-stats-panel table
     border-spacing: 0;
 }
 
+div.battle-stats-panel td
+{
+   padding: 1px 3px;
+}
+
 div.battle-stats-panel .attacker-name
 {
     border-bottom-style: none;
@@ -141,6 +147,12 @@ div.battle-stats-panel .hit
 div.battle-stats-panel .dmg
 {
     border-top-style: none;
+}
+
+div.battle-stats-panel .neutral-box
+{
+    text-align: center;
+    font-size: 9pt;
 }
 
 .battle-unit-info-container
