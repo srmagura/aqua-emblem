@@ -1,4 +1,6 @@
 var VC_ROUT = 0
+var victoryConditionText = {}
+victoryConditionText[VC_ROUT] = "Defeat all enemies"
 
 var map
 var chapter
@@ -45,7 +47,11 @@ function Chapter(map1, playerTeam, enemyTeam, victoryCondition){
 
     this.playerTeam = playerTeam
     this.enemyTeam = enemyTeam
+
     this.victoryCondition = victoryCondition
+    $('.victory-condition').text(
+        victoryConditionText[victoryCondition])
+
     this.initUnits()
 }
 

@@ -22,7 +22,7 @@ $(document).ready(init)
 </script>
 
 <div class="game-wrapper">
-<div class="sidebar">
+<div class="sidebar left-sidebar">
     <div class="unit-info">
         <div class="name">.</div>
         <div>HP 
@@ -30,11 +30,13 @@ $(document).ready(init)
             <span class="base-hp"></span>
         </div>
     </div>
-    <div class="menu action-menu blue-box">
+    <div class="menu action-menu neutral-box">
+        <ul></ul>
     </div>
-    <div class="menu weapon-menu blue-box">
+    <div class="menu weapon-menu neutral-box">
+        <ul></ul>
     </div>
-    <div class="battle-stats-panel blue-box">
+    <div class="battle-stats-panel neutral-box">
         <div class="attacker-name"></div>
         <div class="attacker-hit"></div>
         <div class="attacker-dmg"></div>
@@ -46,6 +48,9 @@ $(document).ready(init)
 <canvas width="420" height="420">
 
 </canvas>
+<div class="sidebar right-sidebar">
+    <div class="victory-condition neutral-box"></div>
+</div>
 </div>
 
 </body>

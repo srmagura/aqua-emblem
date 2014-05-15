@@ -118,6 +118,7 @@ function handleWait(){
 
 function handleAttack(){
     for(var id in enemiesInRange){
+        cursorVisible = true
         cursorPos = $.extend({}, enemiesInRange[id].pos)
         break
     }

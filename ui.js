@@ -35,15 +35,16 @@ var actionMenuItems
 
 function initActionMenu(actions){
     actionMenuItems = actions
-    $('.action-menu').html('')
+    $('.action-menu ul').html('')
 
     for(var k = 0; k < actions.length; k++){
-        var menuItem = $(document.createElement('div'))
-        menuItem.data('index', k).
-            appendTo('.action-menu').text(actions[k].name)
+        var menuItem = $(document.createElement('li'))
+        menuItem.data('index', k).text(actions[k].name).
+            appendTo('.action-menu ul')
     }
 
-    $('.action-menu div').first().toggleClass('selected')
+    $('.action-menu li').first().toggleClass('selected')
+    cursorVisible = false
     showActionMenu()
     controlState = csActionMenu
 }
@@ -88,6 +89,7 @@ csActionMenu.f = function(){
 }
 
 csActionMenu.d = function(){
+    cursorVisible = true
     hideActionMenu()
     controlState = csMap
 
@@ -97,10 +99,11 @@ csActionMenu.d = function(){
 }
 
 function initWeaponMenu(){
-    $('.weapon-menu').html('')
-    var menuItem = $(document.createElement('div'))
+    cursorVisible = false
+    $('.weapon-menu ul').html('')
+    var menuItem = $(document.createElement('li'))
     menuItem.addClass('selected').text('Plastic sword').
-        appendTo('.weapon-menu')
+        appendTo('.weapon-menu ul')
     showWeaponMenu()
     controlState = csWeaponMenu
 }
@@ -128,6 +131,7 @@ csWeaponMenu.f = function(){
 }
 
 csWeaponMenu.d = function(){
+    cursorVisible = true
     hideWeaponMenu()
     hideBattleStatsPanel()
     controlState = csChooseTarget
