@@ -19,4 +19,6 @@ function unitDeath(unit){
             units.splice(k, 1)
         }
     }
+
+    chapter.checkConditions()
 }

@@ -21,5 +21,5 @@ function initChapter(){
     var playerPositions = [[1, 1]]
 
     var map = new Map(tiles, playerPositions)
-    chapter = new Chapter(map, playerTeam, enemyTeam)
+    chapter = new Chapter(map, playerTeam, enemyTeam, VC_ROUT)
 }

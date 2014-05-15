@@ -1,8 +1,11 @@
+var VC_ROUT = 0
+
 var map
 var chapter
 
-function Chapter(map1, playerTeam, enemyTeam){
+function Chapter(map1, playerTeam, enemyTeam, victoryCondition){
     this.initUnits = function(){
+        units = []
         for(var k = 0; k < this.playerTeam.units.length; k++){
             this.playerTeam.units[k].pos = this.map.playerPositions[k]
             units.push(playerTeam.units[k])
@@ -17,11 +20,32 @@ function Chapter(map1, playerTeam, enemyTeam){
         }
     }
 
+    this.checkConditions = function(){
+        var victory = false
+
+        if(this.victoryCondition == VC_ROUT){
+            var allDefeated = true
+            for(var k = 0; k < units.length; k++){
+                if(units[k].team == TEAM_ENEMY)
+                    allDefeated = false
+            }
+
+            victory = allDefeated
+        }
+
+        if(victory){
+            alert('Victory!!')
+            cursorPos = [0, 0]
+            initChapter()
+        }
+    }
+
     this.map = map1
     map = map1
 
     this.playerTeam = playerTeam
     this.enemyTeam = enemyTeam
+    this.victoryCondition = victoryCondition
     this.initUnits()
 }
 

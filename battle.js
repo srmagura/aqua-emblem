@@ -39,20 +39,25 @@ function doBattle(){
     var delay = 350
 
     function doAttack(){
+        var callMade = false
         var giver = battle.whoseTurn 
         var recvr = battle.getOther(giver)
 
         recvr.hp -= giver.battleStats.dmg
         if(recvr.hp <= 0){
             recvr.hp = 0
+
             setTimeout(battleDone, delay)
+            callMade = true
         }
 
-        if(recvr.team == TEAM_ENEMY){
-            battle.whoseTurn = recvr
-            setTimeout(doAttack, delay)
-        } else {
-            setTimeout(battleDone, delay)
+        if(!callMade){
+            if(recvr.team == TEAM_ENEMY){
+                battle.whoseTurn = recvr
+                setTimeout(doAttack, delay)
+            } else {
+                setTimeout(battleDone, delay)
+            }
         }
 
         populateUnitInfoBox(attackerBox, battle.attacker)
