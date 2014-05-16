@@ -132,22 +132,19 @@ div.menu
     display: none;
 }
 
-div.menu ul
+div.menu .image
 {
-    margin: 0;
-    padding: 0;
+    width: 9px;
+    height: 9px;
+    display: inline-block;
+    padding: 0px;
+    margin: 0px 5px 1px 2px;
 }
 
-div.menu li
+div.menu .selected .image
 {
-    list-style-image: url('images/list_blank.png');
-    list-style-position: inside;
-    padding: 2px;
-}
-
-div.menu li.selected
-{
-    list-style-image: url('images/list_arrow.png');
+    background-image: url('images/list_arrow.png');
+    background-repeat: no-repeat;
 }
 
 div.battle-stats-panel
@@ -227,6 +224,12 @@ div.battle-stats-panel .neutral-box
 div.victory-condition
 {
     padding: 5px;
+}
+
+div.message
+{
+    margin-bottom: 4px;
+    height: 14pt;
 }
 
 div.message .phase-message

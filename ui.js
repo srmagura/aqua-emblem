@@ -42,15 +42,15 @@ var actionMenuItems
 
 function initActionMenu(actions){
     actionMenuItems = actions
-    $('.action-menu ul').html('')
+    $('.action-menu').html('')
 
     for(var k = 0; k < actions.length; k++){
-        var menuItem = $(document.createElement('li'))
-        menuItem.data('index', k).text(actions[k].name).
-            appendTo('.action-menu ul')
+        var menuItem = $('<div><div class="image"></div></div>')
+        menuItem.data('index', k).append(actions[k].name).
+            appendTo('.action-menu')
     }
 
-    $('.action-menu li').first().toggleClass('selected')
+    $('.action-menu > div').first().toggleClass('selected')
     cursorVisible = false
     showActionMenu()
     controlState = csActionMenu
@@ -73,7 +73,7 @@ csMenu.up = function(){
     if(selected.prev().size() != 0){
         selected.prev().addClass('selected')
     } else {
-        $('.' + this.menuClass + ' li').last().addClass('selected')
+        $('.' + this.menuClass + ' > div').last().addClass('selected')
     }
 }
 
@@ -85,7 +85,7 @@ csMenu.down = function(){
     if(selected.next().size() != 0){
         selected.next().addClass('selected')
     } else {
-        $('.' + this.menuClass + ' li').first().addClass('selected')
+        $('.' + this.menuClass + ' > div').first().addClass('selected')
     }
 }
 
@@ -112,10 +112,10 @@ csActionMenu.d = function(){
 
 function initWeaponMenu(){
     cursorVisible = false
-    $('.weapon-menu ul').html('')
-    var menuItem = $(document.createElement('li'))
-    menuItem.addClass('selected').text('Plastic sword').
-        appendTo('.weapon-menu ul')
+    $('.weapon-menu').html('')
+    var menuItem = $('<div><div class="image"></div></div>')
+    menuItem.addClass('selected').append('Plastic sword').
+        appendTo('.weapon-menu')
     showWeaponMenu()
     controlState = csWeaponMenu
 }
