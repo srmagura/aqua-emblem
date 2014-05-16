@@ -35,6 +35,7 @@ function Chapter(map1, playerTeam, enemyTeam, victoryCondition){
         if(victory){
             console.log('Victory!!')
             cursorPos = [0, 0]
+            cursorMoved()
             initChapter()
         }
 

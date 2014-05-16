@@ -30,11 +30,15 @@ function doBattle(){
 
     attackerBox = $('.unit-info').clone().css('visibility', 'visible')
     populateUnitInfoBox(attackerBox, battle.attacker)
-    container.append(attackerBox)
 
     defenderBox = $('.unit-info').clone().css('visibility', 'visible')
     populateUnitInfoBox(defenderBox, battle.defender)
-    container.append(defenderBox)
+
+    if(battle.attacker.team == TEAM_PLAYER){
+        container.append(attackerBox).append(defenderBox)
+    } else {
+        container.append(defenderBox).append(attackerBox)
+    }
 
     $('body').append(container)
 
@@ -72,6 +76,7 @@ function doBattle(){
 
         populateUnitInfoBox(attackerBox, battle.attacker)
         populateUnitInfoBox(defenderBox, battle.defender)
+        updateUnitInfoBox()
     }
 
     function battleDone(){

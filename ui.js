@@ -4,7 +4,7 @@ function updateUnitInfoBox(){
         hideUnitInfoBox()
     } else {
         showUnitInfoBox()
-        populateUnitInfoBox($('.unit-info'), cursorUnit)
+        populateUnitInfoBox($('.sidebar .unit-info'), cursorUnit)
     }
 }
 
@@ -61,19 +61,24 @@ var csMenu = Object.create(ControlState)
 
 csMenu.up = function(){
     var selected = $('.' + this.menuClass + ' .selected')
+    selected.removeClass('selected')
 
     if(selected.prev().size() != 0){
         selected.prev().addClass('selected')
-        selected.removeClass('selected')
+    } else {
+        $('.' + this.menuClass + ' li').last().addClass('selected')
     }
 }
 
+
 csMenu.down = function(){
     var selected = $('.' + this.menuClass + ' .selected')
+    selected.removeClass('selected')
 
     if(selected.next().size() != 0){
         selected.next().addClass('selected')
-        selected.removeClass('selected')
+    } else {
+        $('.' + this.menuClass + ' li').first().addClass('selected')
     }
 }
 
