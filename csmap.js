@@ -43,8 +43,6 @@ csMap.d = function(){
     deselect()
 }
 
-var controlState = csMap
-
 csChooseTarget = Object.create(csMap)
 
 csChooseTarget.f = function(){

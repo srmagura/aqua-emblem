@@ -33,10 +33,11 @@ function Chapter(map1, playerTeam, enemyTeam, victoryCondition){
         }
 
         if(victory){
-            console.log('Victory!!')
-            cursorPos = [0, 0]
+            showVictoryMessage()
+            updateUnitInfoBox()
+            /*cursorPos = [0, 0]
             cursorMoved()
-            initChapter()
+            initChapter()*/
         }
 
         if(victory){
@@ -47,20 +48,26 @@ function Chapter(map1, playerTeam, enemyTeam, victoryCondition){
     }
 
     this.initTurn = function(team){
+        var callback = function(teamId){
+            if(teamId == TEAM_ENEMY){
+                controlState = ControlState
+                doEnemyTurn()
+            } else {
+                controlState = csMap
+                cursorVisible = true
+            }
+        }
+
         for(var k = 0; k < units.length; k++){
             units[k].done = false
         }
 
+        controlState = ControlState
         if(team == this.enemyTeam){
-            console.log('Enemy phase')
-            controlState = ControlState
             cursorVisible = false
-            doEnemyTurn()
-        } else {
-            console.log('Player phase')
-            controlState = csMap
-            cursorVisible = true
         }
+
+        showPhaseMessage(team.id, callback)
     }
 
     this.checkAllDone = function(){

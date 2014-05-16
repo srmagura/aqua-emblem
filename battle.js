@@ -24,7 +24,7 @@ function Battle(attacker, defender){
     this.turns = [this.attacker, this.defender]
 }
 
-function doBattle(){
+function doBattle(callback){
     var container = $(document.createElement('div'))
     container.addClass('battle-unit-info-container')
 
@@ -97,6 +97,9 @@ function doBattle(){
         }
 
         selectedUnit = null
+
+        if(callback)
+            callback()
     }
 
     setTimeout(doAttack, delay)

@@ -1,12 +1,14 @@
 function doEnemyTurn(){
-    for(var k = 0; k < chapter.enemyTeam.units.length; k++){
-        doEnemyUnitTurn(chapter.enemyTeam.units[k])
-    }
-
-    chapter.initTurn(chapter.playerTeam)
+    doEnemyUnitTurn(0)
 }
 
-function doEnemyUnitTurn(unit){
+function doEnemyUnitTurn(k){
+    if(k >= chapter.enemyTeam.units.length){
+        chapter.initTurn(chapter.playerTeam)
+        return
+    }
+
+    var unit = chapter.enemyTeam.units[k]
     var attackRange = []
     for(var k = 0; k < directions.length; k++){
         var alt = posAdd(unit.pos, directions[k])
@@ -25,6 +27,8 @@ function doEnemyUnitTurn(unit){
 
     if(inRange.length != 0){
         battle = new Battle(unit, inRange[0]) 
-        doBattle()
+        doBattle(function(){
+            doEnemyUnitTurn(k+1)   
+        })
     }
 }

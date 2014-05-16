@@ -6,7 +6,7 @@ var ctx
 var maxNTiles = 12
 var canvas
 
-var cursorVisible = true
+var cursorVisible = false
 var cursorPos = [0, 0]
 
 var selectedUnit = null
@@ -20,6 +20,8 @@ var ControlState = {
     f: function(){},
     d: function(){}
 }
+
+var controlState = ControlState
 
 var directions = [[-1, 0], [1, 0], [0, -1], [0, 1]]
 var enemiesInRange

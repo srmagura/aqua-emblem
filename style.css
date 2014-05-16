@@ -10,7 +10,7 @@ div.game-wrapper
     margin: 0 auto;
 }
 
-canvas
+div.canvas-column
 {
     float: left;
 }
@@ -169,4 +169,18 @@ div.battle-stats-panel .neutral-box
 div.victory-condition
 {
     padding: 5px;
+}
+
+div.message .phase-message
+{
+    display: none;
+    font-size: 12pt;
+    font-weight: bold;
+}
+div.message .victory-message
+{
+    display: none;
+    color: blue;
+    font-size: 12pt;
+    font-weight: bold;
 }
