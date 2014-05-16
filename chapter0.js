@@ -1,11 +1,12 @@
 function initChapter(){
     var playerUnits = [
-        {name: 'Ace', baseHp: 20, move: 4, str: 5, def: 2}
+        new Unit({name: 'Ace', baseHp: 20, move: 4, str: 5, def: 2})
     ]
     var playerTeam = new Team(playerUnits, TEAM_PLAYER)
 
     var enemyUnits = [
-        {name: 'Bandit', pos: [4, 2], baseHp: 14, move: 4, str: 2, def: 1} 
+        new Unit({name: 'Bandit', pos: [4, 2], baseHp: 14, 
+            move: 4, str: 2, def: 1})
     ]
     var enemyTeam = new Team(enemyUnits, TEAM_ENEMY)
 

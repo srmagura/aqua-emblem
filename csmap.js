@@ -30,7 +30,8 @@ csMap.right = function(){
 csMap.f = function(){
     if(selectedUnit == null){
         var unit = getUnitAt(cursorPos)
-        if(unit != null && unit.team == TEAM_PLAYER){
+        if(unit != null && unit.team == TEAM_PLAYER &&
+            !unit.done){
             selectUnit(unit)
         }
     } else if(posEquals(destination, cursorPos)){

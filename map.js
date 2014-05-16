@@ -2,9 +2,6 @@ var VC_ROUT = 0
 var victoryConditionText = {}
 victoryConditionText[VC_ROUT] = "Defeat all enemies"
 
-var map
-var chapter
-
 function Chapter(map1, playerTeam, enemyTeam, victoryCondition){
     this.initUnits = function(){
         units = []
@@ -36,9 +33,45 @@ function Chapter(map1, playerTeam, enemyTeam, victoryCondition){
         }
 
         if(victory){
-            alert('Victory!!')
+            console.log('Victory!!')
             cursorPos = [0, 0]
             initChapter()
+        }
+
+        if(victory){
+            return true
+        } else {
+            return false
+        }
+    }
+
+    this.initTurn = function(team){
+        for(var k = 0; k < units.length; k++){
+            units[k].done = false
+        }
+
+        if(team == this.enemyTeam){
+            console.log('Enemy phase')
+            controlState = ControlState
+            cursorVisible = false
+            doEnemyTurn()
+        } else {
+            console.log('Player phase')
+            controlState = csMap
+            cursorVisible = true
+        }
+    }
+
+    this.checkAllDone = function(){
+        var allDone = true
+        for(var k = 0; k < this.playerTeam.units.length; k++){
+            if(!this.playerTeam.units[k].done){
+                allDone = false
+            }
+        }
+
+        if(allDone){
+            this.initTurn(this.enemyTeam)
         }
     }
 
@@ -53,6 +86,7 @@ function Chapter(map1, playerTeam, enemyTeam, victoryCondition){
         victoryConditionText[victoryCondition])
 
     this.initUnits()
+    this.initTurn(playerTeam)
 }
 
 function posEquals(pos1, pos2){

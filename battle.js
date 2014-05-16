@@ -75,20 +75,23 @@ function doBattle(){
     }
 
     function battleDone(){
+        var keepGoing = true
         container.remove()
 
-        if(battle.attacker.team == TEAM_PLAYER){
+        if(battle.attacker.hp == 0)
+            keepGoing = battle.attacker.die()
+        if(battle.defender.hp == 0)
+            keepGoing = battle.defender.die()
+
+        if(keepGoing && battle.attacker.team == TEAM_PLAYER){
             controlState = csMap
             cursorVisible = true
             cursorPos = $.extend({}, battle.attacker.pos)
             cursorMoved()
-            selectedUnit = null
+            selectedUnit.setDone()
         }
 
-        if(battle.attacker.hp == 0)
-            unitDeath(battle.attacker)
-        if(battle.defender.hp == 0)
-            unitDeath(battle.defender)
+        selectedUnit = null
     }
 
     setTimeout(doAttack, delay)

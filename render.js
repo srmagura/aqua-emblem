@@ -93,13 +93,17 @@ function renderUnits(){
     for(var k = 0; k < units.length; k++){
         ctx.beginPath()
 
-        switch(units[k].team){
-            case TEAM_PLAYER:
-                ctx.fillStyle = 'blue'
-                break
-            case TEAM_ENEMY:
-                ctx.fillStyle = 'red'
-                break
+        if(units[k].done){
+            ctx.fillStyle = 'gray'
+        } else {
+            switch(units[k].team){
+                case TEAM_PLAYER:
+                    ctx.fillStyle = 'blue'
+                    break
+                case TEAM_ENEMY:
+                    ctx.fillStyle = 'red'
+                    break
+            }
         }
 
         var pos = units[k].pos

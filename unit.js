@@ -13,12 +13,23 @@ function Team(units, teamId){
 
 var units = []
 
-function unitDeath(unit){
-    for(var k = 0; k < units.length; k++){
-        if(units[k].id == unit.id){
-            units.splice(k, 1)
+function Unit(attr){
+    this.die = function(){
+        for(var k = 0; k < units.length; k++){
+            if(units[k].id == this.id){
+                units.splice(k, 1)
+            }
         }
+
+        return !chapter.checkConditions()
     }
 
-    chapter.checkConditions()
+    this.setDone = function(){
+        this.done = true
+        chapter.checkAllDone()
+    }
+
+    for(var key in attr){
+        this[key] = attr[key]
+    }
 }
