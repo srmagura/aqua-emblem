@@ -83,8 +83,9 @@ function init(){
 
     canvas.attr('width', map.width*tw)
     canvas.attr('height', map.height*tw)
-    $('.game-wrapper').css('width', canvas.width() + 
+    $('.wrapper').css('width', canvas.width() + 
         $('.left-sidebar').width()*2 + 30)
+    $('.game-wrapper').css('height', canvas.height() + 40)
 
     then = Date.now()
     mainLoop()

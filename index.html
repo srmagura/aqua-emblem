@@ -24,50 +24,72 @@
     <script src="enemyTurn.js"></script>
 </head>
 <body>
-
+<div class="title">
+<h1>Aqua Emblem</h1>
+<span class="version">demo-v0.000001</span>
+</div>
 <script>
 $(document).ready(init)
 </script>
 
-<div class="game-wrapper">
-<div class="sidebar left-sidebar">
-    <div class="unit-info">
-        <div class="name">.</div>
-        <div>HP 
-            <span class="hp"></span> /
-            <span class="base-hp"></span>
+<div class="wrapper">
+    <div class="game-wrapper">
+        <div class="sidebar left-sidebar">
+            <div class="unit-info">
+                <div class="name">.</div>
+                <div>HP 
+                    <span class="hp"></span> /
+                    <span class="base-hp"></span>
+                </div>
+            </div>
+            <div class="menu action-menu neutral-box">
+                <ul></ul>
+            </div>
+            <div class="menu weapon-menu neutral-box">
+                <ul></ul>
+            </div>
+            <div class="battle-stats-panel">
+                <table>
+                    <tr><td colspan="3" class="attacker-name blue-box"></td></tr>
+                    <tr>
+                        <td class="defender-hit red-box"></td>
+                        <td class="hit neutral-box">HIT</td>
+                        <td class="attacker-hit blue-box"></td>
+                    </tr>
+                    <tr>
+                        <td class="defender-dmg red-box"></td>
+                        <td class="dmg neutral-box">DMG</td>
+                        <td class="attacker-dmg blue-box"></td>
+                    </tr>
+                    <tr><td colspan="3" class="defender-name red-box"></td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="canvas-column">
+            <canvas width="420" height="420"></canvas>
+            <div class="message"></div>
+        </div>
+        <div class="sidebar right-sidebar">
+            <div class="victory-condition neutral-box"></div>
         </div>
     </div>
-    <div class="menu action-menu neutral-box">
-        <ul></ul>
-    </div>
-    <div class="menu weapon-menu neutral-box">
-        <ul></ul>
-    </div>
-    <div class="battle-stats-panel">
+    <div class="game-info">
+        <h3>Controls</h3>
         <table>
-            <tr><td colspan="3" class="attacker-name blue-box"></td></tr>
             <tr>
-                <td class="defender-hit red-box"></td>
-                <td class="hit neutral-box">HIT</td>
-                <td class="attacker-hit blue-box"></td>
+                <td class="control">Arrow keys -</td>
+                <td>move cursor</td>
             </tr>
             <tr>
-                <td class="defender-dmg red-box"></td>
-                <td class="dmg neutral-box">DMG</td>
-                <td class="attacker-dmg blue-box"></td>
+                <td class="control">F -</td>
+                <td>select/choose</td>
             </tr>
-            <tr><td colspan="3" class="defender-name red-box"></td></tr>
+            <tr>
+                <td class="control">D -</td>
+                <td>back</td>
+            </tr>
         </table>
     </div>
-</div>
-<div class="canvas-column">
-    <canvas width="420" height="420"></canvas>
-    <div class="message"></div>
-</div>
-<div class="sidebar right-sidebar">
-    <div class="victory-condition neutral-box"></div>
-</div>
 </div>
 
 </body>

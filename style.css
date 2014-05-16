@@ -4,15 +4,51 @@ body
     font-size: 11pt;
 }
 
-div.game-wrapper
+div.title
+{
+    float: left;
+}
+
+div.title h1
+{
+    margin: 0;
+    color: #04B;
+}
+
+div.title .version
+{
+    color: #666;
+}
+
+div.wrapper
 {
     width: 800px;
     margin: 0 auto;
 }
 
+div.game-wrapper
+{
+    overflow: hidden;
+}
+
 div.canvas-column
 {
     float: left;
+}
+
+div.game-info h3
+{
+    margin: 3px;
+}
+
+div.game-info table
+{
+    border-spacing: 8px 0;
+}
+
+div.game-info table .control
+{
+    text-align: right;
 }
 
 div.sidebar
