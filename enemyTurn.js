@@ -3,6 +3,10 @@ function doEnemyTurn(){
 }
 
 function doEnemyUnitTurn(k){
+    if(chapter.done){
+        return
+    }
+
     if(k >= chapter.enemyTeam.units.length){
         chapter.initTurn(chapter.playerTeam)
         return
@@ -10,16 +14,16 @@ function doEnemyUnitTurn(k){
 
     var unit = chapter.enemyTeam.units[k]
     var attackRange = []
-    for(var k = 0; k < directions.length; k++){
-        var alt = posAdd(unit.pos, directions[k])
+    for(var l = 0; l < directions.length; l++){
+        var alt = posAdd(unit.pos, directions[l])
         if(onMap(alt)){
             attackRange.push(alt)
         }
     }
 
     inRange = []
-    for(var k = 0; k < attackRange.length; k++){
-        var unit1 = getUnitAt(attackRange[k])
+    for(var l = 0; l < attackRange.length; l++){
+        var unit1 = getUnitAt(attackRange[l])
         if(unit1 != null && unit1.team == TEAM_PLAYER){
             inRange.push(unit1)
         }
@@ -30,5 +34,7 @@ function doEnemyUnitTurn(k){
         doBattle(function(){
             doEnemyUnitTurn(k+1)   
         })
+    } else {
+        doEnemyUnitTurn(k+1)   
     }
 }

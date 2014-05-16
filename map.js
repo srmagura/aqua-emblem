@@ -41,10 +41,17 @@ function Chapter(map1, playerTeam, enemyTeam, victoryCondition){
         }
 
         if(victory){
+            this.done = true
             return true
         } else {
             return false
         }
+    }
+
+    this.defeat = function(){
+        this.done = true
+        showDefeatMessage()
+        hideUnitInfoBox()
     }
 
     this.initTurn = function(team){
@@ -89,6 +96,7 @@ function Chapter(map1, playerTeam, enemyTeam, victoryCondition){
     this.playerTeam = playerTeam
     this.enemyTeam = enemyTeam
 
+    this.done = false
     this.victoryCondition = victoryCondition
     $('.victory-condition').text(
         victoryConditionText[victoryCondition])

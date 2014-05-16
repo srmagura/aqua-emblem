@@ -11,7 +11,7 @@
     <script src="render.js"></script>
 
     <script src="map.js"></script>
-    <script src="chapter0.js"></script>
+    <script src="chapters/chapter1.js"></script>
 
     <script src="unit.js"></script>
     <script src="battle.js"></script>
@@ -37,7 +37,12 @@ $(document).ready(init)
         <div class="sidebar left-sidebar">
             <div class="unit-info">
                 <div class="name">.</div>
-                <div>HP 
+                <div class="hp-bar-container">
+                    <div class="hp-bar">
+                        <div class="hp-bar-filled"></div>
+                    </div>
+                </div>
+                <div class="hp-text">HP 
                     <span class="hp"></span> /
                     <span class="base-hp"></span>
                 </div>

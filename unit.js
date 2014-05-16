@@ -8,6 +8,10 @@ function Team(units, teamId){
     for(var k = 0; k < this.units.length; k++){
         this.units[k].id = teamId + '-' + k
         this.units[k].team = teamId
+
+        if(!('lord' in this.units[k])){
+            this.units.lord = false
+        }
     }
 }
 
@@ -21,7 +25,25 @@ function Unit(attr){
             }
         }
 
-        return !chapter.checkConditions()
+        var team
+        if(this.team == TEAM_PLAYER)
+            team = chapter.playerTeam
+        else if(this.team == TEAM_ENEMY)
+            team = chapter.enemyTeam
+
+        for(var k = 0; k < team.units.length; k++){
+            if(team.units[k].id == this.id){
+                team.units.splice(k, 1)
+            }
+        }
+
+        if(this.lord){
+            chapter.defeat()
+            return false
+        } else {
+            updateUnitInfoBox()
+            return !chapter.checkConditions()
+        }
     }
 
     this.setDone = function(){

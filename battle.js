@@ -26,13 +26,11 @@ function Battle(attacker, defender){
 
 function doBattle(callback){
     var container = $(document.createElement('div'))
-    container.addClass('battle-unit-info-container')
+    container.addClass('battle-unit-info-container').
+        appendTo('body')
 
     attackerBox = $('.unit-info').clone().css('visibility', 'visible')
-    populateUnitInfoBox(attackerBox, battle.attacker)
-
     defenderBox = $('.unit-info').clone().css('visibility', 'visible')
-    populateUnitInfoBox(defenderBox, battle.defender)
 
     if(battle.attacker.team == TEAM_PLAYER){
         container.append(attackerBox).append(defenderBox)
@@ -40,7 +38,9 @@ function doBattle(callback){
         container.append(defenderBox).append(attackerBox)
     }
 
-    $('body').append(container)
+    populateUnitInfoBox(defenderBox, battle.defender)
+    populateUnitInfoBox(attackerBox, battle.attacker)
+
 
     var cpos = $('canvas').position()
     var midpoint = posAdd(battle.attacker.pos, battle.defender.pos)
@@ -74,8 +74,8 @@ function doBattle(callback){
             }
         }
 
-        populateUnitInfoBox(attackerBox, battle.attacker)
-        populateUnitInfoBox(defenderBox, battle.defender)
+        populateUnitInfoBox(attackerBox, battle.attacker, true)
+        populateUnitInfoBox(defenderBox, battle.defender, true)
         updateUnitInfoBox()
     }
 

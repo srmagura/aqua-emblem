@@ -104,6 +104,10 @@ function handleAttack(){
 }
 
 function initMove(){
+    var unitAtDest = getUnitAt(destination)
+    if(unitAtDest != null && unitAtDest.id != selectedUnit.id)
+        return
+
     selectedUnit.oldPos = selectedUnit.pos
     selectedUnit.pos = $.extend({}, destination)
     updateUnitInfoBox()

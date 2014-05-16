@@ -31,3 +31,10 @@ function showVictoryMessage(){
     $('.message').html('').append(span)
     span.fadeIn('slow')
 }
+
+function showDefeatMessage(){
+    var span = $(document.createElement('span')) 
+    span.addClass('defeat-message').text('Defeat.')
+    $('.message').html('').append(span)
+    span.fadeIn('slow')
+}

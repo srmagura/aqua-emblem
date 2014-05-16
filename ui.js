@@ -8,10 +8,17 @@ function updateUnitInfoBox(){
     }
 }
 
-function populateUnitInfoBox(box, unit){
+function populateUnitInfoBox(box, unit, animate){
     box.find('.name').text(unit.name)
     box.find('.hp').text(unit.hp)
     box.find('.base-hp').text(unit.baseHp)
+
+    var width = unit.hp / unit.baseHp * box.find('.hp-bar').width()
+    if(animate){
+        box.find('.hp-bar-filled').animate({width: width}, 200)
+    } else {
+        box.find('.hp-bar-filled').width(width)
+    }
 
     switch(unit.team){
         case TEAM_PLAYER:
