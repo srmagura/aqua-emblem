@@ -13,7 +13,13 @@ function doEnemyUnitTurn(k){
     }
 
     var unit = chapter.enemyTeam.units[k]
-    var available = movementGetAvailable(unit)
+    var available
+
+    if(unit.aiType == AI_HALT){
+        available = [unit.pos]
+    } else {
+        available = movementGetAvailable(unit)
+    }
     var attackRange = []
 
     for(var p = 0; p < available.length; p++){

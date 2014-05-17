@@ -1,6 +1,9 @@
 var TEAM_PLAYER = 0
 var TEAM_ENEMY = 1
 
+var AI_NORMAL = 0
+var AI_HALT = 1
+
 function Team(units, teamId){
     this.id = teamId
     this.units = units
@@ -10,7 +13,11 @@ function Team(units, teamId){
         this.units[k].team = teamId
 
         if(!('lord' in this.units[k])){
-            this.units.lord = false
+            this.units[k].lord = false
+        }
+
+        if(teamId == TEAM_ENEMY && !('aiType' in this.units[k])){
+            this.units[k].aiType = AI_NORMAL
         }
     }
 }

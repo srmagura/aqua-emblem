@@ -13,7 +13,8 @@ function initChapter(){
             move: 4, str: 2, def: 1}),
         new Unit({name: 'Bandit', pos: [3, 5], baseHp: 14, 
             move: 4, str: 2, def: 1}),
-        new Unit({name: 'Bandit lord', pos: [0, 5], baseHp: 22, 
+        new Unit({name: 'Bandit lord', pos: [0, 5], aiType: AI_HALT,
+            baseHp: 22, 
             move: 4, str: 4, def: 1})
     ]
     var enemyTeam = new Team(enemyUnits, TEAM_ENEMY)
