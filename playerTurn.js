@@ -1,3 +1,24 @@
+function getRandomPermutation(k){
+    var todo = []
+    for(var l = 0; l < k; l++){
+        todo.push(l)
+    }
+
+    var perm = []
+    while(todo.length != 0){
+        var r = Math.random()
+
+        for(var l = 0; l < todo.length; l++){
+            if(r < (l + 1)/todo.length){
+                perm.push(todo.splice(l, 1)[0])
+                break
+            }
+        }
+    }
+
+    return perm
+}
+
 function movementGetAvailable(unit){
     var available = [{pos: unit.pos, path: [unit.pos]}]
 
@@ -40,8 +61,9 @@ function movementGetAvailable(unit){
             break
         }
 
+        var perm = getRandomPermutation(directions.length)
         for(var k = 0; k < directions.length; k++){
-            var pos2 = posAdd(pos1, directions[k]) 
+            var pos2 = posAdd(pos1, directions[perm[k]]) 
 
             if(onMap(pos2) &&
                 map.overlayTiles[pos2[0]][pos2[1]] == 0 &&
