@@ -16,7 +16,7 @@ function doEnemyUnitTurn(k){
     var available
 
     if(unit.aiType == AI_HALT){
-        available = [unit.pos]
+        available = [{pos: unit.pos, path: [unit.pos]}]
     } else {
         available = movementGetAvailable(unit)
     }
@@ -24,7 +24,7 @@ function doEnemyUnitTurn(k){
 
     for(var p = 0; p < available.length; p++){
         for(var l = 0; l < directions.length; l++){
-            var alt = posAdd(available[p], directions[l])
+            var alt = posAdd(available[p].pos, directions[l])
             if(onMap(alt)){
                 attackRange.push({
                     moveSpot: available[p],
@@ -46,10 +46,14 @@ function doEnemyUnitTurn(k){
     }
 
     if(inRange.length != 0){
-        unit.pos = $.extend({}, inRange[0].moveSpot)
-        battle = new Battle(unit, inRange[0].target) 
-        doBattle(function(){
-            doEnemyUnitTurn(k+1)   
+        unit.followPath(inRange[0].moveSpot.path, function(){
+            battle = new Battle(unit, inRange[0].target) 
+            doBattle(function(){
+                setTimeout(function(){
+                    doEnemyUnitTurn(k+1)   
+                }, 
+                250)
+            })
         })
     } else {
         doEnemyUnitTurn(k+1)   

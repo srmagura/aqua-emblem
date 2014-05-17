@@ -113,6 +113,14 @@ function posAdd(pos1, pos2){
     return [pos1[0] + pos2[0], pos1[1] + pos2[1]]
 }
 
+function posSubtract(pos1, pos2){
+    return [pos1[0] - pos2[0], pos1[1] - pos2[1]]
+}
+
+function posScale(pos, alpha){
+    return [alpha*pos[0], alpha*pos[1]]
+}
+
 /*function getDist(pos1, pos2){
     return Math.abs(pos1[0]-pos2[0]) + Math.abs(pos1[1]-pos2[1])
 }*/

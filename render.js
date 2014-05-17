@@ -107,7 +107,8 @@ function renderUnits(){
         }
 
         var pos = units[k].pos
-        ctx.arc((.5 + pos[1])*tw, (.5 + pos[0])*tw, .2*tw, 0,
+        var offsetPos = posAdd(units[k].offset, posScale(pos, tw)) 
+        ctx.arc(tw/2 + offsetPos[1], tw/2 + offsetPos[0], .2*tw, 0,
             2*Math.PI, false)
         ctx.fill()
     }

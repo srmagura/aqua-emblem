@@ -12,10 +12,6 @@ function Team(units, teamId){
         this.units[k].id = teamId + '-' + k
         this.units[k].team = teamId
 
-        if(!('lord' in this.units[k])){
-            this.units[k].lord = false
-        }
-
         if(teamId == TEAM_ENEMY && !('aiType' in this.units[k])){
             this.units[k].aiType = AI_NORMAL
         }
@@ -25,6 +21,24 @@ function Team(units, teamId){
 var units = []
 
 function Unit(attr){
+    this.followPath = function(path, callback){
+        this.path = path
+        this.pathFollowCallback = callback
+        this.pathNext()
+    }
+
+    this.pathNext = function(){
+        this.offset = [0, 0]
+        this.pos = $.extend({}, this.path.shift())
+
+        if(this.path.length != 0){
+            this.direction = posSubtract(this.path[0], this.pos)
+        } else {
+            this.direction = null
+            this.pathFollowCallback()
+        }
+    }
+
     this.die = function(){
         for(var k = 0; k < units.length; k++){
             if(units[k].id == this.id){
@@ -61,4 +75,12 @@ function Unit(attr){
     for(var key in attr){
         this[key] = attr[key]
     }
+
+    if(!('lord' in this)){
+        this.lord = false
+    }
+
+    this.direction = null
+    this.offset = [0, 0]
+
 }

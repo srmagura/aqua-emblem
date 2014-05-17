@@ -60,7 +60,21 @@ function keydownHandler(e){
     }
 }
 
+MOVEMENT_SPEED = 400 
+
 function update(delta){
+    for(var k = 0; k < units.length; k++){
+        if(units[k].direction != null){
+            if(Math.abs(units[k].offset[0]) >= tw ||
+                Math.abs(units[k].offset[1]) >= tw){
+                units[k].pathNext()
+            } else {
+                units[k].offset = posAdd(units[k].offset,
+                    posScale(units[k].direction, 
+                    delta * MOVEMENT_SPEED))
+            }
+        }
+    }
 }
 
 function mainLoop(){

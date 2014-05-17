@@ -1,13 +1,16 @@
 function movementGetAvailable(unit){
-    var available = [unit.pos]
+    var available = [{pos: unit.pos, path: [unit.pos]}]
 
     var queue = []
     var dist = Array(map.height)
+    var prev = Array(map.height)
 
     for(var i = 0; i < map.height; i++){
         dist[i] = Array(map.width)
+        prev[i] = Array(map.width)
         for(var j = 0; j < map.width; j++){
             dist[i][j] = Infinity
+            prev[i][j] = null
             queue.push([i, j])
         }
     }
@@ -48,10 +51,21 @@ function movementGetAvailable(unit){
 
                 if((unitAt == null || unitAt.team != TEAM_ENEMY) &&
                     alt < dist[pos2[0]][pos2[1]]){
-                    dist[pos2[0]][pos2[1]] = alt
 
-                    if(alt <= unit.move)
-                        available.push(pos2)
+                    if(alt <= unit.move){
+                        dist[pos2[0]][pos2[1]] = alt
+                        prev[pos2[0]][pos2[1]] = pos1
+
+                        var obj = {pos: pos2, path: [pos2]}
+
+                        var prevPos = pos1
+                        while(prevPos != null){
+                            obj.path.unshift(prevPos)
+                            prevPos = prev[prevPos[0]][prevPos[1]]
+                        }
+
+                        available.push(obj)
+                    }
                 }
             }
         }
@@ -62,9 +76,9 @@ function movementGetAvailable(unit){
 
 function selectUnit(unit){
     selectedUnit = unit
-    var available = movementGetAvailable(unit)
-    for(var k = 0; k < available.length; k++){
-        var pos = available[k]
+    unit.spotsAvailable = movementGetAvailable(unit)
+    for(var k = 0; k < unit.spotsAvailable.length; k++){
+        var pos = unit.spotsAvailable[k].pos
         map.overlayTiles[pos[0]][pos[1]] = 1
     }
 
@@ -117,11 +131,27 @@ function initMove(){
         return
 
     selectedUnit.oldPos = selectedUnit.pos
-    selectedUnit.pos = $.extend({}, destination)
-    updateUnitInfoBox()
 
-    destination = null
-    map.clearOverlay()
+    for(var k = 0; k < selectedUnit.spotsAvailable.length; k++){
+        var pos1 = selectedUnit.spotsAvailable[k].pos
+        if(posEquals(pos1, destination)){
+
+            map.clearOverlay()
+            destination = null
+            cursorVisible = false
+            controlState = ControlState
+
+            selectedUnit.followPath(
+                selectedUnit.spotsAvailable[k].path,
+                afterPathFollow)
+            break
+        }
+    }
+
+}
+
+function afterPathFollow(){
+    updateUnitInfoBox()
 
     var attackRange = []
     for(var k = 0; k < directions.length; k++){
