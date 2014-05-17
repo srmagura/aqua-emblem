@@ -1,4 +1,6 @@
-function movementSearch(unit){
+function movementGetAvailable(unit){
+    var available = [unit.pos]
+
     var queue = []
     var dist = Array(map.height)
 
@@ -11,7 +13,6 @@ function movementSearch(unit){
     }
 
     dist[unit.pos[0]][unit.pos[1]] = 0
-    map.overlayTiles[unit.pos[0]][unit.pos[1]] = 1
 
     function popClosest(){
         var minDist = Infinity
@@ -50,16 +51,23 @@ function movementSearch(unit){
                     dist[pos2[0]][pos2[1]] = alt
 
                     if(alt <= unit.move)
-                        map.overlayTiles[pos2[0]][pos2[1]] = 1
+                        available.push(pos2)
                 }
             }
         }
     }
+
+    return available
 }
 
 function selectUnit(unit){
     selectedUnit = unit
-    movementSearch(unit)
+    var available = movementGetAvailable(unit)
+    for(var k = 0; k < available.length; k++){
+        var pos = available[k]
+        map.overlayTiles[pos[0]][pos[1]] = 1
+    }
+
     updateDestination()
 }
 
