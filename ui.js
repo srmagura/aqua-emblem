@@ -113,9 +113,17 @@ csActionMenu.d = function(){
 function initWeaponMenu(){
     cursorVisible = false
     $('.weapon-menu').html('')
-    var menuItem = $('<div><div class="image"></div></div>')
-    menuItem.addClass('selected').append('Plastic sword').
-        appendTo('.weapon-menu')
+
+    var inv = selectedUnit.inventory
+    for(var k = 0; k < inv.length; k++){
+        if(inv[k].itemType == IT_WEAPON){
+            var menuItem = $('<div><div class="image"></div></div>')
+            menuItem.append(inv[k].name).data('weapon', inv[k]).
+                appendTo('.weapon-menu')
+        }
+    }
+
+    $('.weapon-menu > div').first().addClass('selected')
     showWeaponMenu()
     controlState = csWeaponMenu
 }
@@ -147,6 +155,18 @@ csWeaponMenu.d = function(){
     hideWeaponMenu()
     hideBattleStatsPanel()
     controlState = csChooseTarget
+}
+
+csWeaponMenu.down = function(){
+    battle.setPlayerWeapon($('.weapon-menu .selected').
+        data('weapon'))
+    csMenu.down()
+}
+
+csWeaponMenu.up = function(){
+    battle.setPlayerWeapon($('.weapon-menu .selected').
+        data('weapon'))
+    csMenu.up()
 }
 
 function initBattleStatsPanel(){

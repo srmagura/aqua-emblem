@@ -1,22 +1,27 @@
 function initChapter(){
     var playerUnits = [
         new Unit({name: 'Ace', baseHp: 20, move: 4, str: 7, def: 2,
-            lord: true}),
-        new Unit({name: 'Shiina', baseHp: 16, move: 4, str: 9, def: 1}),
+            lord: true, inventory: [new Item('iron-sword')]}),
+        new Unit({name: 'Shiina', baseHp: 16, move: 4, str: 9, def: 1,
+            inventory: [new Item('iron-sword')]}),
     ]
     var playerTeam = new Team(playerUnits, TEAM_PLAYER)
 
     var enemyUnits = [
         new Unit({name: 'Bandit', pos: [4, 2],
             baseHp: 14, 
-            move: 4, str: 2, def: 1}),
+            move: 4, str: 2, def: 1,
+            inventory: [new Item('iron-sword')]}),
         new Unit({name: 'Bandit', pos: [6, 4], baseHp: 14, 
-            move: 4, str: 2, def: 1}),
+            move: 4, str: 2, def: 1,
+            inventory: [new Item('iron-sword')]}),
         new Unit({name: 'Bandit', pos: [3, 5], baseHp: 14, 
-            move: 4, str: 2, def: 1}),
+            move: 4, str: 2, def: 1,
+            inventory: [new Item('iron-sword')]}),
         new Unit({name: 'Bandit lord', pos: [0, 5], aiType: AI_HALT,
             baseHp: 22, 
-            move: 4, str: 4, def: 1})
+            move: 4, str: 4, def: 1,
+            inventory: [new Item('iron-sword')]})
     ]
     var enemyTeam = new Team(enemyUnits, TEAM_ENEMY)
 

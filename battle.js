@@ -1,27 +1,40 @@
 function Battle(attacker, defender){
     this.getOther = function(unit){
-        if(unit == this.attacker)
+        if(unit == this.attacker){
             return this.defender
-        else
+        } else {
             return this.attacker
+        }
     }
 
-    function calcDmg(unit1, unit2){
-        return unit1.str - unit2.def + 2
-    }
-
-    function calcBattleStats(unit1, unit2){
+    function calcBattleStatsIndividual(unit1, weapon1, unit2){
         unit1.battleStats = {hit: 100}
-        unit1.battleStats.dmg = calcDmg(unit1, unit2)
+        unit1.battleStats.dmg = unit1.str + weapon1.might - unit2.def
+    }
+
+    this.calcBattleStats = function(playerWeapon){
+        if(playerWeapon){
+            calcBattleStatsIndividual(
+                this.attacker, playerWeapon, this.defender)
+        } else {
+            calcBattleStatsIndividual(
+                this.attacker, this.attacker.equipped,
+                this.defender)
+        }
+
+        calcBattleStatsIndividual(this.defender, 
+            this.defender.equipped, this.attacker)
+
+        this.turns = [this.attacker, this.defender]
+    }
+
+    this.setPlayerWeapon = function(weapon){
+        this.calcBattleStats(weapon) 
     }
 
     this.attacker = attacker
     this.defender = defender
-    
-    calcBattleStats(this.attacker, this.defender)
-    calcBattleStats(this.defender, this.attacker)
-
-    this.turns = [this.attacker, this.defender]
+    this.calcBattleStats()
 }
 
 function doBattle(callback){
