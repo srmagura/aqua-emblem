@@ -5,6 +5,15 @@ function initUnitInfoWindow(unit){
     var dw = $(document).width()
     w.css({visibility: 'visible', left: (dw-w.width())/2, top: 40})
 
+    w.find('.tab-label-inventory').addClass('selected')
+    var inv = w.find('.tab-content-inventory').show().html('')
+
+    for(var k = 0; k < unit.inventory.length; k++){
+        var item = unit.inventory[k]
+        var row = $('<div>' + item.name + '</div>')
+        inv.append(row)
+    }
+
     var nameField = unit.name
     if(unit.lord){
         nameField += ' <div class="lord">(Lord)</div>'
