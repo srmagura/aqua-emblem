@@ -43,6 +43,13 @@ csMap.d = function(){
     deselect()
 }
 
+csMap.s = function(){
+    var unit = getUnitAt(cursorPos)
+    if(unit != null){
+        initUnitInfoWindow(unit)
+    }
+}
+
 csChooseTarget = Object.create(csMap)
 
 csChooseTarget.f = function(){

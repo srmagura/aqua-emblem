@@ -18,7 +18,8 @@ var ControlState = {
     left: function(){},
     right: function(){},
     f: function(){},
-    d: function(){}
+    d: function(){},
+    s: function(){}
 }
 
 var controlState = ControlState
@@ -51,6 +52,9 @@ function keydownHandler(e){
             break
         case 68:
             controlState.d()
+            break
+        case 83:
+            controlState.s()
             break
     }
 

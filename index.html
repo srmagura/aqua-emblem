@@ -5,6 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
     <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="unit_info_window.css"/>
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
     <script src="main.js"></script>
@@ -17,6 +19,7 @@
     <script src="battle.js"></script>
 
     <script src="ui.js"></script>
+    <script src="unitInfoWindow.js"></script>
     <script src="message.js"></script>
     <script src="csmap.js"></script>
 
@@ -26,7 +29,7 @@
 <body>
 <div class="title">
 <h1>Aqua Emblem</h1>
-<span class="version">demo-v0.000001</span>
+<span class="version">demo-v0.00001</span>
 </div>
 <script>
 $(document).ready(init)
@@ -92,6 +95,58 @@ $(document).ready(init)
                 <td>back</td>
             </tr>
         </table>
+    </div>
+</div>
+
+<div class="unit-info-window blue-box">
+    <div class="common">
+        <div>
+            <img src="images/kumagawa.png" />
+        </div>
+        <div>
+            <div class="name">Kumagawa</div>
+            <div class="uclass">Minus</div>
+            <div class="level">Lv 1 Exp 23</div>
+        </div>
+    </div>
+    <div class="tab-container">
+        <div class="labels">
+            <div class="tab-label-inventory">Inventory
+            </div><div class="selected tab-label-stats">Stats</div>
+        </div>
+        <div class="content">
+            <div class="tab-content tab-content-inventory">
+                <div>Iron sword</div>
+                <div>Iron sword</div>
+                <div>Iron sword</div>
+                <div>Iron sword</div>
+                <div>Iron sword</div>
+            </div>
+            <div class="tab-content tab-content-stats">
+                <table>
+                    <tr>
+                        <td>Str</td><td class="stat str">1</td>
+                        <td>Skill</td> <td class="stat skill">3</td>
+                    </tr>
+                    <tr>
+                        <td>Mag</td><td class="stat mag">12</td>
+                        <td>Speed</td> <td class="stat speed">5</td>
+                    </tr>
+                    <tr>
+                        <td>Def</td><td class="stat def">2</td>
+                        <td>Luck</td> <td class="stat luck">15</td>
+                    </tr>
+                    <tr>
+                        <td>Res</td><td class="stat res">12</td>
+                        <td>Con</td> <td class="stat con">15</td>
+                    </tr>
+                    <tr>
+                        <td>Aid</td><td class="stat aid">12</td>
+                        <td></td> <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
