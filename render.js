@@ -68,24 +68,67 @@ function renderGrid(){
 }
 
 function renderDestination(){
-    if(destination == null)
+    if(destination == null || destination.pos == null)
         return
 
+    var x0
+    var y0
+    var x1
+    var y1
+    var k
+
+    ctx.beginPath()
+    for(k = 0; k < destination.path.length - 1; k++)
+    {
+        x0 = destination.path[k][1]*tw + tw/2
+        y0 = destination.path[k][0]*tw + tw/2
+        x1 = destination.path[k+1][1]*tw + tw/2
+        y1 = destination.path[k+1][0]*tw + tw/2
+
+        ctx.moveTo(x0, y0)
+        ctx.lineTo(x1, y1)
+    }
+
+
     var s = 10
-    var x0 = destination[1]*tw
-    var y0 = destination[0]*tw
+    x0 = destination.pos[1]*tw
+    y0 = destination.pos[0]*tw
 
-    ctx.strokeStyle = 'purple'
+    if(k > 0){
+        var direction = posSubtract(destination.pos, destination.path[k-1])
 
-    ctx.beginPath()
-    ctx.moveTo(x0+s, y0+s)
-    ctx.lineTo(x0+tw-s, y0+tw-s)
-    ctx.stroke()
+        if(posEquals(direction, [1, 0])){
+            ctx.moveTo(x0+s, y0+s)
+            ctx.lineTo(x0+tw/2, y0 + tw/2)
+            ctx.lineTo(x0+tw-s, y0+s)
+        } else if(posEquals(direction, [-1, 0])){
+            ctx.moveTo(x0+s, y0+tw-s)
+            ctx.lineTo(x0+tw/2, y0 + tw/2)
+            ctx.lineTo(x0+tw-s, y0+tw-s)
+        } else if(posEquals(direction, [0, 1])){
+            ctx.moveTo(x0+s, y0+s)
+            ctx.lineTo(x0+tw/2, y0 + tw/2)
+            ctx.lineTo(x0+s, y0+tw-s)
+        } else if(posEquals(direction, [0, -1])){
+            ctx.moveTo(x0+tw-s, y0+s)
+            ctx.lineTo(x0+tw/2, y0 + tw/2)
+            ctx.lineTo(x0+tw-s, y0+tw-s)
+        }
 
-    ctx.beginPath()
-    ctx.moveTo(x0+tw-s, y0+s)
-    ctx.lineTo(x0+s, y0+tw-s)
-    ctx.stroke()
+        ctx.strokeStyle = '#2266FF'
+        ctx.lineWidth = 7
+        ctx.stroke()
+
+        ctx.strokeStyle = '#3399FF'
+        ctx.lineWidth = 3
+        ctx.stroke()
+
+        ctx.strokeStyle = '#5BF'
+        ctx.lineWidth = 1
+        ctx.stroke()
+
+        ctx.lineWidth = 2
+    }
 }
 
 

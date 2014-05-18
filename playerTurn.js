@@ -96,6 +96,11 @@ function movementGetAvailable(unit){
     return available
 }
 
+function Destination(){
+    this.pos = null
+    this.path = []
+}
+
 function selectUnit(unit){
     selectedUnit = unit
     unit.spotsAvailable = movementGetAvailable(unit)
@@ -104,6 +109,7 @@ function selectUnit(unit){
         map.overlayTiles[pos[0]][pos[1]] = 1
     }
 
+    destination = new Destination()
     updateDestination()
 }
 
@@ -116,7 +122,15 @@ function deselect(){
 function updateDestination(){
     if(map.overlayTiles[cursorPos[0]][cursorPos[1]] ==
         OVERLAY_AVAILABLE){
-        destination = $.extend({}, cursorPos)
+        destination.pos = $.extend({}, cursorPos)
+
+        var sa = selectedUnit.spotsAvailable
+        for(var k = 0; k < sa.length; k++){
+            if(posEquals(sa[k].pos, cursorPos)){
+                destination.path = sa[k].path
+                break
+            }
+        }
     }
 }
 
@@ -148,28 +162,20 @@ function handleAttack(){
 }
 
 function initMove(){
-    var unitAtDest = getUnitAt(destination)
+    var unitAtDest = getUnitAt(destination.pos)
     if(unitAtDest != null && unitAtDest.id != selectedUnit.id)
         return
 
     selectedUnit.oldPos = selectedUnit.pos
 
-    for(var k = 0; k < selectedUnit.spotsAvailable.length; k++){
-        var pos1 = selectedUnit.spotsAvailable[k].pos
-        if(posEquals(pos1, destination)){
+    map.clearOverlay()
+    cursorVisible = false
+    controlState = ControlState
 
-            map.clearOverlay()
-            destination = null
-            cursorVisible = false
-            controlState = ControlState
-
-            selectedUnit.followPath(
-                selectedUnit.spotsAvailable[k].path,
-                afterPathFollow)
-            break
-        }
-    }
-
+    selectedUnit.followPath(
+        destination.path,
+        afterPathFollow)
+    destination = null
 }
 
 function afterPathFollow(){

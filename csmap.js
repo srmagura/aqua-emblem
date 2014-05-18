@@ -34,7 +34,7 @@ csMap.f = function(){
             !unit.done){
             selectUnit(unit)
         }
-    } else if(posEquals(destination, cursorPos)){
+    } else if(posEquals(destination.pos, cursorPos)){
         initMove()
     }
 }
