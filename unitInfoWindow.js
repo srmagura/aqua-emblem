@@ -12,6 +12,7 @@ function initUnitInfoWindow(unit){
     if(unit.lord){
         nameField += ' <div class="lord">(Lord)</div>'
     }
+
     w.find('.common .name').html(nameField)
     w.find('.common .uclass').text('Mercenary')
     w.find('.common .level').text('1')
@@ -44,8 +45,48 @@ function closeUnitInfoWindow(){
     controlState = csMap
 }
 
+function unitInfoWindowChangeTab(tabId){
+    var labels = $('.tab-container .labels')
+    var oldTabId = labels.find('.selected').removeClass('selected').
+        find('.tab-id').text()
+    $('.tab-container .tab-content-' + oldTabId).hide()
+
+    labels.find('.tab-label-' + tabId).addClass('selected')
+    $('.tab-container .tab-content-' + tabId).show()
+}
+
 var csUnitInfoWindow = Object.create(controlState)
 
 csUnitInfoWindow.d = function(){
     closeUnitInfoWindow()    
+}
+
+csUnitInfoWindow.left = function(){
+    var selectedLabel = $('.tab-container .labels .selected')
+    var tabId 
+    var label
+
+    if(selectedLabel.prev().size() == 0){
+        label = selectedLabel.siblings().last()
+    } else {
+        label = selectedLabel.prev()
+    }
+
+    tabId = label.find('.tab-id').text()
+    unitInfoWindowChangeTab(tabId)
+}
+
+csUnitInfoWindow.right = function(){
+    var selectedLabel = $('.tab-container .labels .selected')
+    var tabId 
+    var label
+
+    if(selectedLabel.next().size() == 0){
+        label = selectedLabel.siblings().first()
+    } else {
+        label = selectedLabel.next()
+    }
+
+    tabId = label.find('.tab-id').text()
+    unitInfoWindowChangeTab(tabId)
 }

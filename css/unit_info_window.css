@@ -48,6 +48,11 @@
     width: 200px;
 }
 
+.unit-info-window .tab-container .labels .tab-id
+{
+    display: none;
+}
+
 .unit-info-window .tab-container .labels > div
 {
     border: 1px solid #666;
