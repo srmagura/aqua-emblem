@@ -174,7 +174,7 @@ div.menu .image
 
 div.menu .selected .image
 {
-    background-image: url('images/list_arrow.png');
+    background-image: url('../images/list_arrow.png');
     background-repeat: no-repeat;
 }
 
