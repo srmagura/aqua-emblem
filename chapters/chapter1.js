@@ -25,6 +25,7 @@ function initChapter(){
             inventory: [new Item('iron-sword')]})
     ]
     var enemyTeam = new Team(enemyUnits, TEAM_ENEMY)
+    enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'
 
     var tiles = [
         [1, 1, 0, 1, 0, 0, 0],

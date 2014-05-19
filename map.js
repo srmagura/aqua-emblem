@@ -7,11 +7,13 @@ function Chapter(map1, playerTeam, enemyTeam, victoryCondition){
         units = []
         for(var k = 0; k < this.playerTeam.units.length; k++){
             this.playerTeam.units[k].pos = this.map.playerPositions[k]
-            units.push(playerTeam.units[k])
+            units.push(this.playerTeam.units[k])
+            this.playerTeam.units[k].teamObj = this.playerTeam 
         }
 
         for(var k = 0; k < this.enemyTeam.units.length; k++){
             units.push(this.enemyTeam.units[k])
+            this.enemyTeam.units[k].teamObj = this.enemyTeam
         }
 
         for(var k = 0; k < units.length; k++){

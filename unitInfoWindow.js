@@ -2,11 +2,26 @@ function initUnitInfoWindow(unit){
     $('.dark-overlay').show()
 
     var w = $('.unit-info-window')
+    w.removeClass('blue-box').removeClass('red-box')
+
+    if(unit.team == TEAM_PLAYER){
+        w.addClass('blue-box')
+    } else if(unit.team == TEAM_ENEMY){
+        w.addClass('red-box')
+    }
+
     var dw = $(document).width()
     w.css({visibility: 'visible', left: (dw-w.width())/2, top: 40})
 
-    w.find('.common img').attr('src', 'images/' + 
-        unit.name.toLowerCase() + '.png')
+    if(unit.picture){
+        w.find('.common .image-wrapper').removeClass('insignia')
+        w.find('.common img').attr('src', 'images/' + 
+            unit.name.toLowerCase() + '.png')
+    } else if(unit.teamObj.insigniaImagePath){
+        w.find('.common .image-wrapper').addClass('insignia')
+        w.find('.common img').attr('src', 
+            unit.teamObj.insigniaImagePath)
+    }
 
     var nameField = unit.name
     if(unit.lord){

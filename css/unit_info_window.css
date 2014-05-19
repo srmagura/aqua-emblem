@@ -34,6 +34,14 @@
     background: radial-gradient(#AAA, #666);
 }
 
+
+.unit-info-window .common .insignia img
+{
+    border: none;
+    background: none;
+    margin: 15px 0;
+}
+
 .unit-info-window .common .lord 
 {
     font-size: 9pt;
