@@ -2,22 +2,25 @@ body
 {
     font-family: monospace;
     font-size: 11pt;
+    margin: 0;
 }
 
 div.title
 {
-    float: left;
+    position: absolute;
+    padding-left: 10px;
+    z-index: -100;
 }
 
-div.title h1
+div.title img
 {
-    margin: 0;
-    color: #04B;
+    width: 270px;
 }
 
 div.title .version
 {
     color: #666;
+    margin: 0 0 0 3px;
 }
 
 div.wrapper
@@ -29,6 +32,7 @@ div.wrapper
 div.game-wrapper
 {
     overflow: hidden;
+    padding: 15px 0 0;
 }
 
 div.canvas-column
