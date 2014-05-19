@@ -33,6 +33,9 @@ function initUnitInfoWindow(unit){
     w.find('.common .level').text('1')
     w.find('.common .exp').text('0')
 
+    w.find('.labels > div').removeClass('selected')
+    w.find('.tab-content').hide()
+
     w.find('.tab-label-inventory').addClass('selected')
     var inv = w.find('.tab-content-inventory').show().html('')
 
