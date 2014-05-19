@@ -9,6 +9,14 @@ function updateUnitInfoBox(){
 }
 
 function populateUnitInfoBox(box, unit, animate){
+    if(unit.picture){
+        box.find('img').attr('src', 'images/' + 
+            unit.name.toLowerCase() + '.png')
+        box.find('.image-wrapper').show()
+    } else {
+        box.find('.image-wrapper').hide()
+    }
+
     box.find('.name').text(unit.name)
     box.find('.hp').text(unit.hp)
     box.find('.base-hp').text(unit.baseHp)
@@ -18,6 +26,21 @@ function populateUnitInfoBox(box, unit, animate){
         box.find('.hp-bar-filled').animate({width: width}, 200)
     } else {
         box.find('.hp-bar-filled').width(width)
+    }
+
+    if(unit.baseMp){
+        box.find('.mp').text(unit.mp)
+        box.find('.base-mp').text(unit.baseMp)
+
+        var width = unit.mp / unit.baseMp * box.find('.mp-bar').width()
+        if(animate){
+            box.find('.mp-bar-filled').animate({width: width}, 200)
+        } else {
+            box.find('.mp-bar-filled').width(width)
+        }
+        box.find('.mp-bar-container').show()
+    } else {
+        box.find('.mp-bar-container').hide()
     }
 
     switch(unit.team){

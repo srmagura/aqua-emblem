@@ -1,8 +1,9 @@
 function initChapter(){
     var playerUnits = [
-        new Unit({name: 'Ace', baseHp: 20, move: 4, str: 7, def: 2,
+        new Unit({name: 'Ace', baseHp: 20, baseMp: 5, 
+            move: 4, str: 7, def: 2,
             skill: 5, speed: 6, res: 2, luck: 8, aid: 7, con: 5,
-            mag: 0,
+            mag: 0, picture: true, 
             lord: true, inventory: [new Item('iron-sword')]})
     ]
     var playerTeam = new Team(playerUnits, TEAM_PLAYER)

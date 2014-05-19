@@ -16,6 +16,7 @@ function Chapter(map1, playerTeam, enemyTeam, victoryCondition){
 
         for(var k = 0; k < units.length; k++){
             units[k].hp = units[k].baseHp
+            units[k].mp = units[k].baseMp
         }
     }
 

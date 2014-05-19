@@ -80,6 +80,10 @@ function Unit(attr){
         this.lord = false
     }
 
+    if(!('picture' in this)){
+        this.picture = false
+    }
+
     if(!('inventory' in this)){
         this.inventory = []
     }
