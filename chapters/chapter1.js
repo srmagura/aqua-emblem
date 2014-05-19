@@ -3,9 +3,7 @@ function initChapter(){
         new Unit({name: 'Ace', baseHp: 20, move: 4, str: 7, def: 2,
             skill: 5, speed: 6, res: 2, luck: 8, aid: 7, con: 5,
             mag: 0,
-            lord: true, inventory: [new Item('iron-sword')]}),
-        new Unit({name: 'Shiina', baseHp: 16, move: 4, str: 9, def: 1,
-            inventory: [new Item('iron-sword')]}),
+            lord: true, inventory: [new Item('iron-sword')]})
     ]
     var playerTeam = new Team(playerUnits, TEAM_PLAYER)
 

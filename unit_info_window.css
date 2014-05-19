@@ -31,6 +31,7 @@
 .unit-info-window .common img
 {
     border: 1px solid black;
+    background: radial-gradient(#AAA, #666);
 }
 
 .unit-info-window .common .lord 

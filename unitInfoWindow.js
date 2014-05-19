@@ -5,14 +5,8 @@ function initUnitInfoWindow(unit){
     var dw = $(document).width()
     w.css({visibility: 'visible', left: (dw-w.width())/2, top: 40})
 
-    w.find('.tab-label-inventory').addClass('selected')
-    var inv = w.find('.tab-content-inventory').show().html('')
-
-    for(var k = 0; k < unit.inventory.length; k++){
-        var item = unit.inventory[k]
-        var row = $('<div>' + item.name + '</div>')
-        inv.append(row)
-    }
+    w.find('.common img').attr('src', 'images/' + 
+        unit.name.toLowerCase() + '.png')
 
     var nameField = unit.name
     if(unit.lord){
@@ -22,6 +16,16 @@ function initUnitInfoWindow(unit){
     w.find('.common .uclass').text('Mercenary')
     w.find('.common .level').text('1')
     w.find('.common .exp').text('0')
+
+
+    w.find('.tab-label-inventory').addClass('selected')
+    var inv = w.find('.tab-content-inventory').show().html('')
+
+    for(var k = 0; k < unit.inventory.length; k++){
+        var item = unit.inventory[k]
+        var row = $('<div>' + item.name + '</div>')
+        inv.append(row)
+    }
 
     var stats = w.find('.tab-content-stats')
     var statTypes = ['str', 'skill', 'mag', 'speed', 'def', 'luck',
