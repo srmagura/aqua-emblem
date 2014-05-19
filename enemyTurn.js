@@ -1,18 +1,22 @@
 function doEnemyTurn(){
-    doEnemyUnitTurn(0)
+    var eu = chapter.enemyTeam.units
+    if(eu.length != 0){
+        doEnemyUnitTurn(eu[0])
+    }
 }
 
-function doEnemyUnitTurn(k){
+function doEnemyUnitTurn(unit){
     if(chapter.done){
         return
     }
 
-    if(k >= chapter.enemyTeam.units.length){
+    if(!unit){
         chapter.initTurn(chapter.playerTeam)
         return
     }
 
-    var unit = chapter.enemyTeam.units[k]
+    var eu = chapter.enemyTeam.units
+    var nextUnit = eu[eu.indexOf(unit)+1]
     var available
 
     if(unit.aiType == AI_HALT){
@@ -50,12 +54,12 @@ function doEnemyUnitTurn(k){
             battle = new Battle(unit, inRange[0].target) 
             doBattle(function(){
                 setTimeout(function(){
-                    doEnemyUnitTurn(k+1)   
+                    doEnemyUnitTurn(nextUnit)   
                 }, 
                 250)
             })
         })
     } else {
-        doEnemyUnitTurn(k+1)   
+        doEnemyUnitTurn(nextUnit)   
     }
 }
