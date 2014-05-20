@@ -1,16 +1,16 @@
 class window.Chapter
     @VC_ROUT: 0
-    @victoryConditionText: {
-        @VC_ROUT: 'Defeat all enemies'
-    }
     
-    constructor: (@map, @playerTeam, @enemyTeam, @victoryCondition) ->
+    constructor: (@ui, @map, @playerTeam, @enemyTeam, @victoryCondition) ->
+        @victoryConditionText = {}
+        @victoryConditionText[@VC_ROUT] = 'Defeat all enemies'
+
         @done = false
-        $('.victory-condition').text(
+        @ui.setVictoryConditionText(
             @victoryConditionText[@victoryCondition])
 
-        @initUnits()
-        @initTurn(@playerTeam)
+        #@initUnits()
+        #@initTurn(@playerTeam)
 
     initUnits: ->
         @units = []
@@ -34,8 +34,8 @@ class window.Chapter
             victory = (@enemyTeam.units.length == 0)
 
         if victory
-            #showVictoryMessage()
-            #updateUnitInfoBox()
+            @ui.messageBox.showVictoryMessage()
+            @ui.unitInfoBox.update()
             @done = true
             return true
         else
@@ -52,7 +52,7 @@ class window.Chapter
 
         @ui.controlState = ControlState
         if team == @enemyTeam
-            @cursor.visible = false
+            @ui.cursor.visible = false
 
         callback = (team) ->
             if team is @teamEnemy
@@ -60,7 +60,7 @@ class window.Chapter
                 #doEnemyTurn()
             else
                 @ui.controlState = CsMap
-                @cursor.visible = true
+                @ui.cursor.visible = true
 
         @ui.messageBox.showPhaseMessage(team, callback)
 
@@ -74,3 +74,13 @@ class window.Chapter
 
         if allDone
             @initTurn(@enemyTeam)
+
+    getUnitAt: (pos) ->
+        for unit in @units
+            if unit.pos.equals(pos)
+                return unit
+
+        null
+
+    render: (ui, ctx) ->
+        @map.render(ui, ctx)
