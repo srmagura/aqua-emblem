@@ -1,1 +1,1 @@
-coffee -b --compile --output lib/ src/
+coffee --compile --output lib/ src/

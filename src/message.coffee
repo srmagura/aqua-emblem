@@ -1,38 +1,43 @@
-showPhaseMessage = (teamId, callback) ->
-    css = {}
+class window.MessageBox
 
-    if(teamId == TEAM_PLAYER)
-        text = 'Player phase'
-        css.color = 'blue'
-    else if(teamId == TEAM_ENEMY)
-        text = 'Enemy phase'
-        css.color = 'red'
-    
+    constructor: ->
+        @mbox = $('.message')
 
-    mbox = $(document.createElement('div'))
-    mbox.css(css).addClass('phase-message').text(text)
-    $('.message').html('').append(mbox)
+    showPhaseMessage: (teamId, callback) ->
+        css = {}
 
-    fadeDuration = 400
-    mbox.fadeIn(fadeDuration)
+        if(teamId == TEAM_PLAYER)
+            text = 'Player phase'
+            css.color = 'blue'
+        else if(teamId == TEAM_ENEMY)
+            text = 'Enemy phase'
+            css.color = 'red'
+        
 
-    setTimeout(
-        ->
-            mbox.fadeOut(fadeDuration,
-                ->
-                    $('.message').html('')
-                    callback(teamId)
-            )
-        , fadeDuration*4)
+        textEl = $(document.createElement('div'))
+        textEl.css(css).addClass('phase-message').text(text)
+        @mbox.html('').append(textEl)
 
-showVictoryMessage = ->
-    mbox = $(document.createElement('div'))
-    mbox.addClass('victory-message').text('Victory!')
-    $('.message').html('').append(mbox)
-    mbox.fadeIn('slow')
+        fadeDuration = 400
+        textEl.fadeIn(fadeDuration)
 
-showDefeatMessage = ->
-    mbox = $(document.createElement('div'))
-    mbox.addClass('defeat-message').text('Defeat.')
-    $('.message').html('').append(mbox)
-    mbox.fadeIn('slow')
+        afterFadeOut = ->
+            @mbox.html('')
+            callback(teamId)
+
+        toDelay = ->
+            textEl.fadeOut(fadeDuration, afterFadeOut)
+
+        setTimeout(toDelay, fadeDuration*4)
+
+    showVictoryMessage: ->
+        textEl = $(document.createElement('div'))
+        textEl.addClass('victory-message').text('Victory!')
+        @mbox.html('').append(textEl)
+        textEl.fadeIn('slow')
+
+    showDefeatMessage: ->
+        textEl = $(document.createElement('div'))
+        textEl.addClass('defeat-message').text('Defeat.')
+        @mbox.html('').append(textEl)
+        textEl.fadeIn('slow')
