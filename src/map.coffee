@@ -49,6 +49,10 @@ class window.Map
                 @overlayTiles[i][j] = 0
 
     render: (ui, ctx) ->
+        @renderTiles(ui, ctx)
+        @renderGrid(ui, ctx)
+
+    renderTiles: (ui, ctx) ->
         tw = ui.tw
         cw = ui.canvas.width()
 
@@ -78,3 +82,35 @@ class window.Map
                     ctx.globalAlpha = .7
                     ctx.fill()
                     ctx.globalAlpha = 1
+
+    renderGrid: (ui, ctx) ->
+        tw = ui.tw
+        gridWidth = 2
+        ctx.lineWidth = gridWidth
+        ctx.strokeStyle = '#666'
+
+        #horizontal
+        for i in [0..@height]
+            offset = 0
+            if i == 0
+                offset = gridWidth / 2
+            else if i == @height
+                offset = -gridWidth / 2
+
+            ctx.beginPath()
+            ctx.moveTo(offset, i*tw + offset)
+            ctx.lineTo(@width*tw + offset, i*tw + offset)
+            ctx.stroke()
+
+        #vertical
+        for j in [0..@width]
+            offset = 0
+            if j == 0
+                offset = gridWidth / 2
+            else if j == @width
+                offset = -gridWidth / 2
+            
+            ctx.beginPath()
+            ctx.moveTo(j*tw + offset, offset)
+            ctx.lineTo(j*tw + offset, @height*tw + offset)
+            ctx.stroke()
