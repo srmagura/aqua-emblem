@@ -96,6 +96,30 @@ function movementGetAvailable(unit){
     return available
 }
 
+function getAttackRange(moveSpot){
+    var attackRange = []
+
+    for(var k = 0; k < directions.length; k++){
+        var alt = posAdd(moveSpot.pos, directions[k])
+        if(onMap(alt)){
+            attackRange.push({moveSpot: moveSpot, targetSpot: alt})
+        }
+    }
+
+    return attackRange
+}
+
+function movementGetAttackRange(available){
+    var attackRange = []
+
+    for(var k = 0; k < available.length; k++){
+        attackRange = attackRange.concat(
+            getAttackRange(available[k]))
+    }
+
+    return attackRange
+}
+
 function Destination(){
     this.pos = null
     this.path = []

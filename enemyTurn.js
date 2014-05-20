@@ -24,19 +24,8 @@ function doEnemyUnitTurn(unit){
     } else {
         available = movementGetAvailable(unit)
     }
-    var attackRange = []
 
-    for(var p = 0; p < available.length; p++){
-        for(var l = 0; l < directions.length; l++){
-            var alt = posAdd(available[p].pos, directions[l])
-            if(onMap(alt)){
-                attackRange.push({
-                    moveSpot: available[p],
-                    targetSpot: alt
-                })
-            }
-        }
-    }
+    var attackRange = movementGetAttackRange(available)
 
     inRange = []
     for(var l = 0; l < attackRange.length; l++){
