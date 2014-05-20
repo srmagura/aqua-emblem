@@ -1,13 +1,11 @@
+window.VC = {
+    ROUT: {text: 'Defeat all enemies'}
+}
+
 class window.Chapter
-    @VC_ROUT: 0
     
     constructor: (@ui, @map, @playerTeam, @enemyTeam, @victoryCondition) ->
-        @victoryConditionText = {}
-        @victoryConditionText[@VC_ROUT] = 'Defeat all enemies'
-
         @done = false
-        @ui.setVictoryConditionText(
-            @victoryConditionText[@victoryCondition])
 
         #@initUnits()
         #@initTurn(@playerTeam)

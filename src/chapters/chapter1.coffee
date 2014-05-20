@@ -17,7 +17,7 @@ class window.Chapter1 extends Chapter
         playerPositions = null
 
         map = new Map(tiles, playerPositions)
-        super(ui, map, playerTeam, enemyTeam, Chapter.VC_ROUT)
+        super(ui, map, playerTeam, enemyTeam, VC.ROUT)
 
 ###
 var playerUnits = [

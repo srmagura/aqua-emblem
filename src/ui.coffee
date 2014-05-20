@@ -13,8 +13,7 @@ class UI
         $('.wrapper').css('width', @canvas.width() +
             $('.left-sidebar').width()*2 + 30)
         $('.game-wrapper').css('height', @canvas.height() + 40)
-
-    setVictoryConditionText: ->
+        $('.victory-condition').text(@chapter.victoryCondition.text)
 
     mainLoop: ->
         now = Date.now()
