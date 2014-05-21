@@ -16,7 +16,7 @@ class window.Position
     scale: (alpha) ->
         new Position(alpha*@i, alpha*@j)
 
-terrainTypes = {
+window.TERRAIN_TYPES = {
     0: {color: '#BFB', block: false},
     1: {color: '#DDD', block: true}
 }
@@ -27,6 +27,8 @@ OVERLAY_TYPES = {
 }
 
 class window.Map
+
+    @TERRAIN_TYPES: TERRAIN_TYPES
 
     constructor: (@tiles, playerPositions) ->
         @height = @tiles.length
@@ -70,7 +72,7 @@ class window.Map
                 x0 = j*tw
                 y0 = i*tw
 
-                ctx.fillStyle = terrainTypes[@tiles[i][j]].color
+                ctx.fillStyle = TERRAIN_TYPES[@tiles[i][j]].color
                 ctx.fillRect(x0, y0, tw, tw)
 
                 overlayTile = @overlayTiles[i][j]
