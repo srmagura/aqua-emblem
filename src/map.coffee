@@ -31,9 +31,13 @@ overlayTileTypes = {
 
 class window.Map
 
-    constructor: (@tiles, @playerPositions) ->
+    constructor: (@tiles, playerPositions) ->
         @height = @tiles.length
         @width = @tiles[0].length
+
+        @playerPositions = []
+        for t in playerPositions
+            @playerPositions.push(new Position(t[0], t[1]))
 
         @overlayTiles = []
         for i in [0..@height-1]

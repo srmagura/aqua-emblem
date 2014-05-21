@@ -1,25 +1,48 @@
-#AI_NORMAL = 0
-#AI_HALT = 1
-
 class window.Team
     
     constructor: (@units) ->
         for unit in @units
-            @unit.team = this
+            unit.team = this
 
         #if(teamId == TEAM_ENEMY && !('aiType' in this.units[k])){
         #    this.units[k].aiType = AI_NORMAL
         #}
 
+class window.Unit
+
+    @AI_NORMAL: 0
+    @AI_HALT: 1
+
+    constructor: (attr) ->
+        for key in attr
+            this[key] = attr[key]
+
+        if 'lord' not in this
+            @lord = false
+
+        if 'picture' not in this
+            @picture = false
+
+    render: (ui, ctx) ->
+        tw = ui.tw
+
+        if @team is ui.chapter.playerTeam
+            ctx.fillStyle = 'blue'
+        else
+            ctx.fillStyle = 'red'
+
+        ctx.beginPath()
+        offset = @pos.scale(tw)
+        ctx.arc(offset.j + tw/2, offset.i + tw/2,
+            .2*tw, 0, 2*Math.PI, false)
+        ctx.fill()
 ###
-function Unit(attr){
-    this.followPath = function(path, callback){
+    followPath: (path, callback) ->
         this.path = path
         this.pathFollowCallback = callback
         this.pathNext()
-    }
 
-    this.pathNext = function(){
+    pathNext: ->
         this.offset = [0, 0]
         this.pos = $.extend({}, this.path.shift())
 
@@ -29,7 +52,6 @@ function Unit(attr){
             this.direction = null
             this.pathFollowCallback()
         }
-    }
 
     this.die = function(){
         for(var k = 0; k < units.length; k++){
@@ -62,18 +84,6 @@ function Unit(attr){
     this.setDone = function(){
         this.done = true
         chapter.checkAllDone()
-    }
-
-    for(var key in attr){
-        this[key] = attr[key]
-    }
-
-    if(!('lord' in this)){
-        this.lord = false
-    }
-
-    if(!('picture' in this)){
-        this.picture = false
     }
 
     if(!('inventory' in this)){

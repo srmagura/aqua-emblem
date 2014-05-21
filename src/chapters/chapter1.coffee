@@ -1,7 +1,15 @@
 class window.Chapter1 extends Chapter
 
     constructor: (ui) ->
-        playerTeam = new Team([])
+        playerUnits = [
+            new Unit({name: 'Ace', baseHp: 25, baseMp: 5,
+            move: 4, str: 7, def: 5,
+            skill: 5, speed: 6, res: 2, luck: 8, aid: 7, con: 5,
+            mag: 0, picture: true,
+            lord: true})
+                #inventory: [new Item('iron-sword')]})
+        ]
+        playerTeam = new Team(playerUnits)
         enemyTeam = new Team([])
 
         tiles = [
@@ -14,7 +22,7 @@ class window.Chapter1 extends Chapter
             [1, 1, 0, 0, 0, 0, 0]
         ]
 
-        playerPositions = null
+        playerPositions = [[2,1]]
 
         map = new Map(tiles, playerPositions)
         super(ui, map, playerTeam, enemyTeam, VC.ROUT)

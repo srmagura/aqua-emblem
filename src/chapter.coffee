@@ -7,12 +7,12 @@ class window.Chapter
     constructor: (@ui, @map, @playerTeam, @enemyTeam, @victoryCondition) ->
         @done = false
 
-        #@initUnits()
+        @initUnits()
         #@initTurn(@playerTeam)
 
     initUnits: ->
         @units = []
-        for unit in @playerTeam.units
+        for unit, k in @playerTeam.units
             unit.pos = @map.playerPositions[k]
             @units.push(unit)
             unit.team = @playerTeam
@@ -21,7 +21,7 @@ class window.Chapter
             @units.push(unit)
             unit.team = @enemyTeam
 
-        for unit in @unit
+        for unit in @units
             unit.hp = unit.baseHp
             unit.mp = unit.baseMp
 
@@ -82,4 +82,7 @@ class window.Chapter
 
     render: (ui, ctx) ->
         @map.render(ui, ctx)
+
+        for unit in @units
+            unit.render(ui, ctx)
 
