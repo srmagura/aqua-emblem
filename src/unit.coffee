@@ -14,8 +14,8 @@ class window.Unit
     @AI_HALT: 1
 
     constructor: (attr) ->
-        for key in attr
-            this[key] = attr[key]
+        for key, value of attr
+            this[key] = value
 
         if 'lord' not in this
             @lord = false

@@ -1,6 +1,4 @@
-class window.CsMap
-
-    constructor: (@ui) ->
+class window.CsMap extends ControlState
 
     up: ->
         if @ui.cursor.pos.i - 1 >= 0
@@ -17,3 +15,9 @@ class window.CsMap
     right: ->
         if @ui.cursor.pos.j + 1 < @ui.chapter.map.width
             @ui.cursor.move(0, 1)
+
+    f: ->
+        unit = @ui.chapter.getUnitAt(@ui.cursor.pos)
+        if unit? and unit.team is @ui.chapter.playerTeam and
+        not unit.done
+            @ui.chapter.playerTurn.select(unit)

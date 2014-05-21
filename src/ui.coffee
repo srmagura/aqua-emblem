@@ -79,7 +79,8 @@ class Cursor
         ctx.rect(@pos.j*tw + s, @pos.i*tw + s, tw - 2*s, tw - 2*s)
         ctx.stroke()
 
-class ControlState
+class window.ControlState
+    constructor: (@ui) ->
     up: ->
     down: ->
     left: ->

@@ -8,6 +8,7 @@ class window.Chapter
         @done = false
 
         @initUnits()
+        @playerTurn = new PlayerTurn(@ui)
         #@initTurn(@playerTeam)
 
     initUnits: ->
@@ -24,6 +25,13 @@ class window.Chapter
         for unit in @units
             unit.hp = unit.baseHp
             unit.mp = unit.baseMp
+
+    getUnitAt: (pos) ->
+        for unit in @units
+            if unit.pos.equals(pos)
+                return unit
+
+        null
 
     checkConditions: ->
         victory = false
@@ -48,16 +56,15 @@ class window.Chapter
         for unit in @units
             unit.done = false
 
-        @ui.controlState = ControlState
+        @ui.controlState = new ControlState(@ui)
         if team == @enemyTeam
             @ui.cursor.visible = false
 
         callback = (team) ->
             if team is @teamEnemy
-                @ui.controlState = ControlState
                 #doEnemyTurn()
             else
-                @ui.controlState = CsMap
+                @ui.controlState = new CsMap(@ui)
                 @ui.cursor.visible = true
 
         @ui.messageBox.showPhaseMessage(team, callback)

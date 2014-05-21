@@ -21,12 +21,9 @@ terrainTypes = {
     1: {color: '#DDD', block: true}
 }
 
-OVERLAY_AVAILABLE = 1
-OVERLAY_ATTACK = 2
-
-overlayTileTypes = {
-    1: {startColor: '#AAF', endColor: '#22F'},
-    2: {startColor: '#FAA', endColor: '#F22'}
+OVERLAY_TYPES = {
+    available: {startColor: '#AAF', endColor: '#22F'},
+    attack: {startColor: '#FAA', endColor: '#F22'}
 }
 
 class window.Map
@@ -43,16 +40,19 @@ class window.Map
         for i in [0..@height-1]
             @overlayTiles.push([])
             for j in [0..@width-1]
-                @overlayTiles[i].push(0)
+                @overlayTiles[i].push(null)
 
     onMap: (pos) ->
         (0 <= pos.i and pos.i < @height and
             0 <= pos.j and pos.j < @width)
 
+    setOverlay: (pos, overlayType) ->
+        @overlayTiles[pos.i][pos.j] = OVERLAY_TYPES[overlayType]
+
     clearOverlay: ->
         for i in [0..@height-1]
             for j in [0..@width-1]
-                @overlayTiles[i][j] = 0
+                @overlayTiles[i][j] = null
 
     render: (ui, ctx) ->
         @renderTiles(ui, ctx)
@@ -74,16 +74,14 @@ class window.Map
                 ctx.fillRect(x0, y0, tw, tw)
 
                 overlayTile = @overlayTiles[i][j]
-                if overlayTile != 0
+                if overlayTile != null
                     ctx.beginPath()
                     ctx.rect(x0, y0, tw, tw)
 
-                    tileType = overlayTileTypes[overlayTile]
-
                     grd = ctx.createLinearGradient(
                         x0, y0, x0+tw, y0+tw)
-                    grd.addColorStop(0, tileType.startColor)
-                    grd.addColorStop(1, tileType.endColor)
+                    grd.addColorStop(0, overlayTile.startColor)
+                    grd.addColorStop(1, overlayTile.endColor)
                     ctx.fillStyle = grd
                     ctx.globalAlpha = .7
                     ctx.fill()
