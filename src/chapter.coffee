@@ -82,3 +82,4 @@ class window.Chapter
 
     render: (ui, ctx) ->
         @map.render(ui, ctx)
+

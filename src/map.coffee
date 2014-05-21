@@ -2,6 +2,8 @@ class window.Position
 
     constructor: (@i, @j) ->
 
+    clone: -> new Position(@i, @j)
+
     equals: (pos) ->
         @i == pos.i && @j == pos.j
 
