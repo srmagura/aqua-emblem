@@ -1,4 +1,4 @@
-window.VC = {
+window.VICTORY_CONDITIONS = {
     ROUT: {text: 'Defeat all enemies'}
 }
 
@@ -89,10 +89,10 @@ class window.Chapter
 
     render: (ui, ctx) ->
         @map.render(ui, ctx)
+        if @playerTurn.dest?
+            @playerTurn.dest.render(ui, ctx)
 
         for unit in @units
             unit.render(ui, ctx)
 
-        if @playerTurn.dest?
-            @playerTurn.dest.render(ui, ctx)
 
