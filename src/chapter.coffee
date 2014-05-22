@@ -93,3 +93,6 @@ class window.Chapter
         for unit in @units
             unit.render(ui, ctx)
 
+        if @playerTurn.dest?
+            @playerTurn.dest.render(ui, ctx)
+

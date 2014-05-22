@@ -6,7 +6,7 @@ class UI
         @then = Date.now()
         @canvas = $('canvas')
         @ctx = @canvas[0].getContext('2d')
-        @cursor = new Cursor()
+        @cursor = new Cursor(this)
 
         @controlState = new CsMap(this)
         $(window).keydown(@keydownHandler)
@@ -51,19 +51,20 @@ class UI
 
 
 window.init = ->
-    ui = new UI()
+    window.ui = new UI()
     chapter = new Chapter1(ui)
     ui.setChapter chapter
     ui.mainLoop()
 
 class Cursor
 
-    constructor: ->
+    constructor: (@ui) ->
         @visible = true
         @pos = new Position(0, 0)
 
     moveTo: (pos) ->
         @pos = pos.clone()
+        @ui.chapter.playerTurn.updateDestination()
 
     move: (di, dj) ->
         @moveTo(@pos.add(new Position(di, dj)))

@@ -21,7 +21,7 @@ window.TERRAIN_TYPES = {
     1: {color: '#DDD', block: true}
 }
 
-OVERLAY_TYPES = {
+window.OVERLAY_TYPES = {
     available: {startColor: '#AAF', endColor: '#22F'},
     attack: {startColor: '#FAA', endColor: '#F22'}
 }

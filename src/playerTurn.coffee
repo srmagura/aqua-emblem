@@ -2,6 +2,9 @@ class Destination
 
     constructor: (@pos, @path) ->
 
+    render: (ui, ctx) ->
+
+
 class window.Turn
 
     constructor: (@ui) ->
@@ -62,7 +65,7 @@ class window.Turn
                         dest = new Destination(pos2, [pos2])
 
                         prevPos = pos
-                        while prevPos is not null
+                        while prevPos isnt null
                             dest.path.unshift(prevPos)
                             prevPos = prev[prevPos.i][prevPos.j]
 
@@ -77,3 +80,23 @@ class window.PlayerTurn extends Turn
 
         for spot in @available
             @ui.chapter.map.setOverlay(spot.pos, 'available')
+
+        @dest = new Destination()
+        @updateDestination()
+
+    deselect: ->
+        @selectedUnit = null
+        @dest = null
+        @ui.chapter.map.clearOverlay()
+
+    updateDestination: ->
+        cp = @ui.cursor.pos
+        if @ui.chapter.map.overlayTiles[cp.i][cp.j] is
+        window.OVERLAY_TYPES['available']
+            @dest.pos = cp.clone()
+
+            for spot in @available
+                if spot.pos.equals(cp)
+                    @dest.path = spot.path
+                    break
+
