@@ -1,3 +1,5 @@
+MOVEMENT_SPEED = .4
+
 class UI
 
     tw: 35
@@ -41,11 +43,22 @@ class UI
             e.preventDefault()
             return false
 
+    update: (delta) ->
+        for unit in @chapter.units
+            if unit.direction?
+                if Math.abs(unit.offset.i) >= @tw or
+                Math.abs(unit.offset.j) >= @tw
+                    unit.pathNext()
+                else
+                    unit.offset = unit.offset.add(
+                        unit.direction.scale(delta * MOVEMENT_SPEED))
+
     mainLoop: =>
         now = Date.now()
         delta = now - @then
         @then = now
 
+        @update(delta)
         requestAnimationFrame(@mainLoop)
         @render()
 

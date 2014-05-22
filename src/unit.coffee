@@ -8,10 +8,10 @@ class window.Team
         #    this.units[k].aiType = AI_NORMAL
         #}
 
-class window.Unit
+#@AI_NORMAL: 0
+#@AI_HALT: 1
 
-    @AI_NORMAL: 0
-    @AI_HALT: 1
+class window.Unit
 
     constructor: (attr) ->
         for key, value of attr
@@ -23,6 +23,8 @@ class window.Unit
         if 'picture' not in this
             @picture = false
 
+        @offset = new Position(0, 0)
+
     render: (ui, ctx) ->
         tw = ui.tw
 
@@ -32,27 +34,25 @@ class window.Unit
             ctx.fillStyle = 'red'
 
         ctx.beginPath()
-        offset = @pos.scale(tw)
+        offset = @pos.scale(tw).add(@offset)
         ctx.arc(offset.j + tw/2, offset.i + tw/2,
             .2*tw, 0, 2*Math.PI, false)
         ctx.fill()
-###
-    followPath: (path, callback) ->
-        this.path = path
-        this.pathFollowCallback = callback
-        this.pathNext()
+
+    followPath: (@path, @pathFollowCallback) ->
+        @pathNext()
 
     pathNext: ->
-        this.offset = [0, 0]
-        this.pos = $.extend({}, this.path.shift())
+        @offset = new Position(0, 0)
+        @pos = @path.shift().clone()
 
-        if(this.path.length != 0){
-            this.direction = posSubtract(this.path[0], this.pos)
-        } else {
-            this.direction = null
-            this.pathFollowCallback()
-        }
+        if @path.length != 0
+            @direction = @path[0].subtract(@pos)
+        else
+            @direction = null
+            @pathFollowCallback()
 
+###
     this.die = function(){
         for(var k = 0; k < units.length; k++){
             if(units[k].id == this.id){

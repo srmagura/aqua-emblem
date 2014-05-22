@@ -145,3 +145,18 @@ class window.PlayerTurn extends Turn
                     @dest.path = spot.path
                     break
 
+    initMove: ->
+        unitAtDest = @ui.chapter.getUnitAt(@dest.pos)
+        if unitAtDest isnt null and unitAtDest isnt @selectedUnit
+            return
+
+        @selectedUnit.oldPos = @selectedUnit.pos
+        @ui.chapter.map.clearOverlay()
+        @ui.cursor.visible = false
+        @ui.controlState = new ControlState(@ui)
+
+        @selectedUnit.followPath(@dest.path, @afterPathFollow)
+        @dest = null
+
+    afterPathFollow: ->
+        console.log "afterPathFollow"

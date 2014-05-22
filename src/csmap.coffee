@@ -17,11 +17,14 @@ class window.CsMap extends ControlState
             @ui.cursor.move(0, 1)
 
     f: ->
-        if not @ui.chapter.playerTurn.selectedUnit?
+        pt = @ui.chapter.playerTurn
+        if not pt.selectedUnit?
             unit = @ui.chapter.getUnitAt(@ui.cursor.pos)
             if unit? and unit.team is @ui.chapter.playerTeam and
             not unit.done
-                @ui.chapter.playerTurn.select(unit)
+                pt.select(unit)
+        else if pt.dest.pos.equals(@ui.cursor.pos)
+            pt.initMove()
 
     d: ->
         @ui.chapter.playerTurn.deselect()
