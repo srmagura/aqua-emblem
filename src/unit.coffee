@@ -23,6 +23,14 @@ class window.Unit
         if 'picture' not of this
             @picture = false
 
+        if 'inventory' not of this
+            @inventory = []
+
+        for item in @inventory
+            if item.itemType is ITEM_TYPE.WEAPON
+                @equipped = item
+                break
+
         @offset = new Position(0, 0)
 
     render: (ui, ctx) ->
