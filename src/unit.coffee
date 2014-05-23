@@ -36,10 +36,13 @@ class window.Unit
     render: (ui, ctx) ->
         tw = ui.tw
 
-        if @team is ui.chapter.playerTeam
+        if @done
+            ctx.fillStyle = 'gray'
+        else if @team is ui.chapter.playerTeam
             ctx.fillStyle = 'blue'
         else
             ctx.fillStyle = 'red'
+
 
         ctx.beginPath()
         offset = @pos.scale(tw).add(@offset)
@@ -59,6 +62,10 @@ class window.Unit
         else
             @direction = null
             @pathFollowCallback()
+
+    setDone: ->
+        @done = true
+        @ui.chapter.checkAllDone()
 
 ###
     this.die = function(){
@@ -88,41 +95,4 @@ class window.Unit
             return !chapter.checkConditions()
         }
     }
-
-    this.setDone = function(){
-        this.done = true
-        chapter.checkAllDone()
-    }
-
-    if(!('inventory' in this)){
-        this.inventory = []
-    }
-
-    this.equipped = null
-    for(var k = 0; k < this.inventory.length; k++){
-        if(this.inventory[k].itemType == IT_WEAPON){
-            this.equipped = this.inventory[k]
-        }
-    }
-
-    this.direction = null
-    this.offset = [0, 0]
-
-}
-
-function Item(itemId){
-    for(var key in allItems[itemId]){
-        this[key] = allItems[itemId][key]
-    }
-
-    this.itemId = itemId
-}
-
-IT_WEAPON = 0
-WT_SWORD = 0
-var allItems = {
-    'iron-sword': {itemType: IT_WEAPON, 
-    weaponType: WT_SWORD, 
-    name: 'Iron sword', might: 4} 
-}
 ###

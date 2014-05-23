@@ -25,6 +25,7 @@ class window.Chapter
         for unit in @units
             unit.hp = unit.baseHp
             unit.mp = unit.baseMp
+            unit.ui = @ui
 
     getUnitAt: (pos) ->
         for unit in @units
@@ -77,8 +78,8 @@ class window.Chapter
                 allDone = false
                 break
 
-        if allDone
-            @initTurn(@enemyTeam)
+        #if allDone
+            #@initTurn(@enemyTeam)
 
     getUnitAt: (pos) ->
         for unit in @units

@@ -14,6 +14,7 @@ class UI
         $(window).keydown(@keydownHandler)
 
         @unitInfoBox = new UnitInfoBox(this, '.sidebar .unit-info')
+        @actionMenu = new ActionMenu(this)
 
     setChapter: (@chapter) ->
         @canvas.attr('width', @chapter.map.width*@tw)

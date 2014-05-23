@@ -158,12 +158,15 @@ class window.PlayerTurn extends Turn
         @selectedUnit.followPath(@dest.path, @afterPathFollow)
         @dest = null
 
-    afterPathFollow: ->
+    afterPathFollow: =>
+        @ui.unitInfoBox.populate(@selectedUnit)
+        @ui.unitInfoBox.show()
+
         actions = []
         actions.push(new ActionMenuItem('Wait', @handleWait))
         @ui.actionMenu.init(actions)
 
-    @handleWait: ->
+    handleWait: =>
         @ui.cursor.visible = true
         @selectedUnit.setDone()
         @deselect()
