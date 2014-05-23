@@ -94,5 +94,3 @@ class window.Chapter
 
         for unit in @units
             unit.render(ui, ctx)
-
-

@@ -17,10 +17,10 @@ class window.Unit
         for key, value of attr
             this[key] = value
 
-        if 'lord' not in this
+        if 'lord' not of this
             @lord = false
 
-        if 'picture' not in this
+        if 'picture' not of this
             @picture = false
 
         @offset = new Position(0, 0)

@@ -13,6 +13,8 @@ class UI
         @controlState = new CsMap(this)
         $(window).keydown(@keydownHandler)
 
+        @unitInfoBox = new UnitInfoBox(this, '.sidebar .unit-info')
+
     setChapter: (@chapter) ->
         @canvas.attr('width', @chapter.map.width*@tw)
         @canvas.attr('height', @chapter.map.height*@tw)
@@ -20,6 +22,7 @@ class UI
             $('.left-sidebar').width()*2 + 30)
         $('.game-wrapper').css('height', @canvas.height() + 40)
         $('.victory-condition').text(@chapter.victoryCondition.text)
+        @cursor.moveTo(new Position(0, 0))
 
     render: ->
         if @chapter?
@@ -73,17 +76,23 @@ class Cursor
 
     constructor: (@ui) ->
         @visible = true
-        @pos = new Position(0, 0)
 
     moveTo: (pos) ->
         @pos = pos.clone()
         @ui.chapter.playerTurn.updateDestination()
 
+        unitAt = @ui.chapter.getUnitAt(@pos)
+        if unitAt is null
+            @ui.unitInfoBox.hide()
+        else
+            @ui.unitInfoBox.populate(unitAt)
+            @ui.unitInfoBox.show()
+
     move: (di, dj) ->
         @moveTo(@pos.add(new Position(di, dj)))
 
     render: (ui, ctx) ->
-        return if not @visible
+        return if not @visible or not @pos?
 
         s = 5
         tw = ui.tw
@@ -102,4 +111,3 @@ class window.ControlState
     f: ->
     d: ->
     s: ->
-

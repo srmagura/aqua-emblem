@@ -159,4 +159,11 @@ class window.PlayerTurn extends Turn
         @dest = null
 
     afterPathFollow: ->
-        console.log "afterPathFollow"
+        actions = []
+        actions.push(new ActionMenuItem('Wait', @handleWait))
+        @ui.actionMenu.init(actions)
+
+    @handleWait: ->
+        @ui.cursor.visible = true
+        @selectedUnit.setDone()
+        @deselect()
