@@ -37,7 +37,11 @@ class window.CsChooseTarget extends CsMap
         target = @ui.chapter.getUnitAt(@ui.cursor.pos)
 
         if target isnt null and target in @playerTurn.inRange
-            console.log 'create battle'
+            @playerTurn.battle = new Battle(@ui,
+                @playerTurn.selectedUnit, target)
+
+            @ui.weaponMenu.init(@playerTurn)
+            @ui.battleStatsPanel.init()
 
     d: ->
         @ui.actionMenu.show()

@@ -29,6 +29,8 @@ class CsMenu extends ControlState
 
     constructor: (@ui, @menuObj) ->
 
+    onChange: ->
+
     up: ->
         sel = @menuObj.menu.find('.selected')
         sel.removeClass('selected')
@@ -39,6 +41,8 @@ class CsMenu extends ControlState
             @menuObj.menu.children('div').last().
                 addClass('selected')
 
+        @onChange()
+
     down: ->
         sel = @menuObj.menu.find('.selected')
         sel.removeClass('selected')
@@ -48,6 +52,8 @@ class CsMenu extends ControlState
         else
             @menuObj.menu.children('div').first().
                 addClass('selected')
+
+        @onChange()
 
 class window.CsActionMenu extends CsMenu
 
@@ -65,8 +71,7 @@ class window.CsActionMenu extends CsMenu
         ch = @ui.chapter
         unit = ch.playerTurn.selectedUnit
         unit.pos = unit.oldPos
+        ch.playerTurn.deselect()
         
         @ui.cursor.visible = true
         @ui.cursor.moveTo(unit.pos.clone())
-
-

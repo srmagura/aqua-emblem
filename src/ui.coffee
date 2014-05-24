@@ -15,6 +15,8 @@ class UI
 
         @unitInfoBox = new UnitInfoBox(this, '.sidebar .unit-info')
         @actionMenu = new ActionMenu(this)
+        @weaponMenu = new WeaponMenu(this)
+        @battleStatsPanel = new BattleStatsPanel(this)
 
     setChapter: (@chapter) ->
         @canvas.attr('width', @chapter.map.width*@tw)
