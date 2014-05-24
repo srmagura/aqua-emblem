@@ -28,3 +28,18 @@ class window.CsMap extends ControlState
 
     d: ->
         @ui.chapter.playerTurn.deselect()
+
+class window.CsChooseTarget extends CsMap
+
+    constructor: (@ui, @playerTurn) ->
+
+    f: ->
+        target = @ui.chapter.getUnitAt(@ui.cursor.pos)
+
+        if target isnt null and target in @playerTurn.inRange
+            console.log 'create battle'
+
+    d: ->
+        @ui.actionMenu.show()
+        @ui.controlState = new CsActionMenu(@ui, @ui.actionMenu)
+        @ui.cursor.moveTo(@playerTurn.selectedUnit.pos)

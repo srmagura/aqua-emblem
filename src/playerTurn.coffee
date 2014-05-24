@@ -141,7 +141,7 @@ class window.PlayerTurn extends Turn
         @available = @getAvailable(@selectedUnit)
 
         for spot in @available
-            @ui.chapter.map.setOverlay(spot.pos, 'available')
+            @ui.chapter.map.setOverlay(spot.pos, 'AVAILABLE')
 
         @dest = new Destination()
         @updateDestination()
@@ -154,7 +154,7 @@ class window.PlayerTurn extends Turn
     updateDestination: ->
         cp = @ui.cursor.pos
         if @ui.chapter.map.overlayTiles[cp.i][cp.j] is
-        window.OVERLAY_TYPES['available']
+        OVERLAY_TYPES.AVAILABLE
             @dest.pos = cp.clone()
 
             for spot in @available
@@ -180,16 +180,17 @@ class window.PlayerTurn extends Turn
         @ui.unitInfoBox.show()
 
         attackRange = @getAttackRange(@selectedUnit.pos)
-        inRange = []
+        @inRange = []
 
         for obj in attackRange
+            @ui.chapter.map.setOverlay(obj.targetSpot, 'ATTACK')
             target = @ui.chapter.getUnitAt(obj.targetSpot)
-            if target?
-                inRange.push(target)
+            if target? and target.team isnt @selectedUnit.team
+                @inRange.push(target)
 
         actions = []
 
-        if inRange.length != 0
+        if @inRange.length != 0
             actions.push(new ActionMenuItem('Attack', @handleAttack))
 
         actions.push(new ActionMenuItem('Wait', @handleWait))
@@ -201,4 +202,8 @@ class window.PlayerTurn extends Turn
         @deselect()
 
     handleAttack: =>
-        console.log "handle attack"
+        @ui.cursor.visible = true
+        @ui.cursor.moveTo(@inRange[0].pos)
+
+        @ui.actionMenu.hide()
+        @ui.controlState = new CsChooseTarget(@ui, this)

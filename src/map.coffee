@@ -22,8 +22,8 @@ window.TERRAIN_TYPES = {
 }
 
 window.OVERLAY_TYPES = {
-    available: {startColor: '#AAF', endColor: '#22F'},
-    attack: {startColor: '#FAA', endColor: '#F22'}
+    AVAILABLE: {startColor: '#AAF', endColor: '#22F'},
+    ATTACK: {startColor: '#FAA', endColor: '#F22'}
 }
 
 class window.Map
