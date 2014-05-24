@@ -24,7 +24,10 @@ class window.Chapter
 
         for unit in @units
             unit.hp = unit.baseHp
-            unit.mp = unit.baseMp
+
+            if unit.baseMp?
+                unit.mp = unit.baseMp
+
             unit.ui = @ui
 
     getUnitAt: (pos) ->

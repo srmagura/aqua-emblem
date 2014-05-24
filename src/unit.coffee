@@ -1,15 +1,17 @@
+window.AI_TYPES = {
+    NORMAL: 0,
+    HALT: 1
+}
+
+
 class window.Team
     
-    constructor: (@units) ->
+    constructor: (@units, isAi) ->
         for unit in @units
             unit.team = this
 
-        #if(teamId == TEAM_ENEMY && !('aiType' in this.units[k])){
-        #    this.units[k].aiType = AI_NORMAL
-        #}
-
-#@AI_NORMAL: 0
-#@AI_HALT: 1
+            if isAi and 'aiType' not of unit
+                this.units[k].aiType = AI_TYPES.NORMAL
 
 class window.Unit
 

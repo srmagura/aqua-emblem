@@ -53,6 +53,8 @@ class Destination
 class window.Turn
 
     constructor: (@ui) ->
+        @directions = [new Position(-1, 0), new Position(1, 0)
+        new Position(0, -1), new Position(0, 1)]
 
     getAvailable: (unit) ->
         available = [new Destination(unit.pos, [unit.pos])]
@@ -85,20 +87,18 @@ class window.Turn
 
             return [queue.splice(minDistK, 1)[0], minDist]
 
-        directions = [new Position(-1, 0), new Position(1, 0)
-        new Position(0, -1), new Position(0, 1)]
-
         while queue.length != 0
             [pos, posDist] = popClosest()
             if posDist is Infinity
                 break
 
             for k in [0..3]
-                pos2 = pos.add(directions[k])
+                pos2 = pos.add(@directions[k])
+                unitAt = @ui.chapter.getUnitAt(pos2)
 
                 if map.onMap(pos2) and
-                not TERRAIN_TYPES[map.tiles[pos2.i][pos2.j]].block
-                    unitAt = @ui.chapter.getUnitAt(pos2)
+                not TERRAIN_TYPES[map.tiles[pos2.i][pos2.j]].block and
+                (unitAt is null or unitAt.team is unit.team)
                     alt = posDist + 1
 
                     if (unitAt is null or
@@ -117,6 +117,23 @@ class window.Turn
                         available.push(dest)
 
         return available
+
+    getAttackRange: (pos) ->
+        attackRange = []
+
+        for dir in @directions
+            alt = pos.add(dir)
+            if @ui.chapter.map.onMap(alt)
+                attackRange.push({moveSpot: pos, targetSpot: alt})
+
+        return attackRange
+
+    movementGetAttackRange: (available) ->
+        attackRange = []
+        for avail in available
+            attackRange = attackRange.concat(@getAttackRange(avail))
+
+        return attackRange
 
 class window.PlayerTurn extends Turn
 
@@ -162,7 +179,19 @@ class window.PlayerTurn extends Turn
         @ui.unitInfoBox.populate(@selectedUnit)
         @ui.unitInfoBox.show()
 
+        attackRange = @getAttackRange(@selectedUnit.pos)
+        inRange = []
+
+        for obj in attackRange
+            target = @ui.chapter.getUnitAt(obj.targetSpot)
+            if target?
+                inRange.push(target)
+
         actions = []
+
+        if inRange.length != 0
+            actions.push(new ActionMenuItem('Attack', @handleAttack))
+
         actions.push(new ActionMenuItem('Wait', @handleWait))
         @ui.actionMenu.init(actions)
 
@@ -170,3 +199,6 @@ class window.PlayerTurn extends Turn
         @ui.cursor.visible = true
         @selectedUnit.setDone()
         @deselect()
+
+    handleAttack: =>
+        console.log "handle attack"
