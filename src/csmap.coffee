@@ -29,6 +29,12 @@ class window.CsMap extends ControlState
     d: ->
         @ui.chapter.playerTurn.deselect()
 
+    s: ->
+        unit = @ui.chapter.getUnitAt(@ui.cursor.pos)
+
+        if unit?
+            @ui.unitInfoWindow.init(unit)
+
 class window.CsChooseTarget extends CsMap
 
     constructor: (@ui, @playerTurn) ->

@@ -14,6 +14,7 @@ class UI
         $(window).keydown(@keydownHandler)
 
         @unitInfoBox = new UnitInfoBox(this, '.sidebar .unit-info')
+        @unitInfoWindow = new UnitInfoWindow(this)
         @actionMenu = new ActionMenu(this)
         @weaponMenu = new WeaponMenu(this)
         @battleStatsPanel = new BattleStatsPanel(this)
