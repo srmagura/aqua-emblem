@@ -5,16 +5,28 @@ window.AI_TYPE = {
 
 class window.Team
     
-    constructor: (@units, isAi) ->
+    constructor: (@units, attr={}) ->
         for unit in @units
             unit.team = this
 
-            if isAi and 'aiType' not of unit
-                this.units[k].aiType = AI_TYPE.NORMAL
+            if attr.isAi and 'aiType' not of unit
+                unit.aiType = AI_TYPE.NORMAL
+
+            if 'defaultName' of attr and not unit.name?
+                unit.name = attr.defaultName
 
 class window.Unit
 
     constructor: (attr) ->
+        @rawStats = {}
+
+        for stat, value of @baseStats
+            if stat of @growthRates
+                value += @growthRates[stat] * (attr['level']-1)
+
+            @rawStats[stat] = value
+            this[stat] = Math.round(value)
+
         for key, value of attr
             this[key] = value
 
