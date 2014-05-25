@@ -6,10 +6,10 @@ class window.Chapter
     
     constructor: (@ui, @map, @playerTeam, @enemyTeam, @victoryCondition) ->
         @done = false
-
         @initUnits()
+
         @playerTurn = new PlayerTurn(@ui)
-        #@initTurn(@playerTeam)
+        @enemyTurn = new EnemyTurn(@ui)
 
     initUnits: ->
         @units = []
@@ -64,9 +64,9 @@ class window.Chapter
         if team == @enemyTeam
             @ui.cursor.visible = false
 
-        callback = (team) ->
-            if team is @teamEnemy
-                #doEnemyTurn()
+        callback = (team) =>
+            if team is @enemyTeam
+                @enemyTurn.doTurn()
             else
                 @ui.controlState = new CsMap(@ui)
                 @ui.cursor.visible = true
@@ -81,8 +81,8 @@ class window.Chapter
                 allDone = false
                 break
 
-        #if allDone
-            #@initTurn(@enemyTeam)
+        if allDone
+            @initTurn(@enemyTeam)
 
     getUnitAt: (pos) ->
         for unit in @units

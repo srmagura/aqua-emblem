@@ -1,8 +1,7 @@
-window.AI_TYPES = {
+window.AI_TYPE = {
     NORMAL: 0,
     HALT: 1
 }
-
 
 class window.Team
     
@@ -11,7 +10,7 @@ class window.Team
             unit.team = this
 
             if isAi and 'aiType' not of unit
-                this.units[k].aiType = AI_TYPES.NORMAL
+                this.units[k].aiType = AI_TYPE.NORMAL
 
 class window.Unit
 

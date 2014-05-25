@@ -17,6 +17,7 @@ class UI
         @actionMenu = new ActionMenu(this)
         @weaponMenu = new WeaponMenu(this)
         @battleStatsPanel = new BattleStatsPanel(this)
+        @messageBox = new MessageBox(this)
 
     setChapter: (@chapter) ->
         @canvas.attr('width', @chapter.map.width*@tw)
@@ -26,6 +27,7 @@ class UI
         $('.game-wrapper').css('height', @canvas.height() + 40)
         $('.victory-condition').text(@chapter.victoryCondition.text)
         @cursor.moveTo(new Position(0, 0))
+        @chapter.initTurn(@chapter.playerTeam)
 
     render: ->
         if @chapter?

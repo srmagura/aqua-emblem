@@ -26,7 +26,7 @@ class window.Chapter1 extends Chapter
             inventory: [new Item('iron-sword')]}),
             new Unit({name: 'Bandit lord',
             pos: new Position(0, 5),
-            aiType: AI_TYPES.HALT,
+            aiType: AI_TYPE.HALT,
             baseHp: 22,
             move: 4, str: 4, def: 1,
             inventory: [new Item('iron-sword')]})

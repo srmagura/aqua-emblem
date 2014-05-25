@@ -79,7 +79,10 @@ class window.Turn
     movementGetAttackRange: (available) ->
         attackRange = []
         for avail in available
-            attackRange = attackRange.concat(@getAttackRange(avail))
+            localRange = @getAttackRange(avail.pos)
+            for obj in localRange
+                obj.path = avail.path
+                attackRange.push(obj)
 
         return attackRange
 

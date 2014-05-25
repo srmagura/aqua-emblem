@@ -1,18 +1,18 @@
 class window.MessageBox
 
-    constructor: ->
+    constructor: (@ui) ->
         @mbox = $('.message')
 
-    showPhaseMessage: (teamId, callback) ->
+    showPhaseMessage: (team, callback) ->
+        ch = @ui.chapter
         css = {}
 
-        if(teamId == TEAM_PLAYER)
+        if team is ch.playerTeam
             text = 'Player phase'
             css.color = 'blue'
-        else if(teamId == TEAM_ENEMY)
+        else
             text = 'Enemy phase'
             css.color = 'red'
-        
 
         textEl = $(document.createElement('div'))
         textEl.css(css).addClass('phase-message').text(text)
@@ -21,11 +21,11 @@ class window.MessageBox
         fadeDuration = 400
         textEl.fadeIn(fadeDuration)
 
-        afterFadeOut = ->
+        afterFadeOut = =>
             @mbox.html('')
-            callback(teamId)
+            callback(team)
 
-        toDelay = ->
+        toDelay = =>
             textEl.fadeOut(fadeDuration, afterFadeOut)
 
         setTimeout(toDelay, fadeDuration*4)
