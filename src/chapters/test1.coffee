@@ -1,4 +1,4 @@
-class window.Chapter1 extends Chapter
+class window.TestChapter1 extends Chapter
 
     constructor: (ui) ->
         playerUnits = [

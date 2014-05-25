@@ -74,7 +74,7 @@ class UI
 
 window.init = ->
     window.ui = new UI()
-    chapter = new Chapter1(ui)
+    chapter = new TestChapter1(ui)
     ui.setChapter chapter
     ui.mainLoop()
 
