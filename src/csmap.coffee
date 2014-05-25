@@ -41,7 +41,7 @@ class window.CsChooseTarget extends CsMap
                 @playerTurn.selectedUnit, target)
 
             @ui.weaponMenu.init(@playerTurn)
-            @ui.battleStatsPanel.init()
+            @ui.battleStatsPanel.init(@playerTurn.battle)
 
     d: ->
         @ui.actionMenu.show()
