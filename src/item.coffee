@@ -9,7 +9,7 @@ window.WEAPON_TYPE = {
 allItems = {
     'iron-sword': {itemType: ITEM_TYPE.WEAPON,
     weaponType: WEAPON_TYPE.SWORD,
-    name: 'Iron sword', might: 4}
+    name: 'Iron sword', hit: 85, might: 4, weight: 2, crit: 0}
 }
 
 class window.Item

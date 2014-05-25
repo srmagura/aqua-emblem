@@ -47,6 +47,19 @@ class window.UnitInfoWindow
             row = $('<div>' + item.name + '</div>')
             inv.append(row)
 
+        unit.calcCombatStats()
+        combatStats = invContent.find('.combat-stats')
+        combatStatsStr = {hit: unit.hit,
+        crit: unit.crit, evade: unit.evade, atk: unit.atk}
+
+        for key, value of combatStatsStr
+            if not value?
+                value = '--'
+            else
+                value = Math.round(value)
+
+            combatStats.find('.' + key).text(value)
+
         stats = w.find('.tab-content-stats')
         statTypes = ['str', 'skill', 'mag', 'speed', 'def', 'luck',
             'res', 'move', 'aid', 'con']

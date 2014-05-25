@@ -84,7 +84,7 @@
     display: none;
 }
 
-.unit-info-window .inventory
+.unit-info-window .inventory, .unit-info-window .tab-content-stats .stats
 {
     border: 2px solid #007A29;
     background-color: #BEB;

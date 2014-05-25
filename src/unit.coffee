@@ -46,6 +46,36 @@ class window.Unit
 
         @offset = new Position(0, 0)
 
+    setDone: ->
+        @done = true
+        @ui.chapter.checkAllDone()
+
+    followPath: (@path, @pathFollowCallback) ->
+        @pathNext()
+
+    pathNext: ->
+        @offset = new Position(0, 0)
+        @pos = @path.shift().clone()
+
+        if @path.length != 0
+            @direction = @path[0].subtract(@pos)
+        else
+            @direction = null
+            @pathFollowCallback()
+
+    calcCombatStats: ->
+        if not @equipped? or @equipped.weight <= @con
+            @attackSpeed = @speed
+        else
+            @attackSpeed = @speed - @equipped.weight + @con
+
+        if @equipped?
+            @hit = @equipped.hit + 2*@skill + @luck / 2
+            @atk = @str + @equipped.might
+            @crit = @equipped.crit + @skill / 2
+
+        @evade = @attackSpeed*2 + @luck
+
     render: (ui, ctx) ->
         tw = ui.tw
 
@@ -63,19 +93,3 @@ class window.Unit
             .2*tw, 0, 2*Math.PI, false)
         ctx.fill()
 
-    followPath: (@path, @pathFollowCallback) ->
-        @pathNext()
-
-    pathNext: ->
-        @offset = new Position(0, 0)
-        @pos = @path.shift().clone()
-
-        if @path.length != 0
-            @direction = @path[0].subtract(@pos)
-        else
-            @direction = null
-            @pathFollowCallback()
-
-    setDone: ->
-        @done = true
-        @ui.chapter.checkAllDone()
