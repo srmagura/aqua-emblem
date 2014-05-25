@@ -40,7 +40,8 @@ class window.UnitInfoWindow
         w.find('.tab-content').hide()
 
         w.find('.tab-label-inventory').addClass('selected')
-        inv = w.find('.tab-content-inventory').show().html('')
+        invContent = w.find('.tab-content-inventory').show()
+        inv = invContent.find('.inventory').html('')
 
         for item in unit.inventory
             row = $('<div>' + item.name + '</div>')

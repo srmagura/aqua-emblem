@@ -81,27 +81,52 @@
 
 .unit-info-window .tab-content
 {
-    border: 2px solid #007A29;
-    background-color: #BEB;
-    padding: 5px;
     display: none;
 }
 
-.unit-info-window .tab-content-inventory
+.unit-info-window .inventory
 {
+    border: 2px solid #007A29;
+    background-color: #BEB;
+    padding: 5px;
     height: 115px;
 }
 
-.unit-info-window .tab-content-inventory div
+.unit-info-window .tab-content-inventory .inventory div
 {
     padding: 2px 0 3px;
+}
+
+
+.unit-info-window .combat-stats
+{
+    border: 2px solid #007A29;
+    background-color: #BEB;
+    padding: 2px;
+    margin-top: 8px
+}
+
+.unit-info-window .combat-stats table
+{
+    width: 100%;
+}
+
+.unit-info-window .combat-stats td
+{
+    padding: 2px;
+    width: 25%;
+}
+
+.unit-info-window .combat-stats td.stat
+{
+    color: #007A29;
+    font-weight: bold;
 }
 
 .unit-info-window .tab-content-stats table
 {
     width: 100%;
 }
-
 
 .unit-info-window .tab-content-stats table .stat
 {
