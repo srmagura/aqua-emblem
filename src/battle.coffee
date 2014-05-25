@@ -19,5 +19,75 @@ class window.Battle
     setPlayerWeapon: (weapon) ->
         @calcBattleStats(weapon)
 
-    doBattle: (callback) ->
+    doBattle: (@callback) ->
+        @container = $(document.createElement('div'))
+        @container.addClass('battle-unit-info-container').appendTo('body')
 
+        atkBoxEl = $('.sidebar .unit-info').clone()
+        defBoxEl = $('.sidebar .unit-info').clone()
+
+        if @atk.team is @ui.chapter.playerTeam
+            @container.append(atkBoxEl).append(defBoxEl)
+        else
+            @container.append(defBoxEl).append(atkBoxEl)
+
+        @atkBox = new UnitInfoBox(@ui, atkBoxEl)
+        @atkBox.populate(@atk, false)
+        @atkBox.show()
+
+        @defBox = new UnitInfoBox(@ui, defBoxEl)
+        @defBox.populate(@def, false)
+        @defBox.show()
+
+        cpos = @ui.canvas.position()
+        midpoint = @atk.pos.add(@def.pos)
+
+        tw = @ui.tw
+        left = midpoint.j*tw/2 + cpos.left - defBoxEl.width()
+        top = midpoint.i*tw/2 + 1.5*tw + cpos.top
+        @container.css({left: left, top: top})
+
+        @turnIndex = 0
+        @delay = 500
+
+        setTimeout(@doAttack, @delay)
+
+    getOther: (unit) ->
+        if unit is @atk
+            return @def
+        if unit is @def
+            return @atk
+
+    doAttack: =>
+        callMade = false
+        giver = @turns[@turnIndex]
+        recvr = @getOther(giver)
+
+        recvr.hp -= giver.battleStats.dmg
+        if recvr.hp <= 0
+            recvr.hp = 0
+
+            setTimeout(@battleDone, @delay)
+            callMade = true
+
+        @turnIndex++
+        if not callMade
+            if @turnIndex == @turns.length
+                setTimeout(@battleDone, @delay)
+            else
+                setTimeout(@doAttack, @delay)
+
+        @atkBox.populate(@atk, true)
+        @defBox.populate(@def, true)
+
+    battleDone: =>
+        keepGoing = true
+        @container.remove()
+
+        if @atk.hp == 0
+            keepGoing = @atk.die()
+        if @def.hp == 0
+            keepGoing = @def.die()
+
+        if(keepGoing and @callback?)
+            @callback()

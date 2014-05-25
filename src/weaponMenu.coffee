@@ -26,6 +26,7 @@ class window.WeaponMenu
 class CsWeaponMenu
 
     constructor: (@ui, @menuObj) ->
+        @playerTurn = @ui.chapter.playerTurn
 
     onChange: ->
         @playerTurn.battle.setPlayerWeapon(@menuObj.menu.
@@ -39,7 +40,7 @@ class CsWeaponMenu
         @ui.cursor.visible = false
         @ui.controlState = new ControlState(@ui)
 
-        console.log 'do battle'
+        @playerTurn.battle.doBattle(@playerTurn.afterBattle)
 
     d: ->
         @ui.cursor.visible = true

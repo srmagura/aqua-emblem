@@ -156,6 +156,14 @@ class window.PlayerTurn extends Turn
         @ui.actionMenu.hide()
         @ui.controlState = new CsChooseTarget(@ui, this)
 
+    afterBattle: =>
+        @ui.controlState = new CsMap(@ui)
+        @ui.cursor.visible = true
+        @ui.cursor.moveTo(@selectedUnit.pos)
+
+        @selectedUnit.setDone()
+        @selectedUnit = null
+
 class Destination
 
     constructor: (@pos, @path) ->

@@ -248,7 +248,7 @@ div.battle-stats-panel .neutral-box
 
 .battle-unit-info-container .unit-info
 {
-    display: inline-block;
+    float: left;
     margin: 3px;
 }
 
