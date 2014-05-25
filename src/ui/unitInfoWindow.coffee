@@ -32,8 +32,8 @@ class window.UnitInfoWindow
             nameField += ' <div class="lord">(Lord)</div>'
 
         w.find('.common .name').html(nameField)
-        w.find('.common .uclass').text('Mercenary')
-        w.find('.common .level').text('1')
+        w.find('.common .uclass').text(unit.uclassName)
+        w.find('.common .level').text(unit.level)
         w.find('.common .exp').text('0')
 
         w.find('.labels > div').removeClass('selected')
