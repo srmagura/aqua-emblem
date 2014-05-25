@@ -14,7 +14,7 @@ class window.EnemyTurn extends Turn
         nextUnit = eu[eu.indexOf(unit)+1]
 
         if unit.aiType == AI_TYPE.HALT
-            available = [{pos: unit.pos, path: [unit.pos]}]
+            available = [new Destination(unit.pos, [unit.pos])]
         else
             available = @getAvailable(unit)
 
@@ -25,8 +25,8 @@ class window.EnemyTurn extends Turn
             unit1 = @ui.chapter.getUnitAt(obj.targetSpot)
             unit2 = @ui.chapter.getUnitAt(obj.moveSpot)
 
-            if unit2 is null and unit1 != null &&
-            unit1.team is @ui.chapter.playerTeam
+            if (unit2 is null or unit2 is unit) and
+            unit1 != null and unit1.team is @ui.chapter.playerTeam
                 inRange.push({
                     moveSpot: obj.moveSpot,
                     path: obj.path,

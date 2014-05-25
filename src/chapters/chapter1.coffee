@@ -2,7 +2,7 @@ class window.Chapter1 extends Chapter
 
     constructor: (ui) ->
         playerUnits = [
-            new Unit({name: 'Ace', baseHp: 25, baseMp: 5,
+            new Unit({name: 'Ace', baseHp: 1, baseMp: 5,
             move: 4, str: 7, def: 5,
             skill: 5, speed: 6, res: 2, luck: 8, aid: 7, con: 5,
             mag: 0, picture: true, lord: true,
@@ -48,4 +48,4 @@ class window.Chapter1 extends Chapter
 
         map = new Map(tiles, playerPositions)
         super(ui, map, playerTeam, enemyTeam,
-        VICTORY_CONDITIONS.ROUT)
+        VICTORY_CONDITION.ROUT)

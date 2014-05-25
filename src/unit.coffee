@@ -67,33 +67,3 @@ class window.Unit
     setDone: ->
         @done = true
         @ui.chapter.checkAllDone()
-
-###
-    this.die = function(){
-        for(var k = 0; k < units.length; k++){
-            if(units[k].id == this.id){
-                units.splice(k, 1)
-            }
-        }
-
-        var team
-        if(this.team == TEAM_PLAYER)
-            team = chapter.playerTeam
-        else if(this.team == TEAM_ENEMY)
-            team = chapter.enemyTeam
-
-        for(var k = 0; k < team.units.length; k++){
-            if(team.units[k].id == this.id){
-                team.units.splice(k, 1)
-            }
-        }
-
-        if(this.lord){
-            chapter.defeat()
-            return false
-        } else {
-            updateUnitInfoBox()
-            return !chapter.checkConditions()
-        }
-    }
-###

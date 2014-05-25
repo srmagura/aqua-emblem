@@ -1,4 +1,4 @@
-window.VICTORY_CONDITIONS = {
+window.VICTORY_CONDITION = {
     ROUT: {text: 'Defeat all enemies'}
 }
 
@@ -37,15 +37,31 @@ class window.Chapter
 
         null
 
+    kill: (unit) ->
+        removeFrom = (array) ->
+            for u, k in array
+                if u is unit
+                    array.splice(k, 1)
+                    break
+
+        removeFrom(@units)
+        removeFrom(unit.team.units)
+
+        if unit.lord
+            @defeat()
+            return false
+
+        return not @checkConditions()
+
     checkConditions: ->
         victory = false
 
-        if @victoryCondition == VC_ROUT
+        if @victoryCondition == VICTORY_CONDITION.ROUT
             victory = (@enemyTeam.units.length == 0)
 
         if victory
             @ui.messageBox.showVictoryMessage()
-            @ui.unitInfoBox.update()
+            @ui.unitInfoBox.hide()
             @done = true
             return true
         else
@@ -53,8 +69,8 @@ class window.Chapter
 
     defeat: ->
         @done = true
-        #showDefeatMessage()
-        #hideUnitInfoBox()
+        @ui.unitInfoBox.hide()
+        @ui.messageBox.showDefeatMessage()
 
     initTurn: (team) ->
         for unit in @units

@@ -167,7 +167,7 @@ class window.PlayerTurn extends Turn
         @selectedUnit.setDone()
         @selectedUnit = null
 
-class Destination
+class window.Destination
 
     constructor: (@pos, @path) ->
 

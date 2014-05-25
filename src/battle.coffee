@@ -85,9 +85,9 @@ class window.Battle
         @container.remove()
 
         if @atk.hp == 0
-            keepGoing = @atk.die()
+            keepGoing = @ui.chapter.kill(@atk)
         if @def.hp == 0
-            keepGoing = @def.die()
+            keepGoing = @ui.chapter.kill(@def)
 
         if(keepGoing and @callback?)
             @callback()
