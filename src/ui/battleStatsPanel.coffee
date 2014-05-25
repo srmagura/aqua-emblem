@@ -10,6 +10,8 @@ class window.BattleStatsPanel
             text(battle.atk.battleStats.hit)
         @panel.find('.attacker-dmg').
             text(battle.atk.battleStats.dmg)
+        @panel.find('.attacker-crt').
+            text(battle.atk.battleStats.crt)
 
         @panel.find('.defender-name').
             text(battle.def.name)
@@ -17,6 +19,8 @@ class window.BattleStatsPanel
             text(battle.def.battleStats.hit)
         @panel.find('.defender-dmg').
             text(battle.def.battleStats.dmg)
+        @panel.find('.defender-crt').
+            text(battle.def.battleStats.crt)
 
         @show()
 

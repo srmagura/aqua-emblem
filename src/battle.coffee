@@ -15,6 +15,7 @@ class window.Battle
     calcIndividual: (unit1, weapon1, unit2) ->
         unit1.battleStats = {hit: 100}
         unit1.battleStats.dmg = unit1.str + weapon1.might - unit2.def
+        unit1.battleStats.crt = 0
 
     setPlayerWeapon: (weapon) ->
         @calcBattleStats(weapon)

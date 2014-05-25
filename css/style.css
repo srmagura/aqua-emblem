@@ -206,6 +206,11 @@ div.battle-stats-panel .attacker-hit
 
 div.battle-stats-panel .attacker-dmg
 {
+    border-style: none solid none none;
+}
+
+div.battle-stats-panel .attacker-crt
+{
     border-style: none solid solid none;
 }
 
@@ -225,12 +230,23 @@ div.battle-stats-panel .defender-dmg
     border-style: none none none solid;
 }
 
+div.battle-stats-panel .defender-crt
+{
+    border-style: none none none solid;
+}
+
 div.battle-stats-panel .hit
 {
     border-bottom-style: none;
 }
 
 div.battle-stats-panel .dmg
+{
+    border-top-style: none;
+    border-bottom-style: none;
+}
+
+div.battle-stats-panel .crt
 {
     border-top-style: none;
 }
