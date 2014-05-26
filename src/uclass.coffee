@@ -6,7 +6,7 @@ class window.uclass.Mercenary extends Unit
         @wield = [WEAPON_TYPE.SWORD]
 
         @baseStats = {baseHp: 18, move: 5, str: 4, def: 2,
-        skill: 5, speed: 6, res: 1, luck: 2, aid: 7, con: 5,
+        skill: 4, speed: 6, res: 1, luck: 2, aid: 7, con: 5,
         mag: 0}
 
         @growthRates = {baseHp: .8, str: .5, skill: .35,
@@ -32,8 +32,8 @@ class window.uclass.Archer extends Unit
 class window.uclass.special.Ace extends uclass.Mercenary
     constructor: ->
         attr = {name: 'Ace', baseHp: 22, baseMp: 5,
-        move: 4, str: 7, def: 5,
-        skill: 5, speed: 6, res: 2, luck: 8, aid: 7, con: 5,
+        move: 4, str: 7, def: 3,
+        skill: 4, speed: 4, res: 2, luck: 8, aid: 7, con: 5,
         mag: 0, level: 1, picture: true, lord: true,
         inventory: [new Item('iron-sword')]}
 
@@ -41,9 +41,9 @@ class window.uclass.special.Ace extends uclass.Mercenary
 
 class window.uclass.special.Arrow extends uclass.Archer
     constructor: ->
-        attr = {name: 'Arrow', baseHp: 22, baseMp: 5,
-        move: 4, str: 7, def: 5,
-        skill: 5, speed: 6, res: 2, luck: 8, aid: 7, con: 5,
+        attr = {name: 'Arrow', baseHp: 18, baseMp: 5,
+        move: 4, str: 5, def: 4,
+        skill: 5, speed: 6, res: 2, luck: 5, aid: 7, con: 5,
         mag: 0, level: 1, picture: true,
         inventory: [new Item('iron-bow')]}
 

@@ -300,3 +300,29 @@ div.message .defeat-message
     font-weight: bold;
     color: #B00
 }
+
+div.battle-message 
+{
+    display: none;
+    position: absolute;
+
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+
+    padding: 1px;
+    font-size: 8pt;
+}
+
+div.battle-message.miss
+{
+    background-color: #AAF;
+    border-color: blue;
+    opacity: .75;
+}
+
+div.battle-message.crit
+{
+    background-color: #FAA;
+    border-color: orangered;
+}

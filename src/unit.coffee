@@ -75,6 +75,7 @@ class window.Unit
             @crit = @equipped.crit + @skill / 2
 
         @evade = @attackSpeed*2 + @luck
+        @critEvade = @luck
 
     render: (ui, ctx) ->
         tw = ui.tw

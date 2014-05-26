@@ -1,6 +1,8 @@
 class window.Battle
 
     constructor: (@ui, @atk, @def) ->
+        @atk.calcCombatStats()
+        @def.calcCombatStats()
         @calcBattleStats()
 
     calcBattleStats: (playerWeapon) ->
@@ -13,9 +15,16 @@ class window.Battle
         @turns = [@atk, @def]
 
     calcIndividual: (unit1, weapon1, unit2) ->
-        unit1.battleStats = {hit: 100}
+        unit1.battleStats ={}
+        unit1.battleStats.hit = unit1.hit - unit2.evade
         unit1.battleStats.dmg = unit1.str + weapon1.might - unit2.def
-        unit1.battleStats.crt = 0
+        unit1.battleStats.crt = unit1.crit - unit2.critEvade
+
+        for key, value of unit1.battleStats
+            if value < 0
+                unit1.battleStats[key] = 0
+            if (key is 'hit' or key is 'crt') and value > 100
+                unit1.battleStats[key] = 100
 
     setPlayerWeapon: (weapon) ->
         @calcBattleStats(weapon)
@@ -28,9 +37,18 @@ class window.Battle
         defBoxEl = $('.sidebar .unit-info').clone()
 
         if @atk.team is @ui.chapter.playerTeam
-            @container.append(atkBoxEl).append(defBoxEl)
+            @leftBox = atkBoxEl
+            @rightBox = defBoxEl
+
+            @leftUnit = @atk
+            @rightUnit = @def
         else
-            @container.append(defBoxEl).append(atkBoxEl)
+            @leftBox = defBoxEl
+            @rightBox = atkBoxEl
+            @leftUnit = @def
+            @rightUnit = @atk
+
+        @container.append(@leftBox).append(@rightBox)
 
         @atkBox = new UnitInfoBox(@ui, atkBoxEl)
         @atkBox.populate(@atk, false)
@@ -40,18 +58,20 @@ class window.Battle
         @defBox.populate(@def, false)
         @defBox.show()
 
-        cpos = @ui.canvas.position()
-        midpoint = @atk.pos.add(@def.pos)
+        @cpos = @ui.canvas.position()
+        @midpoint = @atk.pos.add(@def.pos).scale(.5)
 
         tw = @ui.tw
-        left = midpoint.j*tw/2 + cpos.left - defBoxEl.width()
-        top = midpoint.i*tw/2 + 1.5*tw + cpos.top
+
+        #magic number...
+        left = @midpoint.j*tw + @cpos.left - @leftBox.width() + 15
+        top = @midpoint.i*tw + 1.5*tw + @cpos.top
         @container.css({left: left, top: top})
 
         @turnIndex = 0
-        @delay = 500
+        @delay = 1500
 
-        setTimeout(@doAttack, @delay)
+        setTimeout(@doAttack, @delay/5)
 
     getOther: (unit) ->
         if unit is @atk
@@ -64,7 +84,18 @@ class window.Battle
         giver = @turns[@turnIndex]
         recvr = @getOther(giver)
 
-        recvr.hp -= giver.battleStats.dmg
+        randHit = 100*Math.random()
+        if randHit < giver.battleStats.hit
+
+            randCrit = 100*Math.random()
+            if randCrit < giver.battleStats.crt
+                @displayMessage(recvr, 'crit')
+                recvr.hp -= 3*giver.battleStats.dmg
+            else
+                recvr.hp -= giver.battleStats.dmg
+        else
+            @displayMessage(recvr, 'miss')
+
         if recvr.hp <= 0
             recvr.hp = 0
 
@@ -92,3 +123,26 @@ class window.Battle
 
         if(keepGoing and @callback?)
             @callback()
+
+    displayMessage: (overUnit, mtype) ->
+        el = $('<div class="battle-message"></div>')
+        el.addClass(mtype)
+        tw = @ui.tw
+
+        if mtype is 'miss'
+            el.text('Miss')
+        else if mtype is 'crit'
+            el.text('Crit!')
+        
+        top = @cpos.top + overUnit.pos.i*tw
+        left = @cpos.left + overUnit.pos.j*tw + tw/2 - el.width()/2
+        el.appendTo($('body')).css({top: top, left: left})
+
+        el.fadeIn(@delay/5)
+
+        startFadeOut = =>
+            el.fadeOut(@delay/5)
+            el.remove()
+
+        setTimeout(startFadeOut, 3*@delay/5)
+
