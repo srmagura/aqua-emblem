@@ -1,3 +1,4 @@
+#TODO
 getRandomPermutation = (k) ->
     todo = [0..k-1]
     perm = []
@@ -59,12 +60,10 @@ class window.Turn
                 unitAt = @ui.chapter.getUnitAt(pos2)
 
                 if map.onMap(pos2) and
-                not TERRAIN_TYPES[map.tiles[pos2.i][pos2.j]].block and
-                (unitAt is null or unitAt.team is unit.team)
+                not TERRAIN_TYPES[map.tiles[pos2.i][pos2.j]].block
                     alt = posDist + 1
 
-                    if (unitAt is null or
-                    unitAt.team is @ui.chapter.enemyTeam) and
+                    if (unitAt is null or unitAt.team is unit.team) and
                     alt < dist[pos2.i][pos2.j] and
                     alt <= unit.move
                         dist[pos2.i][pos2.j] = alt

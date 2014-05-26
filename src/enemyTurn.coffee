@@ -16,7 +16,14 @@ class window.EnemyTurn extends Turn
         if unit.aiType == AI_TYPE.HALT
             available = [new Destination(unit.pos, [unit.pos])]
         else
-            available = @getAvailable(unit)
+            available0 = @getAvailable(unit)
+
+            available = []
+            for avail in available0
+                unitAt = @ui.chapter.getUnitAt(avail.pos)
+
+                if unitAt is null
+                    available.push(avail)
 
         attackRange = @movementGetAttackRange(available)
 
