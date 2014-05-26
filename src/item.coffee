@@ -3,7 +3,7 @@ window.ITEM_TYPE = {
 }
 
 window.WEAPON_TYPE = {
-    SWORD: 0
+    SWORD: {image: 'steel_sword.png'}
 }
 
 allItems = {

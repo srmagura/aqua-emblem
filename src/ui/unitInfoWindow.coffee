@@ -20,8 +20,8 @@ class window.UnitInfoWindow
 
         if unit.picture
             w.find('.common .image-wrapper').removeClass('insignia')
-            w.find('.common img').attr('src', 'images/' +
-                unit.name.toLowerCase() + '.png')
+            w.find('.common img').attr('src',
+            'images/characters/' + unit.name.toLowerCase() + '.png')
         else if unit.team.insigniaImagePath?
             w.find('.common .image-wrapper').addClass('insignia')
             w.find('.common img').attr('src',
@@ -66,6 +66,11 @@ class window.UnitInfoWindow
 
         for st in statTypes
             stats.find('.' + st).text(unit[st])
+
+        weaponsEl = stats.find('.weapons').html('')
+        for weaponType in unit.wield
+            $('<div><img src="images/items/' +
+            weaponType.image + '" /></div>').appendTo(weaponsEl)
 
         @ui.controlState = new CsUnitInfoWindow(@ui, this)
 

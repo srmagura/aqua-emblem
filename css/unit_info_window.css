@@ -19,6 +19,7 @@
     overflow: hidden;
     padding: 4px;
     z-index: 10;
+    height: 230px;
 }
 
 .unit-info-window .common
@@ -52,6 +53,7 @@
 .unit-info-window .tab-container
 {
     margin: 5px;
+    margin-left: 12px;
     float: left;
     width: 200px;
 }
@@ -97,7 +99,6 @@
     padding: 2px 0 3px;
 }
 
-
 .unit-info-window .combat-stats
 {
     border: 2px solid #007A29;
@@ -133,4 +134,18 @@
     color: #007A29;
     font-weight: bold;
     padding-right: 12px;
+}
+
+.unit-info-window .tab-content-stats .wield 
+{
+    margin-top: 8px
+}
+
+.unit-info-window .tab-content-stats .wield .weapons div
+{
+    display: inline-block;
+    border: 1px solid #666;
+    background: radial-gradient(#888, #BBB);
+    padding: 2px;
+    margin-top: 2px
 }

@@ -3,11 +3,15 @@ window.uclass = {special: {}}
 class window.uclass.Mercenary extends Unit
     constructor: (attr) ->
         @uclassName = 'Mercenary'
+        @wield = [WEAPON_TYPE.SWORD]
+
         @baseStats = {baseHp: 18, move: 5, str: 4, def: 2,
         skill: 5, speed: 6, res: 1, luck: 2, aid: 7, con: 5,
         mag: 0}
+
         @growthRates = {baseHp: .8, str: .5, skill: .35,
         speed: .35, luck: .1, def: .25, res: .15}
+
         super(attr)
 
 class window.uclass.special.Ace extends uclass.Mercenary
