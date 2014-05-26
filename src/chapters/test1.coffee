@@ -2,7 +2,8 @@ class window.TestChapter1 extends Chapter
 
     constructor: (ui) ->
         playerUnits = [
-            new uclass.special.Ace()
+            new uclass.special.Ace(),
+            new uclass.special.Arrow()
         ]
         playerTeam = new Team(playerUnits)
      
@@ -39,7 +40,7 @@ class window.TestChapter1 extends Chapter
             [1, 1, 0, 0, 0, 0, 0]
         ]
 
-        playerPositions = [[2,1]]
+        playerPositions = [[2,1], [3,0]]
 
         map = new Map(tiles, playerPositions)
         super(ui, map, playerTeam, enemyTeam,

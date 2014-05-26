@@ -33,6 +33,7 @@
 {
     border: 1px solid black;
     background: radial-gradient(#AAA, #666);
+    width: 120px;
 }
 
 
