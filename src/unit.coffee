@@ -40,7 +40,7 @@ class window.Unit
             @inventory = []
 
         for item in @inventory
-            if item.itemType is ITEM_TYPE.WEAPON
+            if item instanceof window.item.Item
                 @equipped = item
                 break
 

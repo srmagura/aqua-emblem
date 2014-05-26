@@ -1,23 +1,40 @@
-window.ITEM_TYPE = {
-    WEAPON: 0
-}
+window.item = {}
 
-window.WEAPON_TYPE = {
-    SWORD: {image: 'steel_sword.png'},
-    BOW: {image: 'iron_bow.png'}
-}
+class item.Item
 
-allItems = {
-    'iron-sword': {itemType: ITEM_TYPE.WEAPON,
-    weaponType: WEAPON_TYPE.SWORD,
-    name: 'Iron sword', hit: 85, might: 4, weight: 2, crit: 0},
+    constructor: ->
+        @fudge = 1
 
-    'iron-bow': {itemType: ITEM_TYPE.WEAPON,
-    weaponType: WEAPON_TYPE.BOW,
-    name: 'Iron bow', hit: 85, might: 4, weight: 2, crit: 0}
-}
+class item.Weapon extends item.Item
 
-class window.Item
-    constructor: (@itemId) ->
-        for key, value of allItems[itemId]
-            this[key] = value
+    constructor: ->
+
+class item.Sword extends item.Weapon
+
+    constructor: ->
+        @image = 'steel_sword.png'
+        @range = [1]
+
+class item.IronSword extends item.Weapon
+
+    constructor: ->
+        @name = 'Iron sword'
+        @hit = 85
+        @might = 4
+        @weight = 2
+        @crit = 0
+
+class item.Bow extends item.Weapon
+
+    constructor: ->
+        @image = 'iron_bow.png'
+        @range = [2]
+
+class item.IronBow extends item.Weapon
+
+    constructor: ->
+        @name = 'Iron bow'
+        @hit = 85
+        @might = 4
+        @weight = 2
+        @crit = 0

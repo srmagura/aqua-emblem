@@ -3,7 +3,7 @@ window.uclass = {special: {}}
 class window.uclass.Mercenary extends Unit
     constructor: (attr) ->
         @uclassName = 'Mercenary'
-        @wield = [WEAPON_TYPE.SWORD]
+        @wield = [item.Sword]
 
         @baseStats = {baseHp: 18, move: 5, str: 4, def: 2,
         skill: 4, speed: 6, res: 1, luck: 2, aid: 7, con: 5,
@@ -17,7 +17,7 @@ class window.uclass.Mercenary extends Unit
 class window.uclass.Archer extends Unit
     constructor: (attr) ->
         @uclassName = 'Archer'
-        @wield = [WEAPON_TYPE.BOW]
+        @wield = [item.Bow]
 
         @baseStats = {baseHp: 18, move: 5, str: 4, def: 2,
         skill: 5, speed: 6, res: 1, luck: 2, aid: 7, con: 5,
@@ -35,7 +35,7 @@ class window.uclass.special.Ace extends uclass.Mercenary
         move: 4, str: 7, def: 3,
         skill: 4, speed: 4, res: 2, luck: 8, aid: 7, con: 5,
         mag: 0, level: 1, picture: true, lord: true,
-        inventory: [new Item('iron-sword')]}
+        inventory: [new item.IronSword()]}
 
         super(attr)
 
@@ -45,6 +45,6 @@ class window.uclass.special.Arrow extends uclass.Archer
         move: 4, str: 5, def: 4,
         skill: 5, speed: 6, res: 2, luck: 5, aid: 7, con: 5,
         mag: 0, level: 1, picture: true,
-        inventory: [new Item('iron-bow')]}
+        inventory: [new item.IronBow()]}
 
         super(attr)

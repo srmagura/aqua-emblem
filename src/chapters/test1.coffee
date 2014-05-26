@@ -10,21 +10,21 @@ class window.TestChapter1 extends Chapter
         enemyUnits = [
             new uclass.Mercenary({pos: new Position(4, 2),
             level: 1,
-            inventory: [new Item('iron-sword')]}),
+            inventory: [new item.IronSword()]}),
 
             new uclass.Mercenary({pos: new Position(6, 4),
             level: 1,
-            inventory: [new Item('iron-sword')]}),
+            inventory: [new item.IronSword()]}),
 
             new uclass.Mercenary({pos: new Position(3, 5),
             level: 1,
-            inventory: [new Item('iron-sword')]}),
+            inventory: [new item.IronSword()]}),
 
             new uclass.Mercenary({name: 'Bandit lord',
             pos: new Position(0, 5),
             aiType: AI_TYPE.HALT,
             level: 3,
-            inventory: [new Item('iron-sword')]})
+            inventory: [new item.IronSword()]})
         ]
         enemyTeam = new Team(enemyUnits, {defaultName: 'Bandit',
         isAi: true})

@@ -8,7 +8,7 @@ class window.WeaponMenu
         @menu.html('')
 
         for item in @playerTurn.selectedUnit.inventory
-            if item.itemType is ITEM_TYPE.WEAPON
+            if item instanceof window.item.Weapon
                 menuItem = $('<div><div class="image"></div></div>')
                 menuItem.append(item.name).data('weapon', item).
                     appendTo(@menu)
