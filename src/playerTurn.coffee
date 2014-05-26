@@ -1,3 +1,17 @@
+getRandomPermutation = (k) ->
+    todo = [0..k-1]
+    perm = []
+
+    while todo.length != 0
+        r = Math.random()
+
+        for i in [0..todo.length-1]
+            if r < (i+1)/todo.length
+                perm.push(todo.splice(i, 1)[0])
+                break
+
+    return perm
+
 class window.Turn
 
     constructor: (@ui) ->
@@ -40,7 +54,7 @@ class window.Turn
             if posDist is Infinity
                 break
 
-            for k in [0..3]
+            for k in getRandomPermutation(@directions.length)
                 pos2 = pos.add(@directions[k])
                 unitAt = @ui.chapter.getUnitAt(pos2)
 
