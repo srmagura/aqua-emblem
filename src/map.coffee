@@ -97,30 +97,52 @@ class window.Map
         tw = ui.tw
         gridWidth = 2
         ctx.lineWidth = gridWidth
-        ctx.strokeStyle = '#666'
 
-        #horizontal
-        for i in [0..@height]
+        borderColor = 'black'
+        normalColor = '#888'
+
+        drawHorizontal = (i) =>
             offset = 0
             if i == 0
                 offset = gridWidth / 2
             else if i == @height
                 offset = -gridWidth / 2
 
+            if i == 0 or i == @height
+                ctx.strokeStyle = borderColor
+            else
+                ctx.strokeStyle = normalColor
+
             ctx.beginPath()
             ctx.moveTo(offset, i*tw + offset)
             ctx.lineTo(@width*tw + offset, i*tw + offset)
             ctx.stroke()
 
-        #vertical
-        for j in [0..@width]
+        drawVertical = (j) =>
             offset = 0
             if j == 0
                 offset = gridWidth / 2
             else if j == @width
                 offset = -gridWidth / 2
+
+            if j == 0 or j == @width
+                ctx.strokeStyle = borderColor
+            else
+                ctx.strokeStyle = normalColor
             
             ctx.beginPath()
             ctx.moveTo(j*tw + offset, offset)
             ctx.lineTo(j*tw + offset, @height*tw + offset)
             ctx.stroke()
+
+        for i in [1..@height-1]
+            drawHorizontal(i)
+
+        for j in [1..@width-1]
+            drawVertical(j)
+
+        drawHorizontal(0)
+        drawHorizontal(@height)
+
+        drawVertical(0)
+        drawVertical(@width)
