@@ -4,24 +4,21 @@ class window.BattleStatsPanel
         @panel = $('.battle-stats-panel')
 
     init: (battle) ->
-        @panel.find('.attacker-name').
-            text(battle.atk.name)
-        @panel.find('.attacker-hit').
-            text(Math.round(battle.atk.battleStats.hit))
-        @panel.find('.attacker-dmg').
-            text(Math.round(battle.atk.battleStats.dmg))
-        @panel.find('.attacker-crt').
-            text(Math.round(battle.atk.battleStats.crt))
+        fillHalf = (unit, unitName) =>
+            @panel.find(".#{unitName}-name").text(unit.name)
 
-        @panel.find('.defender-name').
-            text(battle.def.name)
-        @panel.find('.defender-hit').
-            text(Math.round(battle.def.battleStats.hit))
-        @panel.find('.defender-dmg').
-            text(Math.round(battle.def.battleStats.dmg))
-        @panel.find('.defender-crt').
-            text(Math.round(battle.def.battleStats.crt))
+            for statType in ['hit', 'dmg', 'crt']
+                value = unit.battleStats[statType]
 
+                if value?
+                    value = Math.round(value)
+                else
+                    value = '--'
+
+                @panel.find(".#{unitName}-#{statType}").text(value)
+
+        fillHalf(battle.atk, 'attacker')
+        fillHalf(battle.def, 'defender')
         @show()
 
     show: ->

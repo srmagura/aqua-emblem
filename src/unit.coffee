@@ -39,9 +39,14 @@ class window.Unit
         if 'inventory' not of this
             @inventory = []
 
+        @totalRange = []
         for item in @inventory
-            if item instanceof window.item.Item
+            if item instanceof window.item.Weapon
                 @equipped = item
+
+                for range in item.range
+                    if range not in @totalRange
+                        @totalRange.push(range)
                 break
 
         @offset = new Position(0, 0)

@@ -3,6 +3,12 @@ class window.UnitInfoBox
     constructor: (@ui, selector) ->
         @box = $(selector)
 
+    update: ->
+        unit = @ui.chapter.getUnitAt(@ui.cursor.pos)
+        if unit?
+            @populate(unit, false)
+            @show()
+
     populate: (unit, animate) ->
         if unit.picture
             @box.find('img').attr('src',

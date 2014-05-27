@@ -1,6 +1,7 @@
 class window.Battle
 
     constructor: (@ui, @atk, @def) ->
+        @range = @atk.pos.distance(@def.pos)
         @atk.calcCombatStats()
         @def.calcCombatStats()
         @calcBattleStats()
@@ -12,10 +13,18 @@ class window.Battle
             @calcIndividual(@atk, @atk.equipped, @def)
 
         @calcIndividual(@def, @def.equipped, @atk)
-        @turns = [@atk, @def]
+
+        if @range in @def.equipped.range
+            @turns = [@atk, @def]
+        else
+            @turns = [@atk]
 
     calcIndividual: (unit1, weapon1, unit2) ->
         unit1.battleStats ={}
+
+        if @range not in weapon1.range
+            return
+
         unit1.battleStats.hit = unit1.hit - unit2.evade
         unit1.battleStats.dmg = unit1.str + weapon1.might - unit2.def
         unit1.battleStats.crt = unit1.crit - unit2.critEvade

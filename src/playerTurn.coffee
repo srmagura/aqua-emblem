@@ -1,4 +1,4 @@
-#TODO
+#I'm not sure if this is working
 getRandomPermutation = (k) ->
     todo = [0..k-1]
     perm = []
@@ -55,7 +55,8 @@ class window.Turn
             if posDist is Infinity
                 break
 
-            for k in getRandomPermutation(@directions.length)
+            perm = getRandomPermutation(@directions.length)
+            for k in perm
                 pos2 = pos.add(@directions[k])
                 unitAt = @ui.chapter.getUnitAt(pos2)
 
@@ -79,20 +80,31 @@ class window.Turn
 
         return available
 
-    getAttackRange: (pos) ->
+    getAttackDirections: (totalRange) ->
+        dirs = []
+
+        for range in totalRange
+            for di in [-range..range]
+                for dj in [-range..range]
+                    if Math.abs(di) + Math.abs(dj) == range
+                        dirs.push(new Position(di, dj))
+
+        return dirs
+
+    getAttackRange: (unit, pos) ->
         attackRange = []
 
-        for dir in @directions
+        for dir in @getAttackDirections(unit.totalRange)
             alt = pos.add(dir)
             if @ui.chapter.map.onMap(alt)
                 attackRange.push({moveSpot: pos, targetSpot: alt})
 
         return attackRange
 
-    movementGetAttackRange: (available) ->
+    movementGetAttackRange: (available, unit=@selectedUnit) ->
         attackRange = []
         for avail in available
-            localRange = @getAttackRange(avail.pos)
+            localRange = @getAttackRange(unit, avail.pos)
             for obj in localRange
                 obj.path = avail.path
                 attackRange.push(obj)
@@ -143,7 +155,7 @@ class window.PlayerTurn extends Turn
         @ui.unitInfoBox.populate(@selectedUnit)
         @ui.unitInfoBox.show()
 
-        attackRange = @getAttackRange(@selectedUnit.pos)
+        attackRange = @getAttackRange(@selectedUnit, @selectedUnit.pos)
         @inRange = []
 
         for obj in attackRange

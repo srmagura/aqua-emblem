@@ -79,6 +79,7 @@ class window.Chapter
         @ui.controlState = new ControlState(@ui)
         if team == @enemyTeam
             @ui.cursor.visible = false
+            @ui.unitInfoBox.hide()
 
         callback = (team) =>
             if team is @enemyTeam
@@ -86,6 +87,7 @@ class window.Chapter
             else
                 @ui.controlState = new CsMap(@ui)
                 @ui.cursor.visible = true
+                @ui.unitInfoBox.update()
 
         @ui.messageBox.showPhaseMessage(team, callback)
 

@@ -25,7 +25,7 @@ class window.EnemyTurn extends Turn
                 if unitAt is null
                     available.push(avail)
 
-        attackRange = @movementGetAttackRange(available)
+        attackRange = @movementGetAttackRange(available, unit)
 
         inRange = []
         for obj in attackRange

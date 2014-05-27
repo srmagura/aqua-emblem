@@ -3,19 +3,20 @@ window.item = {}
 class item.Item
 
     constructor: ->
-        @fudge = 1
 
 class item.Weapon extends item.Item
 
     constructor: ->
+        super()
 
 class item.Sword extends item.Weapon
 
     constructor: ->
         @image = 'steel_sword.png'
         @range = [1]
+        super()
 
-class item.IronSword extends item.Weapon
+class item.IronSword extends item.Sword
 
     constructor: ->
         @name = 'Iron sword'
@@ -23,14 +24,16 @@ class item.IronSword extends item.Weapon
         @might = 4
         @weight = 2
         @crit = 0
+        super()
 
 class item.Bow extends item.Weapon
 
     constructor: ->
         @image = 'iron_bow.png'
         @range = [2]
+        super()
 
-class item.IronBow extends item.Weapon
+class item.IronBow extends item.Bow
 
     constructor: ->
         @name = 'Iron bow'
@@ -38,3 +41,4 @@ class item.IronBow extends item.Weapon
         @might = 4
         @weight = 2
         @crit = 0
+        super()

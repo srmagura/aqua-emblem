@@ -16,6 +16,9 @@ class window.Position
     scale: (alpha) ->
         new Position(alpha*@i, alpha*@j)
 
+    distance: (pos) ->
+        Math.abs(@i - pos.i) + Math.abs(@j - pos.j)
+
 window.TERRAIN_TYPES = {
     0: {color: '#BFB', block: false},
     1: {color: '#DDD', block: true}
