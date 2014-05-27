@@ -20,14 +20,16 @@ class window.Turn
         new Position(0, -1), new Position(0, 1)]
 
     getAvailable: (unit) ->
+        map = @ui.chapter.map
         available = [new Destination(unit.pos, [unit.pos])]
 
         queue = []
+        queuePerm = getRandomPermutation(map.width*map.height)
 
-        map = @ui.chapter.map
         dist = Array(map.height)
         prev = Array(map.height)
 
+        k = 0
         for i in [0..map.height-1]
             dist[i] = Array(map.width)
             prev[i] = Array(map.width)
@@ -35,7 +37,9 @@ class window.Turn
             for j in [0..map.width-1]
                 dist[i][j] = Infinity
                 prev[i][j] = null
-                queue.push(new Position(i, j))
+                queue[queuePerm[k]] = new Position(i, j)
+                k++
+
 
         dist[unit.pos.i][unit.pos.j] = 0
 
