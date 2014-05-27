@@ -67,7 +67,7 @@ class window.Map
         tw = ui.tw
         cw = ui.canvas.width()
 
-        ctx.fillStyle = 'white'
+        ctx.fillStyle = '#333'
         ctx.fillRect(0, 0, cw, cw)
 
         for i in [0..@height-1]

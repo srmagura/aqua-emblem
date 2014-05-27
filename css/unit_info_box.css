@@ -1,0 +1,54 @@
+div.unit-info
+{
+    visibility: hidden;
+}
+
+div.unit-info .image-wrapper
+{
+    float: left;
+    height: 75px;
+    border-right: 1px solid black;
+    background: radial-gradient(#AAF, #66E);
+}
+
+div.unit-info img 
+{
+    width: 60px;
+}
+
+div.unit-info .not-image
+{
+    float: left;
+    padding: 4px;
+}
+
+div.unit-info .bar
+{    
+    float: right;
+    width: 90px;
+    height: 7px;
+    margin: 2px 2px 0px 2px;
+    background-color: black;
+}
+
+div.unit-info .bar-filled
+{
+    height: 5px;
+    border: 1px solid black;   
+}
+
+div.unit-info .hp-bar-filled
+{
+    background: linear-gradient(to right, #0B0, #0E0);
+}
+
+div.unit-info .mp-bar-filled
+{
+    background: linear-gradient(to right, #4AC, #7CF);
+}
+
+div.unit-info .bar-text
+{
+    font-size: 9pt;
+    text-align: right;
+}

@@ -7,20 +7,22 @@ body
 
 div.title
 {
-    position: absolute;
-    padding-left: 10px;
-    z-index: -100;
+    width: 420px;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
 div.title img
 {
     width: 270px;
+    float: left;
 }
 
 div.title .version
 {
+    float: left;
     color: #666;
-    margin: 0 0 0 3px;
+    margin: 24px 0 0 10px;
 }
 
 div.wrapper
@@ -32,12 +34,17 @@ div.wrapper
 div.game-wrapper
 {
     overflow: hidden;
-    padding: 15px 0 0;
+    padding: 5px 0 0;
 }
 
-div.canvas-column
+div.canvas-container
 {
     float: left;
+}
+
+.invisible-images
+{
+    display: none;
 }
 
 div.game-info h3
@@ -102,60 +109,6 @@ div.right-sidebar > div
     background-color: #DDD;
 }
 
-div.unit-info
-{
-    visibility: hidden;
-}
-
-div.unit-info .image-wrapper
-{
-    float: left;
-    height: 75px;
-    border-right: 1px solid black;
-    background: radial-gradient(#AAF, #66E);
-}
-
-div.unit-info img 
-{
-    width: 60px;
-}
-
-div.unit-info .not-image
-{
-    float: left;
-    padding: 4px;
-}
-
-div.unit-info .bar
-{    
-    float: right;
-    width: 90px;
-    height: 7px;
-    margin: 2px 2px 0px 2px;
-    background-color: black;
-}
-
-div.unit-info .bar-filled
-{
-    height: 5px;
-    border: 1px solid black;   
-}
-
-div.unit-info .hp-bar-filled
-{
-    background: linear-gradient(to right, #0B0, #0E0);
-}
-
-div.unit-info .mp-bar-filled
-{
-    background: linear-gradient(to right, #4AC, #7CF);
-}
-
-div.unit-info .bar-text
-{
-    font-size: 9pt;
-    text-align: right;
-}
 
 div.menu  
 {
@@ -178,84 +131,6 @@ div.menu .selected .image
     background-repeat: no-repeat;
 }
 
-div.battle-stats-panel
-{
-    display: none;
-    text-align: right;
-}
-
-div.battle-stats-panel table
-{
-    border-spacing: 0;
-}
-
-div.battle-stats-panel td
-{
-   padding: 1px 3px;
-}
-
-div.battle-stats-panel .attacker-name
-{
-    border-bottom-style: none;
-}
-
-div.battle-stats-panel .attacker-hit
-{
-    border-style: none solid none none;
-}
-
-div.battle-stats-panel .attacker-dmg
-{
-    border-style: none solid none none;
-}
-
-div.battle-stats-panel .attacker-crt
-{
-    border-style: none solid solid none;
-}
-
-div.battle-stats-panel .defender-name
-{
-    text-align: left;
-    border-top-style: none;
-}
-
-div.battle-stats-panel .defender-hit
-{
-    border-style: solid none none solid;
-}
-
-div.battle-stats-panel .defender-dmg
-{
-    border-style: none none none solid;
-}
-
-div.battle-stats-panel .defender-crt
-{
-    border-style: none none none solid;
-}
-
-div.battle-stats-panel .hit
-{
-    border-bottom-style: none;
-}
-
-div.battle-stats-panel .dmg
-{
-    border-top-style: none;
-    border-bottom-style: none;
-}
-
-div.battle-stats-panel .crt
-{
-    border-top-style: none;
-}
-
-div.battle-stats-panel .neutral-box
-{
-    text-align: center;
-    font-size: 9pt;
-}
 
 .battle-unit-info-container
 {

@@ -4,8 +4,10 @@
     <title>Aqua Emblem</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="css/unit_info_box.css"/>
     <link rel="stylesheet" type="text/css" href="css/unit_info_window.css"/>
+    <link rel="stylesheet" type="text/css" href="css/battle_stats_panel.css"/>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
@@ -16,6 +18,8 @@
     <script src="lib/ui/weaponMenu.js"></script>
     <script src="lib/ui/battleStatsPanel.js"></script>
     <script src="lib/ui/message.js"></script>
+
+    <script src="lib/allImagePaths.js"></script>
 
     <script src="lib/chapter.js"></script>
     <script src="lib/playerTurn.js"></script>
@@ -35,7 +39,7 @@
 <body>
 <div class="title">
 <img src="images/title_cropped.png" />
-<p class="version">demo-v0.00001</p>
+<div class="version">demo-v0.00001</div>
 </div>
 <script>
 $(document).ready(init)
@@ -96,9 +100,8 @@ $(document).ready(init)
                 </table>
             </div>
         </div>
-        <div class="canvas-column">
-            <canvas width="420" height="420"></canvas>
-            <div class="message"></div>
+        <div class="canvas-container">
+            <canvas width="420" height="350"></canvas>
         </div>
         <div class="sidebar right-sidebar">
             <div class="victory-condition neutral-box"></div>
@@ -217,5 +220,6 @@ $(document).ready(init)
     </div>
 </div>
 
+<div class="invisible-images"></div>
 </body>
 </html>

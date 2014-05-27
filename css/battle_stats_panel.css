@@ -1,0 +1,78 @@
+div.battle-stats-panel
+{
+    display: none;
+    text-align: right;
+}
+
+div.battle-stats-panel table
+{
+    border-spacing: 0;
+}
+
+div.battle-stats-panel td
+{
+   padding: 1px 3px;
+}
+
+div.battle-stats-panel .attacker-name
+{
+    border-bottom-style: none;
+}
+
+div.battle-stats-panel .attacker-hit
+{
+    border-style: none solid none none;
+}
+
+div.battle-stats-panel .attacker-dmg
+{
+    border-style: none solid none none;
+}
+
+div.battle-stats-panel .attacker-crt
+{
+    border-style: none solid solid none;
+}
+
+div.battle-stats-panel .defender-name
+{
+    text-align: left;
+    border-top-style: none;
+}
+
+div.battle-stats-panel .defender-hit
+{
+    border-style: solid none none solid;
+}
+
+div.battle-stats-panel .defender-dmg
+{
+    border-style: none none none solid;
+}
+
+div.battle-stats-panel .defender-crt
+{
+    border-style: none none none solid;
+}
+
+div.battle-stats-panel .hit
+{
+    border-bottom-style: none;
+}
+
+div.battle-stats-panel .dmg
+{
+    border-top-style: none;
+    border-bottom-style: none;
+}
+
+div.battle-stats-panel .crt
+{
+    border-top-style: none;
+}
+
+div.battle-stats-panel .neutral-box
+{
+    text-align: center;
+    font-size: 9pt;
+}

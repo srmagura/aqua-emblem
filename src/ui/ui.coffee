@@ -21,14 +21,18 @@ class UI
         @messageBox = new MessageBox(this)
 
     setChapter: (@chapter) ->
-        @canvas.attr('width', @chapter.map.width*@tw)
-        @canvas.attr('height', @chapter.map.height*@tw)
         $('.wrapper').css('width', @canvas.width() +
             $('.left-sidebar').width()*2 + 30)
         $('.game-wrapper').css('height', @canvas.height() + 40)
         $('.victory-condition').text(@chapter.victoryCondition.text)
         @cursor.moveTo(new Position(0, 0))
         @chapter.initTurn(@chapter.playerTeam)
+
+    loadAllImages: ->
+        div = $('.invisible-images')
+        for path in ALL_IMAGE_PATHS
+            img = $("<img src='#{path}' />")
+            div.append(img)
 
     render: ->
         if @chapter?
@@ -71,9 +75,10 @@ class UI
         requestAnimationFrame(@mainLoop)
         @render()
 
-
 window.init = ->
     window.ui = new UI()
+    ui.loadAllImages()
+
     chapter = new TestChapter1(ui)
     ui.setChapter chapter
     ui.mainLoop()
