@@ -21,7 +21,8 @@ class window.Position
 
 window.TERRAIN_TYPES = {
     0: {color: '#BFB', block: false},
-    1: {color: '#DDD', block: true}
+    1: {color: '#A74', block: true}
+    2: {color: '#393', block: false}
 }
 
 window.OVERLAY_TYPES = {

@@ -79,7 +79,7 @@ window.init = ->
     window.ui = new UI()
     ui.loadAllImages()
 
-    chapter = new TestChapter1(ui)
+    chapter = new Chapter1(ui)
     ui.setChapter chapter
     ui.mainLoop()
 

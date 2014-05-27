@@ -1,4 +1,4 @@
-class window.TestChapter1 extends Chapter
+class window.Chapter1 extends Chapter
 
     constructor: (ui) ->
         playerUnits = [
@@ -21,7 +21,7 @@ class window.TestChapter1 extends Chapter
             inventory: [new item.IronSword()]}),
 
             new uclass.Mercenary({name: 'Bandit lord',
-            pos: new Position(0, 5),
+            pos: new Position(2, 11),
             aiType: AI_TYPE.HALT,
             level: 3,
             inventory: [new item.IronSword()]})
@@ -31,16 +31,19 @@ class window.TestChapter1 extends Chapter
         enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'
 
         tiles = [
-            [1, 1, 0, 1, 0, 0, 0],
-            [1, 0, 0, 1, 0, 0, 0],
-            [0, 0, 0, 1, 1, 0, 0],
-            [0, 0, 0, 1, 1, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0],
-            [1, 1, 0, 0, 0, 0, 0]
+            [0, 0, 0, 1, 1, 1, 1, 2, 2, 1, 1, 1],
+            [0, 0, 0, 0, 1, 1, 1, 2, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 2],
+            [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 2, 0, 1, 1, 0, 0, 0, 0, 0],
+            [0, 0, 2, 0, 0, 1, 0, 0, 0, 2, 0, 0],
+            [0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 1],
+            [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 2, 1],
+            [1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1],
         ]
 
-        playerPositions = [[2,1], [3,0]]
+        playerPositions = [[0,1], [1,0]]
 
         map = new Map(tiles, playerPositions)
         super(ui, map, playerTeam, enemyTeam,
