@@ -68,9 +68,9 @@ class window.UnitInfoWindow
             stats.find('.' + st).text(unit[st])
 
         weaponsEl = stats.find('.weapons').html('')
-        for weaponType in unit.wield
+        for weaponClass in unit.wield
             $('<div><img src="images/items/' +
-            weaponType.image + '" /></div>').appendTo(weaponsEl)
+            (new weaponClass()).image + '" /></div>').appendTo(weaponsEl)
 
         @ui.controlState = new CsUnitInfoWindow(@ui, this)
 

@@ -5,8 +5,8 @@ class window.uclass.Mercenary extends Unit
         @uclassName = 'Mercenary'
         @wield = [item.Sword]
 
-        @baseStats = {baseHp: 18, move: 5, str: 4, def: 2,
-        skill: 4, speed: 6, res: 1, luck: 2, aid: 7, con: 5,
+        @baseStats = {baseHp: 18, move: 5, str: 3, def: 2,
+        skill: 3, speed: 3, res: 1, luck: 2, aid: 7, con: 5,
         mag: 0}
 
         @growthRates = {baseHp: .8, str: .5, skill: .35,
