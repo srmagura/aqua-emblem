@@ -74,7 +74,13 @@ class window.Battle
 
         #magic number...
         left = @midpoint.j*tw + @cpos.left - @leftBox.width() + 15
-        top = @midpoint.i*tw + 1.5*tw + @cpos.top
+
+        if @atk.pos.i > @def.pos.i
+            maxI = @atk.pos.i
+        else
+            maxI = @def.pos.i
+
+        top = (maxI + 1)*tw + @cpos.top
         @container.css({left: left, top: top})
 
         @turnIndex = 0

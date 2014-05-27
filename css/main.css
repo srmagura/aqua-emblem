@@ -185,14 +185,16 @@ div.battle-message
     border-width: 1px;
     border-style: solid;
 
-    padding: 1px;
-    font-size: 8pt;
+    padding: 2px;
+    font-size: 9pt;
+    font-weight: bold;
 }
 
 div.battle-message.miss
 {
     background-color: #AAF;
-    border-color: blue;
+    border-color: blue; 
+    color: #11A;
     opacity: .75;
 }
 
