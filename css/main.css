@@ -110,27 +110,6 @@ div.right-sidebar > div
 }
 
 
-div.menu  
-{
-    padding: 4px;
-    display: none;
-}
-
-div.menu .image
-{
-    width: 9px;
-    height: 9px;
-    display: inline-block;
-    padding: 0px;
-    margin: 0px 5px 1px 2px;
-}
-
-div.menu .selected .image
-{
-    background-image: url('../images/list_arrow.png');
-    background-repeat: no-repeat;
-}
-
 
 .battle-unit-info-container
 {

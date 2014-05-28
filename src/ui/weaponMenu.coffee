@@ -10,8 +10,8 @@ class window.WeaponMenu
         for item in @playerTurn.selectedUnit.inventory
             if item instanceof window.item.Weapon
                 menuItem = $('<div><div class="image"></div></div>')
-                menuItem.append(item.name).data('weapon', item).
-                    appendTo(@menu)
+                menuItem.append(item.getElement())
+                menuItem.data('weapon', item).appendTo(@menu)
 
         @menu.children('div').first().addClass('selected')
         @show()
@@ -23,7 +23,7 @@ class window.WeaponMenu
     hide: ->
         @menu.css('display', 'none')
 
-class CsWeaponMenu
+class CsWeaponMenu extends CsMenu
 
     constructor: (@ui, @menuObj) ->
         @playerTurn = @ui.chapter.playerTurn

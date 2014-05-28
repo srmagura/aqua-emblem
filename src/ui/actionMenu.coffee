@@ -25,7 +25,7 @@ class window.ActionMenu
 class window.ActionMenuItem
     constructor: (@name, @handler) ->
 
-class CsMenu extends ControlState
+class window.CsMenu extends ControlState
 
     constructor: (@ui, @menuObj) ->
 
