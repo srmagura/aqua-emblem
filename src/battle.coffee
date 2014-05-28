@@ -98,6 +98,7 @@ class window.Battle
         callMade = false
         giver = @turns[@turnIndex]
         recvr = @getOther(giver)
+        @doLunge(giver)
 
         randHit = 100*Math.random()
         if randHit < giver.battleStats.hit
@@ -126,6 +127,22 @@ class window.Battle
 
         @atkBox.populate(@atk, true)
         @defBox.populate(@def, true)
+
+    doLunge: (unit) =>
+        reverse = =>
+            unit.direction = unit.direction.scale(-1)
+            console.log(unit.direction)
+            setTimeout(halt, @delay/3)
+
+        halt = =>
+            unit.direction = null
+            unit.offset = new Position(0, 0)
+
+        other = @getOther(unit)
+        unit.direction = other.pos.subtract(unit.pos).toUnitVector()
+        unit.movementSpeed = .025
+
+        setTimeout(reverse, @delay/3)
 
     battleDone: =>
         keepGoing = true

@@ -1,5 +1,3 @@
-MOVEMENT_SPEED = .4
-
 class UI
 
     tw: 35
@@ -59,12 +57,14 @@ class UI
     update: (delta) ->
         for unit in @chapter.units
             if unit.direction?
-                if Math.abs(unit.offset.i) >= @tw or
-                Math.abs(unit.offset.j) >= @tw
+                if unit.followingPath and
+                (Math.abs(unit.offset.i) >= @tw or
+                Math.abs(unit.offset.j) >= @tw)
                     unit.pathNext()
                 else
                     unit.offset = unit.offset.add(
-                        unit.direction.scale(delta * MOVEMENT_SPEED))
+                        unit.direction.scale(
+                            delta * unit.movementSpeed))
 
     mainLoop: =>
         now = Date.now()

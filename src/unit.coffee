@@ -56,6 +56,7 @@ class window.Unit
         @ui.chapter.checkAllDone()
 
     followPath: (@path, @pathFollowCallback) ->
+        @followingPath = true
         @pathNext()
 
     pathNext: ->
@@ -64,8 +65,10 @@ class window.Unit
 
         if @path.length != 0
             @direction = @path[0].subtract(@pos)
+            @movementSpeed = .4
         else
             @direction = null
+            @followingPath = false
             @pathFollowCallback()
 
     calcCombatStats: ->

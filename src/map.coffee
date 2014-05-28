@@ -19,6 +19,10 @@ class window.Position
     distance: (pos) ->
         Math.abs(@i - pos.i) + Math.abs(@j - pos.j)
 
+    toUnitVector: ->
+        norm = Math.sqrt(@i*@i + @j*@j)
+        return this.scale(1/norm)
+
 window.TERRAIN_TYPES = {
     0: {color: '#BFB', block: false},
     1: {color: '#A74', block: true}
