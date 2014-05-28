@@ -18,7 +18,7 @@ class item.Weapon extends item.Item
 class item.Sword extends item.Weapon
 
     constructor: ->
-        @image = 'steel_sword.png'
+        @image = 'iron_sword.png'
         @range = [1]
         super()
 

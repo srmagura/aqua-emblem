@@ -156,8 +156,8 @@
 .unit-info-window .tab-content-stats .wield .weapons div
 {
     display: inline-block;
-    border: 1px solid #666;
-    background: radial-gradient(#888, #BBB);
+    border: 1px solid rgba(40,40,40, .3);
+    background-color: rgba(40,40,40, .1);
     padding: 2px;
     margin-top: 2px
 }
