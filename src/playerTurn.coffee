@@ -119,6 +119,10 @@ class window.PlayerTurn extends Turn
 
     select: (@selectedUnit) ->
         @available = @getAvailable(@selectedUnit)
+        attackRange = @movementGetAttackRange(@available)
+
+        for spot in attackRange
+            @ui.chapter.map.setOverlay(spot.targetSpot, 'ATTACK')
 
         for spot in @available
             @ui.chapter.map.setOverlay(spot.pos, 'AVAILABLE')
