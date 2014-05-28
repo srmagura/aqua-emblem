@@ -2,7 +2,13 @@ window.item = {}
 
 class item.Item
 
-    constructor: ->
+    getElement: ->
+        el = $('<div class="weapon-element"></div>')
+
+        src = "images/items/#{@image}"
+        el.append($("<img src='#{src}' />"))
+        el.append($("<span>#{@name}</span>"))
+        return el
 
 class item.Weapon extends item.Item
 

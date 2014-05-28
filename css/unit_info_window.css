@@ -95,9 +95,20 @@
     height: 115px;
 }
 
-.unit-info-window .tab-content-inventory .inventory div
+.unit-info-window .tab-content-inventory .weapon-element
 {
     padding: 2px 0 3px;
+}
+
+.weapon-element img
+{
+    width: 13pt;
+    float: left;
+}
+
+.weapon-element span
+{
+    padding: 0 0 0 6px;
 }
 
 .unit-info-window .combat-stats

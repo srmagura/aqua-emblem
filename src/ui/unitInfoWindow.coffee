@@ -3,13 +3,19 @@ class window.UnitInfoWindow
     constructor: (@ui) ->
         @window = $('.unit-info-window')
 
-    init: (unit) ->
+    init: (@unit) ->
+        @initCommon()
+        @initInventoryTab()
+        @initStatsTab()
+        @ui.controlState = new CsUnitInfoWindow(@ui, this)
+
+    initCommon: ->
         $('.dark-overlay').show()
 
         w = @window
         w.removeClass('blue-box').removeClass('red-box')
 
-        if unit.team is @ui.chapter.playerTeam
+        if @unit.team is @ui.chapter.playerTeam
             w.addClass('blue-box')
         else
             w.addClass('red-box')
@@ -18,39 +24,40 @@ class window.UnitInfoWindow
         w.css({visibility: 'visible',
         left: (docWidth-w.width())/2, top: 40})
 
-        if unit.picture
+        if @unit.picture
             w.find('.common .image-wrapper').removeClass('insignia')
             w.find('.common img').attr('src',
-            'images/characters/' + unit.name.toLowerCase() + '.png')
-        else if unit.team.insigniaImagePath?
+            'images/characters/' + @unit.name.toLowerCase() + '.png')
+        else if @unit.team.insigniaImagePath?
             w.find('.common .image-wrapper').addClass('insignia')
             w.find('.common img').attr('src',
-                unit.team.insigniaImagePath)
+                @unit.team.insigniaImagePath)
 
-        nameField = unit.name
-        if unit.lord
+        nameField = @unit.name
+        if @unit.lord
             nameField += ' <div class="lord">(Lord)</div>'
 
         w.find('.common .name').html(nameField)
-        w.find('.common .uclass').text(unit.uclassName)
-        w.find('.common .level').text(unit.level)
+        w.find('.common .uclass').text(@unit.uclassName)
+        w.find('.common .level').text(@unit.level)
         w.find('.common .exp').text('0')
 
         w.find('.labels > div').removeClass('selected')
         w.find('.tab-content').hide()
 
+    initInventoryTab: ->
+        w = @window
         w.find('.tab-label-inventory').addClass('selected')
         invContent = w.find('.tab-content-inventory').show()
         inv = invContent.find('.inventory').html('')
 
-        for item in unit.inventory
-            row = $('<div>' + item.name + '</div>')
-            inv.append(row)
+        for item in @unit.inventory
+            inv.append(item.getElement())
 
-        unit.calcCombatStats()
+        @unit.calcCombatStats()
         combatStats = invContent.find('.combat-stats')
-        combatStatsStr = {hit: unit.hit,
-        crit: unit.crit, evade: unit.evade, atk: unit.atk}
+        combatStatsStr = {hit: @unit.hit,
+        crit: @unit.crit, evade: @unit.evade, atk: @unit.atk}
 
         for key, value of combatStatsStr
             if not value?
@@ -60,19 +67,19 @@ class window.UnitInfoWindow
 
             combatStats.find('.' + key).text(value)
 
-        stats = w.find('.tab-content-stats')
+    initStatsTab: ->
+        stats = @window.find('.tab-content-stats')
         statTypes = ['str', 'skill', 'mag', 'speed', 'def', 'luck',
             'res', 'move', 'aid', 'con']
 
         for st in statTypes
-            stats.find('.' + st).text(unit[st])
+            stats.find('.' + st).text(@unit[st])
 
         weaponsEl = stats.find('.weapons').html('')
-        for weaponClass in unit.wield
+        for weaponClass in @unit.wield
             $('<div><img src="images/items/' +
             (new weaponClass()).image + '" /></div>').appendTo(weaponsEl)
 
-        @ui.controlState = new CsUnitInfoWindow(@ui, this)
 
     hide: ->
         $('.dark-overlay').hide()

@@ -46,5 +46,9 @@ class window.uclass.special.Arrow extends uclass.Archer
         skill: -500, speed: 6, res: 2, luck: 5, aid: 7, con: 5,
         mag: 0, level: 1, picture: true,
         inventory: [new item.IronBow()]}
+        attr.inventory.push(new item.IronBow())
+        attr.inventory.push(new item.IronBow())
+        attr.inventory.push(new item.IronBow())
+        attr.inventory.push(new item.IronBow())
 
         super(attr)
