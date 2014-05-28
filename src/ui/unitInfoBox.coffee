@@ -18,6 +18,14 @@ class window.UnitInfoBox
             @box.find('.image-wrapper').hide()
 
         @box.find('.name').text(unit.name)
+
+        src = "images/items/#{unit.equipped.image}"
+        @box.find('.equipped').attr('src', src)
+
+        @populateHp(unit, animate)
+        @populateMp(unit, animate)
+
+    populateHp: (unit, animate) ->
         @box.find('.hp').text(unit.hp)
         @box.find('.base-hp').text(unit.baseHp)
 
@@ -27,6 +35,7 @@ class window.UnitInfoBox
         else
             @box.find('.hp-bar-filled').width(width)
 
+    populateMp: (unit, animate) ->
         if 'baseMp' of unit
             @box.find('.mp').text(unit.mp)
             @box.find('.base-mp').text(unit.baseMp)
