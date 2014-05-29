@@ -14,43 +14,43 @@ div.battle-stats-panel td
    padding: 1px 3px;
 }
 
-div.battle-stats-panel .attacker-name
+div.battle-stats-panel .atk-name
 {
     border-bottom-style: none;
 }
 
-div.battle-stats-panel .attacker-hit
+div.battle-stats-panel .atk-hit
 {
     border-style: none solid none none;
 }
 
-div.battle-stats-panel .attacker-dmg
+div.battle-stats-panel .atk-dmg
 {
     border-style: none solid none none;
 }
 
-div.battle-stats-panel .attacker-crt
+div.battle-stats-panel .atk-crt
 {
     border-style: none solid solid none;
 }
 
-div.battle-stats-panel .defender-name
+div.battle-stats-panel .def-name
 {
     text-align: left;
     border-top-style: none;
 }
 
-div.battle-stats-panel .defender-hit
+div.battle-stats-panel .def-hit
 {
     border-style: solid none none solid;
 }
 
-div.battle-stats-panel .defender-dmg
+div.battle-stats-panel .def-dmg
 {
     border-style: none none none solid;
 }
 
-div.battle-stats-panel .defender-crt
+div.battle-stats-panel .def-crt
 {
     border-style: none none none solid;
 }
@@ -69,6 +69,13 @@ div.battle-stats-panel .dmg
 div.battle-stats-panel .crt
 {
     border-top-style: none;
+}
+
+div.battle-stats-panel .x2
+{
+    color: green;
+    font-weight: bold;
+    display: none;
 }
 
 div.battle-stats-panel .neutral-box

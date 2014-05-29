@@ -15,10 +15,15 @@ class window.BattleStatsPanel
                 else
                     value = '--'
 
-                @panel.find(".#{unitName}-#{statType}").text(value)
+                td = @panel.find(".#{unitName}-#{statType}")
+                td.find('.stat').text(value)
 
-        fillHalf(battle.atk, 'attacker')
-        fillHalf(battle.def, 'defender')
+                if statType == 'dmg' and
+                battle.nTurns[unitName] == 2
+                    td.find('.x2').show()
+
+        fillHalf(battle.atk, 'atk')
+        fillHalf(battle.def, 'def')
         @show()
 
     show: ->

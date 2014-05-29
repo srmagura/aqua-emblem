@@ -14,10 +14,19 @@ class window.Battle
 
         @calcIndividual(@def, @def.equipped, @atk)
 
+        @turns = [@atk]
+        @nTurns = {atk: 1, def: 0}
+
         if @range in @def.equipped.range
-            @turns = [@atk, @def]
-        else
-            @turns = [@atk]
+            @turns.push(@def)
+            @nTurns.def++
+
+        if @atk.attackSpeed - 4 > @def.attackSpeed
+            @turns.push(@atk)
+            @nTurns.atk++
+        else if @def.attackSpeed - 4 > @atk.attackSpeed
+            @turns.push(@def)
+            @nTurns.def++
 
     calcIndividual: (unit1, weapon1, unit2) ->
         unit1.battleStats ={}
