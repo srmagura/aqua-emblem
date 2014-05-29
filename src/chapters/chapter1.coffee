@@ -31,6 +31,12 @@ class window.Chapter1 extends Chapter
         enemyTeam = new EnemyTeam(enemyUnits, {defaultName: 'Bandit'})
         enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'
 
+        terrainMapping = {
+            0: terrain.Plain
+            1: terrain.Thicket
+            2: terrain.Forest
+        }
+
         tiles = [
             [0, 0, 0, 1, 1, 1, 1, 2, 2, 1, 1, 1],
             [0, 0, 0, 0, 1, 1, 1, 2, 0, 0, 0, 0],
@@ -46,6 +52,6 @@ class window.Chapter1 extends Chapter
 
         playerPositions = [[0,1], [1,0], [2,1], [1, 2]]
 
-        map = new Map(tiles, playerPositions)
+        map = new Map(tiles, terrainMapping, playerPositions)
         super(ui, map, playerTeam, enemyTeam,
         VICTORY_CONDITION.ROUT)

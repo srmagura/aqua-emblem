@@ -65,7 +65,7 @@ class window.Turn
                 unitAt = @ui.chapter.getUnitAt(pos2)
 
                 if map.onMap(pos2) and
-                not TERRAIN_TYPES[map.tiles[pos2.i][pos2.j]].block
+                not map.tiles[pos2.i][pos2.j].block
                     alt = posDist + 1
 
                     if (unitAt is null or unitAt.team is unit.team) and

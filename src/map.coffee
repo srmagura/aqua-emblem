@@ -23,11 +23,24 @@ class window.Position
         norm = Math.sqrt(@i*@i + @j*@j)
         return this.scale(1/norm)
 
-window.TERRAIN_TYPES = {
-    0: {color: '#BFB', block: false},
-    1: {color: '#A74', block: true}
-    2: {color: '#393', block: false}
-}
+window.terrain = {}
+
+class terrain.Terrain
+
+class terrain.Plain extends terrain.Terrain
+    constructor: ->
+        @color = '#BFB'
+        @block = false
+
+class terrain.Thicket extends terrain.Terrain
+    constructor: ->
+        @color = '#A74'
+        @block = true
+
+class terrain.Forest extends terrain.Terrain
+    constructor: ->
+        @color = '#393'
+        @block = false
 
 window.OVERLAY_TYPES = {
     AVAILABLE: {startColor: '#AAF', endColor: '#22F'},
@@ -36,11 +49,15 @@ window.OVERLAY_TYPES = {
 
 class window.Map
 
-    @TERRAIN_TYPES: TERRAIN_TYPES
+    constructor: (rawTiles, terrainMapping, playerPositions) ->
+        @height = rawTiles.length
+        @width = rawTiles[0].length
 
-    constructor: (@tiles, playerPositions) ->
-        @height = @tiles.length
-        @width = @tiles[0].length
+        @tiles = []
+        for i in [0..@height-1]
+            @tiles.push([])
+            for j in [0..@width-1]
+                @tiles[i].push(new terrainMapping[rawTiles[i][j]]())
 
         @playerPositions = []
         for t in playerPositions
@@ -80,7 +97,7 @@ class window.Map
                 x0 = j*tw
                 y0 = i*tw
 
-                ctx.fillStyle = TERRAIN_TYPES[@tiles[i][j]].color
+                ctx.fillStyle = @tiles[i][j].color
                 ctx.fillRect(x0, y0, tw, tw)
 
                 overlayTile = @overlayTiles[i][j]
