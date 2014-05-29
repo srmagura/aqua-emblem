@@ -4,7 +4,6 @@ class window.WeaponMenu
         @menu = $('.weapon-menu')
 
     init: (@playerTurn) ->
-        @ui.cursor.visible = false
         @menu.html('')
 
         for item in @playerTurn.selectedUnit.inventory
