@@ -131,7 +131,6 @@ class window.Battle
     doLunge: (unit) =>
         reverse = =>
             unit.direction = unit.direction.scale(-1)
-            console.log(unit.direction)
             setTimeout(halt, @delay/3)
 
         halt = =>

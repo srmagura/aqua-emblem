@@ -1,19 +1,27 @@
+class window.Team
+    
+    constructor: (@units) ->
+        for unit in @units
+            unit.setTeam(this)
+
+class window.PlayerTeam extends Team
+
+
 window.AI_TYPE = {
     NORMAL: 0,
     HALT: 1
 }
 
-class window.Team
-    
+class window.EnemyTeam extends Team
     constructor: (@units, attr={}) ->
         for unit in @units
-            unit.team = this
-
-            if attr.isAi and 'aiType' not of unit
+            if 'aiType' not of unit
                 unit.aiType = AI_TYPE.NORMAL
 
             if 'defaultName' of attr and not unit.name?
                 unit.name = attr.defaultName
+
+        super(@units)
 
 class window.Unit
 
@@ -51,6 +59,22 @@ class window.Unit
 
         @offset = new Position(0, 0)
 
+    setTeam: (@team) ->
+        prefix = "images/dango/"
+        filename = @uclassName.toLowerCase() + ".png"
+
+        if @team instanceof PlayerTeam
+            dir = 'player/'
+        else
+            dir = 'enemy/'
+
+        @imageObjects = {}
+        @imageObjects.normal = new Image()
+        @imageObjects.normal.src = prefix + dir + filename
+
+        @imageObjects.done = new Image()
+        @imageObjects.done.src = prefix + 'done/' + filename
+
     setDone: ->
         @done = true
         @ui.chapter.checkAllDone()
@@ -86,19 +110,10 @@ class window.Unit
         @critEvade = @luck
 
     render: (ui, ctx) ->
-        tw = ui.tw
-
         if @done
-            ctx.fillStyle = 'gray'
-        else if @team is ui.chapter.playerTeam
-            ctx.fillStyle = 'blue'
+            image = @imageObjects.done
         else
-            ctx.fillStyle = 'red'
+            image = @imageObjects.normal
 
-
-        ctx.beginPath()
-        offset = @pos.scale(tw).add(@offset)
-        ctx.arc(offset.j + tw/2, offset.i + tw/2,
-            .2*tw, 0, 2*Math.PI, false)
-        ctx.fill()
-
+        offset = @pos.scale(@ui.tw).add(@offset)
+        ctx.drawImage(image, offset.j+1, offset.i+2)

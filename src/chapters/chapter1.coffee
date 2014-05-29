@@ -5,7 +5,7 @@ class window.Chapter1 extends Chapter
             new uclass.special.Ace(),
             new uclass.special.Arrow()
         ]
-        playerTeam = new Team(playerUnits)
+        playerTeam = new PlayerTeam(playerUnits)
      
         enemyUnits = [
             new uclass.Mercenary({pos: new Position(4, 2),
@@ -26,8 +26,7 @@ class window.Chapter1 extends Chapter
             level: 3,
             inventory: [new item.IronSword()]})
         ]
-        enemyTeam = new Team(enemyUnits, {defaultName: 'Bandit',
-        isAi: true})
+        enemyTeam = new EnemyTeam(enemyUnits, {defaultName: 'Bandit'})
         enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'
 
         tiles = [

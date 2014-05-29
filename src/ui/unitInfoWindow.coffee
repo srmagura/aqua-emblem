@@ -22,7 +22,7 @@ class window.UnitInfoWindow
 
         docWidth = $(document).width()
         w.css({visibility: 'visible',
-        left: (docWidth-w.width())/2, top: 40})
+        left: (docWidth-w.width())/2})
 
         if @unit.picture
             w.find('.common .image-wrapper').removeClass('insignia')

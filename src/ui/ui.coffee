@@ -26,12 +26,6 @@ class UI
         @cursor.moveTo(new Position(0, 0))
         @chapter.initTurn(@chapter.playerTeam)
 
-    loadAllImages: ->
-        div = $('.invisible-images')
-        for path in ALL_IMAGE_PATHS
-            img = $("<img src='#{path}' />")
-            div.append(img)
-
     render: ->
         if @chapter?
             @chapter.render(this, @ctx)
@@ -77,7 +71,6 @@ class UI
 
 window.init = ->
     window.ui = new UI()
-    ui.loadAllImages()
 
     chapter = new Chapter1(ui)
     ui.setChapter chapter
