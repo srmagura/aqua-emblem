@@ -47,8 +47,25 @@ class window.uclass.special.Arrow extends uclass.Archer
         mag: 0, level: 1, picture: true,
         inventory: [new item.IronBow()]}
         attr.inventory.push(new item.IronBow())
-        attr.inventory.push(new item.IronBow())
-        attr.inventory.push(new item.IronBow())
-        attr.inventory.push(new item.IronBow())
+
+        super(attr)
+
+class window.uclass.special.Luciana extends uclass.Mercenary
+    constructor: ->
+        attr = {name: 'Luciana', baseHp: 22, baseMp: 5,
+        move: 4, str: 7, def: 3,
+        skill: 4, speed: 4, res: 2, luck: 8, aid: 7, con: 5,
+        mag: 0, level: 1,
+        inventory: [new item.IronSword()]}
+
+        super(attr)
+
+class window.uclass.special.Kenji extends uclass.Mercenary
+    constructor: ->
+        attr = {name: 'Kenji', baseHp: 22, baseMp: 5,
+        move: 4, str: 7, def: 3,
+        skill: 4, speed: 4, res: 2, luck: 8, aid: 7, con: 5,
+        mag: 0, level: 1,
+        inventory: [new item.IronSword()]}
 
         super(attr)
