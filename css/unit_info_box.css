@@ -26,7 +26,7 @@ div.unit-info .equipped
 {
     width: 20px;
     float: right;
-    margin: -3px -3px 0 0;
+    margin: -3px -3px 0 5px;
 }
 
 div.unit-info .bar
@@ -58,4 +58,5 @@ div.unit-info .bar-text
 {
     font-size: 9pt;
     text-align: right;
+    clear: both;
 }
