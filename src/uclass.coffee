@@ -39,7 +39,7 @@ class window.uclass.special.Ace extends uclass.Mercenary
 
         super(attr)
 
-class window.uclass.special.Arrow extends uclass.Mercenary
+class window.uclass.special.Arrow extends uclass.Archer
     constructor: ->
         attr = {name: 'Arrow', baseHp: 18, baseMp: 5,
         move: 4, str: 5, def: 4,

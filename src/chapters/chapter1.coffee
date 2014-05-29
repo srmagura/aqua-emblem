@@ -16,9 +16,9 @@ class window.Chapter1 extends Chapter
             level: 1,
             inventory: [new item.IronSword()]}),
 
-            new uclass.Mercenary({pos: new Position(3, 5),
+            new uclass.Archer({pos: new Position(8, 3),
             level: 1,
-            inventory: [new item.IronSword()]}),
+            inventory: [new item.IronBow()]}),
 
             new uclass.Mercenary({name: 'Bandit lord',
             pos: new Position(2, 11),
