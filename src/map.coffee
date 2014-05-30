@@ -94,8 +94,8 @@ class window.Map
 
         for i in [0..@height-1]
             for j in [0..@width-1]
-                x0 = j*tw
-                y0 = i*tw
+                x0 = j*tw - ui.origin.j
+                y0 = i*tw - ui.origin.i
 
                 ctx.fillStyle = @tiles[i][j].color
                 ctx.fillRect(x0, y0, tw, tw)
@@ -135,8 +135,9 @@ class window.Map
                 ctx.strokeStyle = normalColor
 
             ctx.beginPath()
-            ctx.moveTo(offset, i*tw + offset)
-            ctx.lineTo(@width*tw + offset, i*tw + offset)
+            ctx.moveTo(offset, i*tw + offset - ui.origin.i)
+            ctx.lineTo(@width*tw + offset,
+            i*tw + offset - ui.origin.i)
             ctx.stroke()
 
         drawVertical = (j) =>
@@ -152,8 +153,9 @@ class window.Map
                 ctx.strokeStyle = normalColor
             
             ctx.beginPath()
-            ctx.moveTo(j*tw + offset, offset)
-            ctx.lineTo(j*tw + offset, @height*tw + offset)
+            ctx.moveTo(j*tw + offset - ui.origin.j,
+            offset - ui.origin.i)
+            ctx.lineTo(j*tw + offset - ui.origin.j, @height*tw + offset)
             ctx.stroke()
 
         for i in [1..@height-1]

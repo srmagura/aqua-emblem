@@ -1,4 +1,3 @@
-#I'm not sure if this is working
 getRandomPermutation = (k) ->
     todo = [0..k-1]
     perm = []
@@ -210,14 +209,16 @@ class window.Destination
 
         k = 0
         while k < @path.length - 1
-            ctx.moveTo(@path[k].j*tw + tw/2, @path[k].i*tw + tw/2)
-            ctx.lineTo(@path[k+1].j*tw + tw/2, @path[k+1].i*tw + tw/2)
+            ctx.moveTo(@path[k].j*tw + tw/2 - ui.origin.j,
+            @path[k].i*tw + tw/2 - ui.origin.i)
+            ctx.lineTo(@path[k+1].j*tw + tw/2 - ui.origin.j,
+            @path[k+1].i*tw + tw/2 - ui.origin.i)
             k++
 
         if k > 0
             s = 10
-            x0 = @pos.j*tw
-            y0 = @pos.i*tw
+            x0 = @pos.j*tw - ui.origin.j
+            y0 = @pos.i*tw - ui.origin.i
 
             dir = @pos.subtract(@path[k-1])
             if dir.equals(new Position(1, 0))

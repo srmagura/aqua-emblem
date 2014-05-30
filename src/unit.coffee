@@ -115,5 +115,5 @@ class window.Unit
         else
             image = @imageObjects.normal
 
-        offset = @pos.scale(@ui.tw).add(@offset)
+        offset = @pos.scale(@ui.tw).add(@offset).subtract(ui.origin)
         ctx.drawImage(image, offset.j+1, offset.i+2)
