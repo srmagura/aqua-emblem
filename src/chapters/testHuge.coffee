@@ -10,23 +10,23 @@ class window.ChapterTestHuge extends Chapter
         playerTeam = new PlayerTeam(playerUnits)
      
         enemyUnits = [
-            new uclass.Mercenary({pos: new Position(4, 2),
-            level: 1,
+            new uclass.Mercenary({pos: new Position(1, 0),
+            level: -10,
             inventory: [new item.IronSword()]}),
 
-            new uclass.Mercenary({pos: new Position(6, 4),
-            level: 1,
-            inventory: [new item.IronSword()]}),
+            #new uclass.Mercenary({pos: new Position(6, 4),
+            #level: 1,
+            #inventory: [new item.IronSword()]}),
 
-            new uclass.Archer({pos: new Position(8, 3),
-            level: 1,
-            inventory: [new item.IronBow()]}),
+            #new uclass.Archer({pos: new Position(8, 3),
+            #level: 1,
+            #inventory: [new item.IronBow()]}),
 
-            new uclass.Mercenary({name: 'Bandit lord',
-            pos: new Position(2, 11),
-            aiType: AI_TYPE.HALT,
-            level: 3,
-            inventory: [new item.IronSword()]})
+            #new uclass.Mercenary({name: 'Bandit lord',
+            #pos: new Position(2, 11),
+            #aiType: AI_TYPE.HALT,
+            #level: 3,
+            #inventory: [new item.IronSword()]})
         ]
         enemyTeam = new EnemyTeam(enemyUnits, {defaultName: 'Bandit'})
         enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'

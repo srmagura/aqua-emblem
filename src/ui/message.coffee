@@ -1,7 +1,45 @@
 class window.MessageBox
 
     constructor: (@ui) ->
-        @mbox = $('.message')
+        @canvasContainer = $('.canvas-container')
+        @overlay = $('.canvas-dark-overlay')
+        cpos = @ui.canvas.position()
+        @overlay.css({
+            top: cpos.top
+            left: cpos.left
+            width: @ui.canvas.width()
+            height: @ui.canvas.height()
+        })
+
+    showMessage: (text, cls, css, callback, callbackArg, doFadeOut) ->
+        el = $(document.createElement('div'))
+        el.addClass('message').addClass(cls).text(text)
+        @canvasContainer.append(el)
+
+        cpos = @ui.canvas.position()
+        padding = 10
+
+        css.top = cpos.top +
+        (@ui.canvas.height()-el.height())/2 - padding
+        css.left = cpos.left +
+        (@ui.canvas.width()-el.width())/2 - padding
+
+        css.visibility = 'visible'
+        css.display = 'none'
+
+        fadeDuration = 800
+        @overlay.fadeIn(fadeDuration)
+        el.css(css).fadeIn(fadeDuration)
+
+        afterFadeOut = =>
+            callback(callbackArg)
+
+        toDelay = =>
+            @overlay.fadeOut(fadeDuration)
+            el.fadeOut(fadeDuration, afterFadeOut)
+
+        if doFadeOut
+            setTimeout(toDelay, fadeDuration*2)
 
     showPhaseMessage: (team, callback) ->
         ch = @ui.chapter
@@ -14,30 +52,11 @@ class window.MessageBox
             text = 'Enemy phase'
             css.color = 'red'
 
-        textEl = $(document.createElement('div'))
-        textEl.css(css).addClass('phase-message').text(text)
-        @mbox.html('').append(textEl)
+        @showMessage(text, 'phase-message', css, callback, team, true)
 
-        fadeDuration = 400
-        textEl.fadeIn(fadeDuration)
-
-        afterFadeOut = =>
-            @mbox.html('')
-            callback(team)
-
-        toDelay = =>
-            textEl.fadeOut(fadeDuration, afterFadeOut)
-
-        setTimeout(toDelay, fadeDuration*4)
 
     showVictoryMessage: ->
-        textEl = $(document.createElement('div'))
-        textEl.addClass('victory-message').text('Victory!')
-        @mbox.html('').append(textEl)
-        textEl.fadeIn('slow')
+        @showMessage('Victory!', 'victory-message', {}, (->), null, false)
 
     showDefeatMessage: ->
-        textEl = $(document.createElement('div'))
-        textEl.addClass('defeat-message').text('Defeat.')
-        @mbox.html('').append(textEl)
-        textEl.fadeIn('slow')
+        @showMessage('Defeat.', 'defeat-message', {}, (->), null, false)
