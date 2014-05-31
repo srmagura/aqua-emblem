@@ -99,7 +99,7 @@ class UI
 window.init = ->
     window.ui = new UI()
 
-    chapter = new ChapterTestHuge(ui)
+    chapter = new Chapter1(ui)
     ui.setChapter chapter
     ui.mainLoop()
 
