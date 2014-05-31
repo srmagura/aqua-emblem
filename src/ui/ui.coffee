@@ -20,6 +20,9 @@ class UI
         @battleStatsPanel = new BattleStatsPanel(this)
         @messageBox = new MessageBox(this)
 
+        @centerOffset = new Position(@canvas.height()/2,
+            @canvas.width()/2)
+
     setChapter: (@chapter) ->
         $('.wrapper').css('width', @canvas.width() +
             $('.left-sidebar').width()*2 + 30)
@@ -27,6 +30,18 @@ class UI
         $('.victory-condition').text(@chapter.victoryCondition.text)
         @cursor.moveTo(new Position(0, 0))
         @chapter.initTurn(@chapter.playerTeam)
+
+    setCenter: (pos) ->
+        @origin = pos.subtract(@centerOffset)
+
+    getCenter: ->
+        return @origin.add(@centerOffset)
+
+    scrollTo: (@scrollDest, @scrollCallback) ->
+        center = @getCenter()
+        @direction = @scrollDest.scale(@tw).
+        subtract(center).toUnitVector()
+        @scrollSpeed = .2
 
     render: ->
         if @chapter?
@@ -51,6 +66,16 @@ class UI
             return false
 
     update: (delta) ->
+        if @direction?
+            @origin = @origin.add(
+                @direction.scale(delta*@scrollSpeed))
+            alt = @scrollDest.scale(@tw).subtract(@getCenter())
+
+            if alt.dot(@direction) <= 0
+                @setCenter(@scrollDest.scale(@tw))
+                @direction = null
+                @scrollCallback()
+
         for unit in @chapter.units
             if unit.direction?
                 if unit.followingPath and

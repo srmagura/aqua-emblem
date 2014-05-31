@@ -19,6 +19,9 @@ class window.Position
     distance: (pos) ->
         Math.abs(@i - pos.i) + Math.abs(@j - pos.j)
 
+    dot: (pos) ->
+        return @i*pos.i + @j*pos.j
+
     toUnitVector: ->
         norm = Math.sqrt(@i*@i + @j*@j)
         return this.scale(1/norm)

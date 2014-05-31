@@ -41,12 +41,15 @@ class window.EnemyTurn extends Turn
                 })
 
         if inRange.length != 0
-            unit.followPath(inRange[0].path, =>
-                battle = new Battle(@ui, unit, inRange[0].target)
-                battle.doBattle( =>
-                    setTimeout(=> @doUnitTurn(nextUnit),
-                    250)
+            afterScroll = =>
+                unit.followPath(inRange[0].path, =>
+                    battle = new Battle(@ui, unit, inRange[0].target)
+                    battle.doBattle( =>
+                        setTimeout(=> @doUnitTurn(nextUnit),
+                        250)
+                    )
                 )
-            )
+
+            @ui.scrollTo(unit.pos, afterScroll)
         else
             @doUnitTurn(nextUnit)

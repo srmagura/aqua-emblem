@@ -3,15 +3,15 @@ class window.ChapterTestHuge extends Chapter
     constructor: (ui) ->
         playerUnits = [
             new uclass.special.Ace(),
-            new uclass.special.Arrow(),
-            new uclass.special.Luciana(),
-            new uclass.special.Kenji(),
+            #new uclass.special.Arrow(),
+            #new uclass.special.Luciana(),
+            #new uclass.special.Kenji(),
         ]
         playerTeam = new PlayerTeam(playerUnits)
      
         enemyUnits = [
-            new uclass.Mercenary({pos: new Position(1, 0),
-            level: -10,
+            new uclass.Mercenary({pos: new Position(7, 7),
+            level: 1,
             inventory: [new item.IronSword()]}),
 
             #new uclass.Mercenary({pos: new Position(6, 4),
@@ -54,7 +54,7 @@ class window.ChapterTestHuge extends Chapter
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         ]
 
-        playerPositions = [[0,0], [14,0], [0,15], [14, 19]]
+        playerPositions = [[5,5], [14,0], [0,15], [14, 19]]
 
         map = new Map(tiles, terrainMapping, playerPositions)
         super(ui, map, playerTeam, enemyTeam,
