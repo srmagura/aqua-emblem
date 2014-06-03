@@ -48,3 +48,20 @@ class item.IronBow extends item.Bow
         @weight = 2
         @crit = 0
         super()
+
+class item.Lance extends item.Weapon
+
+    constructor: ->
+        @image = 'iron_lance.png'
+        @range = [1]
+        super()
+
+class item.IronLance extends item.Lance
+
+    constructor: ->
+        @name = 'Iron lance'
+        @hit = 80
+        @might = 6
+        @weight = 3
+        @crit = 0
+        super()
