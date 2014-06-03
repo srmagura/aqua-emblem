@@ -50,6 +50,9 @@ class window.EnemyTurn extends Turn
                     )
                 )
 
-            @ui.scrollTo(unit.pos, afterScroll)
+            if not @ui.onScreen(unit.pos)
+                @ui.scrollTo(unit.pos, afterScroll)
+            else
+                afterScroll()
         else
             @doUnitTurn(nextUnit)

@@ -37,6 +37,10 @@ class UI
     getCenter: ->
         return @origin.add(@centerOffset)
 
+    onScreen: (pos) ->
+        delta = pos.scale(@tw).subtract(@origin)
+        return delta.i < @canvas.height() and delta.j < @canvas.width()
+
     scrollTo: (@scrollDest, @scrollCallback) ->
         center = @getCenter()
         @direction = @scrollDest.scale(@tw).
@@ -67,14 +71,19 @@ class UI
 
     update: (delta) ->
         if @direction?
-            @origin = @origin.add(
+            newOrigin = @origin.add(
                 @direction.scale(delta*@scrollSpeed))
-            alt = @scrollDest.scale(@tw).subtract(@getCenter())
+            map = @chapter.map
 
-            if alt.dot(@direction) <= 0
-                @setCenter(@scrollDest.scale(@tw))
-                @direction = null
-                @scrollCallback()
+            if 0 <= newOrigin.i <= map.height*@tw - @canvas.height() and
+            0 <= newOrigin.j <= map.width*@tw - @canvas.width()
+                @origin = newOrigin
+                alt = @scrollDest.scale(@tw).subtract(@getCenter())
+
+                if alt.dot(@direction) <= 0
+                    @setCenter(@scrollDest.scale(@tw))
+                    @direction = null
+                    @scrollCallback()
 
         for unit in @chapter.units
             if unit.direction?
