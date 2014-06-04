@@ -32,6 +32,40 @@ class item.IronSword extends item.Sword
         @crit = 0
         super()
 
+class item.Lance extends item.Weapon
+
+    constructor: ->
+        @image = 'iron_lance.png'
+        @range = [1]
+        super()
+
+class item.IronLance extends item.Lance
+
+    constructor: ->
+        @name = 'Iron lance'
+        @hit = 80
+        @might = 6
+        @weight = 3
+        @crit = 0
+        super()
+
+class item.Axe extends item.Weapon
+
+    constructor: ->
+        @image = 'iron_axe.png'
+        @range = [1]
+        super()
+
+class item.IronAxe extends item.Axe
+
+    constructor: ->
+        @name = 'Iron axe'
+        @hit = 80
+        @might = 6
+        @weight = 3
+        @crit = 0
+        super()
+
 class item.Bow extends item.Weapon
 
     constructor: ->
@@ -49,19 +83,3 @@ class item.IronBow extends item.Bow
         @crit = 0
         super()
 
-class item.Lance extends item.Weapon
-
-    constructor: ->
-        @image = 'iron_lance.png'
-        @range = [1]
-        super()
-
-class item.IronLance extends item.Lance
-
-    constructor: ->
-        @name = 'Iron lance'
-        @hit = 80
-        @might = 6
-        @weight = 3
-        @crit = 0
-        super()

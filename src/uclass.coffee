@@ -42,6 +42,20 @@ class window.uclass.Soldier extends Unit
 
         super(attr)
 
+class window.uclass.Fighter extends Unit
+    constructor: (attr) ->
+        @uclassName = 'Fighter'
+        @wield = [item.Axe]
+
+        @baseStats = {baseHp: 18, move: 5, str: 3, def: 2,
+        skill: 3, speed: 3, res: 1, luck: 2, aid: 7, con: 5,
+        mag: 0}
+
+        @growthRates = {baseHp: .8, str: .5, skill: .35,
+        speed: .35, luck: .1, def: .25, res: .15}
+
+        super(attr)
+
 class window.uclass.special.Ace extends uclass.Mercenary
     constructor: ->
         attr = {name: 'Ace', baseHp: 22, baseMp: 5,
@@ -73,12 +87,12 @@ class window.uclass.special.Luciana extends uclass.Soldier
 
         super(attr)
 
-class window.uclass.special.Kenji extends uclass.Mercenary
+class window.uclass.special.Kenji extends uclass.Fighter
     constructor: ->
         attr = {name: 'Kenji', baseHp: 22, baseMp: 5,
         move: 4, str: 7, def: 3,
         skill: 4, speed: 4, res: 2, luck: 8, aid: 7, con: 5,
         mag: 0, level: 1, picture: true,
-        inventory: [new item.IronSword()]}
+        inventory: [new item.IronAxe()]}
 
         super(attr)
