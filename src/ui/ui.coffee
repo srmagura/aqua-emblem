@@ -6,6 +6,8 @@ class UI
         @then = Date.now()
         @canvas = $('canvas')
         @ctx = @canvas[0].getContext('2d')
+        @canvasDim = new Position(@canvas.height()/@tw,
+            @canvas.width()/@tw)
 
         @origin = new Position(0, 0)
         @cursor = new Cursor(this)
@@ -20,9 +22,6 @@ class UI
         @battleStatsPanel = new BattleStatsPanel(this)
         @messageBox = new MessageBox(this)
 
-        @centerOffset = new Position(@canvas.height()/2,
-            @canvas.width()/2)
-
     setChapter: (@chapter) ->
         $('.wrapper').css('width', @canvas.width() +
             $('.left-sidebar').width()*2 + 30)
@@ -31,28 +30,42 @@ class UI
         @cursor.moveTo(new Position(0, 0))
         @chapter.initTurn(@chapter.playerTeam)
 
-    setCenter: (pos) ->
-        @origin = pos.subtract(@centerOffset)
-
-    getCenter: ->
-        return @origin.add(@centerOffset)
-
     onScreen: (pos) ->
         delta = pos.scale(@tw).subtract(@origin)
         return delta.i < @canvas.height() and delta.j < @canvas.width()
 
-    scrollTo: (@scrollDest, @scrollCallback) ->
-        center = @getCenter()
+    scrollTo: (pos, @scrollCallback) ->
+        centerOffset = new Position(5, 6)
+        @scrollDest = pos.subtract(centerOffset)
+
+        map = @chapter.map
+
+        maxI = map.height - @canvasDim.i
+        if @scrollDest.i < 0
+            @scrollDest.i = 0
+        else if @scrollDest.i > maxI
+            @scrollDest.i = maxI
+
+        maxJ = map.width - @canvasDim.j
+        if @scrollDest.j < 0
+            @scrollDest.j = 0
+        else if @scrollDest.j > maxJ
+            @scrollDest.j = maxJ
+
         @direction = @scrollDest.scale(@tw).
-        subtract(center).toUnitVector()
-        @scrollSpeed = .2
+        subtract(@origin)
+            
+        if not @direction.equals(new Position(0, 0))
+            @direction = @direction.toUnitVector()
+            @scrollSpeed = .2
+        else
+            @direction = null
 
     render: ->
         if @chapter?
             @chapter.render(this, @ctx)
 
         @cursor.render(this, @ctx)
-
 
     keydownHandler: (e) =>
         #console.log(e.which)
@@ -71,19 +84,15 @@ class UI
 
     update: (delta) ->
         if @direction?
-            newOrigin = @origin.add(
+            @origin = @origin.add(
                 @direction.scale(delta*@scrollSpeed))
-            map = @chapter.map
 
-            if 0 <= newOrigin.i <= map.height*@tw - @canvas.height() and
-            0 <= newOrigin.j <= map.width*@tw - @canvas.width()
-                @origin = newOrigin
-                alt = @scrollDest.scale(@tw).subtract(@getCenter())
+            alt = @scrollDest.scale(@tw).subtract(@origin)
 
-                if alt.dot(@direction) <= 0
-                    @setCenter(@scrollDest.scale(@tw))
-                    @direction = null
-                    @scrollCallback()
+            if alt.dot(@direction) <= 0
+                @origin = @scrollDest.scale(@tw)
+                @direction = null
+                @scrollCallback()
 
         for unit in @chapter.units
             if unit.direction?
