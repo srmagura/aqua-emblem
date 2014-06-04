@@ -78,7 +78,7 @@ class window.uclass.special.Kenji extends uclass.Mercenary
         attr = {name: 'Kenji', baseHp: 22, baseMp: 5,
         move: 4, str: 7, def: 3,
         skill: 4, speed: 4, res: 2, luck: 8, aid: 7, con: 5,
-        mag: 0, level: 1,
+        mag: 0, level: 1, picture: true,
         inventory: [new item.IronSword()]}
 
         super(attr)
