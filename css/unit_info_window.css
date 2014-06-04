@@ -87,12 +87,16 @@
     display: none;
 }
 
+.unit-info-window .inventory
+{
+    height: 115px;
+}
+
 .unit-info-window .inventory, .unit-info-window .tab-content-stats .stats
 {
     border: 2px solid #007A29;
     background-color: #BEB;
     padding: 5px;
-    height: 115px;
 }
 
 .unit-info-window .tab-content-inventory .weapon-element
@@ -150,7 +154,7 @@
 
 .unit-info-window .tab-content-stats .wield 
 {
-    margin-top: 8px
+    margin-top: 24px;
 }
 
 .unit-info-window .tab-content-stats .wield .weapons div

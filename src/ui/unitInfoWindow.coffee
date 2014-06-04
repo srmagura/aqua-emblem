@@ -70,7 +70,7 @@ class window.UnitInfoWindow
     initStatsTab: ->
         stats = @window.find('.tab-content-stats')
         statTypes = ['str', 'skill', 'mag', 'speed', 'def', 'luck',
-            'res', 'move', 'aid', 'con']
+            'res', 'move']
 
         for st in statTypes
             stats.find('.' + st).text(@unit[st])
