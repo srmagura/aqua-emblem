@@ -33,7 +33,7 @@ class window.Chapter1 extends Chapter
 
         terrainMapping = {
             0: terrain.Plain
-            1: terrain.Thicket
+            1: terrain.Rocks
             2: terrain.Forest
         }
 
