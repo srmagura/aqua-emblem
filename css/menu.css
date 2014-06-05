@@ -40,4 +40,5 @@ div.menu .selected .image, .end-turn .image
 {
     position: absolute;
     visibility: hidden;
+    padding: 5px;
 }

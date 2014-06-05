@@ -49,7 +49,8 @@ class window.Battle
 
     doBattle: (@callback) ->
         @container = $(document.createElement('div'))
-        @container.addClass('battle-unit-info-container').appendTo('body')
+        @container.addClass('battle-unit-info-container').
+        appendTo('.canvas-container')
 
         atkBoxEl = $('.sidebar .unit-info').clone()
         defBoxEl = $('.sidebar .unit-info').clone()
@@ -176,7 +177,7 @@ class window.Battle
         
         top = @cpos.top + overUnit.pos.i*tw
         left = @cpos.left + overUnit.pos.j*tw + tw/2 - el.width()/2
-        el.appendTo($('body')).css({top: top, left: left})
+        el.appendTo($('.canvas-container')).css({top: top, left: left})
 
         el.fadeIn(@delay/5)
 
