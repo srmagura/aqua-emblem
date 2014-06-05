@@ -33,11 +33,7 @@ class window.UnitInfoWindow
             w.find('.common img').attr('src',
                 @unit.team.insigniaImagePath)
 
-        nameField = @unit.name
-        if @unit.lord
-            nameField += ' <div class="lord">(Lord)</div>'
-
-        w.find('.common .name').html(nameField)
+        w.find('.common .name').html(@unit.name)
         w.find('.common .uclass').text(@unit.uclassName)
         w.find('.common .level').text(@unit.level)
         w.find('.common .exp').text('0')

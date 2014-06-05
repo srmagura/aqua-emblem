@@ -47,7 +47,7 @@ class window.Chapter
         removeFrom(@units)
         removeFrom(unit.team.units)
 
-        if unit.lord
+        if unit.team instanceof PlayerTeam
             @defeat()
             return false
 

@@ -57,7 +57,7 @@ class window.uclass.special.Ace extends uclass.Mercenary
         attr = {name: 'Ace', baseHp: 22, baseMp: 5,
         move: 4, str: 7, def: 3,
         skill: 4, speed: 4, res: 2, luck: 8,
-        mag: 0, level: 1, picture: true, lord: true,
+        mag: 0, level: 1, picture: true,
         inventory: [new item.IronSword()]}
 
         super(attr)
