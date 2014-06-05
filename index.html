@@ -19,6 +19,7 @@
     <script src="lib/ui/weaponMenu.js"></script>
     <script src="lib/ui/battleStatsPanel.js"></script>
     <script src="lib/ui/message.js"></script>
+    <script src="lib/ui/endTurn.js"></script>
 
     <script src="lib/chapter.js"></script>
     <script src="lib/playerTurn.js"></script>
@@ -117,6 +118,10 @@ $(window).load(init)
         </div>
         <div class="canvas-container">
             <canvas width="420" height="350"></canvas>
+            <div class="canvas-dark-overlay"></div>
+            <div class="end-turn neutral-box">
+                <div class="image"></div> End turn
+            </div>
         </div>
         <div class="sidebar right-sidebar">
             <div class="victory-condition neutral-box"></div>
@@ -141,6 +146,10 @@ $(window).load(init)
                 <td class="control">S:</td>
                 <td>more info (units)</td>
             </tr>
+            <tr>
+                <td class="control">E:</td>
+                <td>end turn</td>
+            </tr>
         </table>
         <br />
         <h3>What's new in demo-v0.0001</h3>
@@ -151,7 +160,6 @@ $(window).load(init)
 </div>
 
 <div class="dark-overlay"></div>
-<div class="canvas-dark-overlay"></div>
 
 <div class="unit-info-window blue-box">
     <div class="common">

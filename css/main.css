@@ -40,6 +40,16 @@ div.game-wrapper
 div.canvas-container
 {
     float: left;
+    position: relative;
+    width: 420px;
+    height: 350px;
+}
+
+canvas
+{
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .invisible-images
@@ -142,7 +152,9 @@ div.message
 div.canvas-dark-overlay 
 {
     display: none;
-    position: absolute; 
+    position: absolute;
+    top: 0;
+    left: 0;
     background-color: black;
     opacity: .4;
 }

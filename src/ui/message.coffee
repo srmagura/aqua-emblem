@@ -1,41 +1,45 @@
+class window.CanvasOverlay
+
+    constructor: (@ui) ->
+        @overlay = $('.canvas-dark-overlay')
+
+    init: ->
+        @overlay.css({
+            width: @ui.canvas.width()
+            height: @ui.canvas.height()
+        })
+
+    show: ->
+        @overlay.css('display', 'block')
+
+    hide: ->
+        @overlay.css('display', 'none')
+
 class window.MessageBox
 
     constructor: (@ui) ->
         @canvasContainer = $('.canvas-container')
-        @overlay = $('.canvas-dark-overlay')
-        cpos = @ui.canvas.position()
-        @overlay.css({
-            top: cpos.top
-            left: cpos.left
-            width: @ui.canvas.width()
-            height: @ui.canvas.height()
-        })
+        @ui.canvasOverlay.init()
 
     showMessage: (text, cls, css, callback, callbackArg, doFadeOut) ->
         el = $(document.createElement('div'))
         el.addClass('message').addClass(cls).text(text)
         @canvasContainer.append(el)
 
-        cpos = @ui.canvas.position()
-        padding = 10
-
-        css.top = cpos.top +
-        (@ui.canvas.height()-el.height())/2 - padding
-        css.left = cpos.left +
-        (@ui.canvas.width()-el.width())/2 - padding
-
+        css = $.extend(css, @ui.centerElement(el, 10))
         css.visibility = 'visible'
         css.display = 'none'
 
         fadeDuration = 800
-        @overlay.fadeIn(fadeDuration)
+        @ui.canvasOverlay.init()
+        @ui.canvasOverlay.overlay.fadeIn(fadeDuration)
         el.css(css).fadeIn(fadeDuration)
 
         afterFadeOut = =>
             callback(callbackArg)
 
         toDelay = =>
-            @overlay.fadeOut(fadeDuration)
+            @ui.canvasOverlay.overlay.fadeOut(fadeDuration)
             el.fadeOut(fadeDuration, afterFadeOut)
 
         if doFadeOut

@@ -4,7 +4,7 @@ div.menu
     display: none;
 }
 
-div.menu .image
+div.menu .image, .end-turn .image
 {
     width: 9px;
     height: 9px;
@@ -13,7 +13,7 @@ div.menu .image
     margin: 4px 5px 0px 2px;
 }
 
-div.menu .selected .image
+div.menu .selected .image, .end-turn .image
 {
     background-image: url('../images/list_arrow.png');
     background-repeat: no-repeat;
@@ -34,4 +34,10 @@ div.menu .selected .image
 .menu.weapon-menu .image
 {
     margin-top: 7px;
+}
+
+.end-turn
+{
+    position: absolute;
+    visibility: hidden;
 }

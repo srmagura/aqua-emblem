@@ -17,10 +17,20 @@ class UI
 
         @unitInfoBox = new UnitInfoBox(this, '.sidebar .unit-info')
         @unitInfoWindow = new UnitInfoWindow(this)
+
         @actionMenu = new ActionMenu(this)
         @weaponMenu = new WeaponMenu(this)
         @battleStatsPanel = new BattleStatsPanel(this)
+
+        @canvasOverlay = new CanvasOverlay(this)
         @messageBox = new MessageBox(this)
+        @endTurnMenu = new EndTurnMenu(this)
+
+    centerElement: (el, padding) ->
+        css = {}
+        css.top = (@canvas.height()-el.height())/2 - padding
+        css.left = (@canvas.width()-el.width())/2 - padding
+        return css
 
     setChapter: (@chapter) ->
         $('.wrapper').css('width', @canvas.width() +
@@ -77,6 +87,7 @@ class UI
             when 70 then @controlState.f()
             when 68 then @controlState.d()
             when 83 then @controlState.s()
+            when 69 then @controlState.e()
 
         if 37 <= e.which <= 40
             e.preventDefault()
@@ -174,3 +185,4 @@ class window.ControlState
     f: ->
     d: ->
     s: ->
+    e: ->

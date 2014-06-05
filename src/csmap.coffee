@@ -1,4 +1,4 @@
-class window.CsMap extends ControlState
+class CsMapAbstract extends ControlState
 
     up: ->
         if @ui.cursor.pos.i - 1 >= 0
@@ -16,6 +16,14 @@ class window.CsMap extends ControlState
         if @ui.cursor.pos.j + 1 < @ui.chapter.map.width
             @ui.cursor.move(0, 1)
 
+    s: ->
+        unit = @ui.chapter.getUnitAt(@ui.cursor.pos)
+
+        if unit?
+            @ui.unitInfoWindow.init(unit)
+
+class window.CsMap extends CsMapAbstract
+
     f: ->
         pt = @ui.chapter.playerTurn
         if not pt.selectedUnit?
@@ -29,13 +37,11 @@ class window.CsMap extends ControlState
     d: ->
         @ui.chapter.playerTurn.deselect()
 
-    s: ->
-        unit = @ui.chapter.getUnitAt(@ui.cursor.pos)
+    e: ->
+        @ui.endTurnMenu.init()
 
-        if unit?
-            @ui.unitInfoWindow.init(unit)
 
-class window.CsChooseTarget extends CsMap
+class window.CsChooseTarget extends CsMapAbstract
 
     constructor: (@ui, @playerTurn) ->
 
