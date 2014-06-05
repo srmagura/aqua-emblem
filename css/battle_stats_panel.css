@@ -14,9 +14,20 @@ div.battle-stats-panel td
    padding: 1px 3px;
 }
 
+div.battle-stats-panel img.weapon
+{
+    width: 13pt;
+}
+
 div.battle-stats-panel .atk-name
 {
     border-bottom-style: none;
+}
+
+div.battle-stats-panel .atk-name img.weapon
+{
+    margin: 1px 1px 0px 4px;
+    float: right;
 }
 
 div.battle-stats-panel .atk-hit
@@ -38,6 +49,12 @@ div.battle-stats-panel .def-name
 {
     text-align: left;
     border-top-style: none;
+}
+
+div.battle-stats-panel .def-name img.weapon
+{
+    margin: 0px 4px 3px 1px;
+    float: left;
 }
 
 div.battle-stats-panel .def-hit

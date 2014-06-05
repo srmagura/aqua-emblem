@@ -5,7 +5,11 @@ class window.BattleStatsPanel
 
     init: (battle) ->
         fillHalf = (unit, unitName) =>
-            @panel.find(".#{unitName}-name").text(unit.name)
+            nameCell = @panel.find(".#{unitName}-name")
+            nameCell.find('span').text(unit.name)
+
+            imgSrc = "images/items/#{unit.equipped.image}"
+            nameCell.find('img.weapon').attr('src', imgSrc)
 
             for statType in ['hit', 'dmg', 'crt']
                 value = unit.battleStats[statType]
