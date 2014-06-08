@@ -56,7 +56,7 @@ class window.uclass.special.Ace extends uclass.Mercenary
     constructor: ->
         attr = {name: 'Ace', baseHp: 22, baseMp: 5,
         move: 4, str: 7, def: 3,
-        skill: -40, speed: 4, res: 2, luck: 8,
+        skill: 4, speed: 4, res: 2, luck: 8,
         mag: 0, level: 1, picture: true,
         inventory: [new item.IronSword()]}
 
@@ -77,7 +77,7 @@ class window.uclass.special.Luciana extends uclass.Soldier
     constructor: ->
         attr = {name: 'Luciana', baseHp: 22, baseMp: 5,
         move: 4, str: 7, def: 3,
-        skill: -40, speed: 4, res: 2, luck: 8,
+        skill: 4, speed: 4, res: 2, luck: 8,
         mag: 0, level: 1, picture: true,
         inventory: [new item.IronLance()]}
 

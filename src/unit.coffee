@@ -73,6 +73,10 @@ class window.Unit
         @imageObjects.done = new Image()
         @imageObjects.done.src = prefix + 'done/' + filename
 
+        if @boss
+            @imageObjects.crown = new Image()
+            @imageObjects.crown.src = 'images/crown.png'
+
     setDone: ->
         @done = true
         @ui.chapter.checkAllDone()
@@ -116,3 +120,8 @@ class window.Unit
 
         offset = @pos.scale(@ui.tw).add(@offset).subtract(ui.origin)
         ctx.drawImage(image, offset.j+1, offset.i+2)
+
+        if @boss
+            ctx.drawImage(@imageObjects.crown,
+            offset.j+12, offset.i+3)
+            
