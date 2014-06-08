@@ -98,11 +98,10 @@ class window.Unit
             @pathFollowCallback()
 
     calcCombatStats: ->
-        CON = 5
         if not @equipped?
             @attackSpeed = @speed
         else
-            @attackSpeed = @speed - @equipped.weight + CON
+            @attackSpeed = @speed - @equipped.weight + 5
 
         if @equipped?
             @hit = @equipped.hit + 2*@skill + @luck / 2

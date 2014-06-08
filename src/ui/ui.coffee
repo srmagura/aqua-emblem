@@ -42,7 +42,8 @@ class UI
 
     onScreen: (pos) ->
         delta = pos.scale(@tw).subtract(@origin)
-        return delta.i < @canvas.height() and delta.j < @canvas.width()
+        return 0 <= delta.i < @canvas.height() and
+        0 <= delta.j < @canvas.width()
 
     scrollTo: (pos, @scrollCallback) ->
         centerOffset = new Position(5, 6)

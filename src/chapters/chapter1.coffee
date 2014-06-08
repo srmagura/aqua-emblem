@@ -23,9 +23,10 @@ class window.Chapter1 extends Chapter
             inventory: [new item.IronBow()]}),
 
             new uclass.Mercenary({pos: new Position(3, 15),
-            aiType: AI_TYPE.HALT,
+            #aiType: AI_TYPE.HALT,
             boss: true,
-            level: 3,
+            level: 1,
+            move: 25,
             inventory: [new item.IronSword()]})
         ]
         enemyTeam = new EnemyTeam(enemyUnits, {defaultName: 'Bandit'})
@@ -50,7 +51,7 @@ class window.Chapter1 extends Chapter
             [1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 2, 1, 1, 1],
         ]
 
-        playerPositions = [[3,14], [1,0], [2,1], [1, 2]]
+        playerPositions = [[0,1], [1,0], [2,1], [1, 2]]
 
         map = new Map(tiles, terrainMapping, playerPositions)
         super(ui, map, playerTeam, enemyTeam,
