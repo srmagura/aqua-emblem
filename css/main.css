@@ -124,6 +124,11 @@ div.right-sidebar > div
     position: absolute;
 }
 
+.battle-unit-info-container
+{
+    width: 400px;
+}
+
 .battle-unit-info-container .unit-info
 {
     float: left;

@@ -96,20 +96,18 @@ class window.Battle
         @defBox.populate(@def, false)
         @defBox.show()
 
-        @cpos = @ui.canvas.position()
         @midpoint = @atk.pos.add(@def.pos).scale(.5)
 
         tw = @ui.tw
 
-        #magic number...
-        left = @midpoint.j*tw + @cpos.left - @leftBox.width() + 15
+        left = @midpoint.j*tw - @leftBox.width() + 15 - @ui.origin.j
 
         if @atk.pos.i > @def.pos.i
             maxI = @atk.pos.i
         else
             maxI = @def.pos.i
 
-        top = (maxI + 1)*tw + @cpos.top
+        top = (maxI + 1)*tw - @ui.origin.i
         @container.css({left: left, top: top})
 
         @turnIndex = 0

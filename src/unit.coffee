@@ -40,7 +40,8 @@ class window.Unit
 
         if 'picture' not of this
             @picture = false
-
+        if 'boss' not of this
+            @boss = false
         if 'inventory' not of this
             @inventory = []
 
