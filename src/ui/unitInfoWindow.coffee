@@ -7,6 +7,8 @@ class window.UnitInfoWindow
         @initCommon()
         @initInventoryTab()
         @initStatsTab()
+
+        @prevControlState = @ui.controlState
         @ui.controlState = new CsUnitInfoWindow(@ui, this)
 
     initCommon: ->
@@ -97,6 +99,7 @@ class CsUnitInfoWindow extends ControlState
 
     d: ->
         @windowObj.hide()
+        @ui.controlState = @windowObj.prevControlState
 
     left: ->
         selectedLabel = @windowObj.window.

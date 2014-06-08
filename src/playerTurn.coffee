@@ -185,11 +185,10 @@ class window.PlayerTurn extends Turn
         @deselect()
 
     handleAttack: =>
-        @ui.cursor.visible = true
-        @ui.cursor.moveTo(@inRange[0].pos)
+        @ui.cursor.visible = false
 
         @ui.actionMenu.hide()
-        @ui.controlState = new CsChooseTarget(@ui, this)
+        @ui.weaponMenu.init(this)
 
     afterBattle: =>
         @ui.controlState = new CsMap(@ui)

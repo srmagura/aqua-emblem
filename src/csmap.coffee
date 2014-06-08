@@ -3,24 +3,30 @@ class CsMapAbstract extends ControlState
     up: ->
         if @ui.cursor.pos.i - 1 >= 0
             @ui.cursor.move(-1, 0)
+            @moved()
 
     down: ->
         if @ui.cursor.pos.i + 1 < @ui.chapter.map.height
             @ui.cursor.move(1, 0)
+            @moved()
 
     left: ->
         if @ui.cursor.pos.j - 1 >= 0
             @ui.cursor.move(0, -1)
+            @moved()
 
     right: ->
         if @ui.cursor.pos.j + 1 < @ui.chapter.map.width
             @ui.cursor.move(0, 1)
+            @moved()
 
     s: ->
         unit = @ui.chapter.getUnitAt(@ui.cursor.pos)
 
         if unit?
             @ui.unitInfoWindow.init(unit)
+
+    moved: ->
 
 class window.CsMap extends CsMapAbstract
 
@@ -44,16 +50,27 @@ class window.CsMap extends CsMapAbstract
 class window.CsChooseTarget extends CsMapAbstract
 
     constructor: (@ui, @playerTurn) ->
+        @moved()
 
-    f: ->
+    moved: ->
         target = @ui.chapter.getUnitAt(@ui.cursor.pos)
 
         if target isnt null and target in @playerTurn.inRange
             @playerTurn.battle = new Battle(@ui,
                 @playerTurn.selectedUnit, target)
 
-            @ui.weaponMenu.init(@playerTurn)
             @ui.battleStatsPanel.init(@playerTurn.battle)
+        else
+            @playerTurn.battle = null
+            @ui.battleStatsPanel.hide()
+
+    f: ->
+        if @playerTurn.battle?
+            @ui.cursor.visible = false
+            @ui.chapter.map.clearOverlay()
+            @ui.battleStatsPanel.hide()
+            @ui.unitInfoBox.hide()
+            @playerTurn.battle.doBattle(@playerTurn.afterBattle)
 
     d: ->
         @ui.actionMenu.show()
