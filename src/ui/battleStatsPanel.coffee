@@ -24,8 +24,11 @@ class window.BattleStatsPanel
             else
                 img.hide()
 
-            for statType in ['hit', 'dmg', 'crt']
-                value = unit.battleStats[statType]
+            for statType in ['hp', 'hit', 'dmg', 'crt']
+                if statType is 'hp'
+                    value = unit.hp
+                else
+                    value = unit.battleStats[statType]
 
                 if value?
                     value = Math.round(value)

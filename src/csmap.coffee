@@ -74,5 +74,7 @@ class window.CsChooseTarget extends CsMapAbstract
 
     d: ->
         @ui.actionMenu.show()
+        @playerTurn.battle = null
+        @ui.battleStatsPanel.hide()
         @ui.controlState = new CsActionMenu(@ui, @ui.actionMenu)
         @ui.cursor.moveTo(@playerTurn.selectedUnit.pos)

@@ -192,8 +192,8 @@ class window.Battle
         else if mtype is 'crit'
             el.text('Crit!')
         
-        top = @cpos.top + overUnit.pos.i*tw
-        left = @cpos.left + overUnit.pos.j*tw + tw/2 - el.width()/2
+        top = overUnit.pos.i*tw - ui.origin.i
+        left = overUnit.pos.j*tw + tw/2 - el.width()/2 - ui.origin.j
         el.appendTo($('.canvas-container')).css({top: top, left: left})
 
         el.fadeIn(@delay/5)

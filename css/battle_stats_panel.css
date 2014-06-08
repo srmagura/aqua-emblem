@@ -47,6 +47,11 @@ div.battle-stats-panel .atk-name img.weapon-arrow
     float: right;
 }
 
+div.battle-stats-panel .atk-hp
+{
+    border-style: none solid none none;
+}
+
 div.battle-stats-panel .atk-hit
 {
     border-style: none solid none none;
@@ -80,9 +85,14 @@ div.battle-stats-panel .def-name img.weapon-arrow
     float: left;
 }
 
-div.battle-stats-panel .def-hit
+div.battle-stats-panel .def-hp
 {
     border-style: solid none none solid;
+}
+
+div.battle-stats-panel .def-hit
+{
+    border-style: none none none solid;
 }
 
 div.battle-stats-panel .def-dmg
@@ -95,12 +105,12 @@ div.battle-stats-panel .def-crt
     border-style: none none none solid;
 }
 
-div.battle-stats-panel .hit
+div.battle-stats-panel .hp
 {
     border-bottom-style: none;
 }
 
-div.battle-stats-panel .dmg
+div.battle-stats-panel .dmg, div.battle-stats-panel .hit
 {
     border-top-style: none;
     border-bottom-style: none;
