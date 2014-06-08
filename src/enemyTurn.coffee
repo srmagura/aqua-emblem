@@ -42,7 +42,6 @@ class window.EnemyTurn extends Turn
 
         if inRange.length != 0
             afterScroll = =>
-                console.log inRange[0].moveSpot
                 if not @ui.onScreen(inRange[0].moveSpot) or
                 not @ui.onScreen(target.pos)
                     @ui.scrollTo(inRange[0].moveSpot, ->)

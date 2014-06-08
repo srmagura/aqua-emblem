@@ -6,16 +6,12 @@ class window.Battle
         @def.calcCombatStats()
         @calcBattleStats()
 
-    calcBattleStats: (playerWeapon) ->
+    calcBattleStats: ->
         @atk.advantage = null
         @def.advantage = null
 
-        if playerWeapon?
-            @calcIndividual(@atk, playerWeapon, @def)
-        else
-            @calcIndividual(@atk, @atk.equipped, @def)
-
-        @calcIndividual(@def, @def.equipped, @atk)
+        @calcIndividual(@atk, @def)
+        @calcIndividual(@def, @atk)
 
         @turns = [@atk]
         @nTurns = {atk: 1, def: 0}
@@ -31,20 +27,23 @@ class window.Battle
             @turns.push(@def)
             @nTurns.def++
 
-    calcIndividual: (unit1, weapon1, unit2) ->
-        if (weapon1 instanceof item.Sword and unit2.equipped instanceof item.Axe) or
-        (weapon1 instanceof item.Axe and unit2.equipped instanceof item.Lance) or
-        (weapon1 instanceof item.Lance and unit2.equipped instanceof item.Sword)
+    calcIndividual: (unit1, unit2) ->
+        w1 = unit1.equipped
+        w2 = unit2.equipped
+
+        if (w1 instanceof item.Sword and w2 instanceof item.Axe) or
+        (w1 instanceof item.Axe and w2 instanceof item.Lance) or
+        (w1 instanceof item.Lance and w2 instanceof item.Sword)
             unit1.advantage = true
             unit2.advantage = false
 
         unit1.battleStats ={}
 
-        if @range not in weapon1.range
+        if @range not in w1.range
             return
 
         unit1.battleStats.hit = unit1.hit - unit2.evade
-        unit1.battleStats.dmg = unit1.str + weapon1.might - unit2.def
+        unit1.battleStats.dmg = unit1.str + w1.might - unit2.def
         unit1.battleStats.crt = unit1.crit - unit2.critEvade
 
         if unit1.advantage is true
@@ -62,9 +61,6 @@ class window.Battle
                 unit1.battleStats[key] = 0
             if (key is 'hit' or key is 'crt') and value > 100
                 unit1.battleStats[key] = 100
-
-    setPlayerWeapon: (weapon) ->
-        @calcBattleStats(weapon)
 
     doBattle: (@callback) ->
         @container = $(document.createElement('div'))

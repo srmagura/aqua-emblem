@@ -23,10 +23,9 @@ class window.Chapter1 extends Chapter
             inventory: [new item.IronBow()]}),
 
             new uclass.Mercenary({pos: new Position(3, 15),
-            #aiType: AI_TYPE.HALT,
+            aiType: AI_TYPE.HALT,
             boss: true,
-            level: 1,
-            move: 25,
+            level: 3,
             inventory: [new item.IronSword()]})
         ]
         enemyTeam = new EnemyTeam(enemyUnits, {defaultName: 'Bandit'})
