@@ -11,6 +11,19 @@ class window.BattleStatsPanel
             imgSrc = "images/items/#{unit.equipped.image}"
             nameCell.find('img.weapon').attr('src', imgSrc)
 
+            if unit.advantage is true
+                imgSrc = "images/up_arrow.png"
+            else if unit.advantage is false
+                imgSrc = "images/down_arrow.png"
+            else
+                imgSrc = null
+
+            img = nameCell.find('img.weapon-arrow')
+            if imgSrc?
+                img.attr('src', imgSrc).show()
+            else
+                img.hide()
+
             for statType in ['hit', 'dmg', 'crt']
                 value = unit.battleStats[statType]
 

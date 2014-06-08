@@ -7,6 +7,9 @@ class window.Battle
         @calcBattleStats()
 
     calcBattleStats: (playerWeapon) ->
+        @atk.advantage = null
+        @def.advantage = null
+
         if playerWeapon?
             @calcIndividual(@atk, playerWeapon, @def)
         else
@@ -29,6 +32,12 @@ class window.Battle
             @nTurns.def++
 
     calcIndividual: (unit1, weapon1, unit2) ->
+        if (weapon1 instanceof item.Sword and unit2.equipped instanceof item.Axe) or
+        (weapon1 instanceof item.Axe and unit2.equipped instanceof item.Lance) or
+        (weapon1 instanceof item.Lance and unit2.equipped instanceof item.Sword)
+            unit1.advantage = true
+            unit2.advantage = false
+
         unit1.battleStats ={}
 
         if @range not in weapon1.range
@@ -37,6 +46,16 @@ class window.Battle
         unit1.battleStats.hit = unit1.hit - unit2.evade
         unit1.battleStats.dmg = unit1.str + weapon1.might - unit2.def
         unit1.battleStats.crt = unit1.crit - unit2.critEvade
+
+        if unit1.advantage is true
+            factor = 1
+        else if unit1.advantage is false
+            factor = -1
+        else
+            factor = 0
+
+        unit1.battleStats.hit += factor * 15
+        unit1.battleStats.dmg += factor * 1
 
         for key, value of unit1.battleStats
             if value < 0
