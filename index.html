@@ -9,7 +9,8 @@
     <link rel="stylesheet" type="text/css" href="css/unit_info_box.css"/>
     <link rel="stylesheet" type="text/css" href="css/unit_info_window.css"/>
     <link rel="stylesheet" type="text/css" href="css/battle_stats_panel.css"/>
-
+    <link rel="stylesheet" type="text/css" href="css/terrain_box.css"/>
+    
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
     <script src="lib/ui/ui.js"></script>
@@ -142,7 +143,19 @@ $(window).load(init)
         </div>
         <div class="sidebar right-sidebar">
             <div class="victory-condition neutral-box"></div>
-            <div class="terrain-box neutral-box"></div>
+            <div class="terrain-box neutral-box">
+                <img /><span class="name"></span>
+                <table>
+                    <tr>
+                        <td class="label">EVADE</td>
+                        <td class="stat evade"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">DEF/RES</td>
+                        <td class="stat def"></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
     <div class="game-info">

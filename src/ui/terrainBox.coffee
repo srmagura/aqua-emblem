@@ -5,7 +5,24 @@ class window.TerrainBox
 
     init: ->
         terrain = @ui.chapter.map.getTerrain(@ui.cursor.pos)
-        @box.text(terrain.name)
+
+        @box.find('img').attr('src', terrain.image.src)
+        @box.find('.name').text(terrain.name)
+
+        if terrain.block
+            evadeText = '--'
+            defText = '--'
+        else
+            evadeText = terrain.evade
+            defText = terrain.def
+
+            if evadeText > 0
+                evadeText = '+' + evadeText
+            if defText > 0
+                defText = '+' + defText
+
+        @box.find('.evade').text(evadeText)
+        @box.find('.def').text(defText)
         @show()
 
     show: ->

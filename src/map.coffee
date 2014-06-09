@@ -53,6 +53,8 @@ class terrain.Forest extends terrain.Terrain
     constructor: ->
         super('forest')
         @name = 'Forest'
+        @evade = 20
+        @def = 1
 
 window.OVERLAY_TYPES = {
     AVAILABLE: {startColor: '#AAF', endColor: '#22F'},
