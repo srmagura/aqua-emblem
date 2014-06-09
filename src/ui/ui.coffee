@@ -142,6 +142,7 @@ class Cursor
         @visible = true
 
     moveTo: (pos) ->
+        #console.log(pos)
         @pos = pos.clone()
         @ui.controlState.moved()
         @ui.chapter.playerTurn.updateDestination()
