@@ -3,7 +3,7 @@ window.uclass = {special: {}}
 class window.uclass.Mercenary extends Unit
     constructor: (attr) ->
         @uclassName = 'Mercenary'
-        @wield = [item.Lance]
+        @wield = [item.Sword]
 
         @baseStats = {baseHp: 18, move: 5, str: 3, def: 1,
         skill: 4, speed: 4, res: 1, luck: 2, mag: 0}

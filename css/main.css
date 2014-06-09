@@ -57,6 +57,11 @@ canvas
     display: none;
 }
 
+div.game-info
+{
+    margin-bottom: 25px;
+}
+
 div.game-info h3
 {
     margin: 3px;
