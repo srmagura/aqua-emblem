@@ -30,20 +30,31 @@ window.terrain = {}
 
 class terrain.Terrain
 
-class terrain.Plain extends terrain.Terrain
-    constructor: ->
-        @color = '#BFB'
+    constructor: (name) ->
+        @evade = 0
+        @def = 0
         @block = false
 
-class terrain.Thicket extends terrain.Terrain
+        @image = new Image()
+        @image.src = "images/terrain/#{name}.png"
+
+class terrain.Plain extends terrain.Terrain
     constructor: ->
-        @color = '#A74'
+        super('plain')
+        @name = 'Plain'
+
+class terrain.Rocks extends terrain.Terrain
+    constructor: ->
+        super('rocks')
+        @name = 'Rocks'
         @block = true
 
 class terrain.Forest extends terrain.Terrain
     constructor: ->
-        @color = '#393'
-        @block = false
+        super('forest')
+        @name = 'Forest'
+        @evade = 20
+        @def = 1
 
 window.OVERLAY_TYPES = {
     AVAILABLE: {startColor: '#AAF', endColor: '#22F'},
@@ -76,6 +87,9 @@ class window.Map
         (0 <= pos.i and pos.i < @height and
             0 <= pos.j and pos.j < @width)
 
+    getTerrain: (pos) ->
+        return @tiles[pos.i][pos.j]
+
     setOverlay: (pos, overlayType) ->
         @overlayTiles[pos.i][pos.j] = OVERLAY_TYPES[overlayType]
 
@@ -100,8 +114,7 @@ class window.Map
                 x0 = j*tw - ui.origin.j
                 y0 = i*tw - ui.origin.i
 
-                ctx.fillStyle = @tiles[i][j].color
-                ctx.fillRect(x0, y0, tw, tw)
+                ctx.drawImage(@tiles[i][j].image, x0, y0)
 
                 overlayTile = @overlayTiles[i][j]
                 if overlayTile != null
@@ -113,7 +126,7 @@ class window.Map
                     grd.addColorStop(0, overlayTile.startColor)
                     grd.addColorStop(1, overlayTile.endColor)
                     ctx.fillStyle = grd
-                    ctx.globalAlpha = .7
+                    ctx.globalAlpha = .55
                     ctx.fill()
                     ctx.globalAlpha = 1
 
@@ -123,7 +136,8 @@ class window.Map
         ctx.lineWidth = gridWidth
 
         borderColor = 'black'
-        normalColor = '#888'
+        normalColor = 'black'
+        normalAlpha = .10
 
         drawHorizontal = (i) =>
             offset = 0
@@ -136,12 +150,14 @@ class window.Map
                 ctx.strokeStyle = borderColor
             else
                 ctx.strokeStyle = normalColor
+                ctx.globalAlpha = normalAlpha
 
             ctx.beginPath()
             ctx.moveTo(offset, i*tw + offset - ui.origin.i)
             ctx.lineTo(@width*tw + offset,
             i*tw + offset - ui.origin.i)
             ctx.stroke()
+            ctx.globalAlpha = 1
 
         drawVertical = (j) =>
             offset = 0
@@ -154,12 +170,14 @@ class window.Map
                 ctx.strokeStyle = borderColor
             else
                 ctx.strokeStyle = normalColor
+                ctx.globalAlpha = normalAlpha
             
             ctx.beginPath()
             ctx.moveTo(j*tw + offset - ui.origin.j,
             offset - ui.origin.i)
             ctx.lineTo(j*tw + offset - ui.origin.j, @height*tw + offset)
             ctx.stroke()
+            ctx.globalAlpha = 1
 
         for i in [1..@height-1]
             drawHorizontal(i)

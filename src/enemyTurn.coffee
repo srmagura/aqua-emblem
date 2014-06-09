@@ -42,14 +42,23 @@ class window.EnemyTurn extends Turn
 
         if inRange.length != 0
             afterScroll = =>
+                if not @ui.onScreen(inRange[0].moveSpot) or
+                not @ui.onScreen(target.pos)
+                    @ui.scrollTo(inRange[0].moveSpot, ->)
+
                 unit.followPath(inRange[0].path, =>
-                    battle = new Battle(@ui, unit, inRange[0].target)
+                    battle = new Battle(@ui, unit, target)
                     battle.doBattle( =>
                         setTimeout(=> @doUnitTurn(nextUnit),
                         250)
                     )
                 )
 
-            @ui.scrollTo(unit.pos, afterScroll)
+            target = inRange[0].target
+
+            if not @ui.onScreen(unit.pos)
+                @ui.scrollTo(unit.pos, afterScroll)
+            else
+                afterScroll()
         else
             @doUnitTurn(nextUnit)

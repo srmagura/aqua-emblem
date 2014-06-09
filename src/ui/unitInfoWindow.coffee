@@ -7,6 +7,8 @@ class window.UnitInfoWindow
         @initCommon()
         @initInventoryTab()
         @initStatsTab()
+
+        @prevControlState = @ui.controlState
         @ui.controlState = new CsUnitInfoWindow(@ui, this)
 
     initCommon: ->
@@ -33,11 +35,7 @@ class window.UnitInfoWindow
             w.find('.common img').attr('src',
                 @unit.team.insigniaImagePath)
 
-        nameField = @unit.name
-        if @unit.lord
-            nameField += ' <div class="lord">(Lord)</div>'
-
-        w.find('.common .name').html(nameField)
+        w.find('.common .name').html(@unit.name)
         w.find('.common .uclass').text(@unit.uclassName)
         w.find('.common .level').text(@unit.level)
         w.find('.common .exp').text('0')
@@ -70,7 +68,7 @@ class window.UnitInfoWindow
     initStatsTab: ->
         stats = @window.find('.tab-content-stats')
         statTypes = ['str', 'skill', 'mag', 'speed', 'def', 'luck',
-            'res', 'move', 'aid', 'con']
+            'res', 'move']
 
         for st in statTypes
             stats.find('.' + st).text(@unit[st])
@@ -101,6 +99,7 @@ class CsUnitInfoWindow extends ControlState
 
     d: ->
         @windowObj.hide()
+        @ui.controlState = @windowObj.prevControlState
 
     left: ->
         selectedLabel = @windowObj.window.

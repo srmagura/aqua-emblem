@@ -6,6 +6,8 @@ class UI
         @then = Date.now()
         @canvas = $('canvas')
         @ctx = @canvas[0].getContext('2d')
+        @canvasDim = new Position(@canvas.height()/@tw,
+            @canvas.width()/@tw)
 
         @origin = new Position(0, 0)
         @cursor = new Cursor(this)
@@ -15,40 +17,69 @@ class UI
 
         @unitInfoBox = new UnitInfoBox(this, '.sidebar .unit-info')
         @unitInfoWindow = new UnitInfoWindow(this)
+
         @actionMenu = new ActionMenu(this)
         @weaponMenu = new WeaponMenu(this)
         @battleStatsPanel = new BattleStatsPanel(this)
-        @messageBox = new MessageBox(this)
 
-        @centerOffset = new Position(@canvas.height()/2,
-            @canvas.width()/2)
+        @canvasOverlay = new CanvasOverlay(this)
+        @messageBox = new MessageBox(this)
+        @endTurnMenu = new EndTurnMenu(this)
+
+    centerElement: (el, padding) ->
+        css = {}
+        css.top = (@canvas.height()-el.height())/2 - padding
+        css.left = (@canvas.width()-el.width())/2 - padding
+        return css
 
     setChapter: (@chapter) ->
         $('.wrapper').css('width', @canvas.width() +
             $('.left-sidebar').width()*2 + 30)
         $('.game-wrapper').css('height', @canvas.height() + 40)
         $('.victory-condition').text(@chapter.victoryCondition.text)
+
+        @terrainBox = new TerrainBox(this)
         @cursor.moveTo(new Position(0, 0))
+
         @chapter.initTurn(@chapter.playerTeam)
 
-    setCenter: (pos) ->
-        @origin = pos.subtract(@centerOffset)
+    onScreen: (pos) ->
+        delta = pos.scale(@tw).subtract(@origin)
+        return 0 <= delta.i < @canvas.height() and
+        0 <= delta.j < @canvas.width()
 
-    getCenter: ->
-        return @origin.add(@centerOffset)
+    scrollTo: (pos, @scrollCallback) ->
+        centerOffset = new Position(5, 6)
+        @scrollDest = pos.subtract(centerOffset)
 
-    scrollTo: (@scrollDest, @scrollCallback) ->
-        center = @getCenter()
+        map = @chapter.map
+
+        maxI = map.height - @canvasDim.i
+        if @scrollDest.i < 0
+            @scrollDest.i = 0
+        else if @scrollDest.i > maxI
+            @scrollDest.i = maxI
+
+        maxJ = map.width - @canvasDim.j
+        if @scrollDest.j < 0
+            @scrollDest.j = 0
+        else if @scrollDest.j > maxJ
+            @scrollDest.j = maxJ
+
         @direction = @scrollDest.scale(@tw).
-        subtract(center).toUnitVector()
-        @scrollSpeed = .2
+        subtract(@origin)
+            
+        if not @direction.equals(new Position(0, 0))
+            @direction = @direction.toUnitVector()
+            @scrollSpeed = .2
+        else
+            @direction = null
 
     render: ->
         if @chapter?
             @chapter.render(this, @ctx)
 
         @cursor.render(this, @ctx)
-
 
     keydownHandler: (e) =>
         #console.log(e.which)
@@ -60,6 +91,7 @@ class UI
             when 70 then @controlState.f()
             when 68 then @controlState.d()
             when 83 then @controlState.s()
+            when 69 then @controlState.e()
 
         if 37 <= e.which <= 40
             e.preventDefault()
@@ -69,10 +101,11 @@ class UI
         if @direction?
             @origin = @origin.add(
                 @direction.scale(delta*@scrollSpeed))
-            alt = @scrollDest.scale(@tw).subtract(@getCenter())
+
+            alt = @scrollDest.scale(@tw).subtract(@origin)
 
             if alt.dot(@direction) <= 0
-                @setCenter(@scrollDest.scale(@tw))
+                @origin = @scrollDest.scale(@tw)
                 @direction = null
                 @scrollCallback()
 
@@ -109,7 +142,9 @@ class Cursor
         @visible = true
 
     moveTo: (pos) ->
+        #console.log(pos)
         @pos = pos.clone()
+        @ui.controlState.moved()
         @ui.chapter.playerTurn.updateDestination()
 
         unitAt = @ui.chapter.getUnitAt(@pos)
@@ -156,3 +191,5 @@ class window.ControlState
     f: ->
     d: ->
     s: ->
+    e: ->
+    moved: ->

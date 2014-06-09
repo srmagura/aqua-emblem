@@ -9,7 +9,8 @@
     <link rel="stylesheet" type="text/css" href="css/unit_info_box.css"/>
     <link rel="stylesheet" type="text/css" href="css/unit_info_window.css"/>
     <link rel="stylesheet" type="text/css" href="css/battle_stats_panel.css"/>
-
+    <link rel="stylesheet" type="text/css" href="css/terrain_box.css"/>
+    
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
     <script src="lib/ui/ui.js"></script>
@@ -19,6 +20,8 @@
     <script src="lib/ui/weaponMenu.js"></script>
     <script src="lib/ui/battleStatsPanel.js"></script>
     <script src="lib/ui/message.js"></script>
+    <script src="lib/ui/endTurn.js"></script>
+    <script src="lib/ui/terrainBox.js"></script>
 
     <script src="lib/chapter.js"></script>
     <script src="lib/playerTurn.js"></script>
@@ -32,14 +35,13 @@
     <script src="lib/unit.js"></script>
     <script src="lib/uclass.js"></script>
 
-    <script src="lib/chapters/testHuge.js"></script>
     <script src="lib/chapters/chapter1.js"></script>
 
 </head>
 <body>
 <div class="title">
 <img src="images/title_cropped.png" />
-<div class="version">demo-v0.00001a</div>
+<div class="version">demo-v0.0001</div>
 </div>
 <script>
 $(window).load(init)
@@ -83,43 +85,77 @@ $(window).load(init)
             </div>
             <div class="battle-stats-panel">
                 <table>
-                    <tr><td colspan="3" class="atk-name blue-box"></td></tr>
                     <tr>
-                        <td class="def-hit red-box">
+                        <td colspan="3" class="atk-name blue-box">
+                            <span></span><img class="weapon-arrow" /><img class="weapon" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="stat def-hp red-box">
+                            <span class="stat"></span>
+                        </td>
+                        <td class="hp neutral-box">HP</td>
+                        <td class="stat atk-hp blue-box">
+                            <span class="stat"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="stat def-hit red-box">
                             <span class="stat"></span>
                         </td>
                         <td class="hit neutral-box">HIT</td>
-                        <td class="atk-hit blue-box">
+                        <td class="stat atk-hit blue-box">
                             <span class="stat"></span>
                         </td>
                     </tr>
                     <tr>
-                        <td class="def-dmg red-box">
+                        <td class="stat def-dmg red-box">
                             <span class="stat"></span><span class="x2">&times;2</span>
                         </td>
                         <td class="dmg neutral-box">DMG</td>
-                        <td class="atk-dmg blue-box">
+                        <td class="stat atk-dmg blue-box">
                             <span class="stat"></span><span class="x2">&times;2</span>
                         </td>
                     </tr>
                     <tr>
-                        <td class="def-crt red-box">
+                        <td class="stat def-crt red-box">
                             <span class="stat"></span>
                         </td>
                         <td class="crt neutral-box">CRT</td>
-                        <td class="atk-crt blue-box">
+                        <td class="stat atk-crt blue-box">
                             <span class="stat"></span>
                         </td>
                     </tr>
-                    <tr><td colspan="3" class="def-name red-box"></td></tr>
+                    <tr>
+                        <td colspan="3" class="def-name red-box">
+                            <img class="weapon-arrow" /><img class="weapon" /><span></span>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>
         <div class="canvas-container">
             <canvas width="420" height="350"></canvas>
+            <div class="canvas-dark-overlay"></div>
+            <div class="end-turn neutral-box">
+                <div class="image"></div> End turn
+            </div>
         </div>
         <div class="sidebar right-sidebar">
             <div class="victory-condition neutral-box"></div>
+            <div class="terrain-box neutral-box">
+                <img /><span class="name"></span>
+                <table>
+                    <tr>
+                        <td class="label">EVADE</td>
+                        <td class="stat evade"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">DEF/RES</td>
+                        <td class="stat def"></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
     <div class="game-info">
@@ -141,17 +177,28 @@ $(window).load(init)
                 <td class="control">S:</td>
                 <td>more info (units)</td>
             </tr>
+            <tr>
+                <td class="control">E:</td>
+                <td>end turn</td>
+            </tr>
         </table>
         <br />
-        <h3>What's new in demo-v0.0001</h3>
+        <h3>Release notes for demo-v0.0001</h3>
         <ul>
+            <li>Luciana and Kenji join the fray. 
+            Now all of the members of Ace's mercenary group, "Hellhounds", have assembled!</li>
+            <li>If <b>any</b> of your units die, you lose!! Be careful. You can't yet use Arrow's First Aid skill, so
+            Ace, Arrow, and Kenji have all received a temporary +10 buff to HP.</li>
+            <li>The weapon triangle is here. Swords beat axes, axes beat lances, and lances beat swords.</li>
+            <li>Use terrain to your advantage. Standing on a forest gives you big defensive bonuses!</li>
+            <li>Press E to end your turn early.</li>
+            <li>Some enemies won't move, while others will move to attack you if you enter their range.</li>
         </ul>
         This version has been tested in Firefox and Chrome. Please tell me if you find a bug.
     </div>
 </div>
 
 <div class="dark-overlay"></div>
-<div class="canvas-dark-overlay"></div>
 
 <div class="unit-info-window blue-box">
     <div class="common">
@@ -214,10 +261,6 @@ $(window).load(init)
                             <td>Res</td><td class="stat res"></td>
                             <td>Move</td> <td class="stat move"></td>
                         </tr>
-                        <tr>
-                            <td>Aid</td><td class="stat aid"></td>
-                            <td>Con</td> <td class="stat con"></td>
-                        </tr>
                     </table>
                 </div>
                 <div class="wield">
@@ -230,21 +273,38 @@ $(window).load(init)
     </div>
 </div>
 <div class="invisible-images">
+
 <img src="images/title_cropped.png"/>
+<img src="images/crown.png"/>
 <img src="images/bandit_insignia.png"/>
 <img src="images/list_arrow.png"/>
+<img src="images/up_arrow.png"/>
+<img src="images/down_arrow.png"/>
 <img src="images/logo.png"/>
+<img src="images/characters/luciana.png"/>
+<img src="images/characters/kenji.png"/>
 <img src="images/characters/arrow.png"/>
 <img src="images/characters/ace.png"/>
+<img src="images/terrain/plain.png"/>
+<img src="images/terrain/rocks.png"/>
+<img src="images/terrain/forest.png"/>
+<img src="images/dango/enemy/soldier.png"/>
+<img src="images/dango/enemy/fighter.png"/>
 <img src="images/dango/enemy/mercenary.png"/>
 <img src="images/dango/enemy/archer.png"/>
+<img src="images/dango/player/soldier.png"/>
+<img src="images/dango/player/fighter.png"/>
 <img src="images/dango/player/mercenary.png"/>
 <img src="images/dango/player/archer.png"/>
+<img src="images/dango/done/soldier.png"/>
+<img src="images/dango/done/fighter.png"/>
 <img src="images/dango/done/mercenary.png"/>
 <img src="images/dango/done/archer.png"/>
+<img src="images/items/iron_axe.png"/>
 <img src="images/items/steel_sword.png"/>
 <img src="images/items/iron_sword.png"/>
 <img src="images/items/iron_bow.png"/>
+<img src="images/items/iron_lance.png"/>
 
 </div>
 </body>

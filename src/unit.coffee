@@ -38,12 +38,10 @@ class window.Unit
         for key, value of attr
             this[key] = value
 
-        if 'lord' not of this
-            @lord = false
-
         if 'picture' not of this
             @picture = false
-
+        if 'boss' not of this
+            @boss = false
         if 'inventory' not of this
             @inventory = []
 
@@ -75,6 +73,10 @@ class window.Unit
         @imageObjects.done = new Image()
         @imageObjects.done.src = prefix + 'done/' + filename
 
+        if @boss
+            @imageObjects.crown = new Image()
+            @imageObjects.crown.src = 'images/crown.png'
+
     setDone: ->
         @done = true
         @ui.chapter.checkAllDone()
@@ -96,10 +98,10 @@ class window.Unit
             @pathFollowCallback()
 
     calcCombatStats: ->
-        if not @equipped? or @equipped.weight <= @con
+        if not @equipped?
             @attackSpeed = @speed
         else
-            @attackSpeed = @speed - @equipped.weight + @con
+            @attackSpeed = @speed - @equipped.weight + 5
 
         if @equipped?
             @hit = @equipped.hit + 2*@skill + @luck / 2
@@ -117,3 +119,8 @@ class window.Unit
 
         offset = @pos.scale(@ui.tw).add(@offset).subtract(ui.origin)
         ctx.drawImage(image, offset.j+1, offset.i+2)
+
+        if @boss
+            ctx.drawImage(@imageObjects.crown,
+            offset.j+12, offset.i+3)
+            

@@ -32,14 +32,12 @@ class CsWeaponMenu extends CsMenu
             find('.selected').data('weapon'))
     
     f: ->
-        @ui.unitInfoBox.hide()
         @ui.weaponMenu.hide()
-        @ui.battleStatsPanel.hide()
-        @ui.chapter.map.clearOverlay()
-        @ui.cursor.visible = false
-        @ui.controlState = new ControlState(@ui)
 
-        @playerTurn.battle.doBattle(@playerTurn.afterBattle)
+        pt = @menuObj.playerTurn
+        @ui.controlState = new CsChooseTarget(@ui, pt)
+        @ui.cursor.moveTo(pt.inRange[0].pos)
+        @ui.cursor.visible = true
 
     d: ->
         @ui.cursor.visible = true

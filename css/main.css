@@ -40,11 +40,26 @@ div.game-wrapper
 div.canvas-container
 {
     float: left;
+    position: relative;
+    width: 420px;
+    height: 350px;
+}
+
+canvas
+{
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .invisible-images
 {
     display: none;
+}
+
+div.game-info
+{
+    margin-bottom: 25px;
 }
 
 div.game-info h3
@@ -114,6 +129,11 @@ div.right-sidebar > div
     position: absolute;
 }
 
+.battle-unit-info-container
+{
+    width: 400px;
+}
+
 .battle-unit-info-container .unit-info
 {
     float: left;
@@ -142,7 +162,9 @@ div.message
 div.canvas-dark-overlay 
 {
     display: none;
-    position: absolute; 
+    position: absolute;
+    top: 0;
+    left: 0;
     background-color: black;
     opacity: .4;
 }

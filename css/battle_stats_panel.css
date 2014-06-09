@@ -14,9 +14,42 @@ div.battle-stats-panel td
    padding: 1px 3px;
 }
 
+div.battle-stats-panel .atk-name span, div.battle-stats-panel .def-name span
+{
+    font-size: 9pt;
+}
+
+div.battle-stats-panel img.weapon
+{
+    width: 13pt;
+}
+
+div.battle-stats-panel img.weapon-arrow
+{
+    width: 12px;
+}
+
 div.battle-stats-panel .atk-name
 {
     border-bottom-style: none;
+    text-align: left;
+}
+
+div.battle-stats-panel .atk-name img.weapon
+{
+    margin: 1px 1px 0px 4px;
+    float: right;
+}
+
+div.battle-stats-panel .atk-name img.weapon-arrow
+{
+    margin: 1px 1px 0 0px;
+    float: right;
+}
+
+div.battle-stats-panel .atk-hp
+{
+    border-style: none solid none none;
 }
 
 div.battle-stats-panel .atk-hit
@@ -40,9 +73,26 @@ div.battle-stats-panel .def-name
     border-top-style: none;
 }
 
-div.battle-stats-panel .def-hit
+div.battle-stats-panel .def-name img.weapon
+{
+    margin: 0px 4px 3px 1px;
+    float: left;
+}
+
+div.battle-stats-panel .def-name img.weapon-arrow
+{
+    margin: 2px 1px 0 0px;
+    float: left;
+}
+
+div.battle-stats-panel .def-hp
 {
     border-style: solid none none solid;
+}
+
+div.battle-stats-panel .def-hit
+{
+    border-style: none none none solid;
 }
 
 div.battle-stats-panel .def-dmg
@@ -55,12 +105,12 @@ div.battle-stats-panel .def-crt
     border-style: none none none solid;
 }
 
-div.battle-stats-panel .hit
+div.battle-stats-panel .hp
 {
     border-bottom-style: none;
 }
 
-div.battle-stats-panel .dmg
+div.battle-stats-panel .dmg, div.battle-stats-panel .hit
 {
     border-top-style: none;
     border-bottom-style: none;

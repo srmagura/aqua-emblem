@@ -6,13 +6,12 @@ class window.Battle
         @def.calcCombatStats()
         @calcBattleStats()
 
-    calcBattleStats: (playerWeapon) ->
-        if playerWeapon?
-            @calcIndividual(@atk, playerWeapon, @def)
-        else
-            @calcIndividual(@atk, @atk.equipped, @def)
+    calcBattleStats: ->
+        @atk.advantage = null
+        @def.advantage = null
 
-        @calcIndividual(@def, @def.equipped, @atk)
+        @calcIndividual(@atk, @def)
+        @calcIndividual(@def, @atk)
 
         @turns = [@atk]
         @nTurns = {atk: 1, def: 0}
@@ -28,15 +27,34 @@ class window.Battle
             @turns.push(@def)
             @nTurns.def++
 
-    calcIndividual: (unit1, weapon1, unit2) ->
+    calcIndividual: (unit1, unit2) ->
+        w1 = unit1.equipped
+        w2 = unit2.equipped
+
+        if (w1 instanceof item.Sword and w2 instanceof item.Axe) or
+        (w1 instanceof item.Axe and w2 instanceof item.Lance) or
+        (w1 instanceof item.Lance and w2 instanceof item.Sword)
+            unit1.advantage = true
+            unit2.advantage = false
+
         unit1.battleStats ={}
 
-        if @range not in weapon1.range
+        if @range not in w1.range
             return
 
         unit1.battleStats.hit = unit1.hit - unit2.evade
-        unit1.battleStats.dmg = unit1.str + weapon1.might - unit2.def
+        unit1.battleStats.dmg = unit1.str + w1.might - unit2.def
         unit1.battleStats.crt = unit1.crit - unit2.critEvade
+
+        if unit1.advantage is true
+            factor = 1
+        else if unit1.advantage is false
+            factor = -1
+        else
+            factor = 0
+
+        unit1.battleStats.hit += factor * 15
+        unit1.battleStats.dmg += factor * 1
 
         for key, value of unit1.battleStats
             if value < 0
@@ -44,12 +62,10 @@ class window.Battle
             if (key is 'hit' or key is 'crt') and value > 100
                 unit1.battleStats[key] = 100
 
-    setPlayerWeapon: (weapon) ->
-        @calcBattleStats(weapon)
-
     doBattle: (@callback) ->
         @container = $(document.createElement('div'))
-        @container.addClass('battle-unit-info-container').appendTo('body')
+        @container.addClass('battle-unit-info-container').
+        appendTo('.canvas-container')
 
         atkBoxEl = $('.sidebar .unit-info').clone()
         defBoxEl = $('.sidebar .unit-info').clone()
@@ -76,20 +92,18 @@ class window.Battle
         @defBox.populate(@def, false)
         @defBox.show()
 
-        @cpos = @ui.canvas.position()
         @midpoint = @atk.pos.add(@def.pos).scale(.5)
 
         tw = @ui.tw
 
-        #magic number...
-        left = @midpoint.j*tw + @cpos.left - @leftBox.width() + 15
+        left = @midpoint.j*tw - @leftBox.width() + 15 - @ui.origin.j
 
         if @atk.pos.i > @def.pos.i
             maxI = @atk.pos.i
         else
             maxI = @def.pos.i
 
-        top = (maxI + 1)*tw + @cpos.top
+        top = (maxI + 1)*tw - @ui.origin.i
         @container.css({left: left, top: top})
 
         @turnIndex = 0
@@ -174,9 +188,9 @@ class window.Battle
         else if mtype is 'crit'
             el.text('Crit!')
         
-        top = @cpos.top + overUnit.pos.i*tw
-        left = @cpos.left + overUnit.pos.j*tw + tw/2 - el.width()/2
-        el.appendTo($('body')).css({top: top, left: left})
+        top = overUnit.pos.i*tw - ui.origin.i
+        left = overUnit.pos.j*tw + tw/2 - el.width()/2 - ui.origin.j
+        el.appendTo($('.canvas-container')).css({top: top, left: left})
 
         el.fadeIn(@delay/5)
 

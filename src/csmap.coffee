@@ -1,4 +1,4 @@
-class window.CsMap extends ControlState
+class CsMapAbstract extends ControlState
 
     up: ->
         if @ui.cursor.pos.i - 1 >= 0
@@ -16,6 +16,17 @@ class window.CsMap extends ControlState
         if @ui.cursor.pos.j + 1 < @ui.chapter.map.width
             @ui.cursor.move(0, 1)
 
+    s: ->
+        unit = @ui.chapter.getUnitAt(@ui.cursor.pos)
+
+        if unit?
+            @ui.unitInfoWindow.init(unit)
+
+    moved: ->
+        @ui.terrainBox.init()
+
+class window.CsMap extends CsMapAbstract
+
     f: ->
         pt = @ui.chapter.playerTurn
         if not pt.selectedUnit?
@@ -29,27 +40,40 @@ class window.CsMap extends ControlState
     d: ->
         @ui.chapter.playerTurn.deselect()
 
-    s: ->
-        unit = @ui.chapter.getUnitAt(@ui.cursor.pos)
+    e: ->
+        @ui.endTurnMenu.init()
 
-        if unit?
-            @ui.unitInfoWindow.init(unit)
 
-class window.CsChooseTarget extends CsMap
+class window.CsChooseTarget extends CsMapAbstract
 
     constructor: (@ui, @playerTurn) ->
 
-    f: ->
+    moved: ->
+        super()
         target = @ui.chapter.getUnitAt(@ui.cursor.pos)
 
         if target isnt null and target in @playerTurn.inRange
             @playerTurn.battle = new Battle(@ui,
                 @playerTurn.selectedUnit, target)
 
-            @ui.weaponMenu.init(@playerTurn)
             @ui.battleStatsPanel.init(@playerTurn.battle)
+        else
+            @playerTurn.battle = null
+            @ui.battleStatsPanel.hide()
+
+    f: ->
+        if @playerTurn.battle?
+            @ui.cursor.visible = false
+            @ui.chapter.map.clearOverlay()
+            @ui.battleStatsPanel.hide()
+            @ui.unitInfoBox.hide()
+            @ui.terrainBox.hide()
+            @playerTurn.battle.doBattle(@playerTurn.afterBattle)
+            @ui.controlState = new ControlState(@ui)
 
     d: ->
         @ui.actionMenu.show()
-        @ui.controlState = new CsActionMenu(@ui, @ui.actionMenu)
+        @playerTurn.battle = null
+        @ui.battleStatsPanel.hide()
         @ui.cursor.moveTo(@playerTurn.selectedUnit.pos)
+        @ui.controlState = new CsActionMenu(@ui, @ui.actionMenu)
