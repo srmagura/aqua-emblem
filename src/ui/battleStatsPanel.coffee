@@ -41,6 +41,8 @@ class window.BattleStatsPanel
                 if statType == 'dmg' and
                 battle.nTurns[unitName] == 2
                     td.find('.x2').show()
+                else
+                    td.find('.x2').hide()
 
         fillHalf(battle.atk, 'atk')
         fillHalf(battle.def, 'def')

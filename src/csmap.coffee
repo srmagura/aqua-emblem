@@ -69,6 +69,7 @@ class window.CsChooseTarget extends CsMapAbstract
             @ui.unitInfoBox.hide()
             @ui.terrainBox.hide()
             @playerTurn.battle.doBattle(@playerTurn.afterBattle)
+            @ui.controlState = new ControlState(@ui)
 
     d: ->
         @ui.actionMenu.show()

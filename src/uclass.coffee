@@ -5,8 +5,8 @@ class window.uclass.Mercenary extends Unit
         @uclassName = 'Mercenary'
         @wield = [item.Lance]
 
-        @baseStats = {baseHp: 18, move: 5, str: 3, def: 2,
-        skill: 3, speed: 3, res: 1, luck: 2, mag: 0}
+        @baseStats = {baseHp: 18, move: 5, str: 3, def: 1,
+        skill: 4, speed: 4, res: 1, luck: 2, mag: 0}
 
         @growthRates = {baseHp: .8, str: .5, skill: .35,
         speed: .35, luck: .1, def: .25, res: .15}
@@ -18,8 +18,8 @@ class window.uclass.Archer extends Unit
         @uclassName = 'Archer'
         @wield = [item.Bow]
 
-        @baseStats = {baseHp: 18, move: 5, str: 4, def: 2,
-        skill: 5, speed: 6, res: 1, luck: 2, mag: 0}
+        @baseStats = {baseHp: 16, move: 5, str: 2, def: 2,
+        skill: 4, speed: 3, res: 1, luck: 2, mag: 0}
 
         @growthRates = {baseHp: .65, str: .4, skill: .45,
         speed: .40, luck: .1, def: .25, res: .15}
@@ -31,8 +31,8 @@ class window.uclass.Soldier extends Unit
         @uclassName = 'Soldier'
         @wield = [item.Lance]
 
-        @baseStats = {baseHp: 18, move: 5, str: 3, def: 2,
-        skill: 3, speed: 3, res: 1, luck: 2, mag: 0}
+        @baseStats = {baseHp: 20, move: 5, str: 4, def: 4,
+        skill: 2, speed: 2, res: 1, luck: 2, mag: 0}
 
         @growthRates = {baseHp: .8, str: .5, skill: .35,
         speed: .35, luck: .1, def: .25, res: .15}
@@ -44,8 +44,8 @@ class window.uclass.Fighter extends Unit
         @uclassName = 'Fighter'
         @wield = [item.Axe]
 
-        @baseStats = {baseHp: 18, move: 5, str: 3, def: 2,
-        skill: 3, speed: 3, res: 1, luck: 2, mag: 0}
+        @baseStats = {baseHp: 23, move: 5, str: 5, def: 1,
+        skill: 1, speed: 2, res: 1, luck: 2, mag: 0}
 
         @growthRates = {baseHp: .8, str: .5, skill: .35,
         speed: .35, luck: .1, def: .25, res: .15}
@@ -54,9 +54,9 @@ class window.uclass.Fighter extends Unit
 
 class window.uclass.special.Ace extends uclass.Mercenary
     constructor: ->
-        attr = {name: 'Ace', baseHp: 22, baseMp: 5,
-        move: 4, str: 7, def: 3,
-        skill: 4, speed: 4, res: 2, luck: 8,
+        attr = {name: 'Ace', baseHp: 30, baseMp: 5,
+        str: 7, def: 3,
+        skill: 4, speed: 6, res: 2, luck: 8,
         mag: 0, level: 1, picture: true,
         inventory: [new item.IronSword()]}
 
@@ -64,8 +64,8 @@ class window.uclass.special.Ace extends uclass.Mercenary
 
 class window.uclass.special.Arrow extends uclass.Archer
     constructor: ->
-        attr = {name: 'Arrow', baseHp: 18, baseMp: 5,
-        move: 4, str: 5, def: 4,
+        attr = {name: 'Arrow', baseHp: 28, baseMp: 5,
+        str: 5, def: 4,
         skill: 5, speed: 6, res: 2, luck: 5,
         mag: 0, level: 1, picture: true,
         inventory: [new item.IronBow()]}
@@ -75,8 +75,8 @@ class window.uclass.special.Arrow extends uclass.Archer
 
 class window.uclass.special.Luciana extends uclass.Soldier
     constructor: ->
-        attr = {name: 'Luciana', baseHp: 22, baseMp: 5,
-        move: 4, str: 7, def: 3,
+        attr = {name: 'Luciana', baseHp: 23, baseMp: 5,
+        str: 6, def: 6,
         skill: 4, speed: 4, res: 2, luck: 8,
         mag: 0, level: 1, picture: true,
         inventory: [new item.IronLance()]}
@@ -85,9 +85,9 @@ class window.uclass.special.Luciana extends uclass.Soldier
 
 class window.uclass.special.Kenji extends uclass.Fighter
     constructor: ->
-        attr = {name: 'Kenji', baseHp: 22, baseMp: 5,
-        move: 4, str: 7, def: 3,
-        skill: 4, speed: 4, res: 2, luck: 8,
+        attr = {name: 'Kenji', baseHp: 36, baseMp: 5,
+        str: 7, def: 3,
+        skill: 4, speed: 5, res: 2, luck: 8,
         mag: 0, level: 1, picture: true,
         inventory: [new item.IronAxe()]}
 
