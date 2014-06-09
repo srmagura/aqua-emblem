@@ -31,22 +31,28 @@ window.terrain = {}
 class terrain.Terrain
 
     constructor: (name) ->
+        @evade = 0
+        @def = 0
         @block = false
+
         @image = new Image()
         @image.src = "images/terrain/#{name}.png"
 
 class terrain.Plain extends terrain.Terrain
     constructor: ->
         super('plain')
+        @name = 'Plain'
 
 class terrain.Rocks extends terrain.Terrain
     constructor: ->
         super('rocks')
+        @name = 'Rocks'
         @block = true
 
 class terrain.Forest extends terrain.Terrain
     constructor: ->
         super('forest')
+        @name = 'Forest'
 
 window.OVERLAY_TYPES = {
     AVAILABLE: {startColor: '#AAF', endColor: '#22F'},
@@ -78,6 +84,9 @@ class window.Map
     onMap: (pos) ->
         (0 <= pos.i and pos.i < @height and
             0 <= pos.j and pos.j < @width)
+
+    getTerrain: (pos) ->
+        return @tiles[pos.i][pos.j]
 
     setOverlay: (pos, overlayType) ->
         @overlayTiles[pos.i][pos.j] = OVERLAY_TYPES[overlayType]

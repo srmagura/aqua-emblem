@@ -37,7 +37,10 @@ class UI
             $('.left-sidebar').width()*2 + 30)
         $('.game-wrapper').css('height', @canvas.height() + 40)
         $('.victory-condition').text(@chapter.victoryCondition.text)
+
+        @terrainBox = new TerrainBox(this)
         @cursor.moveTo(new Position(0, 0))
+
         @chapter.initTurn(@chapter.playerTeam)
 
     onScreen: (pos) ->
@@ -140,6 +143,7 @@ class Cursor
 
     moveTo: (pos) ->
         @pos = pos.clone()
+        @ui.controlState.moved()
         @ui.chapter.playerTurn.updateDestination()
 
         unitAt = @ui.chapter.getUnitAt(@pos)
@@ -187,3 +191,4 @@ class window.ControlState
     d: ->
     s: ->
     e: ->
+    moved: ->
