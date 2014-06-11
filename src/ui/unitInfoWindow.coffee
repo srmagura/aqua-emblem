@@ -1,3 +1,15 @@
+class window.ViewportOverlay
+
+    constructor: (@ui) ->
+        @overlay = $('.viewport-overlay')
+
+    show: ->
+        @overlay.show()
+
+    hide: ->
+        @overlay.hide()
+
+
 class window.UnitInfoWindow
 
     constructor: (@ui) ->
@@ -11,8 +23,12 @@ class window.UnitInfoWindow
         @prevControlState = @ui.controlState
         @ui.controlState = new CsUnitInfoWindow(@ui, this)
 
+        css = @ui.centerElement(@window, 4)
+        css.visibility = 'visible'
+        @window.css(css)
+
     initCommon: ->
-        $('.dark-overlay').show()
+        @ui.viewportOverlay.show()
 
         w = @window
         w.removeClass('blue-box').removeClass('red-box')
@@ -21,10 +37,6 @@ class window.UnitInfoWindow
             w.addClass('blue-box')
         else
             w.addClass('red-box')
-
-        docWidth = $(document).width()
-        w.css({visibility: 'visible',
-        left: (docWidth-w.width())/2})
 
         if @unit.picture
             w.find('.common .image-wrapper').removeClass('insignia')
@@ -80,7 +92,7 @@ class window.UnitInfoWindow
 
 
     hide: ->
-        $('.dark-overlay').hide()
+        @ui.viewportOverlay.hide()
         @window.css('visibility', 'hidden')
         @ui.controlState = new CsMap(@ui)
 

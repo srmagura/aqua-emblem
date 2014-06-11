@@ -24,6 +24,9 @@ class UI
         @expBar = new ExpBar(this)
 
         @canvasOverlay = new CanvasOverlay(this)
+        @viewportOverlay = new ViewportOverlay(this)
+
+
         @messageBox = new MessageBox(this)
         @endTurnMenu = new EndTurnMenu(this)
 
