@@ -17,6 +17,7 @@ class UI
 
         @unitInfoBox = new UnitInfoBox(this, '.sidebar .unit-info')
         @unitInfoWindow = new UnitInfoWindow(this)
+        @levelUpWindow = new LevelUpWindow(this)
 
         @actionMenu = new ActionMenu(this)
         @weaponMenu = new WeaponMenu(this)
@@ -25,7 +26,6 @@ class UI
 
         @canvasOverlay = new CanvasOverlay(this)
         @viewportOverlay = new ViewportOverlay(this)
-
 
         @messageBox = new MessageBox(this)
         @endTurnMenu = new EndTurnMenu(this)

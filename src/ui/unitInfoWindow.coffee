@@ -90,7 +90,6 @@ class window.UnitInfoWindow
             $('<div><img src="images/items/' +
             (new weaponClass()).image + '" /></div>').appendTo(weaponsEl)
 
-
     hide: ->
         @ui.viewportOverlay.hide()
         @window.css('visibility', 'hidden')
@@ -105,13 +104,16 @@ class window.UnitInfoWindow
         labels.find('.tab-label-' + tabId).addClass('selected')
         @window.find('.tab-container .tab-content-' + tabId).show()
 
-class CsUnitInfoWindow extends ControlState
+class CsWindow extends ControlState
 
     constructor: (@ui, @windowObj) ->
 
     d: ->
         @windowObj.hide()
         @ui.controlState = @windowObj.prevControlState
+
+
+class CsUnitInfoWindow extends CsWindow
 
     left: ->
         selectedLabel = @windowObj.window.

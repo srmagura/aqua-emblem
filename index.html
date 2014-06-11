@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/menu.css"/>
     <link rel="stylesheet" type="text/css" href="css/unit_info_box.css"/>
     <link rel="stylesheet" type="text/css" href="css/unit_info_window.css"/>
+    <link rel="stylesheet" type="text/css" href="css/level_up_window.css"/>
     <link rel="stylesheet" type="text/css" href="css/battle_stats_panel.css"/>
     <link rel="stylesheet" type="text/css" href="css/terrain_box.css"/>
     <link rel="stylesheet" type="text/css" href="css/exp_bar.css"/>
@@ -17,6 +18,7 @@
     <script src="lib/ui/ui.js"></script>
     <script src="lib/ui/unitInfoBox.js"></script>
     <script src="lib/ui/unitInfoWindow.js"></script>
+    <script src="lib/ui/levelUpWindow.js"></script>
     <script src="lib/ui/actionMenu.js"></script>
     <script src="lib/ui/weaponMenu.js"></script>
     <script src="lib/ui/battleStatsPanel.js"></script>
@@ -223,6 +225,41 @@ $(window).load(init)
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="level-up-window blue-box">
+                <div class="common">
+                    <div class="image-wrapper">
+                        <img />
+                    </div>
+                    <div>
+                        <div class="name"></div>
+                        <div class="uclass"></div>
+                        <div class="level-info">
+                            Lv <span class="level"></span>
+                            Exp <span class="exp"></span></div>
+                    </div>
+                </div>
+                <div class="stats">
+                    <table>
+                        <tr>
+                            <td>Str</td><td class="stat str"></td>
+                            <td>Skill</td> <td class="stat skill"></td>
+                        </tr>
+                        <tr>
+                            <td>Mag</td><td class="stat mag"></td>
+                            <td>Speed</td> <td class="stat speed"></td>
+                        </tr>
+                        <tr>
+                            <td>Def</td><td class="stat def"></td>
+                            <td>Luck</td> <td class="stat luck"></td>
+                        </tr>
+                        <tr>
+                            <td>Res</td><td class="stat res"></td>
+                            <td>Move</td> <td class="stat move"></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
