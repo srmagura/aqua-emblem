@@ -21,6 +21,7 @@ class UI
         @actionMenu = new ActionMenu(this)
         @weaponMenu = new WeaponMenu(this)
         @battleStatsPanel = new BattleStatsPanel(this)
+        @expBar = new ExpBar(this)
 
         @canvasOverlay = new CanvasOverlay(this)
         @messageBox = new MessageBox(this)

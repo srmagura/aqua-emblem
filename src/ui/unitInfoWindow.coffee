@@ -38,7 +38,7 @@ class window.UnitInfoWindow
         w.find('.common .name').html(@unit.name)
         w.find('.common .uclass').text(@unit.uclassName)
         w.find('.common .level').text(@unit.level)
-        w.find('.common .exp').text('0')
+        w.find('.common .exp').text(Math.floor(@unit.exp*100))
 
         w.find('.labels > div').removeClass('selected')
         w.find('.tab-content').hide()

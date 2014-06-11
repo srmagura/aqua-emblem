@@ -1,0 +1,24 @@
+.exp-bar-container
+{
+    visibility: hidden;
+    display: inline-block;
+    position: absolute;
+    padding: 5px;
+    font-size: 8pt;
+}
+
+.exp-bar
+{
+    margin: 1px 5px 0 7px;
+    width: 100px;
+    height: 9px;
+    background-color: black;
+    float: right;
+}
+
+.exp-bar-filled
+{
+    height: 7px;
+    background: linear-gradient(to left, orange, #F85);
+    border: 1px solid black;
+}
