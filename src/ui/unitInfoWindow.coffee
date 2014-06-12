@@ -93,7 +93,6 @@ class window.UnitInfoWindow
     hide: ->
         @ui.viewportOverlay.hide()
         @window.css('visibility', 'hidden')
-        @ui.controlState = new CsMap(@ui)
 
     changeTab: (tabId) ->
         labels = @window.find('.tab-container .labels')
@@ -104,7 +103,7 @@ class window.UnitInfoWindow
         labels.find('.tab-label-' + tabId).addClass('selected')
         @window.find('.tab-container .tab-content-' + tabId).show()
 
-class CsWindow extends ControlState
+class window.CsWindow extends ControlState
 
     constructor: (@ui, @windowObj) ->
 

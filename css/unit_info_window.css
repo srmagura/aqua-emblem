@@ -10,28 +10,42 @@
     background-color: black;
 }
 
-.unit-info-window 
+.unit-info-window, .level-up-window 
 {
     visibility: hidden;
     position: absolute;
     overflow: hidden;
     padding: 4px;
     z-index: 10;
+}
+
+.unit-info-window
+{
     height: 230px;
+}
+
+.unit-info-window .common, .level-up-window .common
+{
+    padding: 5px;
+    float: left;
 }
 
 .unit-info-window .common
 {
-    padding: 5px;
     width: 120px;
-    float: left;
 }
 
-.unit-info-window .common img
+.level-up-window .common
+{
+    width: 100px;
+}
+
+.unit-info-window .common img,
+.level-up-window .common img
 {
     border: 1px solid black;
     background: radial-gradient(#AAA, #666);
-    width: 120px;
+    width: 100%;
 }
 
 
@@ -40,13 +54,6 @@
     border: none;
     background: none;
     margin: 15px 0;
-}
-
-.unit-info-window .common .lord 
-{
-    font-size: 9pt;
-    float: right;
-    padding-top: 2px;
 }
 
 .unit-info-window .tab-container
@@ -118,7 +125,7 @@
     border: 2px solid #007A29;
     background-color: #BEB;
     padding: 2px;
-    margin-top: 8px
+    margin-top: 8px;
 }
 
 .unit-info-window .combat-stats table
@@ -138,7 +145,8 @@
     font-weight: bold;
 }
 
-.unit-info-window .tab-content-stats table
+.unit-info-window .tab-content-stats table,
+.level-up-window .stats table
 {
     width: 100%;
 }
@@ -162,4 +170,54 @@
     background-color: rgba(40,40,40, .1);
     padding: 2px;
     margin-top: 2px
+}
+
+.level-up-window .stats-container
+{
+    float: left;
+    padding: 5px;
+    width: 180px;
+}
+
+.level-up-window .level-up
+{
+    color: #008;
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+.level-up-window .stats
+{
+    border: 2px solid #007A29;
+    background-color: #BEB;
+    margin-top: 4px;
+    padding: 2px;
+}
+
+.level-up-window .stats .label
+{
+    font-size: 9pt;
+}
+
+.level-up-window .stats td
+{
+    padding: 3px 1px;
+}
+
+.level-up-window .stats .stat
+{
+    padding-right: 15px;
+    text-align: right;
+}
+
+.level-up-window .stat-up
+{
+    color: #007A29;
+    font-weight: bold;
+}
+
+.level-up-window .stats .stat img
+{
+    height: 10pt;
+    margin-left: 4px;
 }
