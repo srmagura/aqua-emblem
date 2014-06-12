@@ -26,10 +26,6 @@ class CsWeaponMenu extends CsMenu
 
     constructor: (@ui, @menuObj) ->
         @playerTurn = @ui.chapter.playerTurn
-
-    onChange: ->
-        @playerTurn.battle.setPlayerWeapon(@menuObj.menu.
-            find('.selected').data('weapon'))
     
     f: ->
         @ui.weaponMenu.hide()
