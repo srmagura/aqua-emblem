@@ -61,7 +61,7 @@
     margin: 5px;
     margin-left: 12px;
     float: left;
-    width: 200px;
+    width: 190px;
 }
 
 .unit-info-window .tab-container .labels .tab-id
@@ -151,11 +151,16 @@
     width: 100%;
 }
 
+.unit-info-window .label
+{
+    font-size: 9pt;
+}
+
 .unit-info-window .tab-content-stats table .stat
 {
     color: #007A29;
     font-weight: bold;
-    padding-right: 12px;
+    padding-right: 15px;
 }
 
 .unit-info-window .tab-content-stats .wield 
