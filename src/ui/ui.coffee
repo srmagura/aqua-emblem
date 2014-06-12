@@ -45,9 +45,7 @@ class UI
         @terrainBox = new TerrainBox(this)
         @cursor.moveTo(new Position(0, 0))
 
-        #@chapter.initTurn(@chapter.playerTeam)
-        inc = ['hp', 'str', 'mag']
-        @levelUpWindow.init(@chapter.playerTeam.units[0], inc)
+        @chapter.initTurn(@chapter.playerTeam)
 
     onScreen: (pos) ->
         delta = pos.scale(@tw).subtract(@origin)
