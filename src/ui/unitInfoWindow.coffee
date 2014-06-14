@@ -103,7 +103,7 @@ class window.UnitInfoWindow
         labels.find('.tab-label-' + tabId).addClass('selected')
         @window.find('.tab-container .tab-content-' + tabId).show()
 
-class window.CsWindow extends ControlState
+class CsWindow extends ControlState
 
     constructor: (@ui, @windowObj) ->
 

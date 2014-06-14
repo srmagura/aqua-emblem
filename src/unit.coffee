@@ -83,6 +83,21 @@ class window.Unit
         @done = true
         @ui.chapter.checkAllDone()
 
+    addExp: (toAdd) ->
+        newExp = @exp + toAdd
+
+        if newExp >= 1
+            @exp = newExp - 1
+            @level++
+            return ['str', 'res']
+        else
+            @exp = newExp
+            return null
+
+    doIncrement: (increment) ->
+        for stat in increment
+            this[stat]++
+
     followPath: (@path, @pathFollowCallback) ->
         @followingPath = true
         @pathNext()

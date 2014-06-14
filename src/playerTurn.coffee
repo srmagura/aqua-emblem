@@ -74,16 +74,8 @@ class window.PlayerTurn extends Turn
         @ui.actionMenu.hide()
         @ui.weaponMenu.init(this)
 
-    afterBattle: =>
-        toAdd = .1
-
-        callback = =>
-            @selectedUnit.exp += toAdd
-            @afterExpAdd()
-
-        @ui.expBar.init(@selectedUnit, toAdd, callback)
-
     afterExpAdd: =>
+
         @ui.controlState = new CsMap(@ui)
         @ui.cursor.visible = true
         @ui.cursor.moveTo(@selectedUnit.pos)

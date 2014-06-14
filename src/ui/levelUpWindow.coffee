@@ -3,11 +3,10 @@ class window.LevelUpWindow
     constructor: (@ui) ->
         @window = $('.level-up-window')
 
-    init: (@unit, @increment) ->
+    init: (@unit, @increment, @callback) ->
         @initCommon()
         @initStats()
 
-        @prevControlState = @ui.controlState
         @ui.controlState = new ControlState(@ui)
 
         css = @ui.centerElement(@window, 4)
@@ -37,7 +36,9 @@ class window.LevelUpWindow
             'res', 'move']
 
         for st in statTypes
-            stats.find('.' + st + ' span').text(@unit[st])
+            el = stats.find('.' + st)
+            el.find('span').text(@unit[st])
+            el.removeClass('stat-up')
 
     showIncrement: =>
         if @incIndex == @increment.length
@@ -58,5 +59,12 @@ class window.LevelUpWindow
         @window.css('visibility', 'hidden')
         @window.find('.stat img').css('visibility', 'hidden')
 
-class CsLevelUpWindow extends CsWindow
+class CsLevelUpWindow extends ControlState
+
+    constructor: (@ui, @windowObj) ->
+
     f: -> @d()
+
+    d: ->
+        @windowObj.hide()
+        @windowObj.callback()

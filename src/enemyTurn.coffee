@@ -11,7 +11,7 @@ class window.EnemyTurn extends Turn
             return
 
         eu = @ui.chapter.enemyTeam.units
-        nextUnit = eu[eu.indexOf(unit)+1]
+        @nextUnit = eu[eu.indexOf(unit)+1]
 
         if unit.aiType == AI_TYPE.HALT
             available = [new Destination(unit.pos, [unit.pos])]
@@ -40,20 +40,17 @@ class window.EnemyTurn extends Turn
                     target: unit1
                 })
 
+        afterScroll = =>
+            if not @ui.onScreen(inRange[0].moveSpot) or
+            not @ui.onScreen(target.pos)
+                @ui.scrollTo(inRange[0].moveSpot, ->)
+
+            unit.followPath(inRange[0].path, =>
+                @battle = new Battle(@ui, unit, target)
+                @battle.doBattle(@afterBattle)
+            )
+
         if inRange.length != 0
-            afterScroll = =>
-                if not @ui.onScreen(inRange[0].moveSpot) or
-                not @ui.onScreen(target.pos)
-                    @ui.scrollTo(inRange[0].moveSpot, ->)
-
-                unit.followPath(inRange[0].path, =>
-                    battle = new Battle(@ui, unit, target)
-                    battle.doBattle( =>
-                        setTimeout(=> @doUnitTurn(nextUnit),
-                        250)
-                    )
-                )
-
             target = inRange[0].target
 
             if not @ui.onScreen(unit.pos)
@@ -61,4 +58,9 @@ class window.EnemyTurn extends Turn
             else
                 afterScroll()
         else
-            @doUnitTurn(nextUnit)
+            @doUnitTurn(@nextUnit)
+
+    
+    afterExpAdd: =>
+        setTimeout((=> @doUnitTurn(@nextUnit)), 250)
+

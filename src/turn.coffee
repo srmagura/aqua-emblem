@@ -113,3 +113,24 @@ class window.Turn
                 attackRange.push(obj)
 
         return attackRange
+
+    afterBattle: =>
+        toAdd = 1.5
+        playerUnit = @battle.getPlayerUnit()
+        increment = null
+
+        callback = =>
+            increment = playerUnit.addExp(toAdd)
+            
+            if increment is null
+                @afterExpAdd()
+            else
+                @ui.levelUpWindow.init(playerUnit,
+                    increment, callback2)
+
+        callback2 = =>
+            playerUnit.doIncrement(increment)
+            @afterExpAdd()
+
+        @ui.expBar.init(playerUnit, toAdd, callback)
+

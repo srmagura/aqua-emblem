@@ -9,22 +9,35 @@ class window.ExpBar
 
         totalWidth = @container.find('.exp-bar').width()
         width0 = totalWidth * unit.exp
-        width1 = totalWidth * (unit.exp + toAdd)
 
         barFilled = @container.find('.exp-bar-filled')
         barFilled.width(width0)
 
-        @show()
+        afterAnimateLevelUp = =>
+            time = msPerExp * (newExp - 1)
+            width2 = (newExp - 1)*totalWidth
+
+            barFilled.css('width', 0)
+            barFilled.animate({width: width2}, time, afterAnimate)
+
+        afterAnimate = =>
+            setTimeout(afterDelay, 1000)
 
         afterDelay = =>
             @hide()
             callback()
 
-        afterAnimate = =>
-            setTimeout(afterDelay, 1000)
+        @show()
+        newExp = unit.exp + toAdd
 
-        barFilled.animate({width: width1}, 400, afterAnimate)
+        msPerExp = 1500
 
+        if newExp >= 1
+            time = msPerExp * (1 - unit.exp)
+            barFilled.animate({width: totalWidth}, time, afterAnimateLevelUp)
+        else
+            width1 = totalWidth * newExp
+            barFilled.animate({width: width1}, msPerExp * toAdd, afterAnimate)
 
     show: ->
         @container.css('visibility', 'visible')

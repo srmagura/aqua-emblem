@@ -117,6 +117,12 @@ class window.Battle
         if unit is @def
             return @atk
 
+    getPlayerUnit: ->
+        if @atk.team is @ui.chapter.playerTeam
+            return @atk
+        else
+            return @def
+
     doAttack: =>
         callMade = false
         giver = @turns[@turnIndex]
