@@ -27,6 +27,8 @@ class window.Battle
             @turns.push(@def)
             @nTurns.def++
 
+        @damageDealt = 0
+
     calcIndividual: (unit1, unit2) ->
         w1 = unit1.equipped
         w2 = unit2.equipped
@@ -123,6 +125,9 @@ class window.Battle
         else
             return @def
 
+    getEnemyUnit: ->
+        @getOther(@getPlayerUnit())
+
     doAttack: =>
         callMade = false
         giver = @turns[@turnIndex]
@@ -131,13 +136,17 @@ class window.Battle
 
         randHit = 100*Math.random()
         if randHit < giver.battleStats.hit
-
+            dmg = giver.battleStats.dmg
             randCrit = 100*Math.random()
+
             if randCrit < giver.battleStats.crt
                 @displayMessage(recvr, 'crit')
-                recvr.hp -= 3*giver.battleStats.dmg
-            else
-                recvr.hp -= giver.battleStats.dmg
+                dmg *= 3
+
+            recvr.hp -= dmg
+
+            if giver is @getPlayerUnit()
+                @damageDealt += dmg
         else
             @displayMessage(recvr, 'miss')
 
@@ -183,6 +192,24 @@ class window.Battle
 
         if(keepGoing and @callback?)
             @callback()
+
+    getExpToAdd: ->
+        player = @getPlayerUnit()
+        enemy = @getEnemyUnit()
+
+        levelDif = enemy.level - player.level
+
+        if @damageDealt > 0
+            dmgExp = .15 + levelDif/100
+        else
+            dmgExp = .01
+
+        defeatExp = 0
+        if enemy.hp == 0
+            defeatExp = .3 + levelDif/100
+
+        return (dmgExp + defeatExp)
+
 
     displayMessage: (overUnit, mtype) ->
         el = $('<div class="battle-message"></div>')

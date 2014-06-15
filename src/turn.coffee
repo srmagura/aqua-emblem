@@ -115,7 +115,7 @@ class window.Turn
         return attackRange
 
     afterBattle: =>
-        toAdd = 1.5
+        toAdd = @battle.getExpToAdd()
         playerUnit = @battle.getPlayerUnit()
         increment = null
 
