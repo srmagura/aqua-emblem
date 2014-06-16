@@ -33,7 +33,7 @@ class CsWeaponMenu extends CsMenu
 
         pt = @menuObj.playerTurn
         @ui.controlState = new CsChooseTarget(@ui, pt)
-        @ui.cursor.moveTo(pt.inRange[0].pos)
+        @ui.cursor.moveTo(pt.inAttackRange[0].pos)
         @ui.cursor.visible = true
 
     d: ->

@@ -47,18 +47,27 @@ class window.PlayerTurn extends Turn
         @ui.unitInfoBox.show()
 
         attackRange = @getAttackRange(@selectedUnit, @selectedUnit.pos)
-        @inRange = []
+        @inAttackRange = []
 
         for obj in attackRange
             @ui.chapter.map.setOverlay(obj.targetSpot, 'ATTACK')
             target = @ui.chapter.getUnitAt(obj.targetSpot)
             if target? and target.team isnt @selectedUnit.team
-                @inRange.push(target)
+                @inAttackRange.push(target)
+
+        @inTradeRange = []
+        for pos in @getActionRange(@selectedUnit, [1])
+            target = @ui.chapter.getUnitAt(pos)
+            if target? and target.team is @selectedUnit.team
+                @inTradeRange.push(target)
 
         actions = []
 
-        if @inRange.length != 0
+        if @inAttackRange.length != 0
             actions.push(new ActionMenuItem('Attack', @handleAttack))
+            
+        if @inTradeRange.length != 0
+            actions.push(new ActionMenuItem('Trade', @handleTrade))
 
         actions.push(new ActionMenuItem('Wait', @handleWait))
         @ui.actionMenu.init(actions)
@@ -74,8 +83,10 @@ class window.PlayerTurn extends Turn
         @ui.actionMenu.hide()
         @ui.weaponMenu.init(this)
 
-    afterExpAdd: =>
+    handleTrade: =>
 
+
+    afterExpAdd: =>
         @ui.controlState = new CsMap(@ui)
         @ui.cursor.visible = true
         @ui.cursor.moveTo(@selectedUnit.pos)

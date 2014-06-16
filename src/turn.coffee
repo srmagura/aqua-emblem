@@ -83,7 +83,7 @@ class window.Turn
 
         return available
 
-    getAttackDirections: (totalRange) ->
+    getDirections: (totalRange) ->
         dirs = []
 
         for range in totalRange
@@ -97,12 +97,22 @@ class window.Turn
     getAttackRange: (unit, pos) ->
         attackRange = []
 
-        for dir in @getAttackDirections(unit.totalRange)
+        for dir in @getDirections(unit.totalRange)
             alt = pos.add(dir)
             if @ui.chapter.map.onMap(alt)
                 attackRange.push({moveSpot: pos, targetSpot: alt})
 
         return attackRange
+
+    getActionRange: (unit, range) ->
+        actionRange = []
+
+        for dir in @getDirections(range)
+            alt = unit.pos.add(dir)
+            if @ui.chapter.map.onMap(alt)
+                actionRange.push(alt)
+
+        return actionRange
 
     movementGetAttackRange: (available, unit=@selectedUnit) ->
         attackRange = []
