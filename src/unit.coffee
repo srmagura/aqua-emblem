@@ -26,17 +26,16 @@ class window.EnemyTeam extends Team
 class window.Unit
 
     constructor: (attr) ->
-        @rawStats = {}
+        for key, value of attr
+            this[key] = value
 
+        @rawStats = {}
         for stat, value of @baseStats
             if stat of @growthRates
-                value += @growthRates[stat] * (attr['level']-1)
+                value += @growthRates[stat] * (@level-1)
 
             @rawStats[stat] = value
             this[stat] = Math.round(value)
-
-        for key, value of attr
-            this[key] = value
 
         if 'picture' not of this
             @picture = false
@@ -60,8 +59,8 @@ class window.Unit
         @offset = new Position(0, 0)
 
     setTeam: (@team) ->
-        prefix = "images/dango/"
-        filename = @uclassName.toLowerCase() + ".png"
+        prefix = 'images/dango/'
+        filename = @uclassName.toLowerCase() + '.png'
 
         if @team instanceof PlayerTeam
             dir = 'player/'
@@ -89,7 +88,8 @@ class window.Unit
         if newExp >= 1
             @exp = newExp - 1
             @level++
-            return ['str', 'res']
+
+
         else
             @exp = newExp
             return null
