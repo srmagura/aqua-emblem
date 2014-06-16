@@ -2,8 +2,11 @@ window.item = {}
 
 class item.Item
 
-    getElement: ->
-        el = $('<div class="weapon-element"></div>')
+    getElement: (usable=true) ->
+        el = $('<div class="item-element"></div>')
+
+        if not usable
+            el.addClass('not-usable')
 
         src = "images/items/#{@image}"
         el.append($("<img src='#{src}' />"))

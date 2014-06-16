@@ -92,6 +92,19 @@ class window.Unit
         for stat in increment
             this[stat]++
 
+    canUse: (item) ->
+        return @canWield(item)
+
+    canWield: (item) ->
+        if not (item instanceof window.item.Weapon)
+            return false
+
+        for cls in @wield
+            if item instanceof cls
+                return true
+
+        return false
+
     setTeam: (@team) ->
         prefix = 'images/dango/'
         filename = @uclassName.toLowerCase() + '.png'

@@ -104,20 +104,25 @@
     padding: 5px;
 }
 
-.unit-info-window .tab-content-inventory .weapon-element
+.unit-info-window .tab-content-inventory .item-element
 {
     padding: 2px 0 3px;
 }
 
-.weapon-element img
+.item-element img
 {
     width: 13pt;
     float: left;
 }
 
-.weapon-element span
+.item-element span
 {
     padding: 0 0 0 6px;
+}
+
+.item-element.not-usable span
+{
+    color: #A00;
 }
 
 .unit-info-window .combat-stats

@@ -5,9 +5,10 @@ class window.WeaponMenu
 
     init: (@playerTurn) ->
         @menu.html('')
+        unit = @playerTurn.selectedUnit
 
-        for item in @playerTurn.selectedUnit.inventory
-            if item instanceof window.item.Weapon
+        for item in unit.inventory
+            if unit.canWield(item)
                 menuItem = $('<div><div class="image"></div></div>')
                 menuItem.append(item.getElement())
                 menuItem.data('weapon', item).appendTo(@menu)

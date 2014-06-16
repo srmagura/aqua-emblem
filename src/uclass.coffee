@@ -87,6 +87,7 @@ class window.uclass.special.Luciana extends uclass.Soldier
         @level = 1
         @picture = true
         @inventory = [new item.IronLance()]
+        @inventory.push(new item.IronBow())
 
         @baseStats = {baseHp: 23, baseMp: 5, str: 6, def: 6,
         skill: 4, speed: 4, res: 2, luck: 8, mag: 0}

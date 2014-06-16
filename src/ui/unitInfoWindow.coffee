@@ -62,7 +62,7 @@ class window.UnitInfoWindow
         inv = invContent.find('.inventory').html('')
 
         for item in @unit.inventory
-            inv.append(item.getElement())
+            inv.append(item.getElement(@unit.canUse(item)))
 
         @unit.calcCombatStats()
         combatStats = invContent.find('.combat-stats')
