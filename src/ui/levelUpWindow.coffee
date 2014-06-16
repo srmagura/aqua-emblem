@@ -31,9 +31,8 @@ class window.LevelUpWindow
 
     initStats: ->
         stats = @window.find('.stats')
-        statTypes = ['hp', 'mp', 'str', 'skill', 'mag',
-            'speed', 'def', 'luck',
-            'res', 'move']
+        statTypes = ['baseHp', 'baseMp', 'str', 'skill', 'mag',
+            'speed', 'def', 'luck', 'res', 'move']
 
         for st in statTypes
             el = stats.find('.' + st)

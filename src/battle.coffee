@@ -208,8 +208,17 @@ class window.Battle
         if enemy.hp == 0
             defeatExp = .3 + levelDif/100
 
-        return (dmgExp + defeatExp)
+        exp = dmgExp + defeatExp
 
+        if EXP_MULTIPLIER?
+            exp *= EXP_MULTIPLIER
+
+        if exp > 1
+            ceil = 1
+        else
+            ceil = exp
+
+        return ceil
 
     displayMessage: (overUnit, mtype) ->
         el = $('<div class="battle-message"></div>')
