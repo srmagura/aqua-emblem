@@ -29,13 +29,7 @@ class window.Unit
         for key, value of attr
             this[key] = value
 
-        @rawStats = {}
-        for stat, value of @baseStats
-            if stat of @growthRates
-                value += @growthRates[stat] * (@level-1)
-
-            @rawStats[stat] = value
-            this[stat] = Math.round(value)
+        @calcStats()
 
         if 'picture' not of this
             @picture = false
@@ -57,6 +51,46 @@ class window.Unit
                 break
 
         @offset = new Position(0, 0)
+
+    fillInBaseStats: (baseStats) ->
+        if not @baseStats?
+            @baseStats = {}
+
+        for stat, value of baseStats
+            if stat not of @baseStats
+                @baseStats[stat] = value
+
+    calcStats: (dryRun=false) ->
+        increment = []
+
+        for stat, value of @baseStats
+            if stat of @growthRates
+                value += @growthRates[stat] * (@level-1)
+
+            rounded = Math.round(value)
+
+            if rounded > this[stat]
+                increment.push(stat)
+
+            if not dryRun
+                this[stat] = rounded
+
+        return increment
+
+    addExp: (toAdd) ->
+        newExp = @exp + toAdd
+
+        if newExp >= 1
+            @exp = newExp - 1
+            @level++
+            return @calcStats(true)
+        else
+            @exp = newExp
+            return null
+
+    doIncrement: (increment) ->
+        for stat in increment
+            this[stat]++
 
     setTeam: (@team) ->
         prefix = 'images/dango/'
@@ -81,22 +115,6 @@ class window.Unit
     setDone: ->
         @done = true
         @ui.chapter.checkAllDone()
-
-    addExp: (toAdd) ->
-        newExp = @exp + toAdd
-
-        if newExp >= 1
-            @exp = newExp - 1
-            @level++
-
-
-        else
-            @exp = newExp
-            return null
-
-    doIncrement: (increment) ->
-        for stat in increment
-            this[stat]++
 
     followPath: (@path, @pathFollowCallback) ->
         @followingPath = true
