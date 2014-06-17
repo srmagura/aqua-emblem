@@ -1,0 +1,37 @@
+.trade-window
+{
+    position: absolute;
+    z-index: 10;
+}
+
+.trade-window .half
+{
+    float: left;
+    width: 180px;
+    padding: 5px;
+}
+
+.trade-window .top
+{
+    height: 101px;
+}
+
+.trade-window .top img
+{
+    width: 80px;
+    margin: 0 50px;
+    border: 1px solid rgba(200, 200, 200, .3);
+    border-bottom: none;
+    background-color: rgba(200, 200, 200, .5);
+}
+
+.trade-window .inventory
+{
+    padding: 2px 5px;
+}
+
+.trade-window .inventory .item-element
+{
+    margin: 4px 0;
+}
+

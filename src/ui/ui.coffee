@@ -18,6 +18,7 @@ class UI
         @unitInfoBox = new UnitInfoBox(this, '.sidebar .unit-info')
         @unitInfoWindow = new UnitInfoWindow(this)
         @levelUpWindow = new LevelUpWindow(this)
+        @tradeWindow = new TradeWindow(this)
 
         @actionMenu = new ActionMenu(this)
         @weaponMenu = new WeaponMenu(this)

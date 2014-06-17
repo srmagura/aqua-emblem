@@ -11,8 +11,7 @@ class window.UnitInfoBox
 
     populate: (unit, animate) ->
         if unit.picture
-            @box.find('img').attr('src',
-            'images/characters/' + unit.name.toLowerCase() + '.png')
+            @box.find('img').attr('src', unit.getImagePath())
             @box.find('.image-wrapper').show()
         else
             @box.find('.image-wrapper').hide()

@@ -172,3 +172,5 @@ class window.Unit
             ctx.drawImage(@imageObjects.crown,
             offset.j+12, offset.i+3)
             
+    getImagePath: ->
+        return 'images/characters/' + @name.toLowerCase() + '.png'

@@ -84,7 +84,9 @@ class window.PlayerTurn extends Turn
         @ui.weaponMenu.init(this)
 
     handleTrade: =>
-
+        @ui.controlState = new CsChooseTradeTarget(@ui, this)
+        @ui.cursor.visible = true
+        @ui.cursor.moveTo(@inTradeRange[0].pos)
 
     afterExpAdd: =>
         @ui.controlState = new CsMap(@ui)

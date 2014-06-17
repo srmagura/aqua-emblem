@@ -106,7 +106,7 @@ class window.Turn
 
     getActionRange: (unit, range) ->
         actionRange = []
-
+        
         for dir in @getDirections(range)
             alt = unit.pos.add(dir)
             if @ui.chapter.map.onMap(alt)

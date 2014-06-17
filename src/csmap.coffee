@@ -44,7 +44,7 @@ class window.CsMap extends CsMapAbstract
         @ui.endTurnMenu.init()
 
 
-class window.CsChooseTarget extends CsMapAbstract
+class window.CsChooseAttackTarget extends CsMapAbstract
 
     constructor: (@ui, @playerTurn) ->
 
@@ -52,7 +52,7 @@ class window.CsChooseTarget extends CsMapAbstract
         super()
         target = @ui.chapter.getUnitAt(@ui.cursor.pos)
 
-        if target isnt null and target in @playerTurn.inRange
+        if target isnt null and target in @playerTurn.inAttackRange
             @playerTurn.battle = new Battle(@ui,
                 @playerTurn.selectedUnit, target)
 
@@ -75,5 +75,20 @@ class window.CsChooseTarget extends CsMapAbstract
         @ui.actionMenu.show()
         @playerTurn.battle = null
         @ui.battleStatsPanel.hide()
+        @ui.cursor.moveTo(@playerTurn.selectedUnit.pos)
+        @ui.controlState = new CsActionMenu(@ui, @ui.actionMenu)
+
+
+class window.CsChooseTradeTarget extends CsMapAbstract
+
+    constructor: (@ui, @playerTurn) ->
+
+    f: ->
+        target = @ui.chapter.getUnitAt(@ui.cursor.pos)
+        if target isnt null and target in @playerTurn.inTradeRange
+            @ui.tradeWindow.init(@playerTurn.selectedUnit, target)
+
+    d: ->
+        @ui.actionMenu.show()
         @ui.cursor.moveTo(@playerTurn.selectedUnit.pos)
         @ui.controlState = new CsActionMenu(@ui, @ui.actionMenu)

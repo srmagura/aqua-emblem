@@ -40,8 +40,7 @@ class window.UnitInfoWindow
 
         if @unit.picture
             w.find('.common .image-wrapper').removeClass('insignia')
-            w.find('.common img').attr('src',
-            'images/characters/' + @unit.name.toLowerCase() + '.png')
+            w.find('.common img').attr('src', @unit.getImagePath())
         else if @unit.team.insigniaImagePath?
             w.find('.common .image-wrapper').addClass('insignia')
             w.find('.common img').attr('src',
