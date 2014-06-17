@@ -16,6 +16,7 @@ class window.TradeWindow
 
     initHalf: (unit) ->
         container = $('<div></div>').addClass('half')
+        container.addClass('half-' + unit.id)
 
         top = $('<div></div>').addClass('top')
         img = $('<img/>').attr('src', unit.getImagePath())
@@ -24,14 +25,27 @@ class window.TradeWindow
 
         inventory = $('<div></div>')
         inventory.addClass('inventory neutral-box')
-
-        for item in unit.inventory
-            usable = unit.canUse(item)
-            inventory.append(item.getElement(usable))
-
-
+        @fillInventory(unit, inventory)
         inventory.appendTo(container)
+
         container.appendTo(@window)
+
+    fillInventory: (unit, inventoryEl=null) ->
+        if not inventoryEl?
+            sel = ".trade-window .half-#{unit.id} .inventory"
+            inventoryEl = $(sel)
+            
+        for i in [0 .. Unit.INVENTORY_SIZE-1]
+            itemContainer = $('<div></div>').addClass('item-container')
+            arrowImg = $('<div></div>').addClass('arrow-image')
+            arrowImg.appendTo(itemContainer)
+
+            item = unit.inventory[i]
+            if item?
+                usable = unit.canUse(item)
+                itemContainer.append(item.getElement(usable))
+
+            inventoryEl.append(itemContainer)
 
     show: ->
         @window.css('visibility', 'visible')

@@ -19,15 +19,20 @@ class window.EnemyTeam extends Team
                 unit.aiType = AI_TYPE.NORMAL
 
             if 'defaultName' of attr and not unit.name?
-                unit.name = attr.defaultName
+                unit.setName(attr.defaultName)
 
         super(@units)
 
 class window.Unit
 
+    @INVENTORY_SIZE: 5
+
     constructor: (attr) ->
         for key, value of attr
             this[key] = value
+
+        if @name?
+            @setName(@name)
 
         @calcStats()
 
@@ -51,6 +56,9 @@ class window.Unit
                 break
 
         @offset = new Position(0, 0)
+
+    setName: (@name) ->
+        @id = @name.toLowerCase().replace(' ', '-')
 
     fillInBaseStats: (baseStats) ->
         if not @baseStats?
