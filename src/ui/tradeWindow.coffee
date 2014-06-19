@@ -7,11 +7,12 @@ class window.TradeWindow
         @units = [unit0, unit1]
         @window.html('')
 
-        @initHalf(unit0)
-        @initHalf(unit1)
+        @initHalf(unit0, 0)
+        @initHalf(unit1, 1)
 
         @setCursorPos(new Position(0, 0))
 
+        @prevControlState = @ui.controlState
         @ui.controlState = new CsTradeWindow(@ui, this)
         @ui.viewportOverlay.show()
 
@@ -19,7 +20,7 @@ class window.TradeWindow
         @window.css(css)
         @show()
 
-    initHalf: (unit) ->
+    initHalf: (unit, j) ->
         container = $('<div></div>').addClass('half')
         container.addClass('half-' + unit.id)
 
@@ -30,18 +31,19 @@ class window.TradeWindow
 
         inventory = $('<div></div>')
         inventory.addClass('inventory neutral-box')
-        @fillInventory(unit, inventory)
+        @fillInventory(unit, inventory, j)
         inventory.appendTo(container)
 
         container.appendTo(@window)
 
-    fillInventory: (unit, inventoryEl=null) ->
+    fillInventory: (unit, inventoryEl, j) ->
         if not inventoryEl?
             sel = ".half-#{unit.id} .inventory"
             inventoryEl = @window.find(sel)
             
         for i in [0 .. Unit.INVENTORY_SIZE-1]
             itemContainer = $('<div></div>').addClass('item-container')
+            itemContainer.data('pos', new Position(i, j))
             arrowImg = $('<div></div>').addClass('arrow-image')
             arrowImg.appendTo(itemContainer)
 
@@ -52,26 +54,51 @@ class window.TradeWindow
 
             inventoryEl.append(itemContainer)
 
+    # Return an item-container
+    getCursorEl: ->
+        half = $(@window.find('.half')[@cursorPos.j])
+        return $(half.find('.item-container')[@cursorPos.i])
+
     setCursorPos: (@cursorPos) ->
         @window.find('.arrow-image.cursor-at').removeClass('cursor-at')
-
-        half = $(@window.find('.half')[@cursorPos.j])
-        itemContainer = $(half.find('.item-container')[@cursorPos.i])
-        itemContainer.find('.arrow-image').addClass('cursor-at')
+        @getCursorEl().find('.arrow-image').addClass('cursor-at')
 
     moveCursor: (delta) ->
         @setCursorPos(@cursorPos.add(delta))
+
+    doSelect: ->
+        @getCursorEl().addClass('selected')
+        @cursorPos.j = (@cursorPos.j + 1) % 2
+        @setCursorPos(@cursorPos)
+        @ui.controlState = new CsTradeWindow2(@ui, this)
+
+    doDeselect: ->
+        selected = @window.find('.item-container.selected')
+        @setCursorPos(selected.data('pos'))
+        selected.removeClass('selected')
+        @ui.controlState = new CsTradeWindow(@ui, this)
 
     show: ->
         @window.css('visibility', 'visible')
 
     hide: ->
-        @window.css('visibility', 'hidden')
+        @ui.viewportOverlay.hide()
+
+        hide = {'visibility': 'hidden'}
+        @window.css(hide)
+        @window.find('.arrow-image').css(hide)
 
 
 class CsTradeWindow extends ControlState
 
     constructor: (@ui, @windowObj) ->
+
+    f: ->
+        @windowObj.doSelect()
+
+    d: ->
+        @windowObj.hide()
+        @ui.controlState = @windowObj.prevControlState
 
     up: ->
         if @windowObj.cursorPos.i > 0
@@ -92,3 +119,23 @@ class CsTradeWindow extends ControlState
         if @windowObj.cursorPos.j == 0
             @windowObj.moveCursor(new Position(0, 1))
 
+class CsTradeWindow2 extends ControlState
+
+    constructor: (@ui, @windowObj) ->
+
+    f: ->
+
+    d: ->
+        @windowObj.doDeselect()
+
+    up: ->
+        if @windowObj.cursorPos.i > 0
+            @windowObj.moveCursor(new Position(-1, 0))
+
+    down: ->
+        cp = @windowObj.cursorPos
+        unit = @windowObj.units[cp.j]
+
+        if cp.i + 1 < Unit.INVENTORY_SIZE and
+        cp.i < unit.inventory.length
+            @windowObj.moveCursor(new Position(1, 0))

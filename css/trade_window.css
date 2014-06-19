@@ -28,7 +28,8 @@
 
 .trade-window .inventory
 {
-    padding: 2px 5px;
+    padding: 5px 5px;
+    overflow: hidden;
 }
 
 .trade-window .inventory .arrow-image
@@ -50,7 +51,15 @@
 
 .trade-window .inventory .item-container
 {
-    margin: 4px 0;
+    float: left;
+    width: 100%;
+    padding: 2px 0;
+    border: 1px solid transparent;
     height: 18px;
 }
 
+.trade-window .inventory .item-container.selected
+{
+    background-color: rgba(0, 0, 255, .2);
+    border: 1px solid rgba(0, 0, 255, .4);
+}
