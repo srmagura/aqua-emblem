@@ -3,8 +3,10 @@ class window.TradeWindow
     constructor: (@ui) ->
         @window = $('.trade-window')
 
-    init: (unit0, unit1) ->
+    init: (unit0, unit1, @callback) ->
         @units = [unit0, unit1]
+        @tradeMade = false
+
         @window.html('')
 
         @initHalf(unit0, 0)
@@ -41,6 +43,7 @@ class window.TradeWindow
             sel = ".half-#{unit.id} .inventory"
             inventoryEl = @window.find(sel)
             
+        inventoryEl.html('')
         for i in [0 .. Unit.INVENTORY_SIZE-1]
             itemContainer = $('<div></div>').addClass('item-container')
             itemContainer.data('pos', new Position(i, j))
@@ -51,6 +54,7 @@ class window.TradeWindow
             if item?
                 usable = unit.canUse(item)
                 itemContainer.append(item.getElement(usable))
+                itemContainer.data('item', item)
 
             inventoryEl.append(itemContainer)
 
@@ -67,7 +71,7 @@ class window.TradeWindow
         @setCursorPos(@cursorPos.add(delta))
 
     doSelect: ->
-        @getCursorEl().addClass('selected')
+        @selectedEl = @getCursorEl().addClass('selected')
         @cursorPos.j = (@cursorPos.j + 1) % 2
         @setCursorPos(@cursorPos)
         @ui.controlState = new CsTradeWindow2(@ui, this)
@@ -76,6 +80,24 @@ class window.TradeWindow
         selected = @window.find('.item-container.selected')
         @setCursorPos(selected.data('pos'))
         selected.removeClass('selected')
+        @ui.controlState = new CsTradeWindow(@ui, this)
+
+    doTrade: ->
+        @tradeMade = true
+        unitFrom = @units[(@cursorPos.j + 1) % 2]
+        unitTo = @units[@cursorPos.j]
+
+        unitTo.inventory[@cursorPos.i] = @selectedEl.data('item')
+        iFrom = @selectedEl.data('pos').i
+
+        if @cursorPos.i == unitTo.inventory.length-1
+            unitFrom.inventory.splice(iFrom, 1)
+        else
+            unitFrom.inventory[iFrom] = @getCursorEl().data('item')
+
+        @fillInventory(@units[0], null, 0)
+        @fillInventory(@units[1], null, 1)
+        @setCursorPos(@cursorPos)
         @ui.controlState = new CsTradeWindow(@ui, this)
 
     show: ->
@@ -99,6 +121,7 @@ class CsTradeWindow extends ControlState
     d: ->
         @windowObj.hide()
         @ui.controlState = @windowObj.prevControlState
+        @windowObj.callback(@windowObj.tradeMade)
 
     up: ->
         if @windowObj.cursorPos.i > 0
@@ -112,7 +135,13 @@ class CsTradeWindow extends ControlState
             @windowObj.moveCursor(new Position(1, 0))
 
     left: ->
-        if @windowObj.cursorPos.j == 1
+        cp = @windowObj.cursorPos
+        if cp.j == 1
+            len = @windowObj.units[0].inventory.length
+            if cp.i >= len
+                cp.i = len - 1
+                @windowObj.setCursorPos(cp)
+
             @windowObj.moveCursor(new Position(0, -1))
 
     right: ->
@@ -124,6 +153,7 @@ class CsTradeWindow2 extends ControlState
     constructor: (@ui, @windowObj) ->
 
     f: ->
+        @windowObj.doTrade()
 
     d: ->
         @windowObj.doDeselect()

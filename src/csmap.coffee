@@ -28,6 +28,7 @@ class CsMapAbstract extends ControlState
 class window.CsMap extends CsMapAbstract
 
     f: ->
+        console.log(@ui.cursor.pos)
         pt = @ui.chapter.playerTurn
         if not pt.selectedUnit?
             unit = @ui.chapter.getUnitAt(@ui.cursor.pos)
@@ -84,9 +85,17 @@ class window.CsChooseTradeTarget extends CsMapAbstract
     constructor: (@ui, @playerTurn) ->
 
     f: ->
+        callback = (tradeMade) =>
+            @ui.controlState = new CsMap(@ui)
+
+            if tradeMade
+                @ui.chapter.map.clearOverlay()
+                @playerTurn.selectedUnit.setDone()
+
         target = @ui.chapter.getUnitAt(@ui.cursor.pos)
         if target isnt null and target in @playerTurn.inTradeRange
-            @ui.tradeWindow.init(@playerTurn.selectedUnit, target)
+            @ui.tradeWindow.init(@playerTurn.selectedUnit, target,
+                callback)
 
     d: ->
         @ui.actionMenu.show()
