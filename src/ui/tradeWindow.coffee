@@ -72,6 +72,7 @@ class window.TradeWindow
 
     doSelect: ->
         @selectedEl = @getCursorEl().addClass('selected')
+        @cursorPos.i = 0
         @cursorPos.j = (@cursorPos.j + 1) % 2
         @setCursorPos(@cursorPos)
         @ui.controlState = new CsTradeWindow2(@ui, this)
@@ -87,13 +88,13 @@ class window.TradeWindow
         unitFrom = @units[(@cursorPos.j + 1) % 2]
         unitTo = @units[@cursorPos.j]
 
-        unitTo.inventory[@cursorPos.i] = @selectedEl.data('item')
         iFrom = @selectedEl.data('pos').i
-
-        if @cursorPos.i == unitTo.inventory.length-1
+        if @cursorPos.i == unitTo.inventory.length
             unitFrom.inventory.splice(iFrom, 1)
         else
             unitFrom.inventory[iFrom] = @getCursorEl().data('item')
+
+        unitTo.inventory[@cursorPos.i] = @selectedEl.data('item')
 
         @fillInventory(@units[0], null, 0)
         @fillInventory(@units[1], null, 1)
@@ -124,8 +125,13 @@ class CsTradeWindow extends ControlState
         @windowObj.callback(@windowObj.tradeMade)
 
     up: ->
-        if @windowObj.cursorPos.i > 0
+        cp = @windowObj.cursorPos
+        if cp.i > 0
             @windowObj.moveCursor(new Position(-1, 0))
+        else
+            unit = @windowObj.units[cp.j]
+            cp.i = unit.inventory.length - 1
+            @windowObj.setCursorPos(cp)
 
     down: ->
         cp = @windowObj.cursorPos
@@ -133,6 +139,9 @@ class CsTradeWindow extends ControlState
 
         if cp.i + 1 < unit.inventory.length
             @windowObj.moveCursor(new Position(1, 0))
+        else
+            cp.i = 0
+            @windowObj.setCursorPos(cp)
 
     left: ->
         cp = @windowObj.cursorPos
@@ -145,7 +154,13 @@ class CsTradeWindow extends ControlState
             @windowObj.moveCursor(new Position(0, -1))
 
     right: ->
-        if @windowObj.cursorPos.j == 0
+        cp = @windowObj.cursorPos
+        if cp.j == 0
+            len = @windowObj.units[1].inventory.length
+            if cp.i >= len
+                cp.i = len - 1
+                @windowObj.setCursorPos(cp)
+
             @windowObj.moveCursor(new Position(0, 1))
 
 class CsTradeWindow2 extends ControlState
@@ -159,13 +174,22 @@ class CsTradeWindow2 extends ControlState
         @windowObj.doDeselect()
 
     up: ->
-        if @windowObj.cursorPos.i > 0
+        cp = @windowObj.cursorPos
+        unit = @windowObj.units[cp.j]
+
+        if cp.i > 0
             @windowObj.moveCursor(new Position(-1, 0))
+        else
+            cp.i = unit.inventory.length
+            @windowObj.setCursorPos(cp)
 
     down: ->
         cp = @windowObj.cursorPos
         unit = @windowObj.units[cp.j]
 
-        if cp.i + 1 < Unit.INVENTORY_SIZE and
+        if cp.i < Unit.INVENTORY_SIZE and
         cp.i < unit.inventory.length
             @windowObj.moveCursor(new Position(1, 0))
+        else
+            cp.i = 0
+            @windowObj.setCursorPos(cp)
