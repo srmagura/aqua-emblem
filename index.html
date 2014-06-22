@@ -40,6 +40,7 @@
     <script src="lib/item.js"></script>
     <script src="lib/unit.js"></script>
     <script src="lib/uclass.js"></script>
+    <script src="lib/skill.js"></script>
 
     <script src="lib/chapters/chapter1.js"></script>
 
@@ -171,13 +172,12 @@ $(window).load(init)
                 </div>
                 <div class="tab-container">
                     <div class="labels">
-                        <div class="tab-label-inventory">Inventory
+                        <div class="tab-label-inventory">Items
                             <span class="tab-id">inventory</span>
                         </div><div class="tab-label-stats">
                             <span class="tab-id">stats</span>
                             Stats
-                        </div>
-                    </div>
+                        </div></div>
                     <div class="content">
                         <div class="tab-content tab-content-inventory">
                             <div class="inventory"></div>
@@ -380,10 +380,20 @@ $(window).load(init)
     </div>
 </div>
 
+
 <div class="viewport-overlay"></div>
 
-<div class="invisible-images">
+<div class="invisible">
 
+    <div class="tab-label-skills"><span class="tab-id">skills</span>Skills</div>
+
+    <div class="tab-content tab-content-skills">
+        <div class="skills">
+            Skills go here!
+        </div>
+    </div>
+
+<!-- Images go here -->
 <img src="images/title_cropped.png"/>
 <img src="images/crown.png"/>
 <img src="images/bandit_insignia.png"/>

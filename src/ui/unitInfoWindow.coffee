@@ -20,6 +20,9 @@ class window.UnitInfoWindow
         @initInventoryTab()
         @initStatsTab()
 
+        if @unit.skills?
+            @initSkillsTab()
+
         @prevControlState = @ui.controlState
         @ui.controlState = new CsUnitInfoWindow(@ui, this)
 
@@ -89,7 +92,17 @@ class window.UnitInfoWindow
             $('<div><img src="images/items/' +
             (new weaponClass()).image + '" /></div>').appendTo(weaponsEl)
 
+    initSkillsTab: ->
+        @window.find('.tab-container .labels').
+            append($('.invisible .tab-label-skills'))
+
+        tab = $('.invisible .tab-content-skills')
+        @window.find('.tab-container .content').append(tab)
+
     hide: ->
+        @window.find('.tab-label-skills, .tab-content-skills').
+            removeClass('selected').attr('style', '').appendTo('.invisible')
+
         @ui.viewportOverlay.hide()
         @window.css('visibility', 'hidden')
 

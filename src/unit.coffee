@@ -5,6 +5,14 @@ class window.Team
             unit.setTeam(this)
 
 class window.PlayerTeam extends Team
+    constructor: (@units, attr={}) ->
+        for unit in @units
+            if 'skills' not of unit
+                unit.skills = []
+
+            unit.skills.push(new skill.Defend())
+
+        super(@units)
 
 
 window.AI_TYPE = {
