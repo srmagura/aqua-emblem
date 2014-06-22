@@ -98,7 +98,7 @@
 }
 
 .unit-info-window .inventory, .unit-info-window .tab-content-stats .stats,
-.unit-info-window .tab-content-skills .skills
+.unit-info-window .tab-content-skills .skills-box
 {
     border: 2px solid #007A29;
     background-color: #BEB;
@@ -188,18 +188,18 @@
 }
 
 /***** SKILLS TAB *****/
-.unit-info-window .tab-content-skills .skills
+.unit-info-window .tab-content-skills .skills-box
 {
-    height: 180px;
+    padding: 3px;
 }
 
-.unit-info-window .tab-content-skills .skills td
+.unit-info-window .tab-content-skills .skills-box td
 {
-    padding: 3px 5px;
+    padding: 2px 3px;
     height: 35px;
 }
 
-.unit-info-window .tab-content-skills .skills img
+.unit-info-window .tab-content-skills .skills-box img
 {
     width: 35px;
 }

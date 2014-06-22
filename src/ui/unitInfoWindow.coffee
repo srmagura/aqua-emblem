@@ -9,14 +9,13 @@ class window.ViewportOverlay
     hide: ->
         @overlay.hide()
 
-
 class window.UnitInfoWindow
 
     constructor: (@ui) ->
         @window = $('.unit-info-window')
 
-        skillsEl = $('.invisible .tab-content-skills .skills')
-        @skillsBox = new SkillsBox(@ui, skillsEl)
+        skillsEl = $('.invisible .tab-content-skills .skills-box')
+        @skillsBox = new SkillsBox(@ui, skillsEl, @skillsBoxOnD)
 
     init: (@unit) ->
         @initCommon()
@@ -104,12 +103,18 @@ class window.UnitInfoWindow
 
         @skillsBox.init(@unit)
 
+    skillsBoxOnD: =>
+        @ui.controlState = new CsUnitInfoWindow(@ui, this)
+
     hide: ->
         @window.find('.tab-label-skills, .tab-content-skills').
             removeClass('selected').attr('style', '').appendTo('.invisible')
 
         @ui.viewportOverlay.hide()
         @window.css('visibility', 'hidden')
+
+    getSelectedLabel: ->
+        return @window.find('.tab-container .labels .selected')
 
     changeTab: (tabId) ->
         labels = @window.find('.tab-container .labels')
@@ -120,7 +125,8 @@ class window.UnitInfoWindow
         labels.find('.tab-label-' + tabId).addClass('selected')
         @window.find('.tab-container .tab-content-' + tabId).show()
 
-class CsWindow extends ControlState
+
+class CsUnitInfoWindow extends ControlState
 
     constructor: (@ui, @windowObj) ->
 
@@ -128,12 +134,12 @@ class CsWindow extends ControlState
         @windowObj.hide()
         @ui.controlState = @windowObj.prevControlState
 
-
-class CsUnitInfoWindow extends CsWindow
+    s: ->
+        if @windowObj.getSelectedLabel().hasClass('tab-label-skills')
+            @windowObj.skillsBox.giveControl()
 
     left: ->
-        selectedLabel = @windowObj.window.
-            find('.tab-container .labels .selected')
+        selectedLabel = @windowObj.getSelectedLabel()
 
         if selectedLabel.prev().size() == 0
             label = selectedLabel.siblings().last()
@@ -144,8 +150,7 @@ class CsUnitInfoWindow extends CsWindow
         @windowObj.changeTab(tabId)
 
     right: ->
-        selectedLabel = @windowObj.window.
-            find('.tab-container .labels .selected')
+        selectedLabel = @windowObj.getSelectedLabel()
 
         if selectedLabel.next().size() == 0
             label = selectedLabel.siblings().first()
