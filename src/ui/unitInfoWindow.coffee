@@ -15,6 +15,9 @@ class window.UnitInfoWindow
     constructor: (@ui) ->
         @window = $('.unit-info-window')
 
+        skillsEl = $('.invisible .tab-content-skills .skills')
+        @skillsBox = new SkillsBox(@ui, skillsEl)
+
     init: (@unit) ->
         @initCommon()
         @initInventoryTab()
@@ -99,14 +102,7 @@ class window.UnitInfoWindow
         tab = $('.invisible .tab-content-skills')
         @window.find('.tab-container .content').append(tab)
 
-        skillsDiv = tab.find('.skills')
-        skillsDiv.html('')
-
-        for skl in @unit.skills
-            div = $('<div></div>').addClass('skill').
-                appendTo(skillsDiv)
-            img = $('<img />').attr('src', skl.getImagePath()).
-                appendTo(div)
+        @skillsBox.init(@unit)
 
     hide: ->
         @window.find('.tab-label-skills, .tab-content-skills').
