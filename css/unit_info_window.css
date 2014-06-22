@@ -102,7 +102,11 @@
 {
     border: 2px solid #007A29;
     background-color: #BEB;
-    padding: 5px;
+}
+
+.unit-info-window .inventory, .unit-info-window .tab-content-stats .stats
+{
+    padding: 5px;   
 }
 
 .unit-info-window .tab-content-inventory .item-element
@@ -183,6 +187,31 @@
     margin-top: 2px
 }
 
+.unit-info-window .tab-content-skills .skills
+{
+    height: 180px;
+}
+
+.unit-info-window .tab-content-skills .skill
+{
+    display: inline-block;
+    padding: 5px;
+    height: 35px;
+}
+
+.unit-info-window .tab-content-skills .skill img
+{
+    width: 35px;
+}
+
+.unit-info-window .tab-content-skills .controls
+{
+    float: right;
+    font-size: 8pt;
+    padding: 3px;
+}
+
+/* LEVEL UP WINDOW */
 .level-up-window .stats-container
 {
     float: left;

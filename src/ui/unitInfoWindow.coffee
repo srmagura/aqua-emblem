@@ -99,6 +99,15 @@ class window.UnitInfoWindow
         tab = $('.invisible .tab-content-skills')
         @window.find('.tab-container .content').append(tab)
 
+        skillsDiv = tab.find('.skills')
+        skillsDiv.html('')
+
+        for skl in @unit.skills
+            div = $('<div></div>').addClass('skill').
+                appendTo(skillsDiv)
+            img = $('<img />').attr('src', skl.getImagePath()).
+                appendTo(div)
+
     hide: ->
         @window.find('.tab-label-skills, .tab-content-skills').
             removeClass('selected').attr('style', '').appendTo('.invisible')
