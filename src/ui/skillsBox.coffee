@@ -48,17 +48,45 @@ class CsSkillsBox extends ControlState
         @boxObj.onD()
 
     left: ->
-
-    right: ->
         cp = @boxObj.cursorPos
 
-        if cp.j + 1 < WIDTH
-            cp1 = new Position(cp.i, cp.j+1)
-            if @skillAt(cp1)
-                @boxObj.setCursorPos(cp1)
+        if cp.j > 0
+            cp1 = new Position(cp.i, cp.j-1)
+            @boxObj.setCursorPos(cp1)
         else
-            for j in [0..WIDTH-1]
+            for j in [WIDTH-1..0]
                 cp1 = new Position(cp.i, j)
                 if @skillAt(cp1)
                     @boxObj.setCursorPos(cp1)
                     break
+
+    right: ->
+        cp = @boxObj.cursorPos
+        cp1 = new Position(cp.i, cp.j+1)
+
+        if not (cp.j + 1 < WIDTH and @skillAt(cp1))
+            cp1 = new Position(cp.i, 0)
+
+        @boxObj.setCursorPos(cp1)
+
+    up: ->
+        cp = @boxObj.cursorPos
+
+        if cp.i > 0
+            cp1 = new Position(cp.i-1, cp.j)
+            @boxObj.setCursorPos(cp1)
+        else
+            for i in [WIDTH-1..0]
+                cp1 = new Position(i, cp.j)
+                if @skillAt(cp1)
+                    @boxObj.setCursorPos(cp1)
+                    break
+
+    down: ->
+        cp = @boxObj.cursorPos
+        cp1 = new Position(cp.i+1, cp.j)
+
+        if not (cp1.i < HEIGHT and @skillAt(cp1))
+            cp1 = new Position(0, cp.j)
+
+        @boxObj.setCursorPos(cp1)
