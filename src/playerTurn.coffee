@@ -65,6 +65,8 @@ class window.PlayerTurn extends Turn
 
         if @inAttackRange.length != 0
             actions.push(new ActionMenuItem('Attack', @handleAttack))
+
+        actions.push(new ActionMenuItem('Skill', @handleSkill))
             
         if @inTradeRange.length != 0
             actions.push(new ActionMenuItem('Trade', @handleTrade))
@@ -78,10 +80,13 @@ class window.PlayerTurn extends Turn
         @deselect()
 
     handleAttack: =>
-        @ui.cursor.visible = false
-
         @ui.actionMenu.hide()
         @ui.weaponMenu.init(this)
+
+    handleSkill: =>
+        @ui.skillsBox.init(@selectedUnit, @skillsBoxOnD)
+
+    skillsBoxOnD: =>
 
     handleTrade: =>
         @ui.controlState = new CsChooseTradeTarget(@ui, this)

@@ -18,8 +18,7 @@ class window.UnitInfoWindow
         @skillInfoBox = new SkillInfoBox(@ui, skillInfoBoxEl)
 
         skillsEl = $('.invisible .tab-content-skills .skills-box')
-        @skillsBox = new SkillsBox(@ui, skillsEl,
-        @skillInfoBox, @skillsBoxOnD)
+        @skillsBox = new SkillsBox(@ui, skillsEl, @skillInfoBox)
 
     init: (@unit) ->
         @initCommon()
@@ -109,7 +108,7 @@ class window.UnitInfoWindow
         tab = $('.invisible .tab-content-skills')
         @window.find('.tab-container .content').append(tab)
 
-        @skillsBox.init(@unit)
+        @skillsBox.init(@unit, @skillsBoxOnD)
 
     skillsBoxOnD: =>
         @ui.controlState = new CsUnitInfoWindow(@ui, this)

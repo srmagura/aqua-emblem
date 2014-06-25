@@ -3,9 +3,9 @@ HEIGHT = 4
 
 class window.SkillsBox
 
-    constructor: (@ui, @box, @skillInfoBox, @onD) ->
+    constructor: (@ui, @box, @skillInfoBox) ->
 
-    init: (@unit) ->
+    init: (@unit, @onD) ->
         @box.html('')
 
         for i in [0..@unit.skills.length-1]
@@ -22,6 +22,8 @@ class window.SkillsBox
 
         while i < WIDTH
             $('<td></td>').appendTo(tr)
+
+        @show()
 
     giveControl: ->
         @setCursorPos(new Position(0, 0))
@@ -41,6 +43,12 @@ class window.SkillsBox
 
     updateInfoBox: ->
         @skillInfoBox.init(@getCursorCell().data('skill'))
+
+    show: ->
+        @box.css('display', 'block')
+
+    hide: ->
+        @box.css('display', 'none')
 
 class CsSkillsBox extends ControlState
 

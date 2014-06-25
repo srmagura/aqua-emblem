@@ -37,7 +37,5 @@ class CsWeaponMenu extends CsMenu
         @ui.cursor.visible = true
 
     d: ->
-        @ui.cursor.visible = true
         @menuObj.hide()
-        @ui.battleStatsPanel.hide()
-        @ui.controlState = new CsChooseAttackTarget(@ui, @menuObj.playerTurn)
+        @ui.actionMenu.init()
