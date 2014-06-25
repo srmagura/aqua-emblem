@@ -14,8 +14,12 @@ class window.UnitInfoWindow
     constructor: (@ui) ->
         @window = $('.unit-info-window')
 
+        skillInfoBoxEl = $('.canvas-container .skill-info-box')
+        @skillInfoBox = new SkillInfoBox(@ui, skillInfoBoxEl)
+
         skillsEl = $('.invisible .tab-content-skills .skills-box')
-        @skillsBox = new SkillsBox(@ui, skillsEl, @skillsBoxOnD)
+        @skillsBox = new SkillsBox(@ui, skillsEl,
+        @skillInfoBox, @skillsBoxOnD)
 
     init: (@unit) ->
         @initCommon()
@@ -31,6 +35,10 @@ class window.UnitInfoWindow
         css = @ui.centerElement(@window, 4)
         css.visibility = 'visible'
         @window.css(css)
+
+        css = @window.position()
+        css.left += @window.width() + 20
+        @skillInfoBox.box.css(css)
 
     initCommon: ->
         @ui.viewportOverlay.show()

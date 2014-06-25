@@ -1,3 +1,4 @@
+/***** SKILLS BOX *****/
 .skills-box td
 {
     border: 1px solid transparent;
@@ -7,4 +8,12 @@
 {
     background-color: rgba(00, 00, 255, .3);
     border: 1px solid rgba(0, 0, 255, .35);
+}
+
+/***** SKILL INFO BOX *****/
+.skill-info-box
+{
+    position: absolute;
+    z-index: 10;
+    visibility: hidden;
 }

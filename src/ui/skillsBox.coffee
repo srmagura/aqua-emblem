@@ -3,7 +3,7 @@ HEIGHT = 4
 
 class window.SkillsBox
 
-    constructor: (@ui, @box, @onD) ->
+    constructor: (@ui, @box, @skillInfoBox, @onD) ->
 
     init: (@unit) ->
         @box.html('')
@@ -18,6 +18,7 @@ class window.SkillsBox
             skl = @unit.skills[i]
             img = $('<img />').attr('src', skl.getImagePath()).
                 appendTo(td)
+            td.data('skill', skl)
 
         while i < WIDTH
             $('<td></td>').appendTo(tr)
@@ -36,6 +37,10 @@ class window.SkillsBox
     setCursorPos: (@cursorPos) ->
         @box.find('.selected').removeClass('selected')
         @getCursorCell().addClass('selected')
+        @updateInfoBox()
+
+    updateInfoBox: ->
+        @skillInfoBox.init(@getCursorCell().data('skill'))
 
 class CsSkillsBox extends ControlState
 
@@ -45,6 +50,7 @@ class CsSkillsBox extends ControlState
 
     d: ->
         @boxObj.box.find('.selected').removeClass('selected')
+        @boxObj.skillInfoBox.hide()
         @boxObj.onD()
 
     left: ->
