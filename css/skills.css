@@ -16,4 +16,46 @@
     position: absolute;
     z-index: 10;
     visibility: hidden;
+    width: 175px;
+}
+
+.skill-info-box .heading
+{
+    padding: 4px;
+    overflow: hidden;
+}
+
+.skill-info-box .heading img
+{
+    width: 25px;
+    float: left;
+}
+
+.skill-info-box .heading span
+{
+    float: left;
+    margin: 3px 0 0 3px;
+}
+
+.skill-info-box .usage-container
+{
+    background-color: #B0B0FF;
+    width: 100%;
+}
+
+.skill-info-box .usage td.label
+{
+    padding-left: 4px;
+    font-size: 9pt;
+}
+
+.skill-info-box .usage td.value
+{
+    padding: 0 15px 0 10px;
+}
+
+.skill-info-box .desc
+{
+    padding: 4px; 
+    font-size: 10pt;
 }

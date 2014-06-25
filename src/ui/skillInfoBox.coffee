@@ -3,7 +3,16 @@ class window.SkillInfoBox
     constructor: (@ui, @box) ->
 
     init: (skl) ->
-        @box.text(skl.name)
+        heading = @box.find('.heading')
+        heading.find('img').attr('src', skl.getImagePath())
+        heading.find('span').text(skl.name)
+
+        usage = @box.find('.usage')
+        usage.find('.mp').text(skl.mp)
+        usage.find('.cooldown').text(skl.cooldown)
+
+        @box.find('.desc').text(skl.desc)
+
         @show()
 
     show: ->
