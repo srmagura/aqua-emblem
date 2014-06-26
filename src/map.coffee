@@ -58,7 +58,8 @@ class terrain.Forest extends terrain.Terrain
 
 window.OVERLAY_TYPES = {
     AVAILABLE: {startColor: '#AAF', endColor: '#22F'},
-    ATTACK: {startColor: '#FAA', endColor: '#F22'}
+    ATTACK: {startColor: '#FAA', endColor: '#F22'},
+    AID: {startColor: '#AFA', endColor: '#2F2'}
 }
 
 class window.Map
@@ -92,6 +93,13 @@ class window.Map
 
     setOverlay: (pos, overlayType) ->
         @overlayTiles[pos.i][pos.j] = OVERLAY_TYPES[overlayType]
+
+    setOverlayRange: (pos, range, overlayType) ->
+        @clearOverlay()
+        spots = @ui.staticTurn.getActionRange(pos, range)
+
+        for spot in spots
+            @setOverlay(spot, overlayType)
 
     clearOverlay: ->
         for i in [0..@height-1]

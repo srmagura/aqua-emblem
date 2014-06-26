@@ -8,6 +8,7 @@ class window.Chapter
         @done = false
         @initUnits()
 
+        @map.ui = @ui
         @playerTurn = new PlayerTurn(@ui)
         @enemyTurn = new EnemyTurn(@ui)
 

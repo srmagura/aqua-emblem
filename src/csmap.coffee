@@ -43,10 +43,11 @@ class window.CsMap extends CsMapAbstract
     e: ->
         @ui.endTurnMenu.init()
 
-
-class window.CsChooseAttackTarget extends CsMapAbstract
+class window.CsMapTarget extends CsMapAbstract
 
     constructor: (@ui, @playerTurn) ->
+
+class window.CsChooseAttackTarget extends CsMapTarget
 
     moved: ->
         super()
@@ -79,9 +80,7 @@ class window.CsChooseAttackTarget extends CsMapAbstract
         @ui.controlState = new CsActionMenu(@ui, @ui.actionMenu)
 
 
-class window.CsChooseTradeTarget extends CsMapAbstract
-
-    constructor: (@ui, @playerTurn) ->
+class window.CsChooseTradeTarget extends CsMapTarget
 
     f: ->
         callback = (tradeMade) =>
@@ -96,6 +95,6 @@ class window.CsChooseTradeTarget extends CsMapAbstract
                 callback)
 
     d: ->
-        @ui.actionMenu.show()
+        @ui.actionMenu.init(@playerTurn.selectedUnit)
         @ui.cursor.moveTo(@playerTurn.selectedUnit.pos)
         @ui.controlState = new CsActionMenu(@ui, @ui.actionMenu)

@@ -50,13 +50,12 @@ class window.PlayerTurn extends Turn
         @inAttackRange = []
 
         for obj in attackRange
-            @ui.chapter.map.setOverlay(obj.targetSpot, 'ATTACK')
             target = @ui.chapter.getUnitAt(obj.targetSpot)
             if target? and target.team isnt @selectedUnit.team
                 @inAttackRange.push(target)
 
         @inTradeRange = []
-        for pos in @getActionRange(@selectedUnit, [1])
+        for pos in @getActionRange(@selectedUnit.pos, [1])
             target = @ui.chapter.getUnitAt(pos)
             if target? and target.team is @selectedUnit.team
                 @inTradeRange.push(target)
@@ -72,7 +71,7 @@ class window.PlayerTurn extends Turn
             actions.push(new ActionMenuItem('Trade', @handleTrade))
 
         actions.push(new ActionMenuItem('Wait', @handleWait))
-        @ui.actionMenu.init(actions)
+        @ui.actionMenu.init(@selectedUnit, actions)
 
     handleWait: =>
         @ui.cursor.visible = true
@@ -84,11 +83,28 @@ class window.PlayerTurn extends Turn
         @ui.weaponMenu.init(this)
 
     handleSkill: =>
-        @ui.skillsBox.init(@selectedUnit, @skillsBoxOnD)
+        @ui.skillsBox.init(@selectedUnit, @skillsBoxOnD,
+        @skillsBoxOnCursorMove)
+        @ui.skillsBox.onF = @skillsBoxOnF
+        @ui.skillsBox.giveControl()
 
     skillsBoxOnD: =>
+        @ui.skillsBox.hide()
+        @ui.actionMenu.init(@selectedUnit)
+
+    skillsBoxOnF: =>
+        skl = @ui.skillsBox.getSkill()
+        @ui.skillsBox.hide()
+        @ui.skillInfoBox.init(skl, false)
+        @ui.controlState = new skl.controlState(@ui, this)
+
+    skillsBoxOnCursorMove: =>
+        skl = @ui.skillsBox.getSkill()
+        @ui.chapter.map.setOverlayRange(@selectedUnit.pos,
+        skl.range, skl.overlayType)
 
     handleTrade: =>
+        @ui.chapter.map.setOverlayRange(@selectedUnit.pos, [1], 'AID')
         @ui.controlState = new CsChooseTradeTarget(@ui, this)
         @ui.cursor.visible = true
         @ui.cursor.moveTo(@inTradeRange[0].pos)

@@ -3,7 +3,7 @@ class window.ActionMenu
     constructor: (@ui) ->
         @menu = $('.action-menu')
 
-    init: (menuItems) ->
+    init: (unit, menuItems) ->
         if menuItems?
             @menuItems = menuItems
             @menu.html('')
@@ -17,6 +17,9 @@ class window.ActionMenu
         @ui.cursor.visible = false
         @ui.controlState = new CsActionMenu(@ui, this)
         @show()
+
+        @ui.chapter.map.setOverlayRange(unit.pos,
+        unit.totalRange, 'ATTACK')
 
     show: ->
         @menu.css('display', 'inline-block')

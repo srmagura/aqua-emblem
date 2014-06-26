@@ -5,7 +5,7 @@ class window.SkillsBox
 
     constructor: (@ui, @box, @skillInfoBox) ->
 
-    init: (@unit, @onD) ->
+    init: (@unit, @onD, @onCursorMove) ->
         @box.html('')
 
         for i in [0..@unit.skills.length-1]
@@ -20,14 +20,19 @@ class window.SkillsBox
                 appendTo(td)
             td.data('skill', skl)
 
+        i %= WIDTH
         while i < WIDTH
             $('<td></td>').appendTo(tr)
+            i++
 
         @show()
 
     giveControl: ->
         @setCursorPos(new Position(0, 0))
         @ui.controlState = new CsSkillsBox(@ui, this)
+
+    getSkill: ->
+        return @getCursorCell().data('skill')
 
     getCell: (pos) ->
         row = $(@box.find('tr')[pos.i])
@@ -37,6 +42,9 @@ class window.SkillsBox
         return @getCell(@cursorPos)
 
     setCursorPos: (@cursorPos) ->
+        if @onCursorMove?
+            @onCursorMove()
+
         @box.find('.selected').removeClass('selected')
         @getCursorCell().addClass('selected')
         @updateInfoBox()
@@ -55,6 +63,9 @@ class CsSkillsBox extends ControlState
     constructor: (@ui, @boxObj) ->
 
     skillAt: (cp) -> @boxObj.getCell(cp).hasClass('skill')
+
+    f: ->
+        @boxObj.onF()
 
     d: ->
         @boxObj.box.find('.selected').removeClass('selected')

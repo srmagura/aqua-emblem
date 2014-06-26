@@ -2,21 +2,27 @@ class window.SkillInfoBox
 
     constructor: (@ui, @box) ->
 
-    init: (skl) ->
+    init: (skl, full=true) ->
         heading = @box.find('.heading')
         heading.find('img').attr('src', skl.getImagePath())
         heading.find('span').text(skl.name)
 
-        usage = @box.find('.usage')
-        usage.find('.mp').text(skl.mp)
-        usage.find('.cooldown').text(skl.cooldown)
+        usage = @box.find('.usage-container')
+        desc = @box.find('.desc')
 
-        @box.find('.desc').text(skl.desc)
+        if full
+            usage.find('.mp').text(skl.mp)
+            usage.find('.cooldown').text(skl.cooldown)
+            usage.show()
+            desc.text(skl.desc).show()
+        else
+            usage.hide()
+            desc.hide()
 
         @show()
 
     show: ->
-        @box.css('visibility', 'visible')
+        @box.css('display', 'block')
 
     hide: ->
-        @box.css('visibility', 'hidden')
+        @box.css('display', 'none')

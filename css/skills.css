@@ -14,7 +14,6 @@
 {
     width: 170px;
     display: none;
-    padding: 2px 0;
 }
 
 .sidebar .skills-box img
@@ -28,12 +27,16 @@
 }
 
 /***** SKILL INFO BOX *****/
-.skill-info-box
+.canvas-container .skill-info-box
 {
     position: absolute;
     z-index: 10;
-    visibility: hidden;
-    width: 175px;
+}
+
+.skill-info-box
+{
+    width: 170px;
+    display: none;
 }
 
 .skill-info-box .heading
@@ -58,6 +61,7 @@
 {
     background-color: #B0B0FF;
     width: 100%;
+    display: none;
 }
 
 .skill-info-box .usage td.label
@@ -75,4 +79,5 @@
 {
     padding: 4px; 
     font-size: 10pt;
+    display: none;
 }

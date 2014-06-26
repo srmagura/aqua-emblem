@@ -33,12 +33,13 @@ class UI
         @levelUpWindow = new LevelUpWindow(this)
         @tradeWindow = new TradeWindow(this)
 
-
         @canvasOverlay = new CanvasOverlay(this)
         @viewportOverlay = new ViewportOverlay(this)
 
         @messageBox = new MessageBox(this)
         @endTurnMenu = new EndTurnMenu(this)
+
+        @staticTurn = new Turn(this)
 
     centerElement: (el, padding) ->
         css = {}

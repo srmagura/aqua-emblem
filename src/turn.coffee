@@ -39,7 +39,6 @@ class window.Turn
                 queue[queuePerm[k]] = new Position(i, j)
                 k++
 
-
         dist[unit.pos.i][unit.pos.j] = 0
 
         popClosest = ->
@@ -104,11 +103,11 @@ class window.Turn
 
         return attackRange
 
-    getActionRange: (unit, range) ->
+    getActionRange: (pos, range) ->
         actionRange = []
         
         for dir in @getDirections(range)
-            alt = unit.pos.add(dir)
+            alt = pos.add(dir)
             if @ui.chapter.map.onMap(alt)
                 actionRange.push(alt)
 
