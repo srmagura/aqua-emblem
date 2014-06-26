@@ -65,7 +65,7 @@ class window.Battle
                 unit1.battleStats[key] = 100
 
     doBattle: (@callback) ->
-        @container = $(document.createElement('div'))
+        @container = $('<div></div>')
         @container.addClass('battle-unit-info-container').
         appendTo('.canvas-container')
 

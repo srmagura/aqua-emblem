@@ -14,7 +14,19 @@ class skill.Skill
     getImagePath: ->
         return "images/skills/#{@imageName}.png"
 
+    getControlState: (ui, playerTurn) ->
+        return new @controlState(ui, playerTurn, this)
+
+
 class CsSkill extends CsMapTarget
+
+    constructor: (@ui, @playerTurn, @skl) ->
+
+    f: ->
+        @ui.unitInfoBox.hide()
+        @ui.terrainBox.hide()
+        @ui.skillInfoBox.hide()
+        @ui.chapter.map.clearOverlay()
 
     d: ->
         @playerTurn.handleSkill()
@@ -39,7 +51,6 @@ class skill.Defend extends skill.Skill
 class CsDefend extends CsSkill
 
     f: ->
-
-
-    d: ->
         super()
+        action = new UnitAction(@ui, @playerTurn.selectedUnit)
+        action.doAction(@skl, ->)

@@ -96,7 +96,7 @@ class window.PlayerTurn extends Turn
         skl = @ui.skillsBox.getSkill()
         @ui.skillsBox.hide()
         @ui.skillInfoBox.init(skl, false)
-        @ui.controlState = new skl.controlState(@ui, this)
+        @ui.controlState = skl.getControlState(@ui, this)
 
     skillsBoxOnCursorMove: =>
         skl = @ui.skillsBox.getSkill()
