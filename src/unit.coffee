@@ -53,17 +53,28 @@ class window.Unit
         if 'inventory' not of this
             @inventory = []
 
+        @refreshInventory()
+        @offset = new Position(0, 0)
+
+    setInventory: (i, item) ->
+        @inventory[i] = item
+        @refreshInventory()
+
+    deleteItem: (i) ->
+        @inventory.splice(i, 1)
+        @refreshInventory()
+
+    refreshInventory: ->
         @totalRange = []
         for item in @inventory
-            if item instanceof window.item.Weapon
-                @equipped = item
+            if @canWield(item)
+                if not @equipped?
+                    @equipped = item
 
                 for range in item.range
                     if range not in @totalRange
                         @totalRange.push(range)
-                break
 
-        @offset = new Position(0, 0)
 
     setName: (@name) ->
         @id = @name.toLowerCase().replace(' ', '-')

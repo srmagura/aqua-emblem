@@ -90,11 +90,11 @@ class window.TradeWindow
 
         iFrom = @selectedEl.data('pos').i
         if @cursorPos.i == unitTo.inventory.length
-            unitFrom.inventory.splice(iFrom, 1)
+            unitFrom.deleteItem(iFrom)
         else
-            unitFrom.inventory[iFrom] = @getCursorEl().data('item')
+            unitFrom.setInventory(iFrom, @getCursorEl().data('item'))
 
-        unitTo.inventory[@cursorPos.i] = @selectedEl.data('item')
+        unitTo.setInventory(@cursorPos.i, @selectedEl.data('item'))
 
         @fillInventory(@units[0], null, 0)
         @fillInventory(@units[1], null, 1)
