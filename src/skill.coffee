@@ -39,6 +39,7 @@ class CsSkill extends CsMapTarget
         @ui.terrainBox.hide()
         @ui.skillInfoBox.hide()
         @ui.chapter.map.clearOverlay()
+        @ui.controlState = new ControlState()
 
     d: ->
         @playerTurn.handleSkill()
