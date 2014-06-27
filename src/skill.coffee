@@ -14,6 +14,17 @@ class skill.Skill
     getImagePath: ->
         return "images/skills/#{@imageName}.png"
 
+    getMessageEl: ->
+        message = $('<div></div>').addClass('action-message')
+
+        img = $('<img/>').attr('src', @getImagePath())
+        img.appendTo(message)
+
+        span = $('<span></span>').text(@name + '!')
+        span.appendTo(message)
+
+        return message
+
     getControlState: (ui, playerTurn) ->
         return new @controlState(ui, playerTurn, this)
 
@@ -23,6 +34,7 @@ class CsSkill extends CsMapTarget
     constructor: (@ui, @playerTurn, @skl) ->
 
     f: ->
+        @ui.cursor.visible = false
         @ui.unitInfoBox.hide()
         @ui.terrainBox.hide()
         @ui.skillInfoBox.hide()
@@ -31,6 +43,13 @@ class CsSkill extends CsMapTarget
     d: ->
         @playerTurn.handleSkill()
 
+    skillDone: ->
+        @playerTurn.selectedUnit.setDone()
+        @playerTurn.selectedUnit = null
+        @ui.controlState = new CsMap(@ui)
+        @ui.cursor.visible = true
+        @ui.unitInfoBox.show()
+        @ui.terrainBox.show()
 
 class skill.Defend extends skill.Skill
 
@@ -52,5 +71,9 @@ class CsDefend extends CsSkill
 
     f: ->
         super()
+
+        afterAction = =>
+            @skillDone()
+
         action = new UnitAction(@ui, @playerTurn.selectedUnit)
-        action.doAction(@skl, ->)
+        action.doAction(@skl, afterAction)

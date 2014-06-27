@@ -23,15 +23,16 @@ class window.UnitAction
         css.top = (@unit.pos.i + 1)*tw + 5 - @ui.origin.i
         @container.css(css)
 
-        @message = $('<div></div>').appendTo(@container)
-        @message.addClass('action-message')
-
         if @action instanceof skill.Skill
-            imgSrc = @action.getImagePath()
-            text = skill.name + '!'
+            @message = @action.getMessageEl()
+            @message.addClass('blue-box').appendTo(@container)
 
-        img = $('<img/>').attr('src', imgSrc)
-        img.appendTo(@message)
+        afterFadeIn = =>
+            setTimeout(afterDelay, @delay*4)
 
-        span = $('<span></span>').text(text)
-        span.appendTo(@message)
+        afterDelay = =>
+            @container.fadeOut(@delay)
+            @message.fadeOut(@delay, @callback)
+
+        @delay = 600
+        @message.fadeIn(@delay, afterFadeIn)

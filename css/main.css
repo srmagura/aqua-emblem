@@ -143,6 +143,7 @@ div.right-sidebar > div
     margin: 3px;
 }
 
+/***** UNIT ACTION *****/
 .unit-action-container 
 {
     position: absolute;
@@ -156,9 +157,26 @@ div.right-sidebar > div
 
 .action-message
 {
-    position: absolute;
+    display: none;
+    overflow: hidden;
+    border-radius: 30px;
+    margin-top: 6px;
+    padding: 3px 8px;
 }
 
+.action-message img
+{
+    width: 25px;
+    float: left;
+}
+
+.action-message span
+{
+    float: left;
+    padding: 3px 0 0 5px;
+}
+
+/***** MESSAGES *****/
 div.victory-condition
 {
     padding: 5px;
