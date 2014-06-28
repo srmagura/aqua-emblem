@@ -154,7 +154,7 @@ window.init = ->
 class Cursor
 
     constructor: (@ui) ->
-        @visible = true
+        @visible = false
 
     moveTo: (pos) ->
         #console.log(pos)
@@ -166,8 +166,7 @@ class Cursor
         if unitAt is null
             @ui.unitInfoBox.hide()
         else
-            @ui.unitInfoBox.populate(unitAt)
-            @ui.unitInfoBox.show()
+            @ui.unitInfoBox.init(unitAt, false, true)
 
     move: (di, dj) ->
         newPos = @pos.add(new Position(di, dj))

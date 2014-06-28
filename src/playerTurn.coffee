@@ -43,7 +43,7 @@ class window.PlayerTurn extends Turn
         @dest = null
 
     afterPathFollow: =>
-        @ui.unitInfoBox.populate(@selectedUnit)
+        @ui.unitInfoBox.init(@selectedUnit, false, true)
         @ui.unitInfoBox.show()
 
         attackRange = @getAttackRange(@selectedUnit, @selectedUnit.pos)

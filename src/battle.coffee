@@ -87,11 +87,11 @@ class window.Battle
         @container.append(@leftBox).append(@rightBox)
 
         @atkBox = new UnitInfoBox(@ui, atkBoxEl)
-        @atkBox.populate(@atk, false)
+        @atkBox.init(@atk)
         @atkBox.show()
 
         @defBox = new UnitInfoBox(@ui, defBoxEl)
-        @defBox.populate(@def, false)
+        @defBox.init(@def)
         @defBox.show()
 
         @midpoint = @atk.pos.add(@def.pos).scale(.5)
@@ -163,8 +163,8 @@ class window.Battle
             else
                 setTimeout(@doAttack, @delay)
 
-        @atkBox.populate(@atk, true)
-        @defBox.populate(@def, true)
+        @atkBox.init(@atk, true)
+        @defBox.init(@def, true)
 
     doLunge: (unit) =>
         reverse = =>

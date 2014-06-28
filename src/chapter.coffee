@@ -78,7 +78,11 @@ class window.Chapter
             unit.done = false
 
         @ui.controlState = new ControlState(@ui)
-        if team == @enemyTeam
+
+        if team instanceof PlayerTeam
+            for unit in @units
+                unit.onNewTurn()
+        else
             @ui.cursor.visible = false
             @ui.unitInfoBox.hide()
 
@@ -108,7 +112,7 @@ class window.Chapter
             if unit.pos.equals(pos)
                 return unit
 
-        null
+        return null
 
     render: (ui, ctx) ->
         @map.render(ui, ctx)

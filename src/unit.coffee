@@ -77,6 +77,17 @@ class window.Unit
                     if range not in @totalRange
                         @totalRange.push(range)
 
+    onNewTurn: ->
+        toRemove = []
+
+        for status, i in @statuses
+            status.turns--
+
+            if status.turns == 0
+                toRemove.push(i)
+
+        for i in toRemove
+            @statuses.splice(i, 1)
 
     setName: (@name) ->
         @id = @name.toLowerCase().replace(' ', '-')

@@ -45,11 +45,11 @@ class CsSkill extends CsMapTarget
         @playerTurn.handleSkill()
 
     skillDone: ->
+        @ui.unitInfoBox.init(@playerTurn.selectedUnit, false, true)
         @playerTurn.selectedUnit.setDone()
         @playerTurn.selectedUnit = null
         @ui.controlState = new CsMap(@ui)
         @ui.cursor.visible = true
-        @ui.unitInfoBox.show()
         @ui.terrainBox.show()
 
 class skill.Defend extends skill.Skill
@@ -89,7 +89,7 @@ class _status.Status
 
     getEl: ->
         div = $('<div></div>').addClass('status')
-        img = $('<img/>').attr('src', @getImagePath())
+        img = $('<img/>').attr('src', @imagePath)
         span = $('<span></span>').text(@text)
 
         div.append(img).append(span)
@@ -100,3 +100,4 @@ class _status.Defend extends _status.Status
     constructor: ->
         @text = 'Defend'
         @imagePath = 'images/skills/defend.png'
+        @turns = 1

@@ -11,7 +11,7 @@ class window.UnitAction
         @container.append(boxEl)
 
         @box = new UnitInfoBox(@ui, boxEl)
-        @box.populate(@unit, false)
+        @box.init(@unit, false, false)
         @box.show()
 
         tw = @ui.tw
