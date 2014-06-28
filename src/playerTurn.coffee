@@ -94,6 +94,10 @@ class window.PlayerTurn extends Turn
 
     skillsBoxOnF: =>
         skl = @ui.skillsBox.getSkill()
+
+        if not @selectedUnit.canUseSkill(skl)
+            return
+
         @ui.skillsBox.hide()
         @ui.skillInfoBox.init(skl, false)
         @ui.controlState = skl.getControlState(@ui, this)

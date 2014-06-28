@@ -62,8 +62,6 @@ class skill.Defend extends skill.Skill
         'damage received is halved, but the unit cannot counterattack.'
 
         @mp = 2
-        @cooldown = 1
-
         @range = [0]
         @overlayType = 'AID'
 

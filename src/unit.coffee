@@ -96,6 +96,9 @@ class window.Unit
 
         return false
 
+    canUseSkill: (skl) ->
+        return @mp >= skl.mp
+
     setName: (@name) ->
         @id = @name.toLowerCase().replace(' ', '-')
 

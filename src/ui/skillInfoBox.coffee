@@ -2,7 +2,10 @@ class window.SkillInfoBox
 
     constructor: (@ui, @box) ->
 
-    init: (skl, full=true) ->
+    init: (skl, usable, full=true) ->
+        if not usable
+            @box.addClass('not-usable')
+
         heading = @box.find('.heading')
         heading.find('img').attr('src', skl.getImagePath())
         heading.find('span').text(skl.name)
@@ -12,7 +15,6 @@ class window.SkillInfoBox
 
         if full
             usage.find('.mp').text(skl.mp)
-            usage.find('.cooldown').text(skl.cooldown)
             usage.show()
             desc.text(skl.desc).show()
         else

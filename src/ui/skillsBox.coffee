@@ -50,7 +50,8 @@ class window.SkillsBox
         @updateInfoBox()
 
     updateInfoBox: ->
-        @skillInfoBox.init(@getCursorCell().data('skill'))
+        skl = @getCursorCell().data('skill')
+        @skillInfoBox.init(skl, @unit.canUseSkill(skl))
 
     show: ->
         @box.css('display', 'block')

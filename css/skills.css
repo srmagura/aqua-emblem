@@ -57,22 +57,24 @@
     margin: 3px 0 0 3px;
 }
 
+.skill-info-box.not-usable .heading span,
+.skill-info-box.not-usable .usage-container .mp
+{
+    color: #A00;
+}
+
 .skill-info-box .usage-container
 {
     background-color: #B0B0FF;
-    width: 100%;
     display: none;
+    padding: 4px;
 }
 
-.skill-info-box .usage td.label
+.skill-info-box .usage-container .label
 {
-    padding-left: 4px;
+    display: inline-block;
+    padding: 0 4px;
     font-size: 9pt;
-}
-
-.skill-info-box .usage td.value
-{
-    padding: 0 15px 0 10px;
 }
 
 .skill-info-box .desc
