@@ -72,9 +72,31 @@ class CsDefend extends CsSkill
 
     f: ->
         super()
+        unit = @playerTurn.selectedUnit
 
         afterAction = =>
+            unit.statuses.push(new _status.Defend())
             @skillDone()
 
-        action = new UnitAction(@ui, @playerTurn.selectedUnit)
+        action = new UnitAction(@ui, unit)
         action.doAction(@skl, afterAction)
+
+window._status = {}
+
+class _status.Status
+
+    constructor: ->
+
+    getEl: ->
+        div = $('<div></div>').addClass('status')
+        img = $('<img/>').attr('src', @getImagePath())
+        span = $('<span></span>').text(@text)
+
+        div.append(img).append(span)
+        return div
+
+class _status.Defend extends _status.Status
+
+    constructor: ->
+        @text = 'Defend'
+        @imagePath = 'images/skills/defend.png'

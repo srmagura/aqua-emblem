@@ -54,6 +54,8 @@ class window.Unit
             @inventory = []
 
         @refreshInventory()
+        @statuses = []
+
         @offset = new Position(0, 0)
 
     setInventory: (i, item) ->
@@ -198,6 +200,16 @@ class window.Unit
         if @boss
             ctx.drawImage(@imageObjects.crown,
             offset.j+12, offset.i+3)
+
+        if @statuses.length != 0
+            ctx.beginPath()
+            s = 28
+            ctx.arc(offset.j + s, offset.i + s,
+            4, 0, 2 * Math.PI, false)
+            ctx.fillStyle = 'orange'
+            ctx.strokeStyle = '#440000'
+            ctx.stroke()
+            ctx.fill()
             
     getImagePath: ->
         return 'images/characters/' + @name.toLowerCase() + '.png'
