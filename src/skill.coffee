@@ -46,11 +46,11 @@ class CsSkill extends CsMapTarget
 
     skillDone: ->
         @ui.unitInfoBox.init(@playerTurn.selectedUnit, false, true)
-        @playerTurn.selectedUnit.setDone()
-        @playerTurn.selectedUnit = null
         @ui.controlState = new CsMap(@ui)
         @ui.cursor.visible = true
         @ui.terrainBox.show()
+        @playerTurn.selectedUnit.setDone()
+        @playerTurn.selectedUnit = null
 
 class skill.Defend extends skill.Skill
 
