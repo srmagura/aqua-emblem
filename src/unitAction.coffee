@@ -30,6 +30,10 @@ class window.UnitAction
         afterFadeIn = =>
             setTimeout(afterDelay, @delay*4)
 
+            if @action instanceof skill.Skill
+                @unit.mp -= @action.mp
+                @box.init(@unit, true, false)
+
         afterDelay = =>
             @container.fadeOut(@delay)
             @message.fadeOut(@delay, @callback)

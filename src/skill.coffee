@@ -60,6 +60,8 @@ class skill.Defend extends skill.Skill
         @imageName = 'defend'
         @desc = 'During the next enemy turn, ' +
         'damage received is halved, but the unit cannot counterattack.'
+
+        @mp = 2
         @cooldown = 1
 
         @range = [0]

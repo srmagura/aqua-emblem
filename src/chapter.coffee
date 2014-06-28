@@ -27,7 +27,7 @@ class window.Chapter
             unit.hp = unit.baseHp
 
             if unit.baseMp?
-                unit.mp = unit.baseMp
+                unit.mp = Math.round(unit.baseMp/2)
 
             unit.ui = @ui
 

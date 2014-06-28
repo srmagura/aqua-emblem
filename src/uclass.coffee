@@ -63,7 +63,7 @@ class window.uclass.special.Ace extends uclass.Mercenary
         @picture = true
         @inventory = [new item.IronSword()]
 
-        @baseStats = {baseHp: 30, baseMp: 5, str: 7, def: 3,
+        @baseStats = {baseHp: 30, baseMp: 10, str: 7, def: 3,
         skill: 4, speed: 6, res: 2, luck: 8, mag: 0}
 
         super()
@@ -76,7 +76,7 @@ class window.uclass.special.Arrow extends uclass.Archer
         @inventory = [new item.IronBow()]
         @inventory.push(new item.IronBow())
 
-        @baseStats = {baseHp: 28, baseMp: 5, str: 5, def: 4,
+        @baseStats = {baseHp: 28, baseMp: 10, str: 5, def: 4,
         skill: 5, speed: 6, res: 2, luck: 5, mag: 0}
 
         super()
@@ -89,7 +89,7 @@ class window.uclass.special.Luciana extends uclass.Soldier
         @inventory = [new item.IronLance()]
         @inventory.push(new item.IronBow())
 
-        @baseStats = {baseHp: 23, baseMp: 5, str: 6, def: 6,
+        @baseStats = {baseHp: 23, baseMp: 10, str: 6, def: 6,
         skill: 4, speed: 4, res: 2, luck: 8, mag: 0}
 
         super()
@@ -101,7 +101,7 @@ class window.uclass.special.Kenji extends uclass.Fighter
         @picture = true
         @inventory = [new item.IronAxe()]
 
-        @baseStats = {baseHp: 36, baseMp: 5, str: 7, def: 3,
+        @baseStats = {baseHp: 36, baseMp: 10, str: 7, def: 3,
         skill: 4, speed: 5, res: 2, luck: 8, mag: 0}
 
         super()

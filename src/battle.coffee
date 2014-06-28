@@ -31,7 +31,7 @@ class window.Battle
             @turns.push(@def)
             @nTurns.def++
 
-        @damageDealt = 0
+        @attacksHit = 0
 
     calcIndividual: (unit1, unit2) ->
         w1 = unit1.equipped
@@ -153,7 +153,10 @@ class window.Battle
             recvr.hp -= dmg
 
             if giver is @getPlayerUnit()
-                @damageDealt += dmg
+                if giver.mp < giver.baseMp
+                    giver.mp++
+
+                @attacksHit++
         else
             @displayMessage(recvr, 'miss')
 
@@ -206,7 +209,7 @@ class window.Battle
 
         levelDif = enemy.level - player.level
 
-        if @damageDealt > 0
+        if @attacksHit > 0
             dmgExp = .15 + levelDif/100
         else
             dmgExp = .01
