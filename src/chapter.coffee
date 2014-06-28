@@ -85,6 +85,7 @@ class window.Chapter
         else
             @ui.cursor.visible = false
             @ui.unitInfoBox.hide()
+            @ui.terrainBox.hide()
 
         callback = (team) =>
             if team is @enemyTeam

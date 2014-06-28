@@ -187,7 +187,7 @@ class CsTradeWindow2 extends ControlState
         cp = @windowObj.cursorPos
         unit = @windowObj.units[cp.j]
 
-        if cp.i < Unit.INVENTORY_SIZE and
+        if cp.i + 1 < Unit.INVENTORY_SIZE and
         cp.i < unit.inventory.length
             @windowObj.moveCursor(new Position(1, 0))
         else

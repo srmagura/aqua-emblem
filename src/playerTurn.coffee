@@ -99,7 +99,7 @@ class window.PlayerTurn extends Turn
             return
 
         @ui.skillsBox.hide()
-        @ui.skillInfoBox.init(skl, false)
+        @ui.skillInfoBox.init(skl, true)
         @ui.controlState = skl.getControlState(@ui, this)
         @ui.cursor.visible = true
 

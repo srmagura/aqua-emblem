@@ -111,7 +111,7 @@ class window.Unit
                 @baseStats[stat] = value
 
     calcStats: (dryRun=false) ->
-        increment = []
+        increment = {}
 
         for stat, value of @baseStats
             if stat of @growthRates
@@ -120,7 +120,7 @@ class window.Unit
             rounded = Math.round(value)
 
             if rounded > this[stat]
-                increment.push(stat)
+                increment[stat] = 1
 
             if not dryRun
                 this[stat] = rounded

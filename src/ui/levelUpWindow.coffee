@@ -14,6 +14,10 @@ class window.LevelUpWindow
         @window.css(css)
 
         @incIndex = 0
+        @incSize = 0
+        for st of @increment
+            @incSize++
+
         @delay = 750
         setTimeout(@showIncrement, @delay)
 
@@ -31,20 +35,23 @@ class window.LevelUpWindow
 
     initStats: ->
         stats = @window.find('.stats')
-        statTypes = ['baseHp', 'baseMp', 'str', 'skill', 'mag',
-            'speed', 'def', 'luck', 'res', 'move']
+        @statTypes = ['baseHp', 'str', 'mag', 'def', 'res',
+            'baseMp', 'skill', 'speed', 'luck', 'move']
 
-        for st in statTypes
+        for st in @statTypes
             el = stats.find('.' + st)
             el.find('span').text(@unit[st])
             el.removeClass('stat-up')
 
     showIncrement: =>
-        if @incIndex == @increment.length
-            @ui.controlState = new CsLevelUpWindow(@ui, this)
-            return
+        while true
+            st = @statTypes[@incIndex++]
+            if st of @increment
+                break
+            else if @incIndex == @statTypes.length
+                @ui.controlState = new CsLevelUpWindow(@ui, this)
+                return
 
-        st = @increment[@incIndex]
         el = @window.find(".stats .#{st}")
         el.find('span').text(@unit[st] + 1)
         el.addClass('stat-up')
