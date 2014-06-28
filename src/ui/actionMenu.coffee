@@ -3,18 +3,23 @@ class window.ActionMenu
     constructor: (@ui) ->
         @menu = $('.action-menu')
 
-    init: (@menuItems) ->
-        @menu.html('')
-        for item, k in menuItems
-            el = $('<div><div class="image"></div></div>')
-            el.data('index', k).append(item.name).
-                appendTo('.action-menu')
+    init: (unit, menuItems) ->
+        if menuItems?
+            @menuItems = menuItems
+            @menu.html('')
+            for item, k in menuItems
+                el = $('<div><div class="image"></div></div>')
+                el.data('index', k).append(item.name).
+                    appendTo('.action-menu')
 
-        @menu.children('div').first().addClass('selected')
+            @menu.children('div').first().addClass('selected')
 
         @ui.cursor.visible = false
         @ui.controlState = new CsActionMenu(@ui, this)
         @show()
+
+        @ui.chapter.map.setOverlayRange(unit.pos,
+        unit.totalRange, 'ATTACK')
 
     show: ->
         @menu.css('display', 'inline-block')

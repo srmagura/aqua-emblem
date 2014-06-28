@@ -46,11 +46,11 @@ class window.Chapter1 extends Chapter
             level: 1,
             inventory: [new item.IronBow()]}),
 
-            new uclass.Fighter({pos: new Position(1, 7),
+            new uclass.Fighter({pos: new Position(1, 8),
             level: 1,
             inventory: [new item.IronAxe()]}),
 
-            new uclass.Fighter({pos: new Position(3, 9),
+            new uclass.Fighter({pos: new Position(3, 10),
             level: 1,
             inventory: [new item.IronAxe()]}),
 
@@ -65,7 +65,7 @@ class window.Chapter1 extends Chapter
             new uclass.Fighter({pos: new Position(3, 15),
             aiType: AI_TYPE.HALT,
             boss: true,
-            level: 3,
+            level: 5,
             inventory: [new item.IronAxe()]})
         ]
         enemyTeam = new EnemyTeam(enemyUnits, {defaultName: 'Bandit'})

@@ -6,13 +6,14 @@ class window.UnitInfoBox
     update: ->
         unit = @ui.chapter.getUnitAt(@ui.cursor.pos)
         if unit?
-            @populate(unit, false)
+            @init(unit, false, true)
             @show()
 
-    populate: (unit, animate) ->
+    init: (unit, animate=false, showStatus=false) ->
+        @box.removeClass('show-status')
+
         if unit.picture
-            @box.find('img').attr('src',
-            'images/characters/' + unit.name.toLowerCase() + '.png')
+            @box.find('img').attr('src', unit.getImagePath())
             @box.find('.image-wrapper').show()
         else
             @box.find('.image-wrapper').hide()
@@ -24,6 +25,12 @@ class window.UnitInfoBox
 
         @populateHp(unit, animate)
         @populateMp(unit, animate)
+
+        @box.find('.status-container').remove()
+        if showStatus
+            @showStatus(unit)
+
+        @show()
 
     populateHp: (unit, animate) ->
         @box.find('.hp').text(unit.hp)
@@ -54,6 +61,16 @@ class window.UnitInfoBox
             @box.removeClass('red-box').addClass('blue-box')
         else
             @box.removeClass('blue-box').addClass('red-box')
+
+    showStatus: (unit) ->
+        if unit.statuses.length == 0
+            return
+
+        container = $('<div></div>').addClass('status-container')
+        @box.append(container).addClass('show-status')
+
+        for status in unit.statuses
+            container.append(status.getEl())
 
     show: ->
         @box.css('visibility', 'visible')

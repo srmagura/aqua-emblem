@@ -1,18 +1,46 @@
+class window.ViewportOverlay
+
+    constructor: (@ui) ->
+        @overlay = $('.viewport-overlay')
+
+    show: ->
+        @overlay.show()
+
+    hide: ->
+        @overlay.hide()
+
 class window.UnitInfoWindow
 
     constructor: (@ui) ->
         @window = $('.unit-info-window')
+
+        skillInfoBoxEl = $('.canvas-container .skill-info-box')
+        @skillInfoBox = new SkillInfoBox(@ui, skillInfoBoxEl)
+
+        skillsEl = $('.invisible .tab-content-skills .skills-box')
+        @skillsBox = new SkillsBox(@ui, skillsEl, @skillInfoBox)
 
     init: (@unit) ->
         @initCommon()
         @initInventoryTab()
         @initStatsTab()
 
+        if @unit.skills?
+            @initSkillsTab()
+
         @prevControlState = @ui.controlState
         @ui.controlState = new CsUnitInfoWindow(@ui, this)
 
+        css = @ui.centerElement(@window, 4)
+        css.visibility = 'visible'
+        @window.css(css)
+
+        css = @window.position()
+        css.left += @window.width() + 20
+        @skillInfoBox.box.css(css)
+
     initCommon: ->
-        $('.dark-overlay').show()
+        @ui.viewportOverlay.show()
 
         w = @window
         w.removeClass('blue-box').removeClass('red-box')
@@ -22,14 +50,9 @@ class window.UnitInfoWindow
         else
             w.addClass('red-box')
 
-        docWidth = $(document).width()
-        w.css({visibility: 'visible',
-        left: (docWidth-w.width())/2})
-
         if @unit.picture
             w.find('.common .image-wrapper').removeClass('insignia')
-            w.find('.common img').attr('src',
-            'images/characters/' + @unit.name.toLowerCase() + '.png')
+            w.find('.common img').attr('src', @unit.getImagePath())
         else if @unit.team.insigniaImagePath?
             w.find('.common .image-wrapper').addClass('insignia')
             w.find('.common img').attr('src',
@@ -38,7 +61,7 @@ class window.UnitInfoWindow
         w.find('.common .name').html(@unit.name)
         w.find('.common .uclass').text(@unit.uclassName)
         w.find('.common .level').text(@unit.level)
-        w.find('.common .exp').text('0')
+        w.find('.common .exp').text(Math.floor(@unit.exp*100))
 
         w.find('.labels > div').removeClass('selected')
         w.find('.tab-content').hide()
@@ -50,7 +73,7 @@ class window.UnitInfoWindow
         inv = invContent.find('.inventory').html('')
 
         for item in @unit.inventory
-            inv.append(item.getElement())
+            inv.append(item.getElement(@unit.canUse(item)))
 
         @unit.calcCombatStats()
         combatStats = invContent.find('.combat-stats')
@@ -78,11 +101,27 @@ class window.UnitInfoWindow
             $('<div><img src="images/items/' +
             (new weaponClass()).image + '" /></div>').appendTo(weaponsEl)
 
+    initSkillsTab: ->
+        @window.find('.tab-container .labels').
+            append($('.invisible .tab-label-skills'))
+
+        tab = $('.invisible .tab-content-skills')
+        @window.find('.tab-container .content').append(tab)
+
+        @skillsBox.init(@unit, @skillsBoxOnD)
+
+    skillsBoxOnD: =>
+        @ui.controlState = new CsUnitInfoWindow(@ui, this)
 
     hide: ->
-        $('.dark-overlay').hide()
+        @window.find('.tab-label-skills, .tab-content-skills').
+            removeClass('selected').attr('style', '').appendTo('.invisible')
+
+        @ui.viewportOverlay.hide()
         @window.css('visibility', 'hidden')
-        @ui.controlState = new CsMap(@ui)
+
+    getSelectedLabel: ->
+        return @window.find('.tab-container .labels .selected')
 
     changeTab: (tabId) ->
         labels = @window.find('.tab-container .labels')
@@ -93,6 +132,7 @@ class window.UnitInfoWindow
         labels.find('.tab-label-' + tabId).addClass('selected')
         @window.find('.tab-container .tab-content-' + tabId).show()
 
+
 class CsUnitInfoWindow extends ControlState
 
     constructor: (@ui, @windowObj) ->
@@ -101,9 +141,12 @@ class CsUnitInfoWindow extends ControlState
         @windowObj.hide()
         @ui.controlState = @windowObj.prevControlState
 
+    s: ->
+        if @windowObj.getSelectedLabel().hasClass('tab-label-skills')
+            @windowObj.skillsBox.giveControl()
+
     left: ->
-        selectedLabel = @windowObj.window.
-            find('.tab-container .labels .selected')
+        selectedLabel = @windowObj.getSelectedLabel()
 
         if selectedLabel.prev().size() == 0
             label = selectedLabel.siblings().last()
@@ -114,8 +157,7 @@ class CsUnitInfoWindow extends ControlState
         @windowObj.changeTab(tabId)
 
     right: ->
-        selectedLabel = @windowObj.window.
-            find('.tab-container .labels .selected')
+        selectedLabel = @windowObj.getSelectedLabel()
 
         if selectedLabel.next().size() == 0
             label = selectedLabel.siblings().first()

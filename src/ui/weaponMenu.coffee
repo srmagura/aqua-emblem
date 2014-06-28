@@ -5,9 +5,10 @@ class window.WeaponMenu
 
     init: (@playerTurn) ->
         @menu.html('')
+        unit = @playerTurn.selectedUnit
 
-        for item in @playerTurn.selectedUnit.inventory
-            if item instanceof window.item.Weapon
+        for item in unit.inventory
+            if unit.canWield(item)
                 menuItem = $('<div><div class="image"></div></div>')
                 menuItem.append(item.getElement())
                 menuItem.data('weapon', item).appendTo(@menu)
@@ -26,21 +27,15 @@ class CsWeaponMenu extends CsMenu
 
     constructor: (@ui, @menuObj) ->
         @playerTurn = @ui.chapter.playerTurn
-
-    onChange: ->
-        @playerTurn.battle.setPlayerWeapon(@menuObj.menu.
-            find('.selected').data('weapon'))
     
     f: ->
         @ui.weaponMenu.hide()
 
         pt = @menuObj.playerTurn
-        @ui.controlState = new CsChooseTarget(@ui, pt)
-        @ui.cursor.moveTo(pt.inRange[0].pos)
+        @ui.controlState = new CsChooseAttackTarget(@ui, pt)
+        @ui.cursor.moveTo(pt.inAttackRange[0].pos)
         @ui.cursor.visible = true
 
     d: ->
-        @ui.cursor.visible = true
         @menuObj.hide()
-        @ui.battleStatsPanel.hide()
-        @ui.controlState = new CsChooseTarget(@ui, @menuObj.playerTurn)
+        @ui.actionMenu.init()

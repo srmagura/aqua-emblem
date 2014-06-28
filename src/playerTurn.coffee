@@ -1,119 +1,3 @@
-getRandomPermutation = (k) ->
-    todo = [0..k-1]
-    perm = []
-
-    while todo.length != 0
-        r = Math.random()
-
-        for i in [0..todo.length-1]
-            if r < (i+1)/todo.length
-                perm.push(todo.splice(i, 1)[0])
-                break
-
-    return perm
-
-class window.Turn
-
-    constructor: (@ui) ->
-        @directions = [new Position(-1, 0), new Position(1, 0)
-        new Position(0, -1), new Position(0, 1)]
-
-    getAvailable: (unit) ->
-        map = @ui.chapter.map
-        available = [new Destination(unit.pos, [unit.pos])]
-
-        queue = []
-        queuePerm = getRandomPermutation(map.width*map.height)
-
-        dist = Array(map.height)
-        prev = Array(map.height)
-
-        k = 0
-        for i in [0..map.height-1]
-            dist[i] = Array(map.width)
-            prev[i] = Array(map.width)
-
-            for j in [0..map.width-1]
-                dist[i][j] = Infinity
-                prev[i][j] = null
-                queue[queuePerm[k]] = new Position(i, j)
-                k++
-
-
-        dist[unit.pos.i][unit.pos.j] = 0
-
-        popClosest = ->
-            minDist = Infinity
-
-            for pos2, k in queue
-                alt = dist[pos2.i][pos2.j]
-                if alt < minDist
-                    minDist = alt
-                    minDistK = k
-
-            return [queue.splice(minDistK, 1)[0], minDist]
-
-        while queue.length != 0
-            [pos, posDist] = popClosest()
-            if posDist is Infinity
-                break
-
-            perm = getRandomPermutation(@directions.length)
-            for k in perm
-                pos2 = pos.add(@directions[k])
-                unitAt = @ui.chapter.getUnitAt(pos2)
-
-                if map.onMap(pos2) and
-                not map.tiles[pos2.i][pos2.j].block
-                    alt = posDist + 1
-
-                    if (unitAt is null or unitAt.team is unit.team) and
-                    alt < dist[pos2.i][pos2.j] and
-                    alt <= unit.move
-                        dist[pos2.i][pos2.j] = alt
-                        prev[pos2.i][pos2.j] = pos
-                        dest = new Destination(pos2, [pos2])
-
-                        prevPos = pos
-                        while prevPos isnt null
-                            dest.path.unshift(prevPos)
-                            prevPos = prev[prevPos.i][prevPos.j]
-
-                        available.push(dest)
-
-        return available
-
-    getAttackDirections: (totalRange) ->
-        dirs = []
-
-        for range in totalRange
-            for di in [-range..range]
-                for dj in [-range..range]
-                    if Math.abs(di) + Math.abs(dj) == range
-                        dirs.push(new Position(di, dj))
-
-        return dirs
-
-    getAttackRange: (unit, pos) ->
-        attackRange = []
-
-        for dir in @getAttackDirections(unit.totalRange)
-            alt = pos.add(dir)
-            if @ui.chapter.map.onMap(alt)
-                attackRange.push({moveSpot: pos, targetSpot: alt})
-
-        return attackRange
-
-    movementGetAttackRange: (available, unit=@selectedUnit) ->
-        attackRange = []
-        for avail in available
-            localRange = @getAttackRange(unit, avail.pos)
-            for obj in localRange
-                obj.path = avail.path
-                attackRange.push(obj)
-
-        return attackRange
-
 class window.PlayerTurn extends Turn
 
     select: (@selectedUnit) ->
@@ -159,25 +43,35 @@ class window.PlayerTurn extends Turn
         @dest = null
 
     afterPathFollow: =>
-        @ui.unitInfoBox.populate(@selectedUnit)
+        @ui.unitInfoBox.init(@selectedUnit, false, true)
         @ui.unitInfoBox.show()
 
         attackRange = @getAttackRange(@selectedUnit, @selectedUnit.pos)
-        @inRange = []
+        @inAttackRange = []
 
         for obj in attackRange
-            @ui.chapter.map.setOverlay(obj.targetSpot, 'ATTACK')
             target = @ui.chapter.getUnitAt(obj.targetSpot)
             if target? and target.team isnt @selectedUnit.team
-                @inRange.push(target)
+                @inAttackRange.push(target)
+
+        @inTradeRange = []
+        for pos in @getActionRange(@selectedUnit.pos, [1])
+            target = @ui.chapter.getUnitAt(pos)
+            if target? and target.team is @selectedUnit.team
+                @inTradeRange.push(target)
 
         actions = []
 
-        if @inRange.length != 0
+        if @inAttackRange.length != 0
             actions.push(new ActionMenuItem('Attack', @handleAttack))
 
+        actions.push(new ActionMenuItem('Skill', @handleSkill))
+            
+        if @inTradeRange.length != 0
+            actions.push(new ActionMenuItem('Trade', @handleTrade))
+
         actions.push(new ActionMenuItem('Wait', @handleWait))
-        @ui.actionMenu.init(actions)
+        @ui.actionMenu.init(@selectedUnit, actions)
 
     handleWait: =>
         @ui.cursor.visible = true
@@ -185,12 +79,42 @@ class window.PlayerTurn extends Turn
         @deselect()
 
     handleAttack: =>
-        @ui.cursor.visible = false
-
         @ui.actionMenu.hide()
         @ui.weaponMenu.init(this)
 
-    afterBattle: =>
+    handleSkill: =>
+        @ui.skillsBox.init(@selectedUnit, @skillsBoxOnD,
+        @skillsBoxOnCursorMove)
+        @ui.skillsBox.onF = @skillsBoxOnF
+        @ui.skillsBox.giveControl()
+
+    skillsBoxOnD: =>
+        @ui.skillsBox.hide()
+        @ui.actionMenu.init(@selectedUnit)
+
+    skillsBoxOnF: =>
+        skl = @ui.skillsBox.getSkill()
+
+        if not @selectedUnit.canUseSkill(skl)
+            return
+
+        @ui.skillsBox.hide()
+        @ui.skillInfoBox.init(skl, true)
+        @ui.controlState = skl.getControlState(@ui, this)
+        @ui.cursor.visible = true
+
+    skillsBoxOnCursorMove: =>
+        skl = @ui.skillsBox.getSkill()
+        @ui.chapter.map.setOverlayRange(@selectedUnit.pos,
+        skl.range, skl.overlayType)
+
+    handleTrade: =>
+        @ui.chapter.map.setOverlayRange(@selectedUnit.pos, [1], 'AID')
+        @ui.controlState = new CsChooseTradeTarget(@ui, this)
+        @ui.cursor.visible = true
+        @ui.cursor.moveTo(@inTradeRange[0].pos)
+
+    afterExpAdd: =>
         @ui.controlState = new CsMap(@ui)
         @ui.cursor.visible = true
         @ui.cursor.moveTo(@selectedUnit.pos)

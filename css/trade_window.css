@@ -1,0 +1,65 @@
+.trade-window
+{
+    position: absolute;
+    z-index: 10;
+}
+
+.trade-window .half
+{
+    float: left;
+    width: 180px;
+    padding: 5px;
+}
+
+.trade-window .top
+{
+    height: 101px;
+}
+
+.trade-window .top img
+{
+    width: 80px;
+    height: 100px;
+    margin: 0 50px;
+    border: 1px solid rgba(200, 200, 200, .3);
+    border-bottom: none;
+    background-color: rgba(200, 200, 200, .5);
+}
+
+.trade-window .inventory
+{
+    padding: 5px 5px;
+    overflow: hidden;
+}
+
+.trade-window .inventory .arrow-image
+{
+    width: 9px;
+    height: 9px;
+    float: left;
+    padding: 0;
+    margin: 4px 5px 0px 2px;
+    
+    background-image: url('../images/list_arrow.png');
+    visibility: hidden;
+}
+
+.trade-window .inventory .arrow-image.cursor-at
+{
+    visibility: visible;
+}
+
+.trade-window .inventory .item-container
+{
+    float: left;
+    width: 100%;
+    padding: 2px 0;
+    border: 1px solid transparent;
+    height: 18px;
+}
+
+.trade-window .inventory .item-container.selected
+{
+    background-color: rgba(0, 0, 255, .2);
+    border: 1px solid rgba(0, 0, 255, .4);
+}

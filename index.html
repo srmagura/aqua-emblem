@@ -8,25 +8,37 @@
     <link rel="stylesheet" type="text/css" href="css/menu.css"/>
     <link rel="stylesheet" type="text/css" href="css/unit_info_box.css"/>
     <link rel="stylesheet" type="text/css" href="css/unit_info_window.css"/>
+    <link rel="stylesheet" type="text/css" href="css/trade_window.css"/>
     <link rel="stylesheet" type="text/css" href="css/battle_stats_panel.css"/>
     <link rel="stylesheet" type="text/css" href="css/terrain_box.css"/>
+    <link rel="stylesheet" type="text/css" href="css/exp_bar.css"/>
+    <link rel="stylesheet" type="text/css" href="css/skills.css"/>
     
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
     <script src="lib/ui/ui.js"></script>
+
     <script src="lib/ui/unitInfoBox.js"></script>
     <script src="lib/ui/unitInfoWindow.js"></script>
+    <script src="lib/ui/skillsBox.js"></script>
+    <script src="lib/ui/skillInfoBox.js"></script>
+    <script src="lib/ui/levelUpWindow.js"></script>
+
+    <script src="lib/ui/tradeWindow.js"></script>
     <script src="lib/ui/actionMenu.js"></script>
     <script src="lib/ui/weaponMenu.js"></script>
     <script src="lib/ui/battleStatsPanel.js"></script>
     <script src="lib/ui/message.js"></script>
     <script src="lib/ui/endTurn.js"></script>
     <script src="lib/ui/terrainBox.js"></script>
+    <script src="lib/ui/expBar.js"></script>
 
     <script src="lib/chapter.js"></script>
+    <script src="lib/turn.js"></script>
     <script src="lib/playerTurn.js"></script>
     <script src="lib/enemyTurn.js"></script>
     <script src="lib/battle.js"></script>
+    <script src="lib/unitAction.js"></script>
 
     <script src="lib/map.js"></script>
     <script src="lib/csmap.js"></script>
@@ -34,6 +46,7 @@
     <script src="lib/item.js"></script>
     <script src="lib/unit.js"></script>
     <script src="lib/uclass.js"></script>
+    <script src="lib/skill.js"></script>
 
     <script src="lib/chapters/chapter1.js"></script>
 
@@ -41,7 +54,7 @@
 <body>
 <div class="title">
 <img src="images/title_cropped.png" />
-<div class="version">demo-v0.0001</div>
+<div class="version">demo-v0.001</div>
 </div>
 <script>
 $(window).load(init)
@@ -83,6 +96,22 @@ $(window).load(init)
             </div>
             <div class="menu weapon-menu neutral-box">
             </div>
+            <div class="skills-box">
+            </div>
+
+            <div class="skill-info-box neutral-box">
+                <div class="heading">
+                    <img />
+                    <span></span>
+                </div>
+                <div class="usage-container">
+                    <span class="label">MP</span>
+                    <span class="mp"></span>
+                </div>
+                <div class="desc">
+                </div>
+            </div>
+
             <div class="battle-stats-panel">
                 <table>
                     <tr>
@@ -136,10 +165,184 @@ $(window).load(init)
         </div>
         <div class="canvas-container">
             <canvas width="420" height="350"></canvas>
+
             <div class="canvas-dark-overlay"></div>
+
             <div class="end-turn neutral-box">
                 <div class="image"></div> End turn
             </div>
+
+            <div class="exp-bar-container neutral-box">
+                EXP<div class="exp-bar">
+                    <div class="exp-bar-filled"></div>
+                </div>
+            </div>
+
+            <div class="unit-info-window blue-box">
+                <div class="common">
+                    <div class="image-wrapper">
+                        <img />
+                    </div>
+                    <div>
+                        <div class="name"></div>
+                        <div class="uclass"></div>
+                        <div class="level-info">
+                            Lv <span class="level"></span>
+                            Exp <span class="exp"></span></div>
+                    </div>
+                </div>
+                <div class="tab-container">
+                    <div class="labels">
+                        <div class="tab-label-inventory">Items
+                            <span class="tab-id">inventory</span>
+                        </div><div class="tab-label-stats">
+                            <span class="tab-id">stats</span>
+                            Stats
+                        </div></div>
+                    <div class="content">
+                        <div class="tab-content tab-content-inventory">
+                            <div class="inventory"></div>
+                            <div class="combat-stats">
+                                <table>
+                                    <tr>
+                                        <td class="label">HIT</td>
+                                        <td class="stat hit"></td>
+                                        <td class="label">EVADE</td>
+                                        <td class="stat evade"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">ATK</td>
+                                        <td class="stat atk"></td>
+                                        <td class="label">CRIT</td>
+                                        <td class="stat crit"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-content tab-content-stats">
+                            <div class="stats">
+                                <table>
+                                    <tr>
+                                        <td class="label">STR</td>
+                                        <td class="stat str"></td>
+                                        <td class="label">SKILL</td>
+                                        <td class="stat skill"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">MAG</td>
+                                        <td class="stat mag"></td>
+                                        <td class="label">SPEED</td>
+                                        <td class="stat speed"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">DEF</td>
+                                        <td class="stat def"></td>
+                                        <td class="label">LUCK</td>
+                                        <td class="stat luck"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">RES</td>
+                                        <td class="stat res"></td>
+                                        <td class="label">MOVE</td>
+                                        <td class="stat move"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="wield">
+                                Wield:
+                                <div class="weapons">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-up-window blue-box">
+                <div class="common">
+                    <div class="image-wrapper">
+                        <img />
+                    </div>
+                    <div>
+                        <div class="name"></div>
+                        <div class="level-info">
+                            Lv <span class="level"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="stats-container">
+                    <span class="level-up">Level up!</span>
+                    <div class="stats">
+                        <table>
+                            <tr>
+                                <td class="label">HP</td>
+                                <td class="stat baseHp">
+                                    <span></span><img src="images/up_arrow.png" />
+                                </td>
+
+                                <td class="label">MP</td>
+                                <td class="stat baseMp">
+                                    <span></span><img src="images/up_arrow.png" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="label">STR</td>
+                                <td class="stat str">
+                                    <span></span><img src="images/up_arrow.png" />
+                                </td>
+
+                                <td class="label">SKILL</td>
+                                <td class="stat skill">
+                                    <span></span><img src="images/up_arrow.png" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="label">MAG</td>
+                                <td class="stat mag">
+                                    <span></span><img src="images/up_arrow.png" />
+                                </td>
+
+                                <td class="label">SPEED</td>
+                                <td class="stat speed">
+                                    <span></span><img src="images/up_arrow.png" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="label">DEF</td>
+                                <td class="stat def">
+                                    <span></span><img src="images/up_arrow.png" />
+                                </td>
+
+                                <td class="label">LUCK</td>
+                                <td class="stat luck">
+                                    <span></span><img src="images/up_arrow.png" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="label">RES</td>
+                                <td class="stat res">
+                                    <span></span><img src="images/up_arrow.png" />
+                                </td>
+
+                                <td class="label">MOVE</td>
+                                <td class="stat move">
+                                    <span></span><img src="images/up_arrow.png" />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trade-window">
+
+            </div>
+
         </div>
         <div class="sidebar right-sidebar">
             <div class="victory-condition neutral-box"></div>
@@ -175,7 +378,7 @@ $(window).load(init)
             </tr>
             <tr>
                 <td class="control">S:</td>
-                <td>more info (units)</td>
+                <td>more info (units, skills)</td>
             </tr>
             <tr>
                 <td class="control">E:</td>
@@ -183,97 +386,43 @@ $(window).load(init)
             </tr>
         </table>
         <br />
-        <h3>Release notes for demo-v0.0001</h3>
+        <h3>Release notes for demo-v0.001</h3>
         <ul>
-            <li>Luciana and Kenji join the fray. 
-            Now all of the members of Ace's mercenary group, "Hellhounds", have assembled!</li>
-            <li>If <b>any</b> of your units die, you lose!! Be careful. You can't yet use Arrow's First Aid skill, so
-            Ace, Arrow, and Kenji have all received a temporary +10 buff to HP.</li>
-            <li>The weapon triangle is here. Swords beat axes, axes beat lances, and lances beat swords.</li>
-            <li>Use terrain to your advantage. Standing on a forest gives you big defensive bonuses!</li>
-            <li>Press E to end your turn early.</li>
-            <li>Some enemies won't move, while others will move to attack you if you enter their range.</li>
+            <li>Units gain experience in each battle. Once a unit builds up 100 exp, they level up.</li>
+            <li>Trade items between units by choosing the "Trade" option from the action menu.</li>
+            <li>Skills system. Choose "Skill" from the action menu to use a skill. There is
+                only one skill right now (Defend), which everyone has. More skills will be added in the
+                future. A "Skills" tab has also been added to the unit info window (which appears when you press S
+                while the cursor is over a unit.)
+            </li>
+            <li>Using a skill takes a certain amount of MP. A unit regains 1 MP for every regular attack it lands.</li>
+            <li>Status system. Units that have a special status are marked with an orange circle. Move the cursor to
+            a unit to view its list of statuses. There is currently only one status, Defend, which signifies that a
+            unit has used the Defend skill.</li>
+            <li>Base stats and growth rates have been rebalanced. I'll continue to rebalance things as new skills,
+            units, and chapters are added.</li>
+            <li>Kenji has received cosmetic plastic surgery, becuz he was ugli before.</li>
         </ul>
         This version has been tested in Firefox and Chrome. Please tell me if you find a bug.
     </div>
 </div>
 
-<div class="dark-overlay"></div>
 
-<div class="unit-info-window blue-box">
-    <div class="common">
-        <div class="image-wrapper">
-            <img />
+<div class="viewport-overlay"></div>
+
+<div class="invisible">
+
+    <div class="tab-label-skills"><span class="tab-id">skills</span>Skills</div>
+
+    <div class="tab-content tab-content-skills">
+        <div class="skills-box">
         </div>
-        <div>
-            <div class="name"></div>
-            <div class="uclass"></div>
-            <div class="level-info">
-                Lv <span class="level"></span>
-                Exp <span class="exp"></span></div>
+        <div class="controls">
+           S - view skill info
         </div>
     </div>
-    <div class="tab-container">
-        <div class="labels">
-            <div class="tab-label-inventory">Inventory
-                <span class="tab-id">inventory</span>
-            </div><div class="tab-label-stats">
-                <span class="tab-id">stats</span>
-                Stats
-            </div>
-        </div>
-        <div class="content">
-            <div class="tab-content tab-content-inventory">
-                <div class="inventory"></div>
-                <div class="combat-stats">
-                    <table>
-                        <tr>
-                            <td>Hit</td>
-                            <td class="stat hit"></td>
-                            <td>Evade</td>
-                            <td class="stat evade"></td>
-                        </tr>
-                        <tr>
-                            <td>Atk</td>
-                            <td class="stat atk"></td>
-                            <td>Crit</td>
-                            <td class="stat crit"></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="tab-content tab-content-stats">
-                <div class="stats">
-                    <table>
-                        <tr>
-                            <td>Str</td><td class="stat str"></td>
-                            <td>Skill</td> <td class="stat skill"></td>
-                        </tr>
-                        <tr>
-                            <td>Mag</td><td class="stat mag"></td>
-                            <td>Speed</td> <td class="stat speed"></td>
-                        </tr>
-                        <tr>
-                            <td>Def</td><td class="stat def"></td>
-                            <td>Luck</td> <td class="stat luck"></td>
-                        </tr>
-                        <tr>
-                            <td>Res</td><td class="stat res"></td>
-                            <td>Move</td> <td class="stat move"></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="wield">
-                    Wield:
-                    <div class="weapons">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="invisible-images">
 
+<!-- Images go here -->
 <img src="images/title_cropped.png"/>
 <img src="images/crown.png"/>
 <img src="images/bandit_insignia.png"/>
@@ -281,6 +430,7 @@ $(window).load(init)
 <img src="images/up_arrow.png"/>
 <img src="images/down_arrow.png"/>
 <img src="images/logo.png"/>
+<img src="images/skills/defend.png"/>
 <img src="images/characters/luciana.png"/>
 <img src="images/characters/kenji.png"/>
 <img src="images/characters/arrow.png"/>
@@ -305,6 +455,7 @@ $(window).load(init)
 <img src="images/items/iron_sword.png"/>
 <img src="images/items/iron_bow.png"/>
 <img src="images/items/iron_lance.png"/>
+
 
 </div>
 </body>

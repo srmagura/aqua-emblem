@@ -24,7 +24,7 @@ div.menu .selected .image, .end-turn .image
     overflow: hidden
 }
 
-.weapon-menu .weapon-element
+.weapon-menu .item-element
 {
     padding: 2.5px;
     padding-right: 6px;

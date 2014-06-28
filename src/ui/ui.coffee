@@ -15,16 +15,31 @@ class UI
         @controlState = new CsMap(this)
         $(window).keydown(@keydownHandler)
 
-        @unitInfoBox = new UnitInfoBox(this, '.sidebar .unit-info')
-        @unitInfoWindow = new UnitInfoWindow(this)
-
         @actionMenu = new ActionMenu(this)
         @weaponMenu = new WeaponMenu(this)
         @battleStatsPanel = new BattleStatsPanel(this)
+        @expBar = new ExpBar(this)
+
+        skillInfoBoxEl = $('.sidebar .skill-info-box')
+        skillInfoBoxEl.clone().appendTo($('.canvas-container'))
+        @skillInfoBox = new SkillInfoBox(this, skillInfoBoxEl)
+
+        skillsBoxEl = $('.sidebar .skills-box')
+        skillsBoxEl.addClass('neutral-box')
+        @skillsBox = new SkillsBox(this, skillsBoxEl, @skillInfoBox)
+
+        @unitInfoBox = new UnitInfoBox(this, '.sidebar .unit-info')
+        @unitInfoWindow = new UnitInfoWindow(this)
+        @levelUpWindow = new LevelUpWindow(this)
+        @tradeWindow = new TradeWindow(this)
 
         @canvasOverlay = new CanvasOverlay(this)
+        @viewportOverlay = new ViewportOverlay(this)
+
         @messageBox = new MessageBox(this)
         @endTurnMenu = new EndTurnMenu(this)
+
+        @staticTurn = new Turn(this)
 
     centerElement: (el, padding) ->
         css = {}
@@ -139,7 +154,7 @@ window.init = ->
 class Cursor
 
     constructor: (@ui) ->
-        @visible = true
+        @visible = false
 
     moveTo: (pos) ->
         #console.log(pos)
@@ -151,8 +166,7 @@ class Cursor
         if unitAt is null
             @ui.unitInfoBox.hide()
         else
-            @ui.unitInfoBox.populate(unitAt)
-            @ui.unitInfoBox.show()
+            @ui.unitInfoBox.init(unitAt, false, true)
 
     move: (di, dj) ->
         newPos = @pos.add(new Position(di, dj))

@@ -8,6 +8,7 @@ class window.Chapter
         @done = false
         @initUnits()
 
+        @map.ui = @ui
         @playerTurn = new PlayerTurn(@ui)
         @enemyTurn = new EnemyTurn(@ui)
 
@@ -26,7 +27,7 @@ class window.Chapter
             unit.hp = unit.baseHp
 
             if unit.baseMp?
-                unit.mp = unit.baseMp
+                unit.mp = Math.round(unit.baseMp/2)
 
             unit.ui = @ui
 
@@ -77,9 +78,14 @@ class window.Chapter
             unit.done = false
 
         @ui.controlState = new ControlState(@ui)
-        if team == @enemyTeam
+
+        if team instanceof PlayerTeam
+            for unit in @units
+                unit.onNewTurn()
+        else
             @ui.cursor.visible = false
             @ui.unitInfoBox.hide()
+            @ui.terrainBox.hide()
 
         callback = (team) =>
             if team is @enemyTeam
@@ -107,7 +113,7 @@ class window.Chapter
             if unit.pos.equals(pos)
                 return unit
 
-        null
+        return null
 
     render: (ui, ctx) ->
         @map.render(ui, ctx)

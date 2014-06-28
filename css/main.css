@@ -33,7 +33,6 @@ div.wrapper
 
 div.game-wrapper
 {
-    overflow: hidden;
     padding: 8px 0 0;
 }
 
@@ -52,7 +51,7 @@ canvas
     left: 0;
 }
 
-.invisible-images
+.invisible
 {
     display: none;
 }
@@ -109,17 +108,20 @@ div.right-sidebar > div
     float: left;
 }
 
-.blue-box {
+.blue-box 
+{
     border: 1px solid #22F;
     background-color: #B0B0FF;
 }
 
-.red-box {
+.red-box 
+{
     border: 1px solid #822;
     background-color: #F88;
 }
 
-.neutral-box {
+.neutral-box 
+{
     border: 1px solid #666;
     background-color: #DDD;
 }
@@ -140,6 +142,40 @@ div.right-sidebar > div
     margin: 3px;
 }
 
+/***** UNIT ACTION *****/
+.unit-action-container 
+{
+    position: absolute;
+    z-index: 10;
+}
+
+.unit-action-container .unit-info
+{
+    overflow: hidden;
+}
+
+.action-message
+{
+    display: none;
+    overflow: hidden;
+    border-radius: 30px;
+    margin-top: 6px;
+    padding: 3px 8px;
+}
+
+.action-message img
+{
+    width: 25px;
+    float: left;
+}
+
+.action-message span
+{
+    float: left;
+    padding: 3px 0 0 5px;
+}
+
+/***** MESSAGES *****/
 div.victory-condition
 {
     padding: 5px;
@@ -151,7 +187,7 @@ div.message
     visibility: hidden;
     z-index: 10;
     
-    background-color: rgba(255,255,255,.3);
+    background-color: rgba(255,255,255,.4);
     padding: 10px 10px;
     border-radius: 20px;
     

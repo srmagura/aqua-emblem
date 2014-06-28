@@ -51,10 +51,10 @@ class window.MessageBox
 
         if team is ch.playerTeam
             text = 'Player phase'
-            css.color = 'blue'
+            css.color = '#00C'
         else
             text = 'Enemy phase'
-            css.color = 'red'
+            css.color = '#C00'
 
         @showMessage(text, 'phase-message', css, callback, team, true)
 

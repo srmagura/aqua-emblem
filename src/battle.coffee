@@ -16,16 +16,22 @@ class window.Battle
         @turns = [@atk]
         @nTurns = {atk: 1, def: 0}
 
-        if @range in @def.equipped.range
+        defCanAttack = (@range in @def.equipped.range and
+        not @def.hasStatus(_status.Defend))
+
+        if defCanAttack
             @turns.push(@def)
             @nTurns.def++
 
         if @atk.attackSpeed - 4 > @def.attackSpeed
             @turns.push(@atk)
             @nTurns.atk++
-        else if @def.attackSpeed - 4 > @atk.attackSpeed
+        else if defCanAttack and
+        @def.attackSpeed - 4 > @atk.attackSpeed
             @turns.push(@def)
             @nTurns.def++
+
+        @attacksHit = 0
 
     calcIndividual: (unit1, unit2) ->
         w1 = unit1.equipped
@@ -56,6 +62,9 @@ class window.Battle
         unit1.battleStats.hit += factor * 15
         unit1.battleStats.dmg += factor * 1
 
+        if unit2.hasStatus(_status.Defend)
+            unit1.battleStats.dmg = Math.round(unit1.battleStats.dmg/2)
+
         for key, value of unit1.battleStats
             if value < 0
                 unit1.battleStats[key] = 0
@@ -63,7 +72,7 @@ class window.Battle
                 unit1.battleStats[key] = 100
 
     doBattle: (@callback) ->
-        @container = $(document.createElement('div'))
+        @container = $('<div></div>')
         @container.addClass('battle-unit-info-container').
         appendTo('.canvas-container')
 
@@ -85,11 +94,11 @@ class window.Battle
         @container.append(@leftBox).append(@rightBox)
 
         @atkBox = new UnitInfoBox(@ui, atkBoxEl)
-        @atkBox.populate(@atk, false)
+        @atkBox.init(@atk)
         @atkBox.show()
 
         @defBox = new UnitInfoBox(@ui, defBoxEl)
-        @defBox.populate(@def, false)
+        @defBox.init(@def)
         @defBox.show()
 
         @midpoint = @atk.pos.add(@def.pos).scale(.5)
@@ -117,6 +126,15 @@ class window.Battle
         if unit is @def
             return @atk
 
+    getPlayerUnit: ->
+        if @atk.team is @ui.chapter.playerTeam
+            return @atk
+        else
+            return @def
+
+    getEnemyUnit: ->
+        @getOther(@getPlayerUnit())
+
     doAttack: =>
         callMade = false
         giver = @turns[@turnIndex]
@@ -125,13 +143,20 @@ class window.Battle
 
         randHit = 100*Math.random()
         if randHit < giver.battleStats.hit
-
+            dmg = giver.battleStats.dmg
             randCrit = 100*Math.random()
+
             if randCrit < giver.battleStats.crt
                 @displayMessage(recvr, 'crit')
-                recvr.hp -= 3*giver.battleStats.dmg
-            else
-                recvr.hp -= giver.battleStats.dmg
+                dmg *= 3
+
+            recvr.hp -= dmg
+
+            if giver is @getPlayerUnit()
+                if giver.mp < giver.baseMp
+                    giver.mp++
+
+                @attacksHit++
         else
             @displayMessage(recvr, 'miss')
 
@@ -148,8 +173,8 @@ class window.Battle
             else
                 setTimeout(@doAttack, @delay)
 
-        @atkBox.populate(@atk, true)
-        @defBox.populate(@def, true)
+        @atkBox.init(@atk, true)
+        @defBox.init(@def, true)
 
     doLunge: (unit) =>
         reverse = =>
@@ -177,6 +202,33 @@ class window.Battle
 
         if(keepGoing and @callback?)
             @callback()
+
+    getExpToAdd: ->
+        player = @getPlayerUnit()
+        enemy = @getEnemyUnit()
+
+        levelDif = enemy.level - player.level
+
+        if @attacksHit > 0
+            dmgExp = .15 + levelDif/100
+        else
+            dmgExp = .01
+
+        defeatExp = 0
+        if enemy.hp == 0
+            defeatExp = .3 + levelDif/100
+
+        exp = dmgExp + defeatExp
+
+        if EXP_MULTIPLIER?
+            exp *= EXP_MULTIPLIER
+
+        if exp > 1
+            ceil = 1
+        else
+            ceil = exp
+
+        return ceil
 
     displayMessage: (overUnit, mtype) ->
         el = $('<div class="battle-message"></div>')
