@@ -92,6 +92,7 @@ class window.Chapter
                 @enemyTurn.doTurn()
             else
                 @ui.controlState = new CsMap(@ui)
+                @ui.terrainBox.show()
                 @ui.cursor.visible = true
                 @ui.unitInfoBox.update()
 
