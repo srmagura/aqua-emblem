@@ -201,6 +201,9 @@ class window.Unit
         else
             @attackSpeed = @speed - @equipped.weight + 5
 
+            if @attackSpeed < 0
+                @attackSpeed = 0
+
         if @equipped?
             @hit = @equipped.hit + 2*@skill + @luck / 2
             @atk = @str + @equipped.might
