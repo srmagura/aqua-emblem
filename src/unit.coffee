@@ -89,6 +89,13 @@ class window.Unit
         for i in toRemove
             @statuses.splice(i, 1)
 
+    hasStatus: (cls) ->
+        for status in @statuses
+            if status instanceof cls
+                return true
+
+        return false
+
     setName: (@name) ->
         @id = @name.toLowerCase().replace(' ', '-')
 

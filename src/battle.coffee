@@ -16,14 +16,18 @@ class window.Battle
         @turns = [@atk]
         @nTurns = {atk: 1, def: 0}
 
-        if @range in @def.equipped.range
+        defCanAttack = (@range in @def.equipped.range and
+        not @def.hasStatus(_status.Defend))
+
+        if defCanAttack
             @turns.push(@def)
             @nTurns.def++
 
         if @atk.attackSpeed - 4 > @def.attackSpeed
             @turns.push(@atk)
             @nTurns.atk++
-        else if @def.attackSpeed - 4 > @atk.attackSpeed
+        else if defCanAttack and
+        @def.attackSpeed - 4 > @atk.attackSpeed
             @turns.push(@def)
             @nTurns.def++
 
@@ -57,6 +61,9 @@ class window.Battle
 
         unit1.battleStats.hit += factor * 15
         unit1.battleStats.dmg += factor * 1
+
+        if unit2.hasStatus(_status.Defend)
+            unit1.battleStats.dmg = Math.round(unit1.battleStats.dmg/2)
 
         for key, value of unit1.battleStats
             if value < 0

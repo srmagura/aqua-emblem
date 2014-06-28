@@ -10,6 +10,8 @@ class window.UnitInfoBox
             @show()
 
     init: (unit, animate=false, showStatus=false) ->
+        @box.removeClass('show-status')
+
         if unit.picture
             @box.find('img').attr('src', unit.getImagePath())
             @box.find('.image-wrapper').show()
