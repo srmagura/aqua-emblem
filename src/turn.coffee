@@ -142,4 +142,3 @@ class window.Turn
             @afterExpAdd()
 
         @ui.expBar.init(playerUnit, toAdd, callback)
-

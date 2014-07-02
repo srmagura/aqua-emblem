@@ -41,17 +41,20 @@ class window.EnemyTurn extends Turn
                 })
 
         afterScroll = =>
-            if not @ui.onScreen(inRange[0].moveSpot) or
-            not @ui.onScreen(target.pos)
-                @ui.scrollTo(inRange[0].moveSpot, ->)
+            target = selectedInRange.target
+            moveSpot = selectedInRange.moveSpot
 
-            unit.followPath(inRange[0].path, =>
+            if not @ui.onScreen(moveSpot) or
+            not @ui.onScreen(target.pos)
+                @ui.scrollTo(moveSpot, ->)
+
+            unit.followPath(selectedInRange.path, =>
                 @battle = new Battle(@ui, unit, target)
                 @battle.doBattle(@afterBattle)
             )
 
         if inRange.length != 0
-            target = inRange[0].target
+            selectedInRange = @chooseTarget(unit, inRange)
 
             if not @ui.onScreen(unit.pos)
                 @ui.scrollTo(unit.pos, afterScroll)
@@ -59,8 +62,37 @@ class window.EnemyTurn extends Turn
                 afterScroll()
         else
             @doUnitTurn(@nextUnit)
-
     
     afterExpAdd: =>
         setTimeout((=> @doUnitTurn(@nextUnit)), 250)
+
+    chooseMaxDmg: (list) ->
+        max = -1
+        for obj in list
+            if obj.maxDmg > max
+                max = obj.maxDmg
+                maxObj = obj
+
+        return maxObj
+
+    chooseTarget: (enemy, inRange) ->
+        noRetaliate = []
+
+        for obj in inRange
+            target = obj.target
+            range = obj.moveSpot.distance(target.pos)
+            battle = new Battle(@ui, enemy, target, range)
+            obj.maxDmg = battle.nTurns.atk * enemy.battleStats.dmg
+
+            # Try to kill player if there's a chance
+            if obj.maxDmg >= target.hp
+                return obj
+
+            if battle.nTurns.def == 0
+                noRetaliate.push(obj)
+
+        if noRetaliate.length != 0
+            return @chooseMaxDmg(noRetaliate)
+
+        return @chooseMaxDmg(inRange)
 

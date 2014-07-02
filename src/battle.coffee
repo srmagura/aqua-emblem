@@ -1,7 +1,9 @@
 class window.Battle
 
-    constructor: (@ui, @atk, @def) ->
-        @range = @atk.pos.distance(@def.pos)
+    constructor: (@ui, @atk, @def, @range=null) ->
+        if not @range?
+            @range = @atk.pos.distance(@def.pos)
+
         @atk.calcCombatStats()
         @def.calcCombatStats()
         @calcBattleStats()
@@ -9,6 +11,9 @@ class window.Battle
     calcBattleStats: ->
         @atk.advantage = null
         @def.advantage = null
+
+        @calcAdvantage(@atk, @def)
+        @calcAdvantage(@def, @atk)
 
         @calcIndividual(@atk, @def)
         @calcIndividual(@def, @atk)
@@ -33,7 +38,7 @@ class window.Battle
 
         @attacksHit = 0
 
-    calcIndividual: (unit1, unit2) ->
+    calcAdvantage: (unit1, unit2) ->
         w1 = unit1.equipped
         w2 = unit2.equipped
 
@@ -43,6 +48,8 @@ class window.Battle
             unit1.advantage = true
             unit2.advantage = false
 
+    calcIndividual: (unit1, unit2) ->
+        w1 = unit1.equipped
         unit1.battleStats ={}
 
         if @range not in w1.range
