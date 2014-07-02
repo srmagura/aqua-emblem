@@ -64,7 +64,7 @@ class window.EnemyTurn extends Turn
             @doUnitTurn(@nextUnit)
     
     afterExpAdd: =>
-        setTimeout((=> @doUnitTurn(@nextUnit)), 250)
+        setTimeout((=> @doUnitTurn(@nextUnit)), 250/SPEED_MULTIPLIER)
 
     chooseMaxDmg: (list) ->
         max = -1

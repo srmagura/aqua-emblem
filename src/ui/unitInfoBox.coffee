@@ -23,6 +23,7 @@ class window.UnitInfoBox
         src = "images/items/#{unit.equipped.image}"
         @box.find('.equipped').attr('src', src)
 
+        @delay = 200 / SPEED_MULTIPLIER
         @populateHp(unit, animate)
         @populateMp(unit, animate)
 
@@ -38,7 +39,7 @@ class window.UnitInfoBox
 
         width = unit.hp / unit.baseHp * @box.find('.hp-bar').width()
         if animate
-            @box.find('.hp-bar-filled').animate({width: width}, 200)
+            @box.find('.hp-bar-filled').animate({width: width}, @delay)
         else
             @box.find('.hp-bar-filled').width(width)
 
@@ -49,7 +50,7 @@ class window.UnitInfoBox
 
             width = unit.mp / unit.baseMp * @box.find('.mp-bar').width()
             if animate
-                @box.find('.mp-bar-filled').animate({width: width}, 200)
+                @box.find('.mp-bar-filled').animate({width: width}, @delay)
             else
                 @box.find('.mp-bar-filled').width(width)
             

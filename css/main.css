@@ -126,6 +126,12 @@ div.right-sidebar > div
     background-color: #DDD;
 }
 
+.alert-box
+{
+    border: 2px solid #FF3333;
+    background-color: #FDB;
+}
+
 .battle-unit-info-container
 {
     position: absolute;
@@ -215,6 +221,7 @@ div.canvas-dark-overlay
     color: #C00;
 }
 
+/***** BATTLE MESSAGES *****/
 div.battle-message 
 {
     display: none;
@@ -241,4 +248,12 @@ div.battle-message.crit
 {
     background-color: #FAA;
     border-color: orangered;
+}
+
+/***** SPEED MULTIPLIER BOX *****/
+.speed-multiplier-box 
+{
+    padding: 4px;
+    font-weight: bold;
+    display: none;
 }

@@ -1,8 +1,16 @@
+window.init = ->
+    window.ui = new UI()
+
+    chapter = new Chapter1(ui)
+    ui.setChapter chapter
+    ui.mainLoop()
+
 class UI
 
     tw: 35
 
     constructor: ->
+        window.SPEED_MULTIPLIER = 1
         @then = Date.now()
         @canvas = $('canvas')
         @ctx = @canvas[0].getContext('2d')
@@ -14,6 +22,7 @@ class UI
 
         @controlState = new CsMap(this)
         $(window).keydown(@keydownHandler)
+        $(window).keyup(@keyupHandler)
 
         @actionMenu = new ActionMenu(this)
         @weaponMenu = new WeaponMenu(this)
@@ -38,6 +47,8 @@ class UI
 
         @messageBox = new MessageBox(this)
         @endTurnMenu = new EndTurnMenu(this)
+
+        @speedMultiplierBox = $('.speed-multiplier-box')
 
         @staticTurn = new Turn(this)
 
@@ -107,12 +118,20 @@ class UI
             when 68 then @controlState.d()
             when 83 then @controlState.s()
             when 69 then @controlState.e()
-
-        if 37 <= e.which <= 40
+            when 32 then @controlState.space()
+            
+        prevent = [32, 37, 38, 39, 40]
+        if e.which in prevent
             e.preventDefault()
             return false
 
+    keyupHandler: (e) =>
+        switch e.which
+            when 32 then @controlState.spaceUp()
+
     update: (delta) ->
+        delta *= SPEED_MULTIPLIER
+
         if @direction?
             @origin = @origin.add(
                 @direction.scale(delta*@scrollSpeed))
@@ -144,57 +163,7 @@ class UI
         requestAnimationFrame(@mainLoop)
         @render()
 
-window.init = ->
-    window.ui = new UI()
 
-    chapter = new Chapter1(ui)
-    ui.setChapter chapter
-    ui.mainLoop()
-
-class Cursor
-
-    constructor: (@ui) ->
-        @visible = false
-
-    moveTo: (pos) ->
-        #console.log(pos)
-        @pos = pos.clone()
-        @ui.controlState.moved()
-        @ui.chapter.playerTurn.updateDestination()
-
-        unitAt = @ui.chapter.getUnitAt(@pos)
-        if unitAt is null
-            @ui.unitInfoBox.hide()
-        else
-            @ui.unitInfoBox.init(unitAt, false, true)
-
-    move: (di, dj) ->
-        newPos = @pos.add(new Position(di, dj))
-        newPosPx = newPos.scale(@ui.tw)
-
-        c = @ui.canvas
-        if newPosPx.j >= c.width() + @ui.origin.j or
-        newPosPx.j < @ui.origin.j
-            @ui.origin.j += dj*@ui.tw
-
-        if newPosPx.i >= c.height() + @ui.origin.i or
-        newPosPx.i < @ui.origin.i
-            @ui.origin.i += di*@ui.tw
-
-        @moveTo(newPos)
-
-    render: (ui, ctx) ->
-        return if not @visible or not @pos?
-
-        s = 5
-        tw = ui.tw
-
-        ctx.strokeStyle = 'purple'
-        ctx.beginPath()
-        ctx.rect(@pos.j*tw + s - ui.origin.j,
-        @pos.i*tw + s - ui.origin.i,
-        tw - 2*s, tw - 2*s)
-        ctx.stroke()
 
 class window.ControlState
     constructor: (@ui) ->
@@ -206,4 +175,10 @@ class window.ControlState
     d: ->
     s: ->
     e: ->
+    space: ->
+        window.SPEED_MULTIPLIER = 3
+        @ui.speedMultiplierBox.show()
+    spaceUp: ->
+        window.SPEED_MULTIPLIER = 1
+        @ui.speedMultiplierBox.hide()
     moved: ->
