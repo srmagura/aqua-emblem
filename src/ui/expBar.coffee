@@ -21,7 +21,7 @@ class window.ExpBar
             barFilled.animate({width: width2}, time, afterAnimate)
 
         afterAnimate = =>
-            setTimeout(afterDelay, 1000 / SPEED_MULTIPLIER)
+            setTimeout(afterDelay, 1000 / @ui.speedMultiplier)
 
         afterDelay = =>
             @hide()
@@ -30,7 +30,7 @@ class window.ExpBar
         @show()
         newExp = unit.exp + toAdd
 
-        msPerExp = 1500 / SPEED_MULTIPLIER
+        msPerExp = 1500 / @ui.speedMultiplier
 
         if newExp >= 1
             time = msPerExp * (1 - unit.exp)

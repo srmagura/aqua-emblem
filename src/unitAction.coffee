@@ -38,5 +38,5 @@ class window.UnitAction
             @container.fadeOut(@delay)
             @message.fadeOut(@delay, @callback)
 
-        @delay = 600
+        @delay = 600 / @ui.speedMultiplier
         @message.fadeIn(@delay, afterFadeIn)

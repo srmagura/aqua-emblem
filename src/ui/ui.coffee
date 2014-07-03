@@ -10,7 +10,7 @@ class ChapterUI
     tw: 35
 
     constructor: ->
-        window.SPEED_MULTIPLIER = 1
+        @speedMultiplier = 1
         @then = Date.now()
         @canvas = $('canvas')
         @ctx = @canvas[0].getContext('2d')
@@ -22,7 +22,6 @@ class ChapterUI
 
         @controlState = new _cs.Map(this)
         $(window).keydown(@keydownHandler)
-        $(window).keyup(@keyupHandler)
 
         @actionMenu = new ActionMenu(this)
         @weaponMenu = new WeaponMenu(this)
@@ -124,12 +123,8 @@ class ChapterUI
             e.preventDefault()
             return false
 
-    keyupHandler: (e) =>
-        switch e.which
-            when 32 then @controlState.spaceUp()
-
     update: (delta) ->
-        delta *= SPEED_MULTIPLIER
+        delta *= @speedMultiplier
 
         if @direction?
             @origin = @origin.add(
@@ -175,7 +170,6 @@ class _cs.ControlState
     s: ->
     e: ->
     space: ->
-    spaceUp: ->
     moved: ->
 
 class _cs.Chapter extends _cs.ControlState
@@ -189,9 +183,10 @@ class _cs.Chapter extends _cs.ControlState
     s: ->
     e: ->
     space: ->
-        window.SPEED_MULTIPLIER = 3
-        @ui.speedMultiplierBox.show()
-    spaceUp: ->
-        window.SPEED_MULTIPLIER = 1
-        @ui.speedMultiplierBox.hide()
+        if @ui.speedMultiplier == 3
+            @ui.speedMultiplier = 1
+            @ui.speedMultiplierBox.hide()
+        else
+            @ui.speedMultiplier = 3
+            @ui.speedMultiplierBox.show()
     moved: ->

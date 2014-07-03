@@ -123,7 +123,7 @@ class window.Battle
         @container.css({left: left, top: top})
 
         @turnIndex = 0
-        @delay = 1500 / SPEED_MULTIPLIER
+        @delay = 1500 / @ui.speedMultiplier
 
         setTimeout(@doAttack, @delay/5)
 

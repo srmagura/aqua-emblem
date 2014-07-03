@@ -23,7 +23,7 @@ class window.UnitInfoBox
         src = "images/items/#{unit.equipped.image}"
         @box.find('.equipped').attr('src', src)
 
-        @delay = 200 / SPEED_MULTIPLIER
+        @delay = 200 / @ui.speedMultiplier
         @populateHp(unit, animate)
         @populateMp(unit, animate)
 

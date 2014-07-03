@@ -30,7 +30,7 @@ class window.MessageBox
         css.visibility = 'visible'
         css.display = 'none'
 
-        fadeDuration = 800 / SPEED_MULTIPLIER
+        fadeDuration = 800 / @ui.speedMultiplier
         @ui.canvasOverlay.init()
         @ui.canvasOverlay.overlay.fadeIn(fadeDuration)
         el.css(css).fadeIn(fadeDuration)

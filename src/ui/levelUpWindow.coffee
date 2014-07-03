@@ -18,7 +18,7 @@ class window.LevelUpWindow
         for st of @increment
             @incSize++
 
-        @delay = 750 / SPEED_MULTIPLIER
+        @delay = 750 / @ui.speedMultiplier
         setTimeout(@showIncrement, @delay)
 
     initCommon: ->
