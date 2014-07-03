@@ -92,7 +92,7 @@ class window.Chapter
                 @enemyTurn.doTurn()
             else
                 @ui.controlState = new _cs.Map(@ui)
-                @ui.terrainBox.show()
+                @ui.cursor.moveTo(new Position(0, 0))
                 @ui.cursor.visible = true
                 @ui.unitInfoBox.update()
 

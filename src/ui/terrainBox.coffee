@@ -26,7 +26,7 @@ class window.TerrainBox
         @show()
 
     show: ->
-        @box.css('display', 'block')
+        @box.css('visibility', 'visible')
 
     hide: ->
-        @box.css('display', 'none')
+        @box.css('visibility', 'hidden')

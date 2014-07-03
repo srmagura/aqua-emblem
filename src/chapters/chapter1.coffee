@@ -1,6 +1,6 @@
 class window.Chapter1 extends Chapter
 
-    constructor: (ui) ->
+    constructor: (@ui) ->
         playerUnits = [
             new _uclass.special.Ace(),
             new _uclass.special.Arrow(),
@@ -95,3 +95,11 @@ class window.Chapter1 extends Chapter
         map = new Map(tiles, terrainMapping, playerPositions)
         super(ui, map, playerTeam, enemyTeam,
         VICTORY_CONDITION.ROUT)
+
+    doScrollSequence: (callback) ->
+        @ui.origin = new Position(0, 4*ui.tw)
+
+        f = =>
+            @ui.scrollTo(new Position(0, 0), callback, .07)
+
+        setTimeout(f, 1000/@ui.speedMultiplier)

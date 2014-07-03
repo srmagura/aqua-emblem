@@ -3,7 +3,9 @@ window.init = ->
 
     chapter = new Chapter1(ui)
     ui.setChapter(chapter)
-    ui.startChapter()
+
+    chapter.doScrollSequence(ui.startChapter)
+
 
 class ChapterUI
 
@@ -20,7 +22,7 @@ class ChapterUI
         @origin = new Position(0, 0)
         @cursor = new Cursor(this)
 
-        @controlState = new _cs.Map(this)
+        @controlState = new _cs.Chapter(this)
         $(window).keydown(@keydownHandler)
 
         @actionMenu = new ActionMenu(this)
@@ -60,9 +62,7 @@ class ChapterUI
 
     setChapter: (@chapter) ->
         @mainLoop()
-
         $('.victory-condition').text(@chapter.victoryCondition.text)
-        @cursor.moveTo(new Position(0, 0))
 
     startChapter: ->
         @chapter.initTurn(@chapter.playerTeam)
@@ -72,7 +72,7 @@ class ChapterUI
         return 0 <= delta.i < @canvas.height() and
         0 <= delta.j < @canvas.width()
 
-    scrollTo: (pos, @scrollCallback) ->
+    scrollTo: (pos, @scrollCallback, @scrollSpeed=null) ->
         centerOffset = new Position(5, 6)
         @scrollDest = pos.subtract(centerOffset)
 
@@ -95,7 +95,8 @@ class ChapterUI
             
         if not @direction.equals(new Position(0, 0))
             @direction = @direction.toUnitVector()
-            @scrollSpeed = .2
+            if not @scrollSpeed?
+                @scrollSpeed = .2
         else
             @direction = null
 
