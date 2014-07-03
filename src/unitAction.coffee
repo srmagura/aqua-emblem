@@ -23,14 +23,14 @@ class window.UnitAction
         css.top = (@unit.pos.i + 1)*tw + 5 - @ui.origin.i
         @container.css(css)
 
-        if @action instanceof skill.Skill
+        if @action instanceof _skill.Skill
             @message = @action.getMessageEl()
             @message.addClass('blue-box').appendTo(@container)
 
         afterFadeIn = =>
             setTimeout(afterDelay, @delay*4)
 
-            if @action instanceof skill.Skill
+            if @action instanceof _skill.Skill
                 @unit.mp -= @action.mp
                 @box.init(@unit, true, false)
 

@@ -1,13 +1,13 @@
-window.skill = {}
+window._skill = {}
 
-skill.type = {
+_skill.type = {
     NONE: 0,
 }
 
-class skill.Skill
+class _skill.Skill
 
     constructor: ->
-        @type = skill.type.NONE
+        @type = _skill.type.NONE
         @might = null
         @mp = 0
 
@@ -31,7 +31,7 @@ class skill.Skill
 
 class _cs.Skill extends _cs.MapTarget
 
-    constructor: (@ui, @playerTurn, @skl) ->
+    constructor: (@ui, @playerTurn, @skill) ->
 
     f: ->
         @ui.cursor.visible = false
@@ -52,7 +52,7 @@ class _cs.Skill extends _cs.MapTarget
         @playerTurn.selectedUnit.setDone()
         @playerTurn.selectedUnit = null
 
-class skill.Defend extends skill.Skill
+class _skill.Defend extends _skill.Skill
 
     constructor: ->
         super()
@@ -79,7 +79,7 @@ class _cs.Defend extends _cs.Skill
             @skillDone()
 
         action = new UnitAction(@ui, unit)
-        action.doAction(@skl, afterAction)
+        action.doAction(@skill, afterAction)
 
 window._status = {}
 
