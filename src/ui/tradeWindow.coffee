@@ -15,7 +15,7 @@ class window.TradeWindow
         @setCursorPos(new Position(0, 0))
 
         @prevControlState = @ui.controlState
-        @ui.controlState = new CsTradeWindow(@ui, this)
+        @ui.controlState = new _cs.TradeWindow(@ui, this)
         @ui.viewportOverlay.show()
 
         css = @ui.centerElement(@window, 0)
@@ -75,13 +75,13 @@ class window.TradeWindow
         @cursorPos.i = 0
         @cursorPos.j = (@cursorPos.j + 1) % 2
         @setCursorPos(@cursorPos)
-        @ui.controlState = new CsTradeWindow2(@ui, this)
+        @ui.controlState = new _cs.TradeWindow2(@ui, this)
 
     doDeselect: ->
         selected = @window.find('.item-container.selected')
         @setCursorPos(selected.data('pos'))
         selected.removeClass('selected')
-        @ui.controlState = new CsTradeWindow(@ui, this)
+        @ui.controlState = new _cs.TradeWindow(@ui, this)
 
     doTrade: ->
         @tradeMade = true
@@ -99,7 +99,7 @@ class window.TradeWindow
         @fillInventory(@units[0], null, 0)
         @fillInventory(@units[1], null, 1)
         @setCursorPos(@cursorPos)
-        @ui.controlState = new CsTradeWindow(@ui, this)
+        @ui.controlState = new _cs.TradeWindow(@ui, this)
 
     show: ->
         @window.css('visibility', 'visible')
@@ -112,7 +112,7 @@ class window.TradeWindow
         @window.find('.arrow-image').css(hide)
 
 
-class CsTradeWindow extends ControlState
+class _cs.TradeWindow extends _cs.ControlState
 
     constructor: (@ui, @windowObj) ->
 
@@ -163,7 +163,7 @@ class CsTradeWindow extends ControlState
 
             @windowObj.moveCursor(new Position(0, 1))
 
-class CsTradeWindow2 extends ControlState
+class _cs.TradeWindow2 extends _cs.ControlState
 
     constructor: (@ui, @windowObj) ->
 

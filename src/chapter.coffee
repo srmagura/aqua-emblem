@@ -77,7 +77,7 @@ class window.Chapter
         for unit in @units
             unit.done = false
 
-        @ui.controlState = new ControlState(@ui)
+        @ui.controlState = new _cs.ControlState(@ui)
 
         if team instanceof PlayerTeam
             for unit in @units
@@ -91,7 +91,7 @@ class window.Chapter
             if team is @enemyTeam
                 @enemyTurn.doTurn()
             else
-                @ui.controlState = new CsMap(@ui)
+                @ui.controlState = new _cs.Map(@ui)
                 @ui.terrainBox.show()
                 @ui.cursor.visible = true
                 @ui.unitInfoBox.update()

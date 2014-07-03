@@ -29,7 +29,7 @@ class window.SkillsBox
 
     giveControl: ->
         @setCursorPos(new Position(0, 0))
-        @ui.controlState = new CsSkillsBox(@ui, this)
+        @ui.controlState = new _cs.SkillsBox(@ui, this)
 
     getSkill: ->
         return @getCursorCell().data('skill')
@@ -59,7 +59,7 @@ class window.SkillsBox
     hide: ->
         @box.css('display', 'none')
 
-class CsSkillsBox extends ControlState
+class _cs.SkillsBox extends _cs.ControlState
 
     constructor: (@ui, @boxObj) ->
 

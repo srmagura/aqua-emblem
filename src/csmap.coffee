@@ -1,4 +1,4 @@
-class CsMapAbstract extends ControlState
+class _cs.MapAbstract extends _cs.ControlState
 
     up: ->
         if @ui.cursor.pos.i - 1 >= 0
@@ -25,7 +25,7 @@ class CsMapAbstract extends ControlState
     moved: ->
         @ui.terrainBox.init()
 
-class window.CsMap extends CsMapAbstract
+class _cs.Map extends _cs.MapAbstract
 
     f: ->
         pt = @ui.chapter.playerTurn
@@ -43,11 +43,11 @@ class window.CsMap extends CsMapAbstract
     e: ->
         @ui.endTurnMenu.init()
 
-class window.CsMapTarget extends CsMapAbstract
+class _cs.MapTarget extends _cs.MapAbstract
 
     constructor: (@ui, @playerTurn) ->
 
-class window.CsChooseAttackTarget extends CsMapTarget
+class _cs.ChooseAttackTarget extends _cs.MapTarget
 
     moved: ->
         super()
@@ -70,24 +70,24 @@ class window.CsChooseAttackTarget extends CsMapTarget
             @ui.unitInfoBox.hide()
             @ui.terrainBox.hide()
             @playerTurn.battle.doBattle(@playerTurn.afterBattle)
-            @ui.controlState = new ControlState(@ui)
+            @ui.controlState = new _cs.ControlState(@ui)
 
     d: ->
         @ui.actionMenu.show()
         @playerTurn.battle = null
         @ui.battleStatsPanel.hide()
         @ui.cursor.moveTo(@playerTurn.selectedUnit.pos)
-        @ui.controlState = new CsActionMenu(@ui, @ui.actionMenu)
+        @ui.controlState = new _cs.ActionMenu(@ui, @ui.actionMenu)
 
 
-class window.CsChooseTradeTarget extends CsMapTarget
+class _cs.ChooseTradeTarget extends _cs.MapTarget
 
     f: ->
         callback = (tradeMade) =>
             if tradeMade
                 @playerTurn.selectedUnit.setDone()
                 @playerTurn.deselect()
-                @ui.controlState = new CsMap(@ui)
+                @ui.controlState = new _cs.Map(@ui)
 
         target = @ui.chapter.getUnitAt(@ui.cursor.pos)
         if target isnt null and target in @playerTurn.inTradeRange
@@ -97,4 +97,4 @@ class window.CsChooseTradeTarget extends CsMapTarget
     d: ->
         @ui.actionMenu.init(@playerTurn.selectedUnit)
         @ui.cursor.moveTo(@playerTurn.selectedUnit.pos)
-        @ui.controlState = new CsActionMenu(@ui, @ui.actionMenu)
+        @ui.controlState = new _cs.ActionMenu(@ui, @ui.actionMenu)

@@ -29,7 +29,7 @@ class skill.Skill
         return new @controlState(ui, playerTurn, this)
 
 
-class CsSkill extends CsMapTarget
+class _cs.Skill extends _cs.MapTarget
 
     constructor: (@ui, @playerTurn, @skl) ->
 
@@ -39,14 +39,14 @@ class CsSkill extends CsMapTarget
         @ui.terrainBox.hide()
         @ui.skillInfoBox.hide()
         @ui.chapter.map.clearOverlay()
-        @ui.controlState = new ControlState()
+        @ui.controlState = new _cs.ControlState()
 
     d: ->
         @playerTurn.handleSkill()
 
     skillDone: ->
         @ui.unitInfoBox.init(@playerTurn.selectedUnit, false, true)
-        @ui.controlState = new CsMap(@ui)
+        @ui.controlState = new _cs.Map(@ui)
         @ui.cursor.visible = true
         @ui.terrainBox.show()
         @playerTurn.selectedUnit.setDone()
@@ -65,10 +65,10 @@ class skill.Defend extends skill.Skill
         @range = [0]
         @overlayType = 'AID'
 
-        @controlState = CsDefend
+        @controlState = _cs.Defend
 
 
-class CsDefend extends CsSkill
+class _cs.Defend extends _cs.Skill
 
     f: ->
         super()

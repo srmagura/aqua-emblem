@@ -15,7 +15,7 @@ class window.WeaponMenu
 
         @menu.children('div').first().addClass('selected')
         @show()
-        @ui.controlState = new CsWeaponMenu(@ui, this)
+        @ui.controlState = new _cs.WeaponMenu(@ui, this)
 
     show: ->
         @menu.css('display', 'inline-block')
@@ -23,7 +23,7 @@ class window.WeaponMenu
     hide: ->
         @menu.css('display', 'none')
 
-class CsWeaponMenu extends CsMenu
+class _cs.WeaponMenu extends _cs.Menu
 
     constructor: (@ui, @menuObj) ->
         @playerTurn = @ui.chapter.playerTurn
@@ -32,7 +32,7 @@ class CsWeaponMenu extends CsMenu
         @ui.weaponMenu.hide()
 
         pt = @menuObj.playerTurn
-        @ui.controlState = new CsChooseAttackTarget(@ui, pt)
+        @ui.controlState = new _cs.ChooseAttackTarget(@ui, pt)
         @ui.cursor.moveTo(pt.inAttackRange[0].pos)
         @ui.cursor.visible = true
 

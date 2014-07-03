@@ -7,7 +7,7 @@ class window.LevelUpWindow
         @initCommon()
         @initStats()
 
-        @ui.controlState = new ControlState(@ui)
+        @ui.controlState = new _cs.ControlState(@ui)
 
         css = @ui.centerElement(@window, 4)
         css.visibility = 'visible'
@@ -49,7 +49,7 @@ class window.LevelUpWindow
             if st of @increment
                 break
             else if @incIndex == @statTypes.length
-                @ui.controlState = new CsLevelUpWindow(@ui, this)
+                @ui.controlState = new _cs.LevelUpWindow(@ui, this)
                 return
 
         el = @window.find(".stats .#{st}")
@@ -65,7 +65,7 @@ class window.LevelUpWindow
         @window.css('visibility', 'hidden')
         @window.find('.stat img').css('visibility', 'hidden')
 
-class CsLevelUpWindow extends ControlState
+class _cs.LevelUpWindow extends _cs.ControlState
 
     constructor: (@ui, @windowObj) ->
 

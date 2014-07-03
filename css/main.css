@@ -34,6 +34,7 @@ div.wrapper
 div.game-wrapper
 {
     padding: 8px 0 0;
+    height: 390px;
 }
 
 div.canvas-container

@@ -37,7 +37,7 @@ class window.PlayerTurn extends Turn
         @selectedUnit.oldPos = @selectedUnit.pos
         @ui.chapter.map.clearOverlay()
         @ui.cursor.visible = false
-        @ui.controlState = new ControlState(@ui)
+        @ui.controlState = new _cs.ControlState(@ui)
 
         @selectedUnit.followPath(@dest.path, @afterPathFollow)
         @dest = null
@@ -110,12 +110,12 @@ class window.PlayerTurn extends Turn
 
     handleTrade: =>
         @ui.chapter.map.setOverlayRange(@selectedUnit.pos, [1], 'AID')
-        @ui.controlState = new CsChooseTradeTarget(@ui, this)
+        @ui.controlState = new _cs.ChooseTradeTarget(@ui, this)
         @ui.cursor.visible = true
         @ui.cursor.moveTo(@inTradeRange[0].pos)
 
     afterExpAdd: =>
-        @ui.controlState = new CsMap(@ui)
+        @ui.controlState = new _cs.Map(@ui)
         @ui.cursor.visible = true
         @ui.cursor.moveTo(@selectedUnit.pos)
 

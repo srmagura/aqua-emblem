@@ -1,11 +1,11 @@
 window.init = ->
-    window.ui = new UI()
+    window.ui = new ChapterUI()
 
     chapter = new Chapter1(ui)
-    ui.setChapter chapter
-    ui.mainLoop()
+    ui.setChapter(chapter)
+    ui.startChapter()
 
-class UI
+class ChapterUI
 
     tw: 35
 
@@ -20,7 +20,7 @@ class UI
         @origin = new Position(0, 0)
         @cursor = new Cursor(this)
 
-        @controlState = new CsMap(this)
+        @controlState = new _cs.Map(this)
         $(window).keydown(@keydownHandler)
         $(window).keyup(@keyupHandler)
 
@@ -48,6 +48,7 @@ class UI
         @messageBox = new MessageBox(this)
         @endTurnMenu = new EndTurnMenu(this)
 
+        @terrainBox = new TerrainBox(this)
         @speedMultiplierBox = $('.speed-multiplier-box')
 
         @staticTurn = new Turn(this)
@@ -59,14 +60,12 @@ class UI
         return css
 
     setChapter: (@chapter) ->
-        $('.wrapper').css('width', @canvas.width() +
-            $('.left-sidebar').width()*2 + 30)
-        $('.game-wrapper').css('height', @canvas.height() + 40)
-        $('.victory-condition').text(@chapter.victoryCondition.text)
+        @mainLoop()
 
-        @terrainBox = new TerrainBox(this)
+        $('.victory-condition').text(@chapter.victoryCondition.text)
         @cursor.moveTo(new Position(0, 0))
 
+    startChapter: ->
         @chapter.initTurn(@chapter.playerTeam)
 
     onScreen: (pos) ->
@@ -164,8 +163,22 @@ class UI
         @render()
 
 
+window._cs = {}
+class _cs.ControlState
+    constructor: (@ui) ->
+    up: ->
+    down: ->
+    left: ->
+    right: ->
+    f: ->
+    d: ->
+    s: ->
+    e: ->
+    space: ->
+    spaceUp: ->
+    moved: ->
 
-class window.ControlState
+class _cs.Chapter extends _cs.ControlState
     constructor: (@ui) ->
     up: ->
     down: ->
