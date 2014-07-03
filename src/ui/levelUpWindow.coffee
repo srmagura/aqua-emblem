@@ -7,7 +7,7 @@ class window.LevelUpWindow
         @initCommon()
         @initStats()
 
-        @ui.controlState = new _cs.ControlState(@ui)
+        @ui.controlState = new _cs.Chapter(@ui)
 
         css = @ui.centerElement(@window, 4)
         css.visibility = 'visible'
@@ -65,7 +65,7 @@ class window.LevelUpWindow
         @window.css('visibility', 'hidden')
         @window.find('.stat img').css('visibility', 'hidden')
 
-class _cs.LevelUpWindow extends _cs.ControlState
+class _cs.LevelUpWindow extends _cs.Chapter
 
     constructor: (@ui, @windowObj) ->
 

@@ -30,7 +30,7 @@ class window.ActionMenu
 class window.ActionMenuItem
     constructor: (@name, @handler) ->
 
-class _cs.Menu extends _cs.ControlState
+class _cs.Menu extends _cs.Chapter
 
     constructor: (@ui, @menuObj) ->
 

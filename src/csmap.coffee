@@ -1,4 +1,4 @@
-class _cs.MapAbstract extends _cs.ControlState
+class _cs.MapAbstract extends _cs.Chapter
 
     up: ->
         if @ui.cursor.pos.i - 1 >= 0
@@ -70,7 +70,7 @@ class _cs.ChooseAttackTarget extends _cs.MapTarget
             @ui.unitInfoBox.hide()
             @ui.terrainBox.hide()
             @playerTurn.battle.doBattle(@playerTurn.afterBattle)
-            @ui.controlState = new _cs.ControlState(@ui)
+            @ui.controlState = new _cs.Chapter(@ui)
 
     d: ->
         @ui.actionMenu.show()

@@ -17,7 +17,7 @@ class window.EndTurnMenu
         @ui.canvasOverlay.hide()
         @menu.css('visibility', 'hidden')
 
-class _cs.EndTurnMenu extends _cs.ControlState
+class _cs.EndTurnMenu extends _cs.Chapter
 
     constructor: (@ui, @menuObj) ->
 

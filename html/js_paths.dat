@@ -1,5 +1,5 @@
 http://code.jquery.com/jquery-2.1.1.min.js
-lib/ui/ui.js 
+lib/ui/chapterUI.js 
 lib/ui/cursor.js
 lib/ui/unitInfoBox.js 
 lib/ui/unitInfoWindow.js

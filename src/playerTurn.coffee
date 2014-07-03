@@ -37,7 +37,7 @@ class window.PlayerTurn extends Turn
         @selectedUnit.oldPos = @selectedUnit.pos
         @ui.chapter.map.clearOverlay()
         @ui.cursor.visible = false
-        @ui.controlState = new _cs.ControlState(@ui)
+        @ui.controlState = new _cs.Chapter(@ui)
 
         @selectedUnit.followPath(@dest.path, @afterPathFollow)
         @dest = null

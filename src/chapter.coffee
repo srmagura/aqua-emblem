@@ -77,7 +77,7 @@ class window.Chapter
         for unit in @units
             unit.done = false
 
-        @ui.controlState = new _cs.ControlState(@ui)
+        @ui.controlState = new _cs.Chapter(@ui)
 
         if team instanceof PlayerTeam
             for unit in @units

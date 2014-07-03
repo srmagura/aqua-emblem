@@ -59,7 +59,7 @@ class window.SkillsBox
     hide: ->
         @box.css('display', 'none')
 
-class _cs.SkillsBox extends _cs.ControlState
+class _cs.SkillsBox extends _cs.Chapter
 
     constructor: (@ui, @boxObj) ->
 

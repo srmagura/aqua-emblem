@@ -112,7 +112,7 @@ class window.TradeWindow
         @window.find('.arrow-image').css(hide)
 
 
-class _cs.TradeWindow extends _cs.ControlState
+class _cs.TradeWindow extends _cs.Chapter
 
     constructor: (@ui, @windowObj) ->
 
@@ -163,7 +163,7 @@ class _cs.TradeWindow extends _cs.ControlState
 
             @windowObj.moveCursor(new Position(0, 1))
 
-class _cs.TradeWindow2 extends _cs.ControlState
+class _cs.TradeWindow2 extends _cs.Chapter
 
     constructor: (@ui, @windowObj) ->
 

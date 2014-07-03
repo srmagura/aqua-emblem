@@ -133,7 +133,7 @@ class window.UnitInfoWindow
         @window.find('.tab-container .tab-content-' + tabId).show()
 
 
-class _cs.UnitInfoWindow extends _cs.ControlState
+class _cs.UnitInfoWindow extends _cs.Chapter
 
     constructor: (@ui, @windowObj) ->
 
