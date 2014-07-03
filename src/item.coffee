@@ -1,6 +1,6 @@
-window.item = {}
+window._item = {}
 
-class item.Item
+class _item.Item
 
     getElement: (usable=true) ->
         el = $('<div class="item-element"></div>')
@@ -13,19 +13,19 @@ class item.Item
         el.append($("<span>#{@name}</span>"))
         return el
 
-class item.Weapon extends item.Item
+class _item.Weapon extends _item.Item
 
     constructor: ->
         super()
 
-class item.Sword extends item.Weapon
+class _item.Sword extends _item.Weapon
 
     constructor: ->
         @image = 'iron_sword.png'
         @range = [1]
         super()
 
-class item.IronSword extends item.Sword
+class _item.IronSword extends _item.Sword
 
     constructor: ->
         @name = 'Iron sword'
@@ -35,14 +35,14 @@ class item.IronSword extends item.Sword
         @crit = 0
         super()
 
-class item.Lance extends item.Weapon
+class _item.Lance extends _item.Weapon
 
     constructor: ->
         @image = 'iron_lance.png'
         @range = [1]
         super()
 
-class item.IronLance extends item.Lance
+class _item.IronLance extends _item.Lance
 
     constructor: ->
         @name = 'Iron lance'
@@ -52,14 +52,14 @@ class item.IronLance extends item.Lance
         @crit = 0
         super()
 
-class item.Axe extends item.Weapon
+class _item.Axe extends _item.Weapon
 
     constructor: ->
         @image = 'iron_axe.png'
         @range = [1]
         super()
 
-class item.IronAxe extends item.Axe
+class _item.IronAxe extends _item.Axe
 
     constructor: ->
         @name = 'Iron axe'
@@ -69,14 +69,14 @@ class item.IronAxe extends item.Axe
         @crit = 0
         super()
 
-class item.Bow extends item.Weapon
+class _item.Bow extends _item.Weapon
 
     constructor: ->
         @image = 'iron_bow.png'
         @range = [2]
         super()
 
-class item.IronBow extends item.Bow
+class _item.IronBow extends _item.Bow
 
     constructor: ->
         @name = 'Iron bow'

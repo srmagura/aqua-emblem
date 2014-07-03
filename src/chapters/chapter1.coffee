@@ -2,71 +2,71 @@ class window.Chapter1 extends Chapter
 
     constructor: (ui) ->
         playerUnits = [
-            new uclass.special.Ace(),
-            new uclass.special.Arrow(),
-            new uclass.special.Luciana(),
-            new uclass.special.Kenji(),
+            new _uclass.special.Ace(),
+            new _uclass.special.Arrow(),
+            new _uclass.special.Luciana(),
+            new _uclass.special.Kenji(),
         ]
         playerTeam = new PlayerTeam(playerUnits)
      
         enemyUnits = [
-            new uclass.Fighter({pos: new Position(4, 2),
+            new _uclass.Fighter({pos: new Position(4, 2),
             level: 1,
-            inventory: [new item.IronAxe()]}),
+            inventory: [new _item.IronAxe()]}),
 
-            new uclass.Fighter({pos: new Position(5, 4),
+            new _uclass.Fighter({pos: new Position(5, 4),
             level: 1,
-            inventory: [new item.IronAxe()]}),
+            inventory: [new _item.IronAxe()]}),
 
-            new uclass.Archer({pos: new Position(8, 3),
+            new _uclass.Archer({pos: new Position(8, 3),
             level: 1,
-            inventory: [new item.IronBow()]}),
+            inventory: [new _item.IronBow()]}),
 
-            new uclass.Soldier({pos: new Position(6, 5),
+            new _uclass.Soldier({pos: new Position(6, 5),
             level: 2, aiType: AI_TYPE.HALT,
-            inventory: [new item.IronLance()]}),
+            inventory: [new _item.IronLance()]}),
 
-            new uclass.Soldier({pos: new Position(7, 5),
+            new _uclass.Soldier({pos: new Position(7, 5),
             level: 2, aiType: AI_TYPE.HALT,
-            inventory: [new item.IronLance()]}),
+            inventory: [new _item.IronLance()]}),
 
-            new uclass.Mercenary({pos: new Position(7, 8),
+            new _uclass.Mercenary({pos: new Position(7, 8),
             level: 1,
-            inventory: [new item.IronSword()]}),
+            inventory: [new _item.IronSword()]}),
 
-            new uclass.Fighter({pos: new Position(6, 7),
+            new _uclass.Fighter({pos: new Position(6, 7),
             level: 1,
-            inventory: [new item.IronAxe()]}),
+            inventory: [new _item.IronAxe()]}),
 
-            new uclass.Archer({pos: new Position(6, 15),
+            new _uclass.Archer({pos: new Position(6, 15),
             level: 1, aiType: AI_TYPE.HALT
-            inventory: [new item.IronBow()]}),
+            inventory: [new _item.IronBow()]}),
 
-            new uclass.Archer({pos: new Position(7, 14),
+            new _uclass.Archer({pos: new Position(7, 14),
             level: 1,
-            inventory: [new item.IronBow()]}),
+            inventory: [new _item.IronBow()]}),
 
-            new uclass.Fighter({pos: new Position(1, 8),
+            new _uclass.Fighter({pos: new Position(1, 8),
             level: 1,
-            inventory: [new item.IronAxe()]}),
+            inventory: [new _item.IronAxe()]}),
 
-            new uclass.Fighter({pos: new Position(3, 10),
+            new _uclass.Fighter({pos: new Position(3, 10),
             level: 1,
-            inventory: [new item.IronAxe()]}),
+            inventory: [new _item.IronAxe()]}),
 
-            new uclass.Mercenary({pos: new Position(3, 12),
+            new _uclass.Mercenary({pos: new Position(3, 12),
             level: 1,
-            inventory: [new item.IronSword()]}),
+            inventory: [new _item.IronSword()]}),
 
-            new uclass.Mercenary({pos: new Position(6, 12),
+            new _uclass.Mercenary({pos: new Position(6, 12),
             level: 1,
-            inventory: [new item.IronSword()]}),
+            inventory: [new _item.IronSword()]}),
 
-            new uclass.Fighter({pos: new Position(3, 15),
+            new _uclass.Fighter({pos: new Position(3, 15),
             aiType: AI_TYPE.HALT,
             boss: true,
             level: 5,
-            inventory: [new item.IronAxe()]})
+            inventory: [new _item.IronAxe()]})
         ]
         enemyTeam = new EnemyTeam(enemyUnits, {defaultName: 'Bandit'})
         enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'

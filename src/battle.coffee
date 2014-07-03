@@ -42,9 +42,9 @@ class window.Battle
         w1 = unit1.equipped
         w2 = unit2.equipped
 
-        if (w1 instanceof item.Sword and w2 instanceof item.Axe) or
-        (w1 instanceof item.Axe and w2 instanceof item.Lance) or
-        (w1 instanceof item.Lance and w2 instanceof item.Sword)
+        if (w1 instanceof _item.Sword and w2 instanceof _item.Axe) or
+        (w1 instanceof _item.Axe and w2 instanceof _item.Lance) or
+        (w1 instanceof _item.Lance and w2 instanceof _item.Sword)
             unit1.advantage = true
             unit2.advantage = false
 

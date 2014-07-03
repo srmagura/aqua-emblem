@@ -146,7 +146,7 @@ class window.Unit
         return @canWield(item)
 
     canWield: (item) ->
-        if not (item instanceof window.item.Weapon)
+        if not (item instanceof _item.Weapon)
             return false
 
         for cls in @wield
