@@ -76,7 +76,7 @@ class _cs.Skill extends _cs.MapTarget
     d: ->
         @playerTurn.handleSkill()
 
-    skillDone: ->
+    skillDone: =>
         @ui.unitInfoBox.init(@playerTurn.selectedUnit, false, true)
         @ui.controlState = new _cs.Map(@ui)
         @ui.cursor.visible = true
@@ -128,4 +128,14 @@ class _skill.FirstAid extends _skill.Skill
         @range = new Range(0, 1)
         @overlayType = 'AID'
 
-        #@controlState = _cs.FirstAid
+        @controlState = _cs.FirstAid
+
+class _cs.FirstAid extends _cs.Skill
+
+    f: ->
+        super()
+        unit = @playerTurn.selectedUnit
+
+        action = new UnitAction(@ui, unit)
+        delta = {hp: unit.mag + @skill.might}
+        action.doAction(@skill, @skillDone, delta)

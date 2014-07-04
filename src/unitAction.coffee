@@ -2,7 +2,7 @@ class window.UnitAction
 
     constructor: (@ui, @unit) ->
 
-    doAction: (@action, @callback) ->
+    doAction: (@action, @callback, @delta) ->
         @container = $('<div></div>')
         @container.addClass('unit-action-container').
         appendTo('.canvas-container')
@@ -32,6 +32,9 @@ class window.UnitAction
 
             if @action instanceof _skill.Skill
                 @unit.mp -= @action.mp
+                if @delta? and 'hp' of @delta
+                    @unit.addHp(@delta.hp)
+
                 @box.init(@unit, true, false)
 
         afterDelay = =>

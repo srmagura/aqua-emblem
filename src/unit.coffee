@@ -125,6 +125,14 @@ class window.Unit
 
         return increment
 
+    addHp: (toAdd) ->
+        newHp = @hp + toAdd
+
+        if newHp > @baseHp
+            @hp = @baseHp
+        else
+            @hp = newHp
+
     addExp: (toAdd) ->
         newExp = @exp + toAdd
 
