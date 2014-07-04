@@ -18,6 +18,7 @@ lib/chapter.js
 lib/turn.js
 lib/playerTurn.js
 lib/enemyTurn.js
+lib/encounter.js
 lib/battle.js
 lib/unitAction.js
 lib/map.js

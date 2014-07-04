@@ -22,9 +22,9 @@ class window.Position
     dot: (pos) ->
         return @i*pos.i + @j*pos.j
 
-    toUnitVector: ->
-        norm = Math.sqrt(@i*@i + @j*@j)
-        return this.scale(1/norm)
+    norm: -> Math.sqrt(@i*@i + @j*@j)
+
+    toUnitVector: -> @scale(1/@norm())
 
 window.terrain = {}
 

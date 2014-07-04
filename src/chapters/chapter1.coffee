@@ -23,11 +23,11 @@ class window.Chapter1 extends Chapter
             inventory: [new _item.IronBow()]}),
 
             new _uclass.Soldier({pos: new Position(6, 5),
-            level: 2, aiType: AI_TYPE.HALT,
+            level: 2, aiType: _unit.AI_TYPE.HALT,
             inventory: [new _item.IronLance()]}),
 
             new _uclass.Soldier({pos: new Position(7, 5),
-            level: 2, aiType: AI_TYPE.HALT,
+            level: 2, aiType: _unit.AI_TYPE.HALT,
             inventory: [new _item.IronLance()]}),
 
             new _uclass.Mercenary({pos: new Position(7, 8),
@@ -39,7 +39,7 @@ class window.Chapter1 extends Chapter
             inventory: [new _item.IronAxe()]}),
 
             new _uclass.Archer({pos: new Position(6, 15),
-            level: 1, aiType: AI_TYPE.HALT
+            level: 1, aiType: _unit.AI_TYPE.HALT
             inventory: [new _item.IronBow()]}),
 
             new _uclass.Archer({pos: new Position(7, 14),
@@ -63,7 +63,7 @@ class window.Chapter1 extends Chapter
             inventory: [new _item.IronSword()]}),
 
             new _uclass.Fighter({pos: new Position(3, 15),
-            aiType: AI_TYPE.HALT,
+            aiType: _unit.AI_TYPE.HALT,
             boss: true,
             level: 5,
             inventory: [new _item.IronAxe()]})

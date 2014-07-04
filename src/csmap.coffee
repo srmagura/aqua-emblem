@@ -69,7 +69,7 @@ class _cs.ChooseAttackTarget extends _cs.MapTarget
             @ui.battleStatsPanel.hide()
             @ui.unitInfoBox.hide()
             @ui.terrainBox.hide()
-            @playerTurn.battle.doBattle(@playerTurn.afterBattle)
+            @playerTurn.battle.doEncounter(@playerTurn.afterBattle)
             @ui.controlState = new _cs.Chapter(@ui)
 
     d: ->

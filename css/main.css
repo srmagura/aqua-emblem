@@ -109,6 +109,7 @@ div.right-sidebar > div
     float: left;
 }
 
+/***** BOX TYPES *****/
 .blue-box 
 {
     border: 1px solid #22F;
@@ -133,17 +134,14 @@ div.right-sidebar > div
     background-color: #FDB;
 }
 
-.battle-unit-info-container
+/***** ENCOUNTER *****/
+.encounter-unit-info-container
 {
     position: absolute;
-}
-
-.battle-unit-info-container
-{
     width: 400px;
 }
 
-.battle-unit-info-container .unit-info
+.encounter-unit-info-container .unit-info
 {
     float: left;
     margin: 3px;

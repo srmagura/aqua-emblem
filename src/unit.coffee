@@ -14,22 +14,30 @@ class window.PlayerTeam extends Team
 
         super(@units)
 
-
-window.AI_TYPE = {
-    NORMAL: 0,
-    HALT: 1
-}
-
 class window.EnemyTeam extends Team
     constructor: (@units, attr={}) ->
         for unit in @units
             if 'aiType' not of unit
-                unit.aiType = AI_TYPE.NORMAL
+                unit.aiType = _unit.AI_TYPE.NORMAL
 
             if 'defaultName' of attr and not unit.name?
                 unit.setName(attr.defaultName)
 
         super(@units)
+
+
+window._unit = {}
+
+_unit.AI_TYPE = {
+    NORMAL: 0,
+    HALT: 1
+}
+
+_unit.LUNGE_STATUS = {
+    NOT_LUNGING: 0,
+    FORWARD: 1,
+    REVERSE: 2
+}
 
 class window.Unit
 
@@ -56,6 +64,7 @@ class window.Unit
         @refreshInventory()
         @statuses = []
 
+        @lungeStatus = _unit.LUNGE_STATUS.NOT_LUNGING
         @offset = new Position(0, 0)
 
     setInventory: (i, item) ->
@@ -217,6 +226,21 @@ class window.Unit
 
         @evade = @attackSpeed*2 + @luck
         @critEvade = @luck
+
+    updateLunge: =>
+        if @lungeStatus is _unit.LUNGE_STATUS.NOT_LUNGING
+            return
+
+        dist = @offset.norm()
+
+        if @lungeStatus is _unit.LUNGE_STATUS.FORWARD and dist > 11
+            @direction = @direction.scale(-1)
+            @lungeStatus++
+        else if @lungeStatus is _unit.LUNGE_STATUS.REVERSE and
+        @direction.dot(@offset) > 0
+            @direction = null
+            @offset = new Position(0, 0)
+            @lungeStatus = 0
 
     render: (ui, ctx) ->
         if @done

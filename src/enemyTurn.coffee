@@ -13,7 +13,7 @@ class window.EnemyTurn extends Turn
         eu = @ui.chapter.enemyTeam.units
         @nextUnit = eu[eu.indexOf(unit)+1]
 
-        if unit.aiType == AI_TYPE.HALT
+        if unit.aiType == _unit.AI_TYPE.HALT
             available = [new Destination(unit.pos, [unit.pos])]
         else
             available0 = @getAvailable(unit)
@@ -50,7 +50,7 @@ class window.EnemyTurn extends Turn
 
             unit.followPath(selectedInRange.path, =>
                 @battle = new Battle(@ui, unit, target)
-                @battle.doBattle(@afterBattle)
+                @battle.doEncounter(@afterBattle)
             )
 
         if inRange.length != 0

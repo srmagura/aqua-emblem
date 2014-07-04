@@ -139,6 +139,7 @@ class ChapterUI
                 @scrollCallback()
 
         for unit in @chapter.units
+            unit.updateLunge()
             if unit.direction?
                 if unit.followingPath and
                 (Math.abs(unit.offset.i) >= @tw or
