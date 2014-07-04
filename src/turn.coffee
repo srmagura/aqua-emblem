@@ -85,7 +85,7 @@ class window.Turn
     getDirections: (totalRange) ->
         dirs = []
 
-        for range in totalRange
+        for range in totalRange.array
             for di in [-range..range]
                 for dj in [-range..range]
                     if Math.abs(di) + Math.abs(dj) == range

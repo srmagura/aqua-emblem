@@ -67,15 +67,13 @@ class window.Unit
         @refreshInventory()
 
     refreshInventory: ->
-        @totalRange = []
+        @totalRange = new Range()
         for item in @inventory
             if @canWield(item)
                 if not @equipped?
                     @equipped = item
 
-                for range in item.range
-                    if range not in @totalRange
-                        @totalRange.push(range)
+                @totalRange = @totalRange.union(item.range)
 
     onNewTurn: ->
         toRemove = []

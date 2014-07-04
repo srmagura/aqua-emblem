@@ -55,7 +55,7 @@ class window.PlayerTurn extends Turn
                 @inAttackRange.push(target)
 
         @inTradeRange = []
-        for pos in @getActionRange(@selectedUnit.pos, [1])
+        for pos in @getActionRange(@selectedUnit.pos, new Range(1))
             target = @ui.chapter.getUnitAt(pos)
             if target? and target.team is @selectedUnit.team
                 @inTradeRange.push(target)

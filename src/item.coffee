@@ -22,7 +22,7 @@ class _item.Sword extends _item.Weapon
 
     constructor: ->
         @image = 'iron_sword.png'
-        @range = [1]
+        @range = new Range(1)
         super()
 
 class _item.IronSword extends _item.Sword
@@ -39,7 +39,7 @@ class _item.Lance extends _item.Weapon
 
     constructor: ->
         @image = 'iron_lance.png'
-        @range = [1]
+        @range = new Range(1)
         super()
 
 class _item.IronLance extends _item.Lance
@@ -56,7 +56,7 @@ class _item.Axe extends _item.Weapon
 
     constructor: ->
         @image = 'iron_axe.png'
-        @range = [1]
+        @range = new Range(1)
         super()
 
 class _item.IronAxe extends _item.Axe
@@ -73,7 +73,7 @@ class _item.Bow extends _item.Weapon
 
     constructor: ->
         @image = 'iron_bow.png'
-        @range = [2]
+        @range = new Range(2)
         super()
 
 class _item.IronBow extends _item.Bow

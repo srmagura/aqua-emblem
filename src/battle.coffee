@@ -1,8 +1,8 @@
 class window.Battle
 
-    constructor: (@ui, @atk, @def, @range=null) ->
-        if not @range?
-            @range = @atk.pos.distance(@def.pos)
+    constructor: (@ui, @atk, @def, @dist=null) ->
+        if not @dist?
+            @dist = @atk.pos.distance(@def.pos)
 
         @atk.calcCombatStats()
         @def.calcCombatStats()
@@ -21,7 +21,7 @@ class window.Battle
         @turns = [@atk]
         @nTurns = {atk: 1, def: 0}
 
-        defCanAttack = (@range in @def.equipped.range and
+        defCanAttack = (@def.equipped.range.contains(@dist) and
         not @def.hasStatus(_status.Defend))
 
         if defCanAttack
@@ -52,7 +52,7 @@ class window.Battle
         w1 = unit1.equipped
         unit1.battleStats ={}
 
-        if @range not in w1.range
+        if not w1.range.contains(@dist)
             return
 
         unit1.battleStats.hit = unit1.hit - unit2.evade
