@@ -2,23 +2,33 @@ class window.SkillInfoBox
 
     constructor: (@ui, @box) ->
 
-    init: (skl, usable, full=true) ->
+    init: (skill, usable, full=true) ->
         if not usable
             @box.addClass('not-usable')
 
         heading = @box.find('.heading')
-        heading.find('img').attr('src', skl.getImagePath())
-        heading.find('span').text(skl.name)
+        heading.find('img').attr('src', skill.getImagePath())
+        heading.find('span').text(skill.name)
 
-        usage = @box.find('.usage-container')
+        stats = @box.find('.stats')
         desc = @box.find('.desc')
+        rowMightRange = stats.find('.row-might-range')
 
         if full
-            usage.find('.mp').text(skl.mp)
-            usage.show()
-            desc.text(skl.desc).show()
+            stats.show()
+            stats.find('.mp').text(skill.mp)
+            stats.find('.type').text(skill.type.name)
+
+            desc.text(skill.desc).show()
+
+            if skill.might?
+                stats.find('.might').text(skill.might)
+                stats.find('.range').text(skill.range.toString())
+                rowMightRange.show()
+            else
+                rowMightRange.hide()
         else
-            usage.hide()
+            stats.hide()
             desc.hide()
 
         @show()

@@ -1,8 +1,22 @@
+class window.Range
+
+    constructor: (@min, @max) ->
+        if not @max?
+            @max = @min
+
+    contains: (i) ->
+        return @min <= i <= @max
+
+    toString: ->
+        return "#{@min}-#{@max}"
+
 window._skill = {}
 
-_skill.type = {
-    NONE: 0,
-}
+_skill.type = {}
+
+_skill.type.NONE = {'name': ''}
+_skill.type.PHYSICAL = {'name': 'PHYSICAL'}
+_skill.type.MAGIC = {'name': 'MAGIC'}
 
 class _skill.Skill
 
@@ -62,7 +76,7 @@ class _skill.Defend extends _skill.Skill
         'damage received is halved, but the unit cannot counterattack.'
 
         @mp = 2
-        @range = [0]
+        @range = new Range(0)
         @overlayType = 'AID'
 
         @controlState = _cs.Defend
@@ -81,23 +95,19 @@ class _cs.Defend extends _cs.Skill
         action = new UnitAction(@ui, unit)
         action.doAction(@skill, afterAction)
 
-window._status = {}
 
-class _status.Status
-
-    constructor: ->
-
-    getEl: ->
-        div = $('<div></div>').addClass('status')
-        img = $('<img/>').attr('src', @imagePath)
-        span = $('<span></span>').text(@text)
-
-        div.append(img).append(span)
-        return div
-
-class _status.Defend extends _status.Status
+class _skill.FirstAid extends _skill.Skill
 
     constructor: ->
-        @text = 'Defend'
-        @imagePath = 'images/skills/defend.png'
-        @turns = 1
+        super()
+        @name = 'First aid'
+        @imageName = 'first_aid'
+        @type = _skill.type.MAGIC
+        @desc = 'Basic healing skill.'
+
+        @mp = 4
+        @might = 10
+        @range = new Range(0, 1)
+        @overlayType = 'AID'
+
+        #@controlState = _cs.FirstAid

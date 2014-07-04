@@ -26,5 +26,6 @@ lib/item.js
 lib/unit.js
 lib/uclass.js
 lib/uclassSpecial.js
+lib/status.js
 lib/skill.js
 lib/chapters/chapter1.js

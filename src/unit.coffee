@@ -10,7 +10,7 @@ class window.PlayerTeam extends Team
             if 'skills' not of unit
                 unit.skills = []
 
-            unit.skills.push(new _skill.Defend())
+            unit.skills = [new _skill.Defend()].concat(unit.skills)
 
         super(@units)
 

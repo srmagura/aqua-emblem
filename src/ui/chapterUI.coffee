@@ -4,8 +4,8 @@ window.init = ->
     chapter = new Chapter1(ui)
     ui.setChapter(chapter)
 
-    chapter.doScrollSequence(ui.startChapter)
-
+    #chapter.doScrollSequence(ui.startChapter)
+    ui.startChapter()
 
 class ChapterUI
 

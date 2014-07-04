@@ -21,11 +21,13 @@ class _uclass.special.Arrow extends _uclass.Archer
         @inventory = [new _item.IronBow()]
         @inventory.push(new _item.IronBow())
 
+        @skills = [new _skill.FirstAid()]
+
         @baseStats = {baseHp: 24, baseMp: 10, str: 4, def: 4,
-        skill: 4.0, speed: 4.1, res: 2, luck: 2, mag: 0}
+        skill: 4.0, speed: 4.1, res: 2, luck: 2, mag: 2}
 
         @growthRates = {baseHp: .65, baseMp: 1, str: .4, skill: .45,
-        speed: .45, luck: .6, def: .25, res: .15}
+        speed: .45, luck: .6, def: .25, res: .15, mag: .4}
 
         super()
 
