@@ -103,8 +103,11 @@ class _skill.Defend extends _skill.Skill
 class _cs.Defend extends _cs.Skill
 
     f: ->
-        super()
         unit = @playerTurn.selectedUnit
+        if not @ui.cursor.pos.equals(unit.pos)
+            return
+
+        super()
 
         afterAction = =>
             unit.statuses.push(new _status.Defend())
@@ -133,8 +136,17 @@ class _skill.FirstAid extends _skill.Skill
 class _cs.FirstAid extends _cs.Skill
 
     f: ->
-        super()
         unit = @playerTurn.selectedUnit
+        target = @ui.chapter.getUnitAt(@ui.cursor.pos)
+
+        if not target?
+            return
+
+        dist = unit.pos.distance(target.pos)
+        if dist > @skill.range.max
+            return
+
+        super()
 
         action = new UnitAction(@ui, unit)
         delta = {hp: unit.mag + @skill.might}
