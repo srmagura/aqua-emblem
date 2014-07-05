@@ -116,7 +116,7 @@ class _cs.FirstAid extends _cs.Skill
         unit = @playerTurn.selectedUnit
         target = @ui.chapter.getUnitAt(@ui.cursor.pos)
 
-        if not target?
+        if not target or target.hp == target.baseHp
             return
 
         dist = unit.pos.distance(target.pos)
