@@ -1,10 +1,12 @@
+window.ENCOUNTER_DELAY = 1500
+
 class window.Encounter
 
     constructor: (@ui, @atk, @def) ->
 
     doEncounter: (@callback) ->
         @container = $('<div></div>')
-        @container.addClass('encounter-unit-info-container').
+        @container.addClass('encounter-container').
         appendTo('.canvas-container')
 
         atkBoxEl = $('.sidebar .unit-info').clone()
@@ -47,7 +49,7 @@ class window.Encounter
         @container.css({left: left, top: top})
 
         @turnIndex = 0
-        @delay = 1500 / @ui.speedMultiplier
+        @delay = ENCOUNTER_DELAY / @ui.speedMultiplier
 
         setTimeout(@doAction, @delay/5)
 
@@ -63,9 +65,14 @@ class window.Encounter
         unit.movementSpeed = .025
         unit.lungeStatus = _unit.LUNGE_STATUS.FORWARD
 
+    encounterDone: (doCallback=true) =>
+        @container.remove()
+
+        if doCallback and @callback?
+            @callback()
+
     getOther: (unit) ->
         if unit is @atk
             return @def
         if unit is @def
             return @atk
-

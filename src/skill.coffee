@@ -77,9 +77,9 @@ class _cs.Skill extends _cs.MapTarget
         @playerTurn.handleSkill()
 
     skillDone: =>
-        @ui.unitInfoBox.init(@playerTurn.selectedUnit, false, true)
         @ui.controlState = new _cs.Map(@ui)
         @ui.cursor.visible = true
+        @ui.unitInfoBox.update()
         @ui.terrainBox.show()
         @playerTurn.selectedUnit.setDone()
         @playerTurn.selectedUnit = null
@@ -148,6 +148,36 @@ class _cs.FirstAid extends _cs.Skill
 
         super()
 
-        action = new UnitAction(@ui, unit)
         delta = {hp: unit.mag + @skill.might}
-        action.doAction(@skill, @skillDone, delta)
+
+        if unit is target
+            action = new UnitAction(@ui, unit)
+            action.doAction(@skill, @skillDone, delta)
+        else
+            encounter = new AidEncounter(@ui, unit, target)
+            encounter.doEncounter(@skillDone, @skill, delta)
+
+class AidEncounter extends Encounter
+
+    doEncounter: (@callback, @skill, @delta) ->
+        super(@callback)
+
+    doAction: =>
+        @atk.mp -= @skill.mp
+        if 'hp' of @delta
+            @def.addHp(@delta.hp)
+
+        message = @skill.getMessageEl()
+        message.addClass('blue-box').appendTo(@container)
+
+        afterFadeIn = =>
+            @doLunge(@atk)
+            @atkBox.init(@atk, true)
+            @defBox.init(@def, true)
+            setTimeout(afterDelay, @delay*4/3)
+
+        afterDelay = =>
+            @container.fadeOut(@delay/3)
+            message.fadeOut(@delay/3, @encounterDone)
+
+        message.fadeIn(@delay/3, afterFadeIn)

@@ -28,7 +28,7 @@ class window.UnitAction
             @message.addClass('blue-box').appendTo(@container)
 
         afterFadeIn = =>
-            setTimeout(afterDelay, @delay*4)
+            setTimeout(afterDelay, @delay*4/3)
 
             if @action instanceof _skill.Skill
                 @unit.mp -= @action.mp
@@ -38,8 +38,8 @@ class window.UnitAction
                 @box.init(@unit, true, false)
 
         afterDelay = =>
-            @container.fadeOut(@delay)
-            @message.fadeOut(@delay, @callback)
+            @container.fadeOut(@delay/3)
+            @message.fadeOut(@delay/3, @callback)
 
-        @delay = 600 / @ui.speedMultiplier
-        @message.fadeIn(@delay, afterFadeIn)
+        @delay = ENCOUNTER_DELAY / @ui.speedMultiplier
+        @message.fadeIn(@delay/3, afterFadeIn)

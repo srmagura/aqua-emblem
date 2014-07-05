@@ -4,6 +4,9 @@ class window.ActionMenu
         @menu = $('.action-menu')
 
     init: (unit, menuItems) ->
+        if unit?
+            @unit = unit
+
         if menuItems?
             @menuItems = menuItems
             @menu.html('')
@@ -18,8 +21,8 @@ class window.ActionMenu
         @ui.controlState = new _cs.ActionMenu(@ui, this)
         @show()
 
-        @ui.chapter.map.setOverlayRange(unit.pos,
-        unit.totalRange, 'ATTACK')
+        @ui.chapter.map.setOverlayRange(@unit.pos,
+        @unit.totalRange, 'ATTACK')
 
     show: ->
         @menu.css('display', 'inline-block')

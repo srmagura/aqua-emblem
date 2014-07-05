@@ -8,12 +8,7 @@ class window.Cursor
         @pos = pos.clone()
         @ui.controlState.moved()
         @ui.chapter.playerTurn.updateDestination()
-
-        unitAt = @ui.chapter.getUnitAt(@pos)
-        if unitAt is null
-            @ui.unitInfoBox.hide()
-        else
-            @ui.unitInfoBox.init(unitAt, false, true)
+        @ui.unitInfoBox.update()
 
     move: (di, dj) ->
         newPos = @pos.add(new Position(di, dj))

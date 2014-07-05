@@ -135,13 +135,13 @@ div.right-sidebar > div
 }
 
 /***** ENCOUNTER *****/
-.encounter-unit-info-container
+.encounter-container
 {
     position: absolute;
     width: 400px;
 }
 
-.encounter-unit-info-container .unit-info
+.encounter-container .unit-info
 {
     float: left;
     margin: 3px;
@@ -168,6 +168,13 @@ div.right-sidebar > div
     padding: 3px 8px;
 }
 
+.encounter-container .action-message
+{
+    clear: left;
+    width: 150px;
+}
+
+
 .action-message img
 {
     width: 25px;
@@ -178,6 +185,43 @@ div.right-sidebar > div
 {
     float: left;
     padding: 3px 0 0 5px;
+}
+
+/***** BATTLE MESSAGES *****/
+div.battle-message 
+{
+    display: none;
+    position: absolute;
+
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+
+    padding: 2px;
+    font-size: 9pt;
+    font-weight: bold;
+}
+
+div.battle-message.miss
+{
+    background-color: #AAF;
+    border-color: blue; 
+    color: #11A;
+    opacity: .75;
+}
+
+div.battle-message.crit
+{
+    background-color: #FAA;
+    border-color: orangered;
+}
+
+/***** SPEED MULTIPLIER BOX *****/
+.speed-multiplier-box 
+{
+    padding: 4px;
+    font-weight: bold;
+    display: none;
 }
 
 /***** MESSAGES *****/
@@ -218,41 +262,4 @@ div.canvas-dark-overlay
 .defeat-message
 {
     color: #C00;
-}
-
-/***** BATTLE MESSAGES *****/
-div.battle-message 
-{
-    display: none;
-    position: absolute;
-
-    border-radius: 10px;
-    border-width: 1px;
-    border-style: solid;
-
-    padding: 2px;
-    font-size: 9pt;
-    font-weight: bold;
-}
-
-div.battle-message.miss
-{
-    background-color: #AAF;
-    border-color: blue; 
-    color: #11A;
-    opacity: .75;
-}
-
-div.battle-message.crit
-{
-    background-color: #FAA;
-    border-color: orangered;
-}
-
-/***** SPEED MULTIPLIER BOX *****/
-.speed-multiplier-box 
-{
-    padding: 4px;
-    font-weight: bold;
-    display: none;
 }

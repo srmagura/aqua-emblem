@@ -130,8 +130,8 @@ class window.Battle extends Encounter
 
 
     encounterDone: =>
+        super(false)
         keepGoing = true
-        @container.remove()
 
         if @atk.hp == 0
             keepGoing = @ui.chapter.kill(@atk)
