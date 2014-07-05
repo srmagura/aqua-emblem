@@ -13,6 +13,9 @@ class _skill.Skill
         @might = null
         @mp = 0
 
+    getExp: ->
+        return @mp*.02
+
     getImagePath: ->
         return "images/skills/#{@imageName}.png"
 
@@ -47,12 +50,16 @@ class _cs.Skill extends _cs.MapTarget
         @playerTurn.handleSkill()
 
     skillDone: =>
-        @ui.controlState = new _cs.Map(@ui)
-        @ui.cursor.visible = true
-        @ui.unitInfoBox.update()
-        @ui.terrainBox.show()
-        @playerTurn.selectedUnit.setDone()
-        @playerTurn.selectedUnit = null
+        afterExpAdd = =>
+            @ui.controlState = new _cs.Map(@ui)
+            @ui.cursor.visible = true
+            @ui.unitInfoBox.update()
+            @ui.terrainBox.show()
+            @playerTurn.selectedUnit.setDone()
+            @playerTurn.selectedUnit = null
+
+        _turn.addExp(@ui, afterExpAdd, @playerTurn.selectedUnit,
+        @skill.getExp())
 
 class _skill.Defend extends _skill.Skill
 

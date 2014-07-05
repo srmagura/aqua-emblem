@@ -128,19 +128,23 @@ class _turn.Turn
     afterBattle: =>
         toAdd = @battle.getExpToAdd()
         playerUnit = @battle.getPlayerUnit()
-        increment = null
+        _turn.addExp(@ui, @afterExpAdd, playerUnit, toAdd)
 
-        callback = =>
-            increment = playerUnit.addExp(toAdd)
-            
-            if increment is null
-                @afterExpAdd()
-            else
-                @ui.levelUpWindow.init(playerUnit,
-                    increment, callback2)
 
-        callback2 = =>
-            playerUnit.doIncrement(increment)
-            @afterExpAdd()
+_turn.addExp = (ui, afterExpAdd, playerUnit, toAdd) ->
+    increment = null
 
-        @ui.expBar.init(playerUnit, toAdd, callback)
+    callback = =>
+        increment = playerUnit.addExp(toAdd)
+        
+        if increment is null
+            afterExpAdd()
+        else
+            ui.levelUpWindow.init(playerUnit,
+                increment, callback2)
+
+    callback2 = =>
+        playerUnit.doIncrement(increment)
+        afterExpAdd()
+
+    ui.expBar.init(playerUnit, toAdd, callback)
