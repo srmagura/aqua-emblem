@@ -13,7 +13,7 @@ class _enc.Encounter
         atkBoxEl = $('.sidebar .unit-info').clone()
         defBoxEl = $('.sidebar .unit-info').clone()
 
-        if @atk.team instanceof PlayerTeam
+        if @atk.team instanceof _team.PlayerTeam
             @leftBox = atkBoxEl
             @rightBox = defBoxEl
 
@@ -27,11 +27,11 @@ class _enc.Encounter
 
         @container.append(@leftBox).append(@rightBox)
 
-        @atkBox = new UnitInfoBox(@ui, atkBoxEl)
+        @atkBox = new _cui.UnitInfoBox(@ui, atkBoxEl)
         @atkBox.init(@atk)
         @atkBox.show()
 
-        @defBox = new UnitInfoBox(@ui, defBoxEl)
+        @defBox = new _cui.UnitInfoBox(@ui, defBoxEl)
         @defBox.init(@def)
         @defBox.show()
 

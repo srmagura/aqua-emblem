@@ -1,4 +1,4 @@
-class window.CanvasOverlay
+class _cui.CanvasOverlay
 
     constructor: (@ui) ->
         @overlay = $('.canvas-dark-overlay')
@@ -15,7 +15,7 @@ class window.CanvasOverlay
     hide: ->
         @overlay.css('display', 'none')
 
-class window.MessageBox
+class _cui.MessageBox
 
     constructor: (@ui) ->
         @canvasContainer = $('.canvas-container')

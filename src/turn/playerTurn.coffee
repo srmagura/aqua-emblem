@@ -1,4 +1,4 @@
-class window.PlayerTurn extends Turn
+class _turn.PlayerTurn extends _turn.Turn
 
     select: (@selectedUnit) ->
         @available = @getAvailable(@selectedUnit)
@@ -10,7 +10,7 @@ class window.PlayerTurn extends Turn
         for spot in @available
             @ui.chapter.map.setOverlay(spot.pos, 'AVAILABLE')
 
-        @dest = new Destination()
+        @dest = new _turn.Destination()
         @updateDestination()
 
     deselect: ->
@@ -63,14 +63,14 @@ class window.PlayerTurn extends Turn
         actions = []
 
         if @inAttackRange.length != 0
-            actions.push(new ActionMenuItem('Attack', @handleAttack))
+            actions.push(new _cui.ActionMenuItem('Attack', @handleAttack))
 
-        actions.push(new ActionMenuItem('Skill', @handleSkill))
+        actions.push(new _cui.ActionMenuItem('Skill', @handleSkill))
             
         if @inTradeRange.length != 0
-            actions.push(new ActionMenuItem('Trade', @handleTrade))
+            actions.push(new _cui.ActionMenuItem('Trade', @handleTrade))
 
-        actions.push(new ActionMenuItem('Wait', @handleWait))
+        actions.push(new _cui.ActionMenuItem('Wait', @handleWait))
         @ui.actionMenu.init(@selectedUnit, actions)
 
     handleWait: =>
@@ -122,7 +122,7 @@ class window.PlayerTurn extends Turn
         @selectedUnit.setDone()
         @selectedUnit = null
 
-class window.Destination
+class _turn.Destination
 
     constructor: (@pos, @path) ->
 

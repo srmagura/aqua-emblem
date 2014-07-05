@@ -1,13 +1,15 @@
 window.init = ->
-    window.ui = new ChapterUI()
+    window.ui = new _cui.ChapterUI()
 
-    chapter = new Chapter1(ui)
+    chapter = new _chapters.Chapter1(ui)
     ui.setChapter(chapter)
 
     #chapter.doScrollSequence(ui.startChapter)
     ui.startChapter()
 
-class ChapterUI
+window._cui = {}
+
+class _cui.ChapterUI
 
     tw: 35
 
@@ -22,39 +24,39 @@ class ChapterUI
             @canvas.width()/@tw)
 
         @origin = new Position(0, 0)
-        @cursor = new Cursor(this)
+        @cursor = new _cui.Cursor(this)
 
         @controlState = new _cs.Chapter(this)
         $(window).keydown(@keydownHandler)
 
-        @actionMenu = new ActionMenu(this)
-        @weaponMenu = new WeaponMenu(this)
-        @battleStatsPanel = new BattleStatsPanel(this)
-        @expBar = new ExpBar(this)
+        @actionMenu = new _cui.ActionMenu(this)
+        @weaponMenu = new _cui.WeaponMenu(this)
+        @battleStatsPanel = new _cui.BattleStatsPanel(this)
+        @expBar = new _cui.ExpBar(this)
 
         skillInfoBoxEl = $('.sidebar .skill-info-box')
         skillInfoBoxEl.clone().appendTo($('.canvas-container'))
-        @skillInfoBox = new SkillInfoBox(this, skillInfoBoxEl)
+        @skillInfoBox = new _cui.SkillInfoBox(this, skillInfoBoxEl)
 
         skillsBoxEl = $('.sidebar .skills-box')
         skillsBoxEl.addClass('neutral-box')
-        @skillsBox = new SkillsBox(this, skillsBoxEl, @skillInfoBox)
+        @skillsBox = new _cui.SkillsBox(this, skillsBoxEl, @skillInfoBox)
 
-        @unitInfoBox = new UnitInfoBox(this, '.sidebar .unit-info')
-        @unitInfoWindow = new UnitInfoWindow(this)
-        @levelUpWindow = new LevelUpWindow(this)
-        @tradeWindow = new TradeWindow(this)
+        @unitInfoBox = new _cui.UnitInfoBox(this, '.sidebar .unit-info')
+        @unitInfoWindow = new _cui.UnitInfoWindow(this)
+        @levelUpWindow = new _cui.LevelUpWindow(this)
+        @tradeWindow = new _cui.TradeWindow(this)
 
-        @canvasOverlay = new CanvasOverlay(this)
-        @viewportOverlay = new ViewportOverlay(this)
+        @canvasOverlay = new _cui.CanvasOverlay(this)
+        @viewportOverlay = new _cui.ViewportOverlay(this)
 
-        @messageBox = new MessageBox(this)
-        @endTurnMenu = new EndTurnMenu(this)
+        @messageBox = new _cui.MessageBox(this)
+        @endTurnMenu = new _cui.EndTurnMenu(this)
 
-        @terrainBox = new TerrainBox(this)
+        @terrainBox = new _cui.TerrainBox(this)
         @speedMultiplierBox = $('.speed-multiplier-box')
 
-        @staticTurn = new Turn(this)
+        @staticTurn = new _turn.Turn(this)
 
     centerElement: (el, padding) ->
         css = {}
@@ -119,9 +121,9 @@ class ChapterUI
             when 68 then @controlState.d()
             when 83 then @controlState.s()
             when 69 then @controlState.e()
-            when 32 then @controlState.space()
+            when 86 then @controlState.v()
             
-        prevent = [32, 37, 38, 39, 40]
+        prevent = [37, 38, 39, 40]
         if e.which in prevent
             e.preventDefault()
             return false
@@ -138,7 +140,9 @@ class ChapterUI
             if alt.dot(@direction) <= 0
                 @origin = @scrollDest.scale(@tw)
                 @direction = null
-                @scrollCallback()
+
+                if @scrollCallback?
+                    @scrollCallback()
 
         for unit in @chapter.units
             unit.updateLunge()
@@ -173,8 +177,7 @@ class _cs.ControlState
     d: ->
     s: ->
     e: ->
-    space: ->
-    moved: ->
+    v: ->
 
 class _cs.Chapter extends _cs.ControlState
     constructor: (@ui) ->
@@ -186,11 +189,10 @@ class _cs.Chapter extends _cs.ControlState
     d: ->
     s: ->
     e: ->
-    space: ->
+    v: ->
         if @ui.speedMultiplier == 3
             @ui.speedMultiplier = 1
             @ui.speedMultiplierBox.hide()
         else
             @ui.speedMultiplier = 3
             @ui.speedMultiplierBox.show()
-    moved: ->

@@ -1,4 +1,4 @@
-class window.Cursor
+class _cui.Cursor
 
     constructor: (@ui) ->
         @visible = false
@@ -6,9 +6,12 @@ class window.Cursor
     moveTo: (pos) ->
         #console.log(pos)
         @pos = pos.clone()
-        @ui.controlState.moved()
         @ui.chapter.playerTurn.updateDestination()
         @ui.unitInfoBox.update()
+        @ui.terrainBox.init()
+
+        if @ui.controlState.moved?
+            @ui.controlState.moved()
 
     move: (di, dj) ->
         newPos = @pos.add(new Position(di, dj))

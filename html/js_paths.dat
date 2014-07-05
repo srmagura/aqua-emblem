@@ -16,9 +16,9 @@ lib/cui/endTurn.js
 lib/cui/terrainBox.js
 lib/cui/expBar.js
 
+lib/map/map.js
 lib/map/chapter.js
 lib/map/csmap.js
-lib/map/map.js
 lib/map/position.js
 lib/map/terrain.js
 lib/map/range.js
@@ -33,6 +33,7 @@ lib/enc/unitAction.js
 lib/enc/aidEncounter.js
 
 lib/unit/unit.js
+lib/unit/team.js
 lib/unit/status.js
 lib/unit/uclass.js
 lib/unit/special.js

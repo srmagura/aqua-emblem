@@ -1,4 +1,4 @@
-class window.TerrainBox
+class _cui.TerrainBox
 
     constructor: (@ui) ->
         @box = $('.terrain-box')

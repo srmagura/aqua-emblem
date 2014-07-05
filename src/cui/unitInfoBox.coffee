@@ -1,4 +1,4 @@
-class window.UnitInfoBox
+class _cui.UnitInfoBox
 
     constructor: (@ui, selector) ->
         @box = $(selector)
@@ -8,6 +8,8 @@ class window.UnitInfoBox
         if unit?
             @init(unit, false, true)
             @show()
+        else
+            @hide()
 
     init: (unit, animate=false, showStatus=false) ->
         @box.removeClass('show-status')

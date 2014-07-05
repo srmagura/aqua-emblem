@@ -83,7 +83,7 @@ class _cs.Defend extends _cs.Skill
             unit.statuses.push(new _status.Defend())
             @skillDone()
 
-        action = new UnitAction(@ui, unit)
+        action = new _enc.UnitAction(@ui, unit)
         action.doAction(@skill, afterAction)
 
 

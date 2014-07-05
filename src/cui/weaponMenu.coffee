@@ -1,4 +1,4 @@
-class window.WeaponMenu
+class _cui.WeaponMenu
 
     constructor: (@ui) ->
         @menu = $('.weapon-menu')

@@ -1,4 +1,4 @@
-class window.ViewportOverlay
+class _cui.ViewportOverlay
 
     constructor: (@ui) ->
         @overlay = $('.viewport-overlay')
@@ -9,16 +9,16 @@ class window.ViewportOverlay
     hide: ->
         @overlay.hide()
 
-class window.UnitInfoWindow
+class _cui.UnitInfoWindow
 
     constructor: (@ui) ->
         @window = $('.unit-info-window')
 
         skillInfoBoxEl = $('.canvas-container .skill-info-box')
-        @skillInfoBox = new SkillInfoBox(@ui, skillInfoBoxEl)
+        @skillInfoBox = new _cui.SkillInfoBox(@ui, skillInfoBoxEl)
 
         skillsEl = $('.invisible .tab-content-skills .skills-box')
-        @skillsBox = new SkillsBox(@ui, skillsEl, @skillInfoBox)
+        @skillsBox = new _cui.SkillsBox(@ui, skillsEl, @skillInfoBox)
 
     init: (@unit) ->
         @initCommon()

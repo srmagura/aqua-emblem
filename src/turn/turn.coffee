@@ -12,7 +12,9 @@ getRandomPermutation = (k) ->
 
     return perm
 
-class window.Turn
+window._turn = {}
+
+class _turn.Turn
 
     constructor: (@ui) ->
         @directions = [new Position(-1, 0), new Position(1, 0)
@@ -20,7 +22,7 @@ class window.Turn
 
     getAvailable: (unit) ->
         map = @ui.chapter.map
-        available = [new Destination(unit.pos, [unit.pos])]
+        available = [new _turn.Destination(unit.pos, [unit.pos])]
 
         queue = []
         queuePerm = getRandomPermutation(map.width*map.height)
@@ -71,7 +73,7 @@ class window.Turn
                     alt <= unit.move
                         dist[pos2.i][pos2.j] = alt
                         prev[pos2.i][pos2.j] = pos
-                        dest = new Destination(pos2, [pos2])
+                        dest = new _turn.Destination(pos2, [pos2])
 
                         prevPos = pos
                         while prevPos isnt null

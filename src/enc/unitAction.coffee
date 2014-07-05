@@ -1,4 +1,4 @@
-class window.UnitAction
+class _enc.UnitAction
 
     constructor: (@ui, @unit) ->
 
@@ -10,7 +10,7 @@ class window.UnitAction
         boxEl = $('.sidebar .unit-info').clone().addClass('blue-box')
         @container.append(boxEl)
 
-        @box = new UnitInfoBox(@ui, boxEl)
+        @box = new _cui.UnitInfoBox(@ui, boxEl)
         @box.init(@unit, false, false)
         @box.show()
 

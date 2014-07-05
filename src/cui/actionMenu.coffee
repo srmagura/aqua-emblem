@@ -1,4 +1,4 @@
-class window.ActionMenu
+class _cui.ActionMenu
 
     constructor: (@ui) ->
         @menu = $('.action-menu')
@@ -30,7 +30,7 @@ class window.ActionMenu
     hide: ->
         @menu.css('display', 'none')
 
-class window.ActionMenuItem
+class _cui.ActionMenuItem
     constructor: (@name, @handler) ->
 
 class _cs.Menu extends _cs.Chapter

@@ -1,4 +1,6 @@
-class window.Chapter1 extends Chapter
+window._chapters = {}
+
+class _chapters.Chapter1 extends _map.Chapter
 
     constructor: (@ui) ->
         playerUnits = [
@@ -7,7 +9,7 @@ class window.Chapter1 extends Chapter
             new _uclass.special.Luciana(),
             new _uclass.special.Kenji(),
         ]
-        playerTeam = new PlayerTeam(playerUnits)
+        playerTeam = new _team.PlayerTeam(playerUnits)
      
         enemyUnits = [
             new _uclass.Fighter({pos: new Position(4, 2),
@@ -68,7 +70,7 @@ class window.Chapter1 extends Chapter
             level: 5,
             inventory: [new _item.IronAxe()]})
         ]
-        enemyTeam = new EnemyTeam(enemyUnits, {defaultName: 'Bandit'})
+        enemyTeam = new _team.EnemyTeam(enemyUnits, {defaultName: 'Bandit'})
         enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'
 
         terrainMapping = {
@@ -94,7 +96,7 @@ class window.Chapter1 extends Chapter
 
         map = new _map.Map(tiles, terrainMapping, playerPositions)
         super(ui, map, playerTeam, enemyTeam,
-        VICTORY_CONDITION.ROUT)
+        _map.VICTORY_CONDITION.ROUT)
 
     doScrollSequence: (callback) ->
         @ui.origin = new Position(0, 4*ui.tw)

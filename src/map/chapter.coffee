@@ -1,16 +1,16 @@
-window.VICTORY_CONDITION = {
+_map.VICTORY_CONDITION = {
     ROUT: {text: 'Defeat all enemies'}
 }
 
-class window.Chapter
+class _map.Chapter
     
     constructor: (@ui, @map, @playerTeam, @enemyTeam, @victoryCondition) ->
         @done = false
         @initUnits()
 
         @map.ui = @ui
-        @playerTurn = new PlayerTurn(@ui)
-        @enemyTurn = new EnemyTurn(@ui)
+        @playerTurn = new _turn.PlayerTurn(@ui)
+        @enemyTurn = new _turn.EnemyTurn(@ui)
 
     initUnits: ->
         @units = []
@@ -48,7 +48,7 @@ class window.Chapter
         removeFrom(@units)
         removeFrom(unit.team.units)
 
-        if unit.team instanceof PlayerTeam
+        if unit.team instanceof _team.PlayerTeam
             @defeat()
             return false
 
@@ -57,7 +57,7 @@ class window.Chapter
     checkConditions: ->
         victory = false
 
-        if @victoryCondition == VICTORY_CONDITION.ROUT
+        if @victoryCondition == _map.VICTORY_CONDITION.ROUT
             victory = (@enemyTeam.units.length == 0)
 
         if victory
@@ -79,7 +79,7 @@ class window.Chapter
 
         @ui.controlState = new _cs.Chapter(@ui)
 
-        if team instanceof PlayerTeam
+        if team instanceof _team.PlayerTeam
             for unit in @units
                 unit.onNewTurn()
         else
@@ -91,10 +91,19 @@ class window.Chapter
             if team is @enemyTeam
                 @enemyTurn.doTurn()
             else
-                @ui.controlState = new _cs.Map(@ui)
-                @ui.cursor.moveTo(new Position(0, 0))
+                if not @ui.cursor.pos?
+                    for unit in team.units
+                        if unit.id == 'ace'
+                            @ui.cursor.moveTo(unit.pos)
+                            break
+
                 @ui.cursor.visible = true
-                @ui.unitInfoBox.update()
+                @ui.cursor.moveTo(@ui.cursor.pos)
+
+                @ui.controlState = new _cs.Map(@ui)
+
+        if @ui.cursor.pos?
+            @ui.scrollTo(@ui.cursor.pos)
 
         @ui.messageBox.showPhaseMessage(team, callback)
 

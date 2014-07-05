@@ -1,4 +1,4 @@
-class window.SkillInfoBox
+class _cui.SkillInfoBox
 
     constructor: (@ui, @box) ->
 

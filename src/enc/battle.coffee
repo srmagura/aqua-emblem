@@ -79,7 +79,7 @@ class _enc.Battle extends _enc.Encounter
                 unit1.battleStats[key] = 100
 
     getPlayerUnit: ->
-        if @atk.team instanceof PlayerTeam
+        if @atk.team instanceof _team.PlayerTeam
             return @atk
         else
             return @def

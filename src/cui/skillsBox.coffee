@@ -1,7 +1,7 @@
 WIDTH = 4
 HEIGHT = 4
 
-class window.SkillsBox
+class _cui.SkillsBox
 
     constructor: (@ui, @box, @skillInfoBox) ->
 
