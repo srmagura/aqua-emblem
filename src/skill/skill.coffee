@@ -1,33 +1,3 @@
-class window.Range
-
-    constructor: (@min, @max) ->
-        if not @max?
-            @max = @min
-
-        if @min?
-            @array = [@min..@max]
-        else
-            @array = []
-
-    contains: (i) ->
-        return i in @array
-
-    union: (range) ->
-        min = range.min
-        if @min < min
-            min = @min
-
-        max = range.max
-        if @max > max
-            max = @max
-
-        result = new Range(min, max)
-        result.array = @array.concat(range.array)
-        return result
-
-    toString: ->
-        return "#{@min}-#{@max}"
-
 window._skill = {}
 
 _skill.type = {}
@@ -151,33 +121,8 @@ class _cs.FirstAid extends _cs.Skill
         delta = {hp: unit.mag + @skill.might}
 
         if unit is target
-            action = new UnitAction(@ui, unit)
+            action = new _enc.UnitAction(@ui, unit)
             action.doAction(@skill, @skillDone, delta)
         else
-            encounter = new AidEncounter(@ui, unit, target)
+            encounter = new _enc.AidEncounter(@ui, unit, target)
             encounter.doEncounter(@skillDone, @skill, delta)
-
-class AidEncounter extends Encounter
-
-    doEncounter: (@callback, @skill, @delta) ->
-        super(@callback)
-
-    doAction: =>
-        @atk.mp -= @skill.mp
-        if 'hp' of @delta
-            @def.addHp(@delta.hp)
-
-        message = @skill.getMessageEl()
-        message.addClass('blue-box').appendTo(@container)
-
-        afterFadeIn = =>
-            @doLunge(@atk)
-            @atkBox.init(@atk, true)
-            @defBox.init(@def, true)
-            setTimeout(afterDelay, @delay*4/3)
-
-        afterDelay = =>
-            @container.fadeOut(@delay/3)
-            message.fadeOut(@delay/3, @encounterDone)
-
-        message.fadeIn(@delay/3, afterFadeIn)

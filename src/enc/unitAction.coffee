@@ -41,5 +41,5 @@ class window.UnitAction
             @container.fadeOut(@delay/3)
             @message.fadeOut(@delay/3, @callback)
 
-        @delay = ENCOUNTER_DELAY / @ui.speedMultiplier
+        @delay = _enc.DELAY / @ui.speedMultiplier
         @message.fadeIn(@delay/3, afterFadeIn)

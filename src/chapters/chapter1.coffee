@@ -72,9 +72,9 @@ class window.Chapter1 extends Chapter
         enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'
 
         terrainMapping = {
-            0: terrain.Plain
-            1: terrain.Rocks
-            2: terrain.Forest
+            0: _terrain.Plain
+            1: _terrain.Rocks
+            2: _terrain.Forest
         }
 
         tiles = [
@@ -92,7 +92,7 @@ class window.Chapter1 extends Chapter
 
         playerPositions = [[2,1], [1,0], [0,1], [1, 2]]
 
-        map = new Map(tiles, terrainMapping, playerPositions)
+        map = new _map.Map(tiles, terrainMapping, playerPositions)
         super(ui, map, playerTeam, enemyTeam,
         VICTORY_CONDITION.ROUT)
 

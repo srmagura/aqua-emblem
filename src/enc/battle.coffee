@@ -1,4 +1,4 @@
-class window.Battle extends Encounter
+class _enc.Battle extends _enc.Encounter
 
     constructor: (@ui, @atk, @def, @dist=null) ->
         if not @dist?
@@ -157,9 +157,7 @@ class window.Battle extends Encounter
             defeatExp = .3 + levelDif/100
 
         exp = dmgExp + defeatExp
-
-        if EXP_MULTIPLIER?
-            exp *= EXP_MULTIPLIER
+        exp *= ui.expMultiplier
 
         if exp > 1
             ceil = 1

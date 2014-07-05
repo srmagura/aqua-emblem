@@ -22,7 +22,7 @@ class window.EnemyTurn extends Turn
             for avail in available0
                 unitAt = @ui.chapter.getUnitAt(avail.pos)
 
-                if unitAt is null
+                if unitAt is null or unitAt is unit
                     available.push(avail)
 
         attackRange = @movementGetAttackRange(available, unit)
@@ -49,7 +49,7 @@ class window.EnemyTurn extends Turn
                 @ui.scrollTo(moveSpot, ->)
 
             unit.followPath(selectedInRange.path, =>
-                @battle = new Battle(@ui, unit, target)
+                @battle = new _enc.Battle(@ui, unit, target)
                 @battle.doEncounter(@afterBattle)
             )
 
@@ -81,7 +81,7 @@ class window.EnemyTurn extends Turn
         for obj in inRange
             target = obj.target
             range = obj.moveSpot.distance(target.pos)
-            battle = new Battle(@ui, enemy, target, range)
+            battle = new _enc.Battle(@ui, enemy, target, range)
             obj.maxDmg = battle.nTurns.atk * enemy.battleStats.dmg
 
             # Try to kill player if there's a chance

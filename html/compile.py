@@ -37,7 +37,7 @@ def get_data_js():
     paths = read_file('html/js_paths.dat').split('\n')
 
     for path in paths:
-        if len(path) != 0:
+        if len(path.strip()) != 0:
             result += tag.format(path)
 
     return result

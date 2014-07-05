@@ -1,68 +1,12 @@
-class window.Position
+window._map = {}
 
-    constructor: (@i, @j) ->
-
-    clone: -> new Position(@i, @j)
-
-    equals: (pos) ->
-        @i == pos.i && @j == pos.j
-
-    add: (pos) ->
-        new Position(@i + pos.i, @j + pos.j)
-
-    subtract: (pos) ->
-        new Position(@i - pos.i, @j - pos.j)
-
-    scale: (alpha) ->
-        new Position(alpha*@i, alpha*@j)
-
-    distance: (pos) ->
-        Math.abs(@i - pos.i) + Math.abs(@j - pos.j)
-
-    dot: (pos) ->
-        return @i*pos.i + @j*pos.j
-
-    norm: -> Math.sqrt(@i*@i + @j*@j)
-
-    toUnitVector: -> @scale(1/@norm())
-
-window.terrain = {}
-
-class terrain.Terrain
-
-    constructor: (name) ->
-        @evade = 0
-        @def = 0
-        @block = false
-
-        @image = new Image()
-        @image.src = "images/terrain/#{name}.png"
-
-class terrain.Plain extends terrain.Terrain
-    constructor: ->
-        super('plain')
-        @name = 'Plain'
-
-class terrain.Rocks extends terrain.Terrain
-    constructor: ->
-        super('rocks')
-        @name = 'Rocks'
-        @block = true
-
-class terrain.Forest extends terrain.Terrain
-    constructor: ->
-        super('forest')
-        @name = 'Forest'
-        @evade = 20
-        @def = 1
-
-window.OVERLAY_TYPES = {
+_map.OVERLAY_TYPES = {
     AVAILABLE: {startColor: '#AAF', endColor: '#22F'},
     ATTACK: {startColor: '#FAA', endColor: '#F22'},
     AID: {startColor: '#AFA', endColor: '#2F2'}
 }
 
-class window.Map
+class _map.Map
 
     constructor: (rawTiles, terrainMapping, playerPositions) ->
         @height = rawTiles.length
@@ -92,7 +36,7 @@ class window.Map
         return @tiles[pos.i][pos.j]
 
     setOverlay: (pos, overlayType) ->
-        @overlayTiles[pos.i][pos.j] = OVERLAY_TYPES[overlayType]
+        @overlayTiles[pos.i][pos.j] = _map.OVERLAY_TYPES[overlayType]
 
     setOverlayRange: (pos, range, overlayType) ->
         @clearOverlay()

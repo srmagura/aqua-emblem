@@ -54,7 +54,7 @@ class _cs.ChooseAttackTarget extends _cs.MapTarget
         target = @ui.chapter.getUnitAt(@ui.cursor.pos)
 
         if target isnt null and target in @playerTurn.inAttackRange
-            @playerTurn.battle = new Battle(@ui,
+            @playerTurn.battle = new _enc.Battle(@ui,
                 @playerTurn.selectedUnit, target)
 
             @ui.battleStatsPanel.init(@playerTurn.battle)

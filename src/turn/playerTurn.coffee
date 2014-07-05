@@ -21,7 +21,7 @@ class window.PlayerTurn extends Turn
     updateDestination: ->
         cp = @ui.cursor.pos
         if @ui.chapter.map.overlayTiles[cp.i][cp.j] is
-        OVERLAY_TYPES.AVAILABLE
+        _map.OVERLAY_TYPES.AVAILABLE
             @dest.pos = cp.clone()
 
             for spot in @available

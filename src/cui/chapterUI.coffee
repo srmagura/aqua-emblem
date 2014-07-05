@@ -12,7 +12,9 @@ class ChapterUI
     tw: 35
 
     constructor: ->
+        @expMultiplier = 1
         @speedMultiplier = 1
+
         @then = Date.now()
         @canvas = $('canvas')
         @ctx = @canvas[0].getContext('2d')

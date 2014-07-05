@@ -1,6 +1,7 @@
-window.ENCOUNTER_DELAY = 1500
+window._enc = {}
+_enc.DELAY = 1500
 
-class window.Encounter
+class _enc.Encounter
 
     constructor: (@ui, @atk, @def) ->
 
@@ -49,7 +50,7 @@ class window.Encounter
         @container.css({left: left, top: top})
 
         @turnIndex = 0
-        @delay = ENCOUNTER_DELAY / @ui.speedMultiplier
+        @delay = _enc.DELAY / @ui.speedMultiplier
 
         setTimeout(@doAction, @delay/5)
 
