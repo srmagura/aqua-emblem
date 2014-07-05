@@ -33,6 +33,7 @@ class _skill.Skill
     getControlState: (ui, playerTurn) ->
         return new @controlState(ui, playerTurn, this)
 
+    isValidTarget: (target) -> true
 
 class _cs.Skill extends _cs.MapTarget
 
@@ -61,75 +62,3 @@ class _cs.Skill extends _cs.MapTarget
         _turn.addExp(@ui, afterExpAdd, @playerTurn.selectedUnit,
         @skill.getExp())
 
-class _skill.Defend extends _skill.Skill
-
-    constructor: ->
-        super()
-        @name = 'Defend'
-        @imageName = 'defend'
-        @desc = 'During the next enemy turn, ' +
-        'damage received is halved, but the unit cannot counterattack.'
-
-        @mp = 2
-        @range = new Range(0)
-        @overlayType = 'AID'
-
-        @controlState = _cs.Defend
-
-
-class _cs.Defend extends _cs.Skill
-
-    f: ->
-        unit = @playerTurn.selectedUnit
-        if not @ui.cursor.pos.equals(unit.pos)
-            return
-
-        super()
-
-        afterAction = =>
-            unit.statuses.push(new _status.Defend())
-            @skillDone()
-
-        action = new _enc.UnitAction(@ui, unit)
-        action.doAction(@skill, afterAction)
-
-
-class _skill.FirstAid extends _skill.Skill
-
-    constructor: ->
-        super()
-        @name = 'First aid'
-        @imageName = 'first_aid'
-        @type = _skill.type.MAGIC
-        @desc = 'Basic healing skill.'
-
-        @mp = 4
-        @might = 10
-        @range = new Range(0, 1)
-        @overlayType = 'AID'
-
-        @controlState = _cs.FirstAid
-
-class _cs.FirstAid extends _cs.Skill
-
-    f: ->
-        unit = @playerTurn.selectedUnit
-        target = @ui.chapter.getUnitAt(@ui.cursor.pos)
-
-        if not target or target.hp == target.baseHp
-            return
-
-        dist = unit.pos.distance(target.pos)
-        if dist > @skill.range.max
-            return
-
-        super()
-
-        delta = {hp: unit.mag + @skill.might}
-
-        if unit is target
-            action = new _enc.UnitAction(@ui, unit)
-            action.doAction(@skill, @skillDone, delta)
-        else
-            encounter = new _enc.AidEncounter(@ui, unit, target)
-            encounter.doEncounter(@skillDone, @skill, delta)

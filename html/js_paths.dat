@@ -41,5 +41,6 @@ lib/unit/special.js
 lib/item/item.js
 
 lib/skill/skill.js
+lib/skill/aid.js
 
 lib/chapters/chapter1.js
