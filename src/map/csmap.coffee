@@ -41,6 +41,7 @@ class _cs.Map extends _cs.MapAbstract
         @ui.chapter.playerTurn.deselect()
 
     e: ->
+        @ui.chapter.playerTurn.deselect()
         @ui.endTurnMenu.init()
 
 class _cs.MapTarget extends _cs.MapAbstract
