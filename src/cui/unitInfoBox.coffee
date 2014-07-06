@@ -37,20 +37,20 @@ class _cui.UnitInfoBox
 
     populateHp: (unit, animate) ->
         @box.find('.hp').text(unit.hp)
-        @box.find('.base-hp').text(unit.baseHp)
+        @box.find('.max-hp').text(unit.maxHp)
 
-        width = unit.hp / unit.baseHp * @box.find('.hp-bar').width()
+        width = unit.hp / unit.maxHp * @box.find('.hp-bar').width()
         if animate
             @box.find('.hp-bar-filled').animate({width: width}, @delay)
         else
             @box.find('.hp-bar-filled').width(width)
 
     populateMp: (unit, animate) ->
-        if 'baseMp' of unit
+        if 'maxMp' of unit
             @box.find('.mp').text(unit.mp)
-            @box.find('.base-mp').text(unit.baseMp)
+            @box.find('.max-mp').text(unit.maxMp)
 
-            width = unit.mp / unit.baseMp * @box.find('.mp-bar').width()
+            width = unit.mp / unit.maxMp * @box.find('.mp-bar').width()
             if animate
                 @box.find('.mp-bar-filled').animate({width: width}, @delay)
             else

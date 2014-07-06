@@ -24,11 +24,6 @@ class _map.Chapter
             unit.team = @enemyTeam
 
         for unit in @units
-            unit.hp = unit.baseHp
-
-            if unit.baseMp?
-                unit.mp = Math.round(unit.baseMp/2)
-
             unit.ui = @ui
 
     getUnitAt: (pos) ->

@@ -94,7 +94,7 @@ class _cui.UnitInfoWindow
             'res', 'move']
 
         for st in statTypes
-            stats.find('.' + st).text(@unit[st])
+            stats.find('.' + st).text(@unit.baseStats[st])
 
         weaponsEl = stats.find('.weapons').html('')
         for weaponClass in @unit.wield

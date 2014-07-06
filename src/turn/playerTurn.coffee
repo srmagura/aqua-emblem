@@ -1,5 +1,9 @@
 class _turn.PlayerTurn extends _turn.Turn
 
+    constructor: (@ui) ->
+        super(@ui)
+        @tradeRange = new Range(1)
+
     select: (@selectedUnit) ->
         @available = @getAvailable(@selectedUnit)
         attackRange = @movementGetAttackRange(@available)
@@ -55,7 +59,7 @@ class _turn.PlayerTurn extends _turn.Turn
                 @inAttackRange.push(target)
 
         @inTradeRange = []
-        for pos in @getActionRange(@selectedUnit.pos, new Range(1))
+        for pos in @getActionRange(@selectedUnit.pos, @tradeRange)
             target = @ui.chapter.getUnitAt(pos)
             if target? and target.team is @selectedUnit.team
                 @inTradeRange.push(target)
@@ -109,7 +113,7 @@ class _turn.PlayerTurn extends _turn.Turn
         skl.range, skl.overlayType)
 
     handleTrade: =>
-        @ui.chapter.map.setOverlayRange(@selectedUnit.pos, [1], 'AID')
+        @ui.chapter.map.setOverlayRange(@selectedUnit.pos, @tradeRange, 'AID')
         @ui.controlState = new _cs.ChooseTradeTarget(@ui, this)
         @ui.cursor.visible = true
         @ui.cursor.moveTo(@inTradeRange[0].pos)

@@ -5,12 +5,12 @@ class _uclass.Mercenary extends Unit
         @uclassName = 'Mercenary'
         @wield = [_item.Sword]
 
-        baseStats = {baseHp: 18, move: 5, str: 3, def: 2,
+        startStats = {maxHp: 18, move: 5, str: 3, def: 2,
         skill: 4, speed: 4, res: 1, luck: 2, mag: 0}
-        @fillInBaseStats(baseStats)
+        @fillInStartStats(startStats)
 
         if not @growthRates?
-            @growthRates = {baseHp: .8, str: .5, skill: .35,
+            @growthRates = {maxHp: .8, str: .5, skill: .35,
             speed: .35, luck: .1, def: .25, res: .15}
 
         super(attr)
@@ -20,12 +20,12 @@ class _uclass.Archer extends Unit
         @uclassName = 'Archer'
         @wield = [_item.Bow]
 
-        baseStats = {baseHp: 16, move: 5, str: 2, def: 2,
+        startStats = {maxHp: 16, move: 5, str: 2, def: 2,
         skill: 3, speed: 3, res: 1, luck: 2, mag: 0}
-        @fillInBaseStats(baseStats)
+        @fillInStartStats(startStats)
 
         if not @growthRates?
-            @growthRates = {baseHp: .65, str: .4, skill: .45,
+            @growthRates = {maxHp: .65, str: .4, skill: .45,
             speed: .40, luck: .1, def: .25, res: .15}
 
         super(attr)
@@ -35,12 +35,12 @@ class _uclass.Soldier extends Unit
         @uclassName = 'Soldier'
         @wield = [_item.Lance]
 
-        baseStats = {baseHp: 20, move: 5, str: 2, def: 4,
+        startStats = {maxHp: 20, move: 5, str: 2, def: 4,
         skill: 2, speed: 2, res: 1, luck: 2, mag: 0}
-        @fillInBaseStats(baseStats)
+        @fillInStartStats(startStats)
 
         if not @growthRates?
-            @growthRates = {baseHp: .8, str: .5, skill: .35,
+            @growthRates = {maxHp: .8, str: .5, skill: .35,
             speed: .35, luck: .1, def: .25, res: .15}
 
         super(attr)
@@ -50,12 +50,12 @@ class _uclass.Fighter extends Unit
         @uclassName = 'Fighter'
         @wield = [_item.Axe]
 
-        baseStats = {baseHp: 23, move: 5, str: 3, def: 1,
+        startStats = {maxHp: 23, move: 5, str: 3, def: 1,
         skill: 1, speed: 2, res: 1, luck: 2, mag: 0}
-        @fillInBaseStats(baseStats)
+        @fillInStartStats(startStats)
 
         if not @growthRates?
-            @growthRates = {baseHp: .8, str: .5, skill: .35,
+            @growthRates = {maxHp: .8, str: .5, skill: .35,
             speed: .35, luck: .1, def: .25, res: .15}
 
         super(attr)

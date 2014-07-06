@@ -35,8 +35,8 @@ class _cui.LevelUpWindow
 
     initStats: ->
         stats = @window.find('.stats')
-        @statTypes = ['baseHp', 'str', 'mag', 'def', 'res',
-            'baseMp', 'skill', 'speed', 'luck', 'move']
+        @statTypes = ['maxHp', 'str', 'mag', 'def', 'res',
+            'maxMp', 'skill', 'speed', 'luck', 'move']
 
         for st in @statTypes
             el = stats.find('.' + st)

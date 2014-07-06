@@ -24,7 +24,12 @@ class window.Unit
         if @name?
             @setName(@name)
 
+        @statuses = []
         @calcStats()
+
+        @hp = @maxHp
+        if @maxMp?
+            @mp = Math.round(@maxMp/2)
 
         if 'picture' not of this
             @picture = false
@@ -36,7 +41,6 @@ class window.Unit
             @inventory = []
 
         @refreshInventory()
-        @statuses = []
 
         @lungeStatus = _unit.LUNGE_STATUS.NOT_LUNGING
         @offset = new Position(0, 0)
@@ -99,18 +103,19 @@ class window.Unit
     setName: (@name) ->
         @id = @name.toLowerCase().replace(' ', '-')
 
-    fillInBaseStats: (baseStats) ->
-        if not @baseStats?
-            @baseStats = {}
+    fillInStartStats: (startStats) ->
+        if not @startStats?
+            @startStats = {}
 
-        for stat, value of baseStats
-            if stat not of @baseStats
-                @baseStats[stat] = value
+        for stat, value of startStats
+            if stat not of @startStats
+                @startStats[stat] = value
 
     calcStats: (dryRun=false) ->
+        @baseStats = {}
         increment = {}
 
-        for stat, value of @baseStats
+        for stat, value of @startStats
             if stat of @growthRates
                 value += @growthRates[stat] * (@level-1)
 
@@ -120,15 +125,25 @@ class window.Unit
                 increment[stat] = 1
 
             if not dryRun
-                this[stat] = rounded
+                @baseStats[stat] = rounded
+                @updateStats(stat)
 
         return increment
+
+    updateStats: (stat) ->
+        value = @baseStats[stat]
+        for status in @statuses
+            if status instanceof _status.Buff and
+            status.stat == stat
+                value += status.value
+
+        this[stat] = value
 
     addHp: (toAdd) ->
         newHp = @hp + toAdd
 
-        if newHp > @baseHp
-            @hp = @baseHp
+        if newHp > @maxHp
+            @hp = @maxHp
         else
             @hp = newHp
 

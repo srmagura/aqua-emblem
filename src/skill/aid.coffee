@@ -72,7 +72,7 @@ class _skill.FirstAid extends _skill.AidSkill
         return {hp: user.mag + @might}
 
     isValidTarget: (target) ->
-        return target.hp < target.baseHp
+        return target.hp < target.maxHp
 
 # TEMPER
 class _skill.Temper extends _skill.AidSkill
