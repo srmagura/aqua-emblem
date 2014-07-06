@@ -71,12 +71,13 @@ div.unit-info .bar-text
 .unit-info .status-container
 {
     clear: both;
+    padding: 2px;
 }
 
 .unit-info .status-container .status
 {
-    padding: 4px;
     overflow: hidden;
+    padding: 2px;
 }
 
 .unit-info .status-container .status img
@@ -96,6 +97,7 @@ div.unit-info .bar-text
 {
     height: 18px;
     width: 15px;
+    margin: 0 1.5px;
 }
 
 .unit-info .status-container .status span.stat 

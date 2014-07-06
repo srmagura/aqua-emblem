@@ -51,7 +51,7 @@ class _skill.Defend extends _skill.AidSkill
         @range = new Range(0)
 
     doEffect: (target) ->
-        target.statuses.push(new _status.Defend())
+        target.addStatus(new _status.Defend())
 
 
 # FIRST AID
@@ -82,10 +82,10 @@ class _skill.Temper extends _skill.AidSkill
         @name = 'Temper'
         @imageName = 'temper'
         @type = _skill.type.None
-        @desc = 'Temporarily buff an ally\'s attack.'
+        @desc = 'Temporarily buff an ally\'s strength.'
 
         @mp = 6
         @range = new Range(0, 1)
 
     doEffect: (target) ->
-        target.statuses.push(new _status.Buff('str'))
+        target.addStatus(new _status.Buff('str'))

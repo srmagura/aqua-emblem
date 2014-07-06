@@ -68,6 +68,24 @@ class window.Unit
         for i in toRemove
             @statuses.splice(i, 1)
 
+    addStatus: (status) ->
+        doAdd = true
+        toRemove = []
+
+        for other, i in @statuses
+            if other instanceof _status.Buff and
+            other.stat == status.stat
+                if other.value > status.value
+                    doAdd = false
+                else
+                    toRemove.push(i)
+
+        for i in toRemove
+            @statuses.splice(i, 1)
+
+        if doAdd
+            @statuses.push(status)
+
     hasStatus: (cls) ->
         for status in @statuses
             if status instanceof cls
