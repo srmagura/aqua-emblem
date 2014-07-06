@@ -94,7 +94,16 @@ class _cui.UnitInfoWindow
             'res', 'move']
 
         for st in statTypes
-            stats.find('.' + st).text(@unit.baseStats[st])
+            td = stats.find('.' + st)
+            td.text(@unit.baseStats[st])
+
+            buff = $('<span></span>').addClass('buff')
+            delta = @unit[st] - @unit.baseStats[st]
+            if delta > 0
+                buff.text('+' + delta)
+
+            if delta != 0
+                td.append(buff)
 
         weaponsEl = stats.find('.weapons').html('')
         for weaponClass in @unit.wield

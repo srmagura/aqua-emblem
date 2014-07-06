@@ -189,7 +189,7 @@ class _cs.Chapter extends _cs.ControlState
     d: ->
     s: ->
     e: ->
-    v: ->
+    v: =>
         if @ui.speedMultiplier == 3
             @ui.speedMultiplier = 1
             @ui.speedMultiplierBox.hide()

@@ -53,7 +53,7 @@ class _cs.Skill extends _cs.MapTarget
         @ui.terrainBox.hide()
         @ui.skillInfoBox.hide()
         @ui.chapter.map.clearOverlay()
-        @ui.controlState = new _cs.Chapter()
+        @ui.controlState = new _cs.Chapter(@ui)
 
     d: ->
         @ui.cursor.visible = false

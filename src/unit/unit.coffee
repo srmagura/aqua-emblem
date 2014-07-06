@@ -72,6 +72,8 @@ class window.Unit
         for i in toRemove
             @statuses.splice(i, 1)
 
+        @updateStats()
+
     addStatus: (status) ->
         doAdd = true
         toRemove = []
@@ -89,6 +91,8 @@ class window.Unit
 
         if doAdd
             @statuses.push(status)
+
+        @updateStats()
 
     hasStatus: (cls) ->
         for status in @statuses
@@ -126,11 +130,15 @@ class window.Unit
 
             if not dryRun
                 @baseStats[stat] = rounded
-                @updateStats(stat)
+                @updateStat(stat)
 
         return increment
 
-    updateStats: (stat) ->
+    updateStats: ->
+        for stat of @baseStats
+            @updateStat(stat)
+
+    updateStat: (stat) ->
         value = @baseStats[stat]
         for status in @statuses
             if status instanceof _status.Buff and

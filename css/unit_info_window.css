@@ -24,6 +24,7 @@
     height: 230px;
 }
 
+/***** COMMON *****/
 .unit-info-window .common, .level-up-window .common
 {
     padding: 5px;
@@ -56,6 +57,7 @@
     margin: 15px 0;
 }
 
+/***** TAB CONTAINER *****/
 .unit-info-window .tab-container
 {
     margin: 5px;
@@ -92,6 +94,7 @@
     display: none;
 }
 
+/***** INVENTORY *****/
 .unit-info-window .inventory
 {
     height: 115px;
@@ -130,6 +133,7 @@
     color: #A00;
 }
 
+/***** COMBAT STATS *****/
 .unit-info-window .combat-stats
 {
     border: 2px solid #007A29;
@@ -155,6 +159,7 @@
     font-weight: bold;
 }
 
+/***** STATS *****/
 .unit-info-window .tab-content-stats table,
 .level-up-window .stats table
 {
@@ -171,6 +176,11 @@
     color: #007A29;
     font-weight: bold;
     padding-right: 15px;
+}
+
+.unit-info-window .tab-content-stats table .stat .buff
+{
+    color: #33F;
 }
 
 .unit-info-window .tab-content-stats .wield 
