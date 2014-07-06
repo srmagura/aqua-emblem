@@ -17,7 +17,14 @@ class _cui.SkillInfoBox
         if full
             stats.show()
             stats.find('.mp').text(skill.mp)
-            stats.find('.type').text(skill.type.name)
+
+            typeHalf = stats.find('.half-type')
+
+            if skill.type is _skill.type.None
+                typeHalf.hide()
+            else
+                typeHalf.show()
+                stats.find('.type').html(skill.type.getEl())
 
             desc.text(skill.desc).show()
 

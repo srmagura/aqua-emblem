@@ -2,14 +2,22 @@ window._skill = {}
 
 _skill.type = {}
 
-_skill.type.NONE = {'name': ''}
-_skill.type.PHYSICAL = {'name': 'PHYSICAL'}
-_skill.type.MAGIC = {'name': 'MAGIC'}
+class _skill.type.SkillType
+
+    @getEl: ->
+        imagePath = "images/items/#{@image}.png"
+        $('<img />').attr('src', imagePath)
+
+class _skill.type.None extends _skill.type.SkillType
+
+class _skill.type.Holy extends _skill.type.SkillType
+    @image: 'aquabolt'
+
 
 class _skill.Skill
 
     constructor: ->
-        @type = _skill.type.NONE
+        @type = _skill.type.None
         @might = null
         @mp = 0
 
@@ -48,6 +56,7 @@ class _cs.Skill extends _cs.MapTarget
         @ui.controlState = new _cs.Chapter()
 
     d: ->
+        @ui.cursor.visible = false
         @playerTurn.handleSkill()
 
     skillDone: =>

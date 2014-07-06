@@ -90,13 +90,18 @@
 
 .skill-info-box .stats .value.range
 {
-    float: right;
     padding-right: 15px;
 }
 
-.skill-info-box .stats .type
+.skill-info-box .stats .value.type
 {
-    font-size: 9pt;
+    padding-right: 24px;
+}
+
+.skill-info-box .stats .type img
+{
+    width: 20px;
+    margin: -2px 0 0 2px;
 }
 
 .skill-info-box .desc

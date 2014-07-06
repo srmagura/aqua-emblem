@@ -62,9 +62,7 @@ class window.Unit
         toRemove = []
 
         for status, i in @statuses
-            status.turns--
-
-            if status.turns == 0
+            if not status.newTurn()
                 toRemove.push(i)
 
         for i in toRemove

@@ -61,7 +61,7 @@ class _skill.FirstAid extends _skill.AidSkill
         super()
         @name = 'First aid'
         @imageName = 'first_aid'
-        @type = _skill.type.MAGIC
+        @type = _skill.type.Holy
         @desc = 'Basic healing skill.'
 
         @mp = 4
@@ -73,3 +73,19 @@ class _skill.FirstAid extends _skill.AidSkill
 
     isValidTarget: (target) ->
         return target.hp < target.baseHp
+
+# TEMPER
+class _skill.Temper extends _skill.AidSkill
+
+    constructor: ->
+        super()
+        @name = 'Temper'
+        @imageName = 'temper'
+        @type = _skill.type.None
+        @desc = 'Temporarily buff an ally\'s attack.'
+
+        @mp = 6
+        @range = new Range(0, 1)
+
+    doEffect: (target) ->
+        target.statuses.push(new _status.Buff('str'))

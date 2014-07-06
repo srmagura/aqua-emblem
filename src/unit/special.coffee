@@ -53,6 +53,7 @@ class _uclass.special.Kenji extends _uclass.Fighter
         @level = 2
         @picture = true
         @inventory = [new _item.IronAxe()]
+        @skills = [new _skill.Temper()]
 
         @baseStats = {baseHp: 36, baseMp: 10, str: 7, def: 3.5,
         skill: 4, speed: 5, res: 2, luck: 4, mag: 0}

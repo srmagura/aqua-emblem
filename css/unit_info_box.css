@@ -91,3 +91,15 @@ div.unit-info .bar-text
     font-size: 10pt;
     padding: 2px 0 0 2px;
 }
+
+.unit-info .status-container .status.status-buff img
+{
+    height: 18px;
+    width: 15px;
+}
+
+.unit-info .status-container .status span.stat 
+{
+    float: none;
+    font-size: 9pt;
+}
