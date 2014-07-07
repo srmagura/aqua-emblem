@@ -33,9 +33,13 @@ class _cui.ActionMenu
 class _cui.ActionMenuItem
     constructor: (@name, @handler) ->
 
-class _cs.Menu extends _cs.Chapter
+window._cs.cui = {}
+
+class _cs.cui.Menu extends _cs.Menu
 
     constructor: (@ui, @menuObj) ->
+        #TODO
+        console.log('cui.Menu TODO')
 
     onChange: ->
 
@@ -63,7 +67,7 @@ class _cs.Menu extends _cs.Chapter
 
         @onChange()
 
-class _cs.ActionMenu extends _cs.Menu
+class _cs.ActionMenu extends _cs.cui.Menu
 
     f: ->
         k = @menuObj.menu.find('.selected').data('index')

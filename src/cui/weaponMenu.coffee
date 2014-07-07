@@ -23,7 +23,7 @@ class _cui.WeaponMenu
     hide: ->
         @menu.css('display', 'none')
 
-class _cs.WeaponMenu extends _cs.Menu
+class _cs.WeaponMenu extends _cs.cui.Menu
 
     constructor: (@ui, @menuObj) ->
         @playerTurn = @ui.chapter.playerTurn

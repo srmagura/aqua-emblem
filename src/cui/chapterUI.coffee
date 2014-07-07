@@ -1,12 +1,3 @@
-window.init = ->
-    window.ui = new _cui.ChapterUI()
-
-    chapter = new _chapters.Chapter1(ui)
-    ui.setChapter(chapter)
-
-    #chapter.doScrollSequence(ui.startChapter)
-    ui.startChapter()
-
 window._cui = {}
 
 class _cui.ChapterUI
@@ -165,19 +156,6 @@ class _cui.ChapterUI
         requestAnimationFrame(@mainLoop)
         @render()
 
-
-window._cs = {}
-class _cs.ControlState
-    constructor: (@ui) ->
-    up: ->
-    down: ->
-    left: ->
-    right: ->
-    f: ->
-    d: ->
-    s: ->
-    e: ->
-    v: ->
 
 class _cs.Chapter extends _cs.ControlState
     constructor: (@ui) ->
