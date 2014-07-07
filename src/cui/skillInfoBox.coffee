@@ -5,6 +5,8 @@ class _cui.SkillInfoBox
     init: (skill, usable, full=true) ->
         if not usable
             @box.addClass('not-usable')
+        else
+            @box.removeClass('not-usable')
 
         heading = @box.find('.heading')
         heading.find('img').attr('src', skill.getImagePath())

@@ -32,10 +32,9 @@ class _status.Defend extends _status.Status
 
 class _status.Buff extends _status.Status
 
-    constructor: (@stat) ->
+    constructor: (@stat, @value) ->
         @imagePath = 'up_arrow.png'
-        @turns = 3
-        @value = @turns
+        @turns =  @value
         @updateText()
 
     updateText: ->

@@ -38,6 +38,7 @@ class _uclass.special.Luciana extends _uclass.Soldier
         @picture = true
         @inventory = [new _item.IronLance()]
         @inventory.push(new _item.IronBow())
+        @skills = [new _skill.Protect()]
 
         @startStats = {maxHp: 28, maxMp: 10, str: 3.5, def: 6,
         skill: 3.8, speed: 3.2, res: 2, luck: 4, mag: 0}

@@ -54,7 +54,6 @@ class _skill.Defend extends _skill.AidSkill
         target.addStatus(new _status.Defend())
 
 
-# FIRST AID
 class _skill.FirstAid extends _skill.AidSkill
 
     constructor: ->
@@ -74,7 +73,7 @@ class _skill.FirstAid extends _skill.AidSkill
     isValidTarget: (target) ->
         return target.hp < target.maxHp
 
-# TEMPER
+
 class _skill.Temper extends _skill.AidSkill
 
     constructor: ->
@@ -84,8 +83,24 @@ class _skill.Temper extends _skill.AidSkill
         @type = _skill.type.None
         @desc = 'Temporarily buff an ally\'s strength.'
 
-        @mp = 6
+        @mp = 9
         @range = new Range(0, 1)
 
     doEffect: (target) ->
-        target.addStatus(new _status.Buff('str'))
+        target.addStatus(new _status.Buff('str', 3))
+
+
+class _skill.Protect extends _skill.AidSkill
+
+    constructor: ->
+        super()
+        @name = 'Protect'
+        @imageName = 'protect'
+        @type = _skill.type.None
+        @desc = 'Temporarily buff an ally\'s defence.'
+
+        @mp = 1
+        @range = new Range(0, 1)
+
+    doEffect: (target) ->
+        target.addStatus(new _status.Buff('def', 3))
