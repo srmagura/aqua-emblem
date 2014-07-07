@@ -1,7 +1,10 @@
 http://code.jquery.com/jquery-2.1.1.min.js
 
-lib/controlState.js
-lib/startUI.js
+lib/ui/ui.js
+lib/ui/controlState.js
+lib/ui/init.js
+
+lib/sui/startUI.js
 
 lib/cui/chapterUI.js 
 lib/cui/cursor.js
@@ -48,4 +51,3 @@ lib/skill/aid.js
 
 lib/chapters/chapter1.js
 
-lib/init.js

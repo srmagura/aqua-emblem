@@ -8,7 +8,7 @@ class _skill.AidSkill extends _skill.Skill
     getDelta: (user) -> {}
     doEffect: (target) ->
 
-class _cs.AidSkill extends _cs.Skill
+class _cs.cui.AidSkill extends _cs.cui.Skill
 
     f: ->
         unit = @playerTurn.selectedUnit

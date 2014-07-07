@@ -15,7 +15,7 @@ class _cui.TradeWindow
         @setCursorPos(new Position(0, 0))
 
         @prevControlState = @ui.controlState
-        @ui.controlState = new _cs.TradeWindow(@ui, this)
+        @ui.controlState = new _cs.cui.TradeWindow(@ui, this)
         @ui.viewportOverlay.show()
 
         css = @ui.centerElement(@window, 0)
@@ -44,7 +44,7 @@ class _cui.TradeWindow
             inventoryEl = @window.find(sel)
             
         inventoryEl.html('')
-        for i in [0 .. Unit.INVENTORY_SIZE-1]
+        for i in [0 .. _unit.Unit.INVENTORY_SIZE-1]
             itemContainer = $('<div></div>').addClass('item-container')
             itemContainer.data('pos', new Position(i, j))
             arrowImg = $('<div></div>').addClass('arrow-image')
@@ -75,13 +75,13 @@ class _cui.TradeWindow
         @cursorPos.i = 0
         @cursorPos.j = (@cursorPos.j + 1) % 2
         @setCursorPos(@cursorPos)
-        @ui.controlState = new _cs.TradeWindow2(@ui, this)
+        @ui.controlState = new _cs.cui.TradeWindow2(@ui, this)
 
     doDeselect: ->
         selected = @window.find('.item-container.selected')
         @setCursorPos(selected.data('pos'))
         selected.removeClass('selected')
-        @ui.controlState = new _cs.TradeWindow(@ui, this)
+        @ui.controlState = new _cs.cui.TradeWindow(@ui, this)
 
     doTrade: ->
         @tradeMade = true
@@ -99,7 +99,7 @@ class _cui.TradeWindow
         @fillInventory(@units[0], null, 0)
         @fillInventory(@units[1], null, 1)
         @setCursorPos(@cursorPos)
-        @ui.controlState = new _cs.TradeWindow(@ui, this)
+        @ui.controlState = new _cs.cui.TradeWindow(@ui, this)
 
     show: ->
         @window.css('visibility', 'visible')
@@ -112,7 +112,7 @@ class _cui.TradeWindow
         @window.find('.arrow-image').css(hide)
 
 
-class _cs.TradeWindow extends _cs.Chapter
+class _cs.cui.TradeWindow extends _cs.cui.Chapter
 
     constructor: (@ui, @windowObj) ->
 
@@ -163,7 +163,7 @@ class _cs.TradeWindow extends _cs.Chapter
 
             @windowObj.moveCursor(new Position(0, 1))
 
-class _cs.TradeWindow2 extends _cs.Chapter
+class _cs.cui.TradeWindow2 extends _cs.cui.Chapter
 
     constructor: (@ui, @windowObj) ->
 

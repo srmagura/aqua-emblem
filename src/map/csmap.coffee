@@ -1,4 +1,4 @@
-class _cs.MapAbstract extends _cs.Chapter
+class _cs.cui.MapAbstract extends _cs.cui.Chapter
 
     up: ->
         if @ui.cursor.pos.i - 1 >= 0
@@ -25,7 +25,7 @@ class _cs.MapAbstract extends _cs.Chapter
     moved: ->
         @ui.terrainBox.init()
 
-class _cs.Map extends _cs.MapAbstract
+class _cs.cui.Map extends _cs.cui.MapAbstract
 
     f: ->
         pt = @ui.chapter.playerTurn
@@ -44,11 +44,11 @@ class _cs.Map extends _cs.MapAbstract
         @ui.chapter.playerTurn.deselect()
         @ui.endTurnMenu.init()
 
-class _cs.MapTarget extends _cs.MapAbstract
+class _cs.cui.MapTarget extends _cs.cui.MapAbstract
 
     constructor: (@ui, @playerTurn) ->
 
-class _cs.ChooseAttackTarget extends _cs.MapTarget
+class _cs.cui.ChooseAttackTarget extends _cs.cui.MapTarget
 
     moved: ->
         super()
@@ -81,7 +81,7 @@ class _cs.ChooseAttackTarget extends _cs.MapTarget
         @ui.controlState = new _cs.ActionMenu(@ui, @ui.actionMenu)
 
 
-class _cs.ChooseTradeTarget extends _cs.MapTarget
+class _cs.cui.ChooseTradeTarget extends _cs.cui.MapTarget
 
     f: ->
         callback = (tradeMade) =>

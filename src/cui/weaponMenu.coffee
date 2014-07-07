@@ -15,7 +15,7 @@ class _cui.WeaponMenu
 
         @menu.children('div').first().addClass('selected')
         @show()
-        @ui.controlState = new _cs.WeaponMenu(@ui, this)
+        @ui.controlState = new _cs.cui.WeaponMenu(@ui, this)
 
     show: ->
         @menu.css('display', 'inline-block')
@@ -23,7 +23,7 @@ class _cui.WeaponMenu
     hide: ->
         @menu.css('display', 'none')
 
-class _cs.WeaponMenu extends _cs.cui.Menu
+class _cs.cui.WeaponMenu extends _cs.cui.Menu
 
     constructor: (@ui, @menuObj) ->
         @playerTurn = @ui.chapter.playerTurn

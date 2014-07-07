@@ -6,7 +6,7 @@ class _cui.EndTurnMenu
     init: ->
         padding = 5
         @menu.css(@ui.centerElement(@menu, padding))
-        @ui.controlState = new _cs.EndTurnMenu(@ui, this)
+        @ui.controlState = new _cs.cui.EndTurnMenu(@ui, this)
         @show()
 
     show: ->
@@ -17,7 +17,7 @@ class _cui.EndTurnMenu
         @ui.canvasOverlay.hide()
         @menu.css('visibility', 'hidden')
 
-class _cs.EndTurnMenu extends _cs.Chapter
+class _cs.cui.EndTurnMenu extends _cs.cui.Chapter
 
     constructor: (@ui, @menuObj) ->
 
@@ -28,4 +28,4 @@ class _cs.EndTurnMenu extends _cs.Chapter
 
     d: ->
         @menuObj.hide()
-        @ui.controlState = new _cs.Map(@ui)
+        @ui.controlState = new _cs.cui.Map(@ui)

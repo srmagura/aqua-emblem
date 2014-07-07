@@ -29,7 +29,7 @@ class _cui.SkillsBox
 
     giveControl: ->
         @setCursorPos(new Position(0, 0))
-        @ui.controlState = new _cs.SkillsBox(@ui, this)
+        @ui.controlState = new _cs.cui.SkillsBox(@ui, this)
 
     getSkill: ->
         return @getCursorCell().data('skill')
@@ -59,7 +59,7 @@ class _cui.SkillsBox
     hide: ->
         @box.css('display', 'none')
 
-class _cs.SkillsBox extends _cs.Chapter
+class _cs.cui.SkillsBox extends _cs.cui.Chapter
 
     constructor: (@ui, @boxObj) ->
 

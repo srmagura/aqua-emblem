@@ -1,5 +1,5 @@
 window.init = ->
-    startUI = new StartUI()
+    startUI = new _sui.StartUI()
     startUI.init()
 
 initChapter = ->

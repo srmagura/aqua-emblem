@@ -18,7 +18,7 @@ class _cui.ActionMenu
             @menu.children('div').first().addClass('selected')
 
         @ui.cursor.visible = false
-        @ui.controlState = new _cs.ActionMenu(@ui, this)
+        @ui.controlState = new _cs.cui.ActionMenu(@ui, this)
         @show()
 
         @ui.chapter.map.setOverlayRange(@unit.pos,
@@ -33,13 +33,12 @@ class _cui.ActionMenu
 class _cui.ActionMenuItem
     constructor: (@name, @handler) ->
 
-window._cs.cui = {}
-
 class _cs.cui.Menu extends _cs.Menu
 
     constructor: (@ui, @menuObj) ->
-        #TODO
-        console.log('cui.Menu TODO')
+        @chapterCs = new _cs.cui.Chapter(@ui)
+
+    v: -> @chapterCs.v()
 
     onChange: ->
 
@@ -67,18 +66,18 @@ class _cs.cui.Menu extends _cs.Menu
 
         @onChange()
 
-class _cs.ActionMenu extends _cs.cui.Menu
+class _cs.cui.ActionMenu extends _cs.cui.Menu
 
     f: ->
         k = @menuObj.menu.find('.selected').data('index')
         @menuObj.hide()
-        @ui.controlState = new _cs.Map(@ui)
+        @ui.controlState = new _cs.cui.Map(@ui)
 
         @menuObj.menuItems[k].handler()
 
     d: ->
         @ui.actionMenu.hide()
-        @ui.controlState = new _cs.Map(@ui)
+        @ui.controlState = new _cs.cui.Map(@ui)
 
         ch = @ui.chapter
         unit = ch.playerTurn.selectedUnit

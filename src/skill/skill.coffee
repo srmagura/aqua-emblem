@@ -43,7 +43,7 @@ class _skill.Skill
 
     isValidTarget: (target) -> true
 
-class _cs.Skill extends _cs.MapTarget
+class _cs.cui.Skill extends _cs.cui.MapTarget
 
     constructor: (@ui, @playerTurn, @skill) ->
 
@@ -53,7 +53,7 @@ class _cs.Skill extends _cs.MapTarget
         @ui.terrainBox.hide()
         @ui.skillInfoBox.hide()
         @ui.chapter.map.clearOverlay()
-        @ui.controlState = new _cs.Chapter(@ui)
+        @ui.controlState = new _cs.cui.Chapter(@ui)
 
     d: ->
         @ui.cursor.visible = false

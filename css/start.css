@@ -25,12 +25,19 @@
 {
     color: white;
     padding: 5px 0 5px 10px;
+    border: 1px solid transparent;
+    margin: 2px 0;
 }
 
 .start-menu-container .menu-item .main-text
 {
     font-size: 12pt;
     font-weight: bold;
+}
+
+.start-menu-container .menu-item .subtext 
+{
+    font-size: 9pt;
 }
 
 .start-menu-container .menu-item.selected

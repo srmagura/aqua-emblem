@@ -1,10 +1,12 @@
 window._cui = {}
+_cs.cui = {}
 
 class _cui.ChapterUI
 
     tw: 35
 
     constructor: ->
+        super()
         @expMultiplier = 1
         @speedMultiplier = 1
 
@@ -18,7 +20,6 @@ class _cui.ChapterUI
         @cursor = new _cui.Cursor(this)
 
         @controlState = new _cs.Chapter(this)
-        $(window).keydown(@keydownHandler)
 
         @actionMenu = new _cui.ActionMenu(this)
         @weaponMenu = new _cui.WeaponMenu(this)
@@ -101,24 +102,6 @@ class _cui.ChapterUI
 
         @cursor.render(this, @ctx)
 
-    keydownHandler: (e) =>
-        #console.log(e.which)
-        switch e.which
-            when 38 then @controlState.up()
-            when 40 then @controlState.down()
-            when 37 then @controlState.left()
-            when 39 then @controlState.right()
-            when 70 then @controlState.f()
-            when 68 then @controlState.d()
-            when 83 then @controlState.s()
-            when 69 then @controlState.e()
-            when 86 then @controlState.v()
-            
-        prevent = [37, 38, 39, 40]
-        if e.which in prevent
-            e.preventDefault()
-            return false
-
     update: (delta) ->
         delta *= @speedMultiplier
 
@@ -157,7 +140,7 @@ class _cui.ChapterUI
         @render()
 
 
-class _cs.Chapter extends _cs.ControlState
+class _cs.cui.Chapter extends _cs.ControlState
     constructor: (@ui) ->
     up: ->
     down: ->

@@ -29,7 +29,7 @@ class _cui.UnitInfoWindow
             @initSkillsTab()
 
         @prevControlState = @ui.controlState
-        @ui.controlState = new _cs.UnitInfoWindow(@ui, this)
+        @ui.controlState = new _cs.cui.UnitInfoWindow(@ui, this)
 
         css = @ui.centerElement(@window, 4)
         css.visibility = 'visible'
@@ -120,7 +120,7 @@ class _cui.UnitInfoWindow
         @skillsBox.init(@unit, @skillsBoxOnD)
 
     skillsBoxOnD: =>
-        @ui.controlState = new _cs.UnitInfoWindow(@ui, this)
+        @ui.controlState = new _cs.cui.UnitInfoWindow(@ui, this)
 
     hide: ->
         @window.find('.tab-label-skills, .tab-content-skills').
@@ -142,7 +142,7 @@ class _cui.UnitInfoWindow
         @window.find('.tab-container .tab-content-' + tabId).show()
 
 
-class _cs.UnitInfoWindow extends _cs.Chapter
+class _cs.cui.UnitInfoWindow extends _cs.cui.Chapter
 
     constructor: (@ui, @windowObj) ->
 
