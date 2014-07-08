@@ -61,7 +61,7 @@ class _cs.cui.Skill extends _cs.cui.MapTarget
 
     skillDone: =>
         afterExpAdd = =>
-            @ui.controlState = new _cs.Map(@ui)
+            @ui.controlState = new _cs.cui.Map(@ui)
             @ui.cursor.visible = true
             @ui.unitInfoBox.update()
             @ui.terrainBox.show()

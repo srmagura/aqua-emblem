@@ -6,6 +6,7 @@ class _sui.StartUI extends UI
     constructor: ->
         super()
         @vn = new VisualNovel()
+        @vn.show()
         @controlState = new _cs.ControlState(this)
 
     init: ->
@@ -19,6 +20,11 @@ class _sui.StartUI extends UI
         @menu = new menuCls(this, @menuContainer)
         @menu.init()
         @controlState = new _cs.sui.StartMenu(this, @menu)
+
+    destroy: ->
+        @menuContainer.remove()
+        @vn.setBackgroundImage('')
+        @vn.hide()
 
 class _sui.StartMenu
 
@@ -56,20 +62,30 @@ class _sui.StartMenuDifficulty extends _sui.StartMenu
     init: ->
         @menu.html('')
 
-        normal = @getMenuEl('Normal', 'Exp multiplier = ?')
+        normal = @getMenuEl('Normal',
+            'The default difficulty.')
         normal.appendTo(@menu).data('handler', @handler)
-        normal.data('diff', 'normal')
+        normal.data('difficulty', _file.difficulty.normal)
 
         hard = @getMenuEl('Hard',
-            'How Aqua Emblem is meant to be played.<br />' +
-            'Exp multiplier = 1')
+            'How Aqua Emblem is meant to be played. ' +
+            'Units start at a lower ' +
+            'level and gain experience more slowly.')
         hard.appendTo(@menu).data('handler', @handler)
-        hard.data('diff', 'hard')
+        hard.data('difficulty', _file.difficulty.hard)
 
         @selectFirst()
 
     back: ->
         @ui.initMenu(_sui.StartMenuMain)
+
+    handler: =>
+        file = new _file.File()
+        file.fileState = new _file.fs.Chapter1()
+        file.difficulty = @getSelected().data('difficulty')
+
+        @ui.destroy()
+        file.init()
 
 class _cs.sui.StartMenu extends _cs.Menu
     
@@ -89,4 +105,6 @@ class VisualNovel
         img = $('<img />').attr('src', path)
         @bgEl.html('').append(img)
 
-    init: ->
+    show: -> @wrapper.show()
+
+    hide: -> @wrapper.hide()

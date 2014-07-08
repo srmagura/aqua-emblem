@@ -1,12 +1,14 @@
 window._cui = {}
 _cs.cui = {}
 
-class _cui.ChapterUI
+class _cui.ChapterUI extends UI
 
     tw: 35
 
     constructor: ->
         super()
+        @gameWrapper = $('.game-wrapper').show()
+
         @expMultiplier = 1
         @speedMultiplier = 1
 
@@ -19,7 +21,7 @@ class _cui.ChapterUI
         @origin = new Position(0, 0)
         @cursor = new _cui.Cursor(this)
 
-        @controlState = new _cs.Chapter(this)
+        @controlState = new _cs.cui.Chapter(this)
 
         @actionMenu = new _cui.ActionMenu(this)
         @weaponMenu = new _cui.WeaponMenu(this)
@@ -58,7 +60,8 @@ class _cui.ChapterUI
 
     setChapter: (@chapter) ->
         @mainLoop()
-        $('.victory-condition').text(@chapter.victoryCondition.text)
+        $('.victory-condition').text(@chapter.victoryCondition.text).
+            show()
 
     startChapter: ->
         @chapter.initTurn(@chapter.playerTeam)

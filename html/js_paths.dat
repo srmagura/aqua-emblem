@@ -6,6 +6,8 @@ lib/ui/init.js
 
 lib/sui/startUI.js
 
+lib/file.js
+
 lib/cui/chapterUI.js 
 lib/cui/cursor.js
 lib/cui/unitInfoBox.js 

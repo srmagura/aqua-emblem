@@ -4,6 +4,7 @@
     height: 400px;
     margin: 0 auto;
     position: relative;
+    display: none;
 }
 
 .vn-wrapper .background

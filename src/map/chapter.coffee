@@ -72,7 +72,7 @@ class _map.Chapter
         for unit in @units
             unit.done = false
 
-        @ui.controlState = new _cs.Chapter(@ui)
+        @ui.controlState = new _cs.cui.Chapter(@ui)
 
         if team instanceof _team.PlayerTeam
             for unit in @units
@@ -95,7 +95,7 @@ class _map.Chapter
                 @ui.cursor.visible = true
                 @ui.cursor.moveTo(@ui.cursor.pos)
 
-                @ui.controlState = new _cs.Map(@ui)
+                @ui.controlState = new _cs.cui.Map(@ui)
 
         if @ui.cursor.pos?
             @ui.scrollTo(@ui.cursor.pos)

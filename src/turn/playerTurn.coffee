@@ -41,7 +41,7 @@ class _turn.PlayerTurn extends _turn.Turn
         @selectedUnit.oldPos = @selectedUnit.pos
         @ui.chapter.map.clearOverlay()
         @ui.cursor.visible = false
-        @ui.controlState = new _cs.Chapter(@ui)
+        @ui.controlState = new _cs.cui.Chapter(@ui)
 
         @selectedUnit.followPath(@dest.path, @afterPathFollow)
         @dest = null
@@ -114,12 +114,12 @@ class _turn.PlayerTurn extends _turn.Turn
 
     handleTrade: =>
         @ui.chapter.map.setOverlayRange(@selectedUnit.pos, @tradeRange, 'AID')
-        @ui.controlState = new _cs.ChooseTradeTarget(@ui, this)
+        @ui.controlState = new _cs.cui.ChooseTradeTarget(@ui, this)
         @ui.cursor.visible = true
         @ui.cursor.moveTo(@inTradeRange[0].pos)
 
     afterExpAdd: =>
-        @ui.controlState = new _cs.Map(@ui)
+        @ui.controlState = new _cs.cui.Map(@ui)
         @ui.cursor.visible = true
         @ui.cursor.moveTo(@selectedUnit.pos)
 
