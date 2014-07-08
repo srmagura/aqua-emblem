@@ -5,15 +5,13 @@ class _sui.StartUI extends UI
 
     constructor: ->
         super()
-        @vn = new VisualNovel()
+        @vn = new _vn.VisualNovel(this)
         @vn.show()
         @controlState = new _cs.ControlState(this)
 
     init: ->
         @vn.setBackgroundImage('images/start_background.png')
-        @menuContainer = $('<div></div').
-            addClass('start-menu-container').
-            appendTo(@vn.wrapper)
+        @menuContainer = $('.start-menu-container')
         @initMenu(_sui.StartMenuMain)
 
     initMenu: (menuCls) ->
@@ -23,7 +21,6 @@ class _sui.StartUI extends UI
 
     destroy: ->
         @menuContainer.remove()
-        @vn.setBackgroundImage('')
         @vn.hide()
 
 class _sui.StartMenu
@@ -94,17 +91,3 @@ class _cs.sui.StartMenu extends _cs.Menu
 
     d: ->
         @menuObj.back()
-
-class VisualNovel
-
-    constructor: ->
-        @wrapper = $('.vn-wrapper')
-        @bgEl = @wrapper.find('.background')
-
-    setBackgroundImage: (path) ->
-        img = $('<img />').attr('src', path)
-        @bgEl.html('').append(img)
-
-    show: -> @wrapper.show()
-
-    hide: -> @wrapper.hide()

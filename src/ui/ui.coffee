@@ -4,18 +4,18 @@ class window.UI
         window.ui = this
         $(window).keydown(@keydownHandler)
 
-    keydownHandler: (e) =>
+    keydownHandler: (e) ->
         #console.log(e.which)
         switch e.which
-            when 38 then @controlState.up()
-            when 40 then @controlState.down()
-            when 37 then @controlState.left()
-            when 39 then @controlState.right()
-            when 70 then @controlState.f()
-            when 68 then @controlState.d()
-            when 83 then @controlState.s()
-            when 69 then @controlState.e()
-            when 86 then @controlState.v()
+            when 38 then ui.controlState.up()
+            when 40 then ui.controlState.down()
+            when 37 then ui.controlState.left()
+            when 39 then ui.controlState.right()
+            when 70 then ui.controlState.f()
+            when 68 then ui.controlState.d()
+            when 83 then ui.controlState.s()
+            when 69 then ui.controlState.e()
+            when 86 then ui.controlState.v()
             
         prevent = [37, 38, 39, 40]
         if e.which in prevent

@@ -5,8 +5,10 @@ lib/ui/controlState.js
 lib/ui/init.js
 
 lib/sui/startUI.js
+lib/sui/file.js
 
-lib/file.js
+lib/vn/vn.js
+lib/vn/chapter1.js
 
 lib/cui/chapterUI.js 
 lib/cui/cursor.js
