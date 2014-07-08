@@ -32,7 +32,7 @@ class _cs.cui.WeaponMenu extends _cs.cui.Menu
         @ui.weaponMenu.hide()
 
         pt = @menuObj.playerTurn
-        @ui.controlState = new _cs.ChooseAttackTarget(@ui, pt)
+        @ui.controlState = new _cs.cui.ChooseAttackTarget(@ui, pt)
         @ui.cursor.moveTo(pt.inAttackRange[0].pos)
         @ui.cursor.visible = true
 

@@ -71,7 +71,7 @@ class _cs.cui.ChooseAttackTarget extends _cs.cui.MapTarget
             @ui.unitInfoBox.hide()
             @ui.terrainBox.hide()
             @playerTurn.battle.doEncounter(@playerTurn.afterBattle)
-            @ui.controlState = new _cs.Chapter(@ui)
+            @ui.controlState = new _cs.cui.Chapter(@ui)
 
     d: ->
         @ui.actionMenu.show()
@@ -88,7 +88,7 @@ class _cs.cui.ChooseTradeTarget extends _cs.cui.MapTarget
             if tradeMade
                 @playerTurn.selectedUnit.setDone()
                 @playerTurn.deselect()
-                @ui.controlState = new _cs.Map(@ui)
+                @ui.controlState = new _cs.cui.Map(@ui)
 
         target = @ui.chapter.getUnitAt(@ui.cursor.pos)
         if target isnt null and target in @playerTurn.inTradeRange
@@ -98,4 +98,4 @@ class _cs.cui.ChooseTradeTarget extends _cs.cui.MapTarget
     d: ->
         @ui.actionMenu.init(@playerTurn.selectedUnit)
         @ui.cursor.moveTo(@playerTurn.selectedUnit.pos)
-        @ui.controlState = new _cs.ActionMenu(@ui, @ui.actionMenu)
+        @ui.controlState = new _cs.cui.ActionMenu(@ui, @ui.actionMenu)

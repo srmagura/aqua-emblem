@@ -187,7 +187,7 @@ class _cs.cui.TradeWindow2 extends _cs.cui.Chapter
         cp = @windowObj.cursorPos
         unit = @windowObj.units[cp.j]
 
-        if cp.i + 1 < Unit.INVENTORY_SIZE and
+        if cp.i + 1 < _unit.Unit.INVENTORY_SIZE and
         cp.i < unit.inventory.length
             @windowObj.moveCursor(new Position(1, 0))
         else

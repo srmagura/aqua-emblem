@@ -58,13 +58,16 @@ class _cui.ChapterUI extends UI
         css.left = (@canvas.width()-el.width())/2 - padding
         return css
 
-    setChapter: (@chapter) ->
+    setChapter: (chapterCls) ->
+        @chapter = new chapterCls(this)
         @mainLoop()
         $('.victory-condition').text(@chapter.victoryCondition.text).
             show()
 
     startChapter: ->
-        @chapter.initTurn(@chapter.playerTeam)
+        @chapter.doScrollSequence(
+            => @chapter.initTurn(@chapter.playerTeam)
+        )
 
     onScreen: (pos) ->
         delta = pos.scale(@tw).subtract(@origin)

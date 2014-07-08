@@ -1,6 +1,6 @@
 window._uclass = {special: {}}
 
-class _uclass.Mercenary extends Unit
+class _uclass.Mercenary extends _unit.Unit
     constructor: (attr) ->
         @uclassName = 'Mercenary'
         @wield = [_item.Sword]
@@ -15,7 +15,7 @@ class _uclass.Mercenary extends Unit
 
         super(attr)
 
-class _uclass.Archer extends Unit
+class _uclass.Archer extends _unit.Unit
     constructor: (attr) ->
         @uclassName = 'Archer'
         @wield = [_item.Bow]
@@ -30,7 +30,7 @@ class _uclass.Archer extends Unit
 
         super(attr)
 
-class _uclass.Soldier extends Unit
+class _uclass.Soldier extends _unit.Unit
     constructor: (attr) ->
         @uclassName = 'Soldier'
         @wield = [_item.Lance]
@@ -45,7 +45,7 @@ class _uclass.Soldier extends Unit
 
         super(attr)
 
-class _uclass.Fighter extends Unit
+class _uclass.Fighter extends _unit.Unit
     constructor: (attr) ->
         @uclassName = 'Fighter'
         @wield = [_item.Axe]

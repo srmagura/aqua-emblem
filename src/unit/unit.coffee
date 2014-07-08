@@ -1,5 +1,3 @@
-
-
 window._unit = {}
 
 _unit.AI_TYPE = {
@@ -13,7 +11,7 @@ _unit.LUNGE_STATUS = {
     REVERSE: 2
 }
 
-class window.Unit
+class _unit.Unit
 
     @INVENTORY_SIZE: 5
 
@@ -261,7 +259,7 @@ class window.Unit
         else
             image = @imageObjects.normal
 
-        offset = @pos.scale(@ui.tw).add(@offset).subtract(ui.origin)
+        offset = @pos.scale(ui.tw).add(@offset).subtract(ui.origin)
         ctx.drawImage(image, offset.j+1, offset.i+2)
 
         if @boss
