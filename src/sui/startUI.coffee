@@ -10,7 +10,7 @@ class _sui.StartUI extends UI
         @controlState = new _cs.ControlState(this)
 
     init: ->
-        @vn.setBackgroundImage('images/start_background.png')
+        @vn.setBackgroundImage('start_background.png')
         @menuContainer = $('.start-menu-container')
         @initMenu(_sui.StartMenuMain)
 

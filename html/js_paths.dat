@@ -8,7 +8,10 @@ lib/sui/startUI.js
 lib/sui/file.js
 
 lib/vn/vn.js
-lib/vn/chapter1.js
+lib/vn/fullTextbox.js
+lib/vn/chapterDisplay.js
+
+lib/vn/fs/chapter1.js
 
 lib/cui/chapterUI.js 
 lib/cui/cursor.js
