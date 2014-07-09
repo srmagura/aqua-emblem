@@ -35,12 +35,12 @@ class _vn.FullTextbox
 
         @box.find('.line').last().find('.vn-arrow').
             css('visibility', 'hidden')
+        @ui.controlState = new _cs.ControlState(@ui)
 
         if @lineIndex == @lines.length
             @wrapper.fadeOut(1000, @callback)
             return
 
-        @ui.controlState = new _cs.ControlState(@ui)
         el = $('<div></div>').addClass('line').appendTo(@box)
         _vn.animateTextWithArrow(el, @lines[@lineIndex++], callback)
 

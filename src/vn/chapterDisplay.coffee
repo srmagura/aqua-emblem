@@ -12,10 +12,10 @@ class _vn.ChapterDisplay
         @ui.vn.setBackgroundImage('chapter_display_background.png')
 
         @toFade = @ui.vn.bgEl.add(@display)
-        @toFade.fadeIn(@fadeDelay, @afterFadeIn)
+        @toFade.fadeIn(@fadeDelay).promise().done(@afterFadeIn)
 
     afterFadeIn: =>
         setTimeout(@afterWait, 3000)
 
     afterWait: =>
-        @toFade.fadeOut(@fadeDelay, @callback)
+        @toFade.fadeOut(@fadeDelay).promise().done(@callback)
