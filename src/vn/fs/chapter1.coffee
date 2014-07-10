@@ -4,10 +4,10 @@ class _file.fs.Chapter1 extends _file.FileState
         @ui = new _vn.VisualNovelUI()
         lines = [
             [
-                'Eutruria was a large, peaceful kingdom. The Hadoka family had ruled since times long forgotten, maintaining order throughout the land.', 
+                'Eutruria was a large, peaceful kingdom. The Hadoka family had ruled since times long forgotten, maintaining order throughout the land.',
                 'The current king, Hitoyoshi, was benevolent and had rightfully earned the respect of his people. But as King Hitoyoshi’s health declined, a change in leadership was inevitable.',
                 'Legend has it that the Hadoka family heirloom, the Aqua Emblem, would recognize the true heir to the throne when the issue of succession arose.'
-            ], 
+            ],
             [
                 'But the Hadokas viewed this legend for what it was: a legend. To them, the Aqua Emblem was just a blue gemstone. Its influence was purely symbolic.',
                 'When King Hitoyoshi died, his son Sanzu ascended to the throne. And that was when the Aqua Emblem made its decision...'
@@ -22,7 +22,7 @@ class _file.fs.Chapter1 extends _file.FileState
         lines = [
             [
                 'In the forests far to the west of the Eutrurian capital, the mercenary group "Hellhounds" made its base.',
-                'The Hellhounds took on any work they could find. If the money was good, they fought without hesitation.', 
+                'The Hellhounds took on any work they could find. If the money was good, they fought without hesitation.',
                 'But their leader, Ace, dreamed of a higher purpose...'
             ]
         ]

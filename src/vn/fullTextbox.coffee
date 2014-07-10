@@ -25,6 +25,8 @@ class _vn.FullTextbox
 
     init: (@pages, @callback) ->
         @ui.controlState = new _cs.vn.FullTextbox(@ui, this)
+        @callbackMade = false
+
         @box.html('')
 
         @pageIndex = 0
@@ -42,7 +44,7 @@ class _vn.FullTextbox
         lines = @pages[@pageIndex]
         if @lineIndex == lines.length
             if @pageIndex == @pages.length-1
-                @done()
+                @wrapper.fadeOut(@fadeDelay, @done)
                 return
             else
                 @pageIndex++
@@ -55,11 +57,13 @@ class _vn.FullTextbox
         _vn.animateTextWithArrow(el, lines[@lineIndex++], callback)
 
     skip: ->
-        @fadeDelay = 0
+        @wrapper.hide()
         @done()
 
-    done: ->
-        @wrapper.fadeOut(@fadeDelay, @callback)
+    done: =>
+        if not @callbackMade
+            @callbackMade = true
+            @callback()
 
     show: -> @wrapper.show()
 
