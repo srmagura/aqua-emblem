@@ -60,7 +60,6 @@ class _cui.ChapterUI extends UI
 
     setChapter: (chapterCls) ->
         @chapter = new chapterCls(this)
-        @mainLoop()
         $('.victory-condition').text(@chapter.victoryCondition.text).
             show()
 
@@ -68,6 +67,7 @@ class _cui.ChapterUI extends UI
         @chapter.doScrollSequence(
             => @chapter.initTurn(@chapter.playerTeam)
         )
+        @mainLoop()
 
     onScreen: (pos) ->
         delta = pos.scale(@tw).subtract(@origin)

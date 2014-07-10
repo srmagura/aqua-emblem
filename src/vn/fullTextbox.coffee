@@ -34,6 +34,9 @@ class _vn.FullTextbox
         @wrapper.fadeIn(@fadeDelay, @animateLine)
 
     animateLine: =>
+        if @callbackMade
+            return
+
         callback = =>
             @ui.controlState = new _cs.vn.FullTextboxWaiting(@ui, this)
 
