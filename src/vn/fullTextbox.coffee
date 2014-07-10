@@ -1,5 +1,5 @@
 _vn.animateText = (el, text, callback=(->)) ->
-    msPerChar = 15
+    msPerChar = 30
 
     $({count: 0}).animate({count: text.length}, {
         duration: text.length*msPerChar,
@@ -23,9 +23,10 @@ class _vn.FullTextbox
         @box = @wrapper.find('.box')
         @fadeDelay = 1000
 
-    init: (@lines, @callback) ->
+    init: (@pages, @callback) ->
         @box.html('')
 
+        @pageIndex = 0
         @lineIndex = 0
         @wrapper.fadeIn(@fadeDelay, @animateLine)
 
@@ -37,12 +38,20 @@ class _vn.FullTextbox
             css('visibility', 'hidden')
         @ui.controlState = new _cs.ControlState(@ui)
 
-        if @lineIndex == @lines.length
-            @wrapper.fadeOut(1000, @callback)
-            return
+        lines = @pages[@pageIndex]
+        if @lineIndex == lines.length
+            if @pageIndex == @pages.length-1
+                @wrapper.fadeOut(@fadeDelay, @callback)
+                return
+            else
+                @pageIndex++
+                @box.html('')
+
+                lines = @pages[@pageIndex]
+                @lineIndex = 0
 
         el = $('<div></div>').addClass('line').appendTo(@box)
-        _vn.animateTextWithArrow(el, @lines[@lineIndex++], callback)
+        _vn.animateTextWithArrow(el, lines[@lineIndex++], callback)
 
     show: -> @wrapper.show()
 
