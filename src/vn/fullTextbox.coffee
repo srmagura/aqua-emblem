@@ -24,6 +24,7 @@ class _vn.FullTextbox
         @fadeDelay = 1000
 
     init: (@pages, @callback) ->
+        @ui.controlState = new _cs.vn.FullTextbox(@ui, this)
         @box.html('')
 
         @pageIndex = 0
@@ -32,16 +33,16 @@ class _vn.FullTextbox
 
     animateLine: =>
         callback = =>
-            @ui.controlState = new _cs.vn.FullTextbox(@ui, this)
+            @ui.controlState = new _cs.vn.FullTextboxWaiting(@ui, this)
 
         @box.find('.line').last().find('.vn-arrow').
             css('visibility', 'hidden')
-        @ui.controlState = new _cs.ControlState(@ui)
+        @ui.controlState = new _cs.vn.FullTextbox(@ui, this)
 
         lines = @pages[@pageIndex]
         if @lineIndex == lines.length
             if @pageIndex == @pages.length-1
-                @wrapper.fadeOut(@fadeDelay, @callback)
+                @done()
                 return
             else
                 @pageIndex++
@@ -53,6 +54,13 @@ class _vn.FullTextbox
         el = $('<div></div>').addClass('line').appendTo(@box)
         _vn.animateTextWithArrow(el, lines[@lineIndex++], callback)
 
+    skip: ->
+        @fadeDelay = 0
+        @done()
+
+    done: ->
+        @wrapper.fadeOut(@fadeDelay, @callback)
+
     show: -> @wrapper.show()
 
     hide: -> @wrapper.hide()
@@ -61,5 +69,11 @@ class _cs.vn.FullTextbox extends _cs.ControlState
     
     constructor: (@ui, @boxObj) ->
 
+    v: ->
+        @boxObj.skip()
+
+class _cs.vn.FullTextboxWaiting extends _cs.vn.FullTextbox
+
     f: ->
         @boxObj.animateLine()
+

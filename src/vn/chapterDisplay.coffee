@@ -5,6 +5,8 @@ class _vn.ChapterDisplay
         @fadeDelay = 2000
 
     init: (number, name, @callback) ->
+        @ui.controlState = new _cs.vn.ChapterDisplay(@ui, this)
+
         @display.find('.number').text(number)
         @display.find('.name').text(name)
 
@@ -19,3 +21,18 @@ class _vn.ChapterDisplay
 
     afterWait: =>
         @toFade.fadeOut(@fadeDelay).promise().done(@callback)
+
+    skip: ->
+        @toFade.hide()
+        @done()
+
+    done: ->
+        @ui.controlState = new _cs.ControlState(@ui)
+        @callback()
+
+class _cs.vn.ChapterDisplay extends _cs.ControlState
+
+    constructor: (@ui, @displayObj) ->
+
+    v: ->
+        @displayObj.skip()
