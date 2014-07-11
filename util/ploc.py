@@ -14,10 +14,15 @@ languages = OrderedDict((
     ('py', 'Python'),
 ))
 
+exclude = {'index.html'}
+
 counts = {key: 0 for key in languages}
 
 for root, subfolders, files in os.walk(ROOT):
     for fname in files:
+        if fname in exclude:
+            continue
+
         ext = get_extension(fname)
 
         if ext in languages:

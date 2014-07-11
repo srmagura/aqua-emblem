@@ -5,22 +5,22 @@ class _sui.StartUI extends UI
 
     constructor: ->
         super()
-        @vn = new _vn.VisualNovel(this)
-        @vn.show()
+        @vn = $('.vn-wrapper').show()
         @controlState = new _cs.ControlState(this)
+        @wrapper = @vn.find('.start-menu-container')
+        @itemContainer = @wrapper.find('.items')
 
     init: ->
-        @vn.setBackgroundImage('start.png')
-        @menuContainer = $('.start-menu-container')
+        _vn.setBackgroundImage(@wrapper, 'start.png')
         @initMenu(_sui.StartMenuMain)
 
     initMenu: (menuCls) ->
-        @menu = new menuCls(this, @menuContainer)
+        @menu = new menuCls(this, @itemContainer)
         @menu.init()
         @controlState = new _cs.sui.StartMenu(this, @menu)
 
     destroy: ->
-        @menuContainer.remove()
+        @wrapper.hide()
         @vn.hide()
 
 class _sui.StartMenu

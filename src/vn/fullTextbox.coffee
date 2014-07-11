@@ -18,8 +18,7 @@ _vn.animateTextWithArrow = (el, text, callback=(->)) ->
 class _vn.FullTextbox
 
     constructor: (@ui) ->
-        @vn = @ui.vn
-        @wrapper = @vn.wrapper.find('.full-textbox')
+        @wrapper = @ui.wrapper.find('.full-textbox')
         @box = @wrapper.find('.box')
         @fadeDelay = 1000
 

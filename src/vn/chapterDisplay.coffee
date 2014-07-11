@@ -1,34 +1,28 @@
 class _vn.ChapterDisplay
 
     constructor: (@ui) ->
-        @display = @ui.vn.wrapper.find('.chapter-display')
+        @display = @ui.wrapper.find('.chapter-display')
         @fadeDelay = 2000
 
     init: (number, name, @callback) ->
         @ui.controlState = new _cs.vn.ChapterDisplay(@ui, this)
         @callbackMade = false
-        @afterFadeInCalled = false
 
         @display.find('.number').text(number)
         @display.find('.name').text(name)
 
-        @ui.vn.bgEl.hide()
-        @ui.vn.setBackgroundImage('chapter_display.png')
-
-        @toFade = @ui.vn.bgEl.add(@display)
-        @toFade.fadeIn(@fadeDelay, @afterFadeIn)
+        _vn.setBackgroundImage(@display, 'chapter_display.png')
+        @display.fadeIn(@fadeDelay, @afterFadeIn)
 
     afterFadeIn: =>
-        if not @afterFadeInCalled
-            @afterFadeInCalled = true
-            setTimeout(@afterWait, 3000)
+        setTimeout(@afterWait, 3000)
 
     afterWait: =>
         if not @callbackMade
             @toFade.fadeOut(@fadeDelay, @done)
 
     skip: ->
-        @toFade.hide()
+        @display.hide()
         @done()
 
     done: =>

@@ -1,27 +1,31 @@
 class _vn.Scene
 
     constructor: (@ui) ->
-        @wrapper = @ui.vn.wrapper.find('.scene')
+        @wrapper = @ui.wrapper.find('.scene')
         @chatbox = @wrapper.find('.chatbox')
+        @fadeDelay = 400
 
     init: (@lines, bgImage) ->
         @lineIndex = 0
 
-        @ui.vn.bgEl.hide()
-        @ui.vn.setBackgroundImage(bgImage)
-        @ui.vn.bgEl.fadeIn(400, @afterFadeIn)
+        _vn.setBackgroundImage(@wrapper, bgImage)
+
+        @chatbox.find('.unit .image, .text').html('')
+        @chatbox.find('.unit .name').hide()
+
+        @wrapper.fadeIn(@fadeDelay, @afterFadeIn)
 
     afterFadeIn: =>
-        @wrapper.show()
-        @initChatbox()
+        @showLine()
 
-    initChatbox: ->
+    showLine: ->
+        console.log('showLine')
         lineObj = @lines[@lineIndex]
         unit = lineObj[0]
         text = lineObj[1]
 
         img = $('<img/>').attr('src', unit.getImagePath())
         @chatbox.find('.unit .image').html(img)
-        @chatbox.find('.unit .name').text(unit.name)
+        @chatbox.find('.unit .name').text(unit.name).show()
         
         _vn.animateTextWithArrow(@chatbox.find('.text'), text)

@@ -5,8 +5,7 @@ class _vn.VisualNovelUI extends UI
 
     constructor: ->
         super()
-        @vn = new _vn.VisualNovel(this)
-        @vn.show()
+        @wrapper = $('.vn-wrapper').show()
         @controlState = new _cs.ControlState(this)
 
         @fullTextbox = new _vn.FullTextbox(this)
@@ -16,18 +15,8 @@ class _vn.VisualNovelUI extends UI
     destroy: ->
         @vn.hide()
 
-class _vn.VisualNovel
-
-    constructor: (@ui) ->
-        @wrapper = $('.vn-wrapper')
-        @bgEl = @wrapper.find('.background').html('')
-        @bgPrefix = 'images/vn/backgrounds/'
-
-    setBackgroundImage: (path) ->
-        img = $('<img />').attr('src', @bgPrefix + path)
-        @bgEl.html('').append(img)
-
-    show: -> @wrapper.show()
-
-    hide: -> @wrapper.hide()
-
+ 
+_vn.setBackgroundImage = (el, path) ->
+    bgPrefix = 'images/vn/backgrounds/'
+    value = "url('#{bgPrefix + path}')"
+    el.css('background-image', value)
