@@ -10,6 +10,7 @@ lib/sui/file.js
 lib/vn/vn.js
 lib/vn/fullTextbox.js
 lib/vn/chapterDisplay.js
+lib/vn/scene.js
 
 lib/vn/fs/chapter1.js
 

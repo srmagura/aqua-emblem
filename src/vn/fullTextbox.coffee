@@ -9,7 +9,7 @@ _vn.animateText = (el, text, callback=(->)) ->
 
 _vn.animateTextWithArrow = (el, text, callback=(->)) ->
     callback2 = =>
-        img = $('<img />').attr('src', 'images/vn_arrow.png')
+        img = $('<img />').attr('src', 'images/vn/arrow.png')
         img.addClass('vn-arrow').appendTo(el)
         callback()
 

@@ -26,7 +26,21 @@ class _file.fs.Chapter1 extends _file.FileState
                 'But their leader, Ace, dreamed of a higher purpose...'
             ]
         ]
-        @ui.fullTextbox.init(lines, @chapter)
+        @ui.fullTextbox.init(lines, @scene1)
+
+    scene1: =>
+        bgImage = 'hellhounds_hq.png'
+
+        ace = new _uclass.special.Ace()
+        arrow = new _uclass.special.Arrow()
+        luciana = new _uclass.special.Luciana()
+        kenji = new _uclass.special.Kenji()
+
+        lines = [
+            [ace, 'Hello everybody']
+        ]
+
+        @ui.scene.init(lines, bgImage)
 
     chapter: =>
         @ui.destroy()

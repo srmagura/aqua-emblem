@@ -17,6 +17,7 @@
     height: 100%;
 }
 
+/***** FULL TEXTBOX *****/
 .vn-wrapper .full-textbox
 {
     display: none;
@@ -49,6 +50,7 @@
     opacity: .75;
 }
 
+/***** CHAPTER DISPLAY *****/
 .vn-wrapper .chapter-display
 {
     display: none;   
@@ -74,4 +76,67 @@
 .vn-wrapper .chapter-display .name
 {
     font-size: 12pt;
+}
+
+/***** CHATBOX *****/
+.vn-wrapper .scene
+{
+    position: absolute;
+    display: none;
+}
+
+.vn-wrapper .chatbox
+{
+    position: absolute;
+    top: 290px;
+    height: 110px;
+    width: 600px;
+    background-color: #333;
+}
+
+.vn-wrapper .chatbox .unit
+{
+    float: left;
+}
+
+.vn-wrapper .chatbox .unit .image
+{
+    height: 110px;
+    width: 87px;
+    
+    border: 1px solid rgba(255, 255, 255, .7);
+    border-width: 1px 1px 0 0;
+}
+
+.vn-wrapper .chatbox .unit .image img
+{
+    height: 109px;
+    width: 87px;
+    background-color: rgba(255, 255, 255, .3);
+}
+
+.vn-wrapper .chatbox .unit .name
+{
+    position: absolute;
+    left: 0;
+    top: 94px;
+    font-size: 9pt;
+    padding: 0 2px;
+    
+    background-color: rgba(255, 255, 255, .5);
+    border: 1px solid rgba(255, 255, 255, .2);
+}
+
+.vn-wrapper .chatbox .text
+{
+    position: absolute;
+    top: 0;
+    left: 88px;
+    
+    height: 109px;
+    width: 512px;
+    padding: 10px;
+    
+    background-color: rgba(255, 255, 255, .5);
+    border-top: 1px solid rgba(255, 255, 255, .4);
 }

@@ -7,21 +7,25 @@ class _vn.ChapterDisplay
     init: (number, name, @callback) ->
         @ui.controlState = new _cs.vn.ChapterDisplay(@ui, this)
         @callbackMade = false
+        @afterFadeInCalled = false
 
         @display.find('.number').text(number)
         @display.find('.name').text(name)
 
         @ui.vn.bgEl.hide()
-        @ui.vn.setBackgroundImage('chapter_display_background.png')
+        @ui.vn.setBackgroundImage('chapter_display.png')
 
         @toFade = @ui.vn.bgEl.add(@display)
-        @toFade.fadeIn(@fadeDelay).promise().done(@afterFadeIn)
+        @toFade.fadeIn(@fadeDelay, @afterFadeIn)
 
     afterFadeIn: =>
-        setTimeout(@afterWait, 3000)
+        if not @afterFadeInCalled
+            @afterFadeInCalled = true
+            setTimeout(@afterWait, 3000)
 
     afterWait: =>
-        @toFade.fadeOut(@fadeDelay).promise().done(@done)
+        if not @callbackMade
+            @toFade.fadeOut(@fadeDelay, @done)
 
     skip: ->
         @toFade.hide()
@@ -39,4 +43,5 @@ class _cs.vn.ChapterDisplay extends _cs.ControlState
     constructor: (@ui, @displayObj) ->
 
     v: ->
+
         @displayObj.skip()
