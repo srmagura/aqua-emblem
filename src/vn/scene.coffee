@@ -5,9 +5,11 @@ class _vn.Scene
         @chatbox = @wrapper.find('.chatbox')
         @fadeDelay = 400
 
-    init: (@lines, bgImage) ->
+    init: (@lines, bgImage, @callback) ->
         @lineIndex = 0
+        @callbackMade = false
 
+        @ui.controlState = new _cs.vn.Scene(@ui, this)
         _vn.setBackgroundImage(@wrapper, bgImage)
 
         @chatbox.find('.unit .image, .text').html('')
@@ -19,8 +21,19 @@ class _vn.Scene
         @showLine()
 
     showLine: ->
-        console.log('showLine')
-        lineObj = @lines[@lineIndex]
+        if @callbackMade
+            return
+
+        @ui.controlState = new _cs.vn.Scene(@ui, this)
+
+        if @lineIndex == @lines.length
+            @wrapper.fadeOut(@fadeDelay, @done)
+            return
+
+        callback = =>
+            @ui.controlState = new _cs.vn.SceneWaiting(@ui, this)
+
+        lineObj = @lines[@lineIndex++]
         unit = lineObj[0]
         text = lineObj[1]
 
@@ -28,4 +41,25 @@ class _vn.Scene
         @chatbox.find('.unit .image').html(img)
         @chatbox.find('.unit .name').text(unit.name).show()
         
-        _vn.animateTextWithArrow(@chatbox.find('.text'), text)
+        _vn.animateTextWithArrow(@chatbox.find('.text'), text, callback)
+
+    skip: ->
+        @wrapper.hide()
+        @done()
+
+    done: =>
+        if not @callbackMade
+            @callbackMade = true
+            @callback()
+
+class _cs.vn.Scene extends _cs.ControlState
+    
+    constructor: (@ui, @scene) ->
+
+    v: ->
+        @scene.skip()
+
+class _cs.vn.SceneWaiting extends _cs.vn.Scene
+
+    f: ->
+        @scene.showLine()

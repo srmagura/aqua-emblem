@@ -37,10 +37,11 @@ class _file.fs.Chapter1 extends _file.FileState
         kenji = new _uclass.special.Kenji()
 
         lines = [
-            [ace, 'Hello everybody']
+            [ace, 'Hello everybody Hello everybody Hello everybody Hello everybody Hello everybody Hello everybody Hello everybody '],
+            [arrow, 'The second line']
         ]
 
-        @ui.scene.init(lines, bgImage)
+        @ui.scene.init(lines, bgImage, @chapter)
 
     chapter: =>
         @ui.destroy()

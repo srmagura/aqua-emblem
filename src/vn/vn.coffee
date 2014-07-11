@@ -13,7 +13,7 @@ class _vn.VisualNovelUI extends UI
         @scene = new _vn.Scene(this)
 
     destroy: ->
-        @vn.hide()
+        @wrapper.hide()
 
  
 _vn.setBackgroundImage = (el, path) ->

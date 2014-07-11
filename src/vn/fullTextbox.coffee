@@ -30,9 +30,9 @@ class _vn.FullTextbox
 
         @pageIndex = 0
         @lineIndex = 0
-        @wrapper.fadeIn(@fadeDelay, @animateLine)
+        @wrapper.fadeIn(@fadeDelay, @showLine)
 
-    animateLine: =>
+    showLine: =>
         if @callbackMade
             return
 
@@ -67,9 +67,6 @@ class _vn.FullTextbox
             @callbackMade = true
             @callback()
 
-    show: -> @wrapper.show()
-
-    hide: -> @wrapper.hide()
 
 class _cs.vn.FullTextbox extends _cs.ControlState
     
@@ -81,5 +78,5 @@ class _cs.vn.FullTextbox extends _cs.ControlState
 class _cs.vn.FullTextboxWaiting extends _cs.vn.FullTextbox
 
     f: ->
-        @boxObj.animateLine()
+        @boxObj.showLine()
 
