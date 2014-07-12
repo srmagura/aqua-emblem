@@ -37,8 +37,20 @@ class _file.fs.Chapter1 extends _file.FileState
         kenji = new _uclass.special.Kenji()
 
         lines = [
-            [ace, 'Hello everybody Hello everybody Hello everybody Hello everybody Hello everybody Hello everybody Hello everybody '],
-            [arrow, 'The second line']
+            [ace, 'Listen up everybody, we have a job today.'],
+            [arrow, 'Finally something to do!'],
+            [ace, 'Bandits have been raiding Yaksasu village, and the villagers will pay us if we drive them out.'],
+            [luciana, 'I\'ve heard about this. They have a fort on Yaksasu ridge. Sneaking up on them will be nearly impossible...'],
+            [ace, 'Exactly. Arrow, Kenji: be careful on this one. I know it’s been a long time since Hitomi died, but... I can’t let that happen again.'],
+            [arrow, 'We hear you, Ace. Don\'t worry. We\'re stronger than we were back then.'],
+            [luciana, 'Yeah, Arrow\'s right.'],
+            [ace, 'Kenji, anything to add?'],
+            [kenji, 'Huh? What are we talking about? But yes! That\'s a great idea, boss!'],
+            [ace, 'Uh... I didn\'t suggest anything.'],
+            [kenji, 'Okay, fine, whatever. Let\'s go out to play with those bandits! It’ll be fun!! =D'],
+            [ace, 'And you wonder why I worry about your safety... -.-'],
+            [arrow, 'Anyway, shouldn\'t we be heading out?'],
+            [luciana, 'Yeah. Let\'s go.']
         ]
 
         @ui.scene.setLocationText('Hellhounds HQ')

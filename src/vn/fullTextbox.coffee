@@ -1,9 +1,31 @@
 _vn.animateText = (el, text, callback=(->)) ->
     msPerChar = 30
 
+    spans = []
+    el.html('')
+
+    for char in text
+        span = $('<span></span>').text(char)
+        span.css('visibility', 'hidden')
+
+        el.append(span)
+        spans.push(span)
+
+    spanI = 0
+
     $({count: 0}).animate({count: text.length}, {
         duration: text.length*msPerChar,
-        step: -> el.text(text.substring(0, Math.round(@count))),
+        step: ->
+            rounded = Math.round(@count)
+            if rounded >= spanI
+                for j in [spanI .. rounded]
+                    if j == spans.length
+                        return
+
+                    spans[j].css('visibility', 'visible')
+
+            spanI = rounded+1
+
         complete: callback
     })
 

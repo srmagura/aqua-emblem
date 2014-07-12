@@ -19,7 +19,7 @@ class _vn.ChapterDisplay
 
     afterWait: =>
         if not @callbackMade
-            @toFade.fadeOut(@fadeDelay, @done)
+            @display.fadeOut(@fadeDelay, @done)
 
     skip: ->
         @display.hide()
