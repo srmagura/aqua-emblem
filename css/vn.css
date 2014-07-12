@@ -76,7 +76,7 @@
     font-size: 12pt;
 }
 
-/***** CHATBOX *****/
+/***** SCENE *****/
 .vn-wrapper .scene
 {
     position: absolute;
@@ -86,13 +86,25 @@
     height: 100%;
 }
 
+.vn-wrapper .scene .location
+{
+    position: absolute;
+    margin: 15px;
+    padding: 6px;
+    
+    background-color: #4d4da0;
+    border: 1px solid rgba(255, 255, 255, .15);
+    color: white;
+}
+
+/***** CHATBOX *****/
 .vn-wrapper .chatbox
 {
     position: absolute;
     top: 290px;
     height: 110px;
     width: 600px;
-    background-color: #333;
+    background-color: #007;
 }
 
 .vn-wrapper .chatbox .unit

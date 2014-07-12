@@ -1,13 +1,21 @@
 class _vn.Scene
 
     constructor: (@ui) ->
+        @sceneId = 0
+
         @wrapper = @ui.wrapper.find('.scene')
         @chatbox = @wrapper.find('.chatbox')
+        @locationBox = @wrapper.find('.location')
+
         @fadeDelay = 400
+        @locationText = null
+
+    setLocationText: (@locationText) ->
 
     init: (@lines, bgImage, @callback) ->
         @lineIndex = 0
         @callbackMade = false
+        @locationBoxTimer = null
 
         @ui.controlState = new _cs.vn.Scene(@ui, this)
         _vn.setBackgroundImage(@wrapper, bgImage)
@@ -15,10 +23,22 @@ class _vn.Scene
         @chatbox.find('.unit .image, .text').html('')
         @chatbox.find('.unit .name').hide()
 
+        if @locationText?
+            @locationBox.text(@locationText).show()
+        else
+            @locationBox.hide()
+
         @wrapper.fadeIn(@fadeDelay, @afterFadeIn)
 
     afterFadeIn: =>
         @showLine()
+
+        @locationBoxTimer = @sceneId
+        setTimeout(@fadeLocationBox, 3000)
+
+    fadeLocationBox: =>
+        if @locationBoxTimer == @sceneId
+            @locationBox.fadeOut(@fadeDelay)
 
     showLine: ->
         if @callbackMade
@@ -50,6 +70,8 @@ class _vn.Scene
     done: =>
         if not @callbackMade
             @callbackMade = true
+            @locationText = null
+            @sceneId++
             @callback()
 
 class _cs.vn.Scene extends _cs.ControlState

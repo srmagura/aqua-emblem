@@ -41,6 +41,7 @@ class _file.fs.Chapter1 extends _file.FileState
             [arrow, 'The second line']
         ]
 
+        @ui.scene.setLocationText('Hellhounds HQ')
         @ui.scene.init(lines, bgImage, @chapter)
 
     chapter: =>
