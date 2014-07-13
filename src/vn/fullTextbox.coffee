@@ -59,7 +59,8 @@ class _vn.FullTextbox
             return
 
         callback = =>
-            @ui.controlState = new _cs.vn.FullTextboxWaiting(@ui, this)
+            if not @callbackMade
+                @ui.controlState = new _cs.vn.FullTextboxWaiting(@ui, this)
 
         @box.find('.line').last().find('.vn-arrow').
             css('visibility', 'hidden')

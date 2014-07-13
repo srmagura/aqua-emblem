@@ -7,10 +7,12 @@ class _cui.ChapterUI extends UI
 
     constructor: ->
         super()
-        @gameWrapper = $('.game-wrapper').show()
 
         @expMultiplier = 1
         @speedMultiplier = 1
+
+        @fadeDelay = 1000
+        @gameWrapper = $('.game-wrapper')
 
         @then = Date.now()
         @canvas = $('canvas')
@@ -18,7 +20,6 @@ class _cui.ChapterUI extends UI
         @canvasDim = new Position(@canvas.height()/@tw,
             @canvas.width()/@tw)
 
-        @origin = new Position(0, 0)
         @cursor = new _cui.Cursor(this)
 
         @controlState = new _cs.cui.Chapter(this)
@@ -48,26 +49,36 @@ class _cui.ChapterUI extends UI
         @endTurnMenu = new _cui.EndTurnMenu(this)
 
         @terrainBox = new _cui.TerrainBox(this)
-        @speedMultiplierBox = $('.speed-multiplier-box')
+        @speedMultiplierBox = $('.speed-multiplier-box').hide()
 
         @staticTurn = new _turn.Turn(this)
-
-    centerElement: (el, padding) ->
-        css = {}
-        css.top = (@canvas.height()-el.height())/2 - padding
-        css.left = (@canvas.width()-el.width())/2 - padding
-        return css
 
     setChapter: (chapterCls) ->
         @chapter = new chapterCls(this)
         $('.victory-condition').text(@chapter.victoryCondition.text).
             show()
 
-    startChapter: ->
-        @chapter.doScrollSequence(
-            => @chapter.initTurn(@chapter.playerTeam)
-        )
+        @origin = @chapter.origin0
         @mainLoop()
+
+    startChapter: ->
+        afterFade = =>
+            @chapter.doScrollSequence(afterScroll)
+
+        afterScroll = =>
+            @chapter.initTurn(@chapter.playerTeam)
+
+        @gameWrapper.fadeIn(@fadeDelay, afterFade)
+
+    doneDefeat: =>
+        callback = =>
+            ui = new _sui.StartUI()
+            ui.init(true)
+
+        @destroy(callback)
+
+    destroy: (callback) ->
+        @gameWrapper.fadeOut(@fadeDelay, callback)
 
     onScreen: (pos) ->
         delta = pos.scale(@tw).subtract(@origin)
@@ -101,6 +112,12 @@ class _cui.ChapterUI extends UI
                 @scrollSpeed = .2
         else
             @direction = null
+
+    centerElement: (el, padding) ->
+        css = {}
+        css.top = (@canvas.height()-el.height())/2 - padding
+        css.left = (@canvas.width()-el.width())/2 - padding
+        return css
 
     render: ->
         if @chapter?

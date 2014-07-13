@@ -36,7 +36,9 @@ class _cui.MessageBox
         el.css(css).fadeIn(fadeDuration)
 
         afterFadeOut = =>
-            callback(callbackArg)
+            if callback?
+                el.hide()
+                callback(callbackArg)
 
         toDelay = =>
             @ui.canvasOverlay.overlay.fadeOut(fadeDuration)
@@ -44,6 +46,8 @@ class _cui.MessageBox
 
         if doFadeOut
             setTimeout(toDelay, fadeDuration*2)
+        else
+            setTimeout(afterFadeOut, fadeDuration*2)
 
     showPhaseMessage: (team, callback) ->
         ch = @ui.chapter
@@ -60,7 +64,9 @@ class _cui.MessageBox
 
 
     showVictoryMessage: ->
-        @showMessage('Victory!', 'victory-message', {}, (->), null, false)
+        @showMessage('Victory!', 'victory-message', {},
+            (->), null, false)
 
     showDefeatMessage: ->
-        @showMessage('Defeat.', 'defeat-message', {}, (->), null, false)
+        @showMessage('Defeat.', 'defeat-message', {},
+            @ui.doneDefeat, null, false)

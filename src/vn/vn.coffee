@@ -12,8 +12,8 @@ class _vn.VisualNovelUI extends UI
         @chapterDisplay = new _vn.ChapterDisplay(this)
         @scene = new _vn.Scene(this)
 
-    destroy: ->
-        @wrapper.hide()
+    destroy: (callback) ->
+        @wrapper.fadeOut(1000, callback)
 
  
 _vn.setBackgroundImage = (el, path) ->

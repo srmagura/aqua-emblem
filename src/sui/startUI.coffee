@@ -5,14 +5,23 @@ class _sui.StartUI extends UI
 
     constructor: ->
         super()
-        @vn = $('.vn-wrapper').show()
+        @vn = $('.vn-wrapper')
         @controlState = new _cs.ControlState(this)
         @wrapper = @vn.find('.start-menu-container')
         @itemContainer = @wrapper.find('.items')
 
-    init: ->
+    init: (fade=false) ->
+        @itemContainer.html('')
+        @wrapper.show()
         _vn.setBackgroundImage(@wrapper, 'start.png')
-        @initMenu(_sui.StartMenuMain)
+
+        next = => @initMenu(_sui.StartMenuMain)
+
+        if fade
+            @vn.fadeIn(1000, next)
+        else
+            @vn.show()
+            next()
 
     initMenu: (menuCls) ->
         @menu = new menuCls(this, @itemContainer)

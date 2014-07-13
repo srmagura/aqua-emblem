@@ -93,14 +93,13 @@ class _chapters.Chapter1 extends _map.Chapter
         ]
 
         playerPositions = [[2,1], [1,0], [0,1], [1, 2]]
+        @origin0 = new Position(0, 4*@ui.tw)
 
         map = new _map.Map(tiles, terrainMapping, playerPositions)
-        super(ui, map, playerTeam, enemyTeam,
+        super(@ui, map, playerTeam, enemyTeam,
         _map.VICTORY_CONDITION.ROUT)
 
     doScrollSequence: (callback) ->
-        @ui.origin = new Position(0, 4*ui.tw)
-
         f = =>
             @ui.scrollTo(new Position(0, 0), callback, .07)
 

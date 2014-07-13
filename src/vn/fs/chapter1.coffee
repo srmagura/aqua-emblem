@@ -54,10 +54,12 @@ class _file.fs.Chapter1 extends _file.FileState
         ]
 
         @ui.scene.setLocationText('Hellhounds HQ')
-        @ui.scene.init(lines, bgImage, @chapter)
+        @ui.scene.init(lines, bgImage, @destroyVn)
+
+    destroyVn: =>
+        @ui.destroy(@chapter)
 
     chapter: =>
-        @ui.destroy()
         @ui = new _cui.ChapterUI()
         @ui.setChapter(_chapters.Chapter1)
         @ui.startChapter()
