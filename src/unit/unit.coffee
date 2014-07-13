@@ -23,12 +23,8 @@ class _unit.Unit
             @setName(@name)
 
         @statuses = []
-        @calcStats()
-
-        @hp = @maxHp
-        if @maxMp?
-            @mp = Math.round(@maxMp/2)
-
+        @calcStatsInitial()
+        
         if 'picture' not of this
             @picture = false
         if 'boss' not of this
@@ -112,6 +108,13 @@ class _unit.Unit
         for stat, value of startStats
             if stat not of @startStats
                 @startStats[stat] = value
+
+    calcStatsInitial: ->
+        @calcStats()
+
+        @hp = @maxHp
+        if @maxMp?
+            @mp = Math.round(@maxMp/2)
 
     calcStats: (dryRun=false) ->
         @baseStats = {}

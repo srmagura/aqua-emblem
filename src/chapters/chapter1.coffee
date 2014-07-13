@@ -9,7 +9,7 @@ class _chapters.Chapter1 extends _map.Chapter
             new _uclass.special.Luciana(),
             new _uclass.special.Kenji(),
         ]
-        playerTeam = new _team.PlayerTeam(playerUnits)
+        @playerTeam = new _team.PlayerTeam(playerUnits)
      
         enemyUnits = [
             new _uclass.Fighter({pos: new Position(4, 2),
@@ -70,8 +70,8 @@ class _chapters.Chapter1 extends _map.Chapter
             level: 5,
             inventory: [new _item.IronAxe()]})
         ]
-        enemyTeam = new _team.EnemyTeam(enemyUnits.slice(0,1), {defaultName: 'Bandit'})
-        enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'
+        @enemyTeam = new _team.EnemyTeam(enemyUnits, {defaultName: 'Bandit'})
+        @enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'
 
         terrainMapping = {
             0: _terrain.Plain
@@ -94,10 +94,10 @@ class _chapters.Chapter1 extends _map.Chapter
 
         playerPositions = [[2,1], [1,0], [0,1], [1, 2]]
         @origin0 = new Position(0, 4*@ui.tw)
-
+        @victoryCondition = _map.VICTORY_CONDITION.ROUT
+        
         map = new _map.Map(tiles, terrainMapping, playerPositions)
-        super(@ui, map, playerTeam, enemyTeam,
-        _map.VICTORY_CONDITION.ROUT)
+        super(@ui, map)
 
     doScrollSequence: (callback) ->
         f = =>

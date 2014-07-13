@@ -60,8 +60,9 @@ class _file.fs.Chapter1 extends _file.FileState
 
     chapter: =>
         @ui = new _cui.ChapterUI()
+        @ui.file = @file
         @ui.setChapter(_chapters.Chapter1)
-        @ui.startChapter(@scene2)   
+        @ui.startChapter(@scene2)
      
     scene2: =>
         @ui = new _vn.VisualNovelUI()

@@ -4,7 +4,7 @@ _map.VICTORY_CONDITION = {
 
 class _map.Chapter
     
-    constructor: (@ui, @map, @playerTeam, @enemyTeam, @victoryCondition) ->
+    constructor: (@ui, @map) ->
         @done = false
         @initUnits()
 
@@ -19,6 +19,13 @@ class _map.Chapter
             @units.push(unit)
             unit.team = @playerTeam
 
+            bonus = @ui.file.difficulty.statBonus
+            for stat of unit.startStats
+                if stat != 'move'
+                    unit.startStats[stat] += bonus
+
+            unit.calcStatsInitial()
+
         for unit in @enemyTeam.units
             @units.push(unit)
             unit.team = @enemyTeam
@@ -31,7 +38,7 @@ class _map.Chapter
             if unit.pos.equals(pos)
                 return unit
 
-        null
+        return null
 
     kill: (unit) ->
         removeFrom = (array) ->

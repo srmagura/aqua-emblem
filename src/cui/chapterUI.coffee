@@ -8,9 +8,7 @@ class _cui.ChapterUI extends UI
     constructor: ->
         super()
 
-        @expMultiplier = 1
         @speedMultiplier = 1
-
         @fadeDelay = 1000
         @gameWrapper = $('.game-wrapper')
 
@@ -54,6 +52,11 @@ class _cui.ChapterUI extends UI
         @staticTurn = new _turn.Turn(this)
 
     setChapter: (chapterCls) ->
+        if not @file?
+            console.log 'ChapterUI: file not set'
+        
+        @expMultiplier = @file.difficulty.expMultiplier
+
         @chapter = new chapterCls(this)
         $('.victory-condition').text(@chapter.victoryCondition.text).
             show()
