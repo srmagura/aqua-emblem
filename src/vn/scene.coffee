@@ -10,8 +10,6 @@ class _vn.Scene
         @fadeDelay = 400
         @locationText = null
 
-    setLocationText: (@locationText) ->
-
     init: (@lines, bgImage, @callback) ->
         @lineIndex = 0
         @callbackMade = false

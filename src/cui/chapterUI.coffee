@@ -61,7 +61,7 @@ class _cui.ChapterUI extends UI
         @origin = @chapter.origin0
         @mainLoop()
 
-    startChapter: ->
+    startChapter: (@callback) ->
         afterFade = =>
             @chapter.doScrollSequence(afterScroll)
 
@@ -69,6 +69,9 @@ class _cui.ChapterUI extends UI
             @chapter.initTurn(@chapter.playerTeam)
 
         @gameWrapper.fadeIn(@fadeDelay, afterFade)
+
+    doneVictory: =>
+        @destroy(@callback)
 
     doneDefeat: =>
         callback = =>

@@ -65,7 +65,7 @@ class _cui.MessageBox
 
     showVictoryMessage: ->
         @showMessage('Victory!', 'victory-message', {},
-            (->), null, false)
+            @ui.doneVictory, null, false)
 
     showDefeatMessage: ->
         @showMessage('Defeat.', 'defeat-message', {},
