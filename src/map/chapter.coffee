@@ -82,6 +82,9 @@ class _map.Chapter
         @ui.controlState = new _cs.cui.Chapter(@ui)
 
         if team instanceof _team.PlayerTeam
+            if @ui.cursor.pos? and not @ui.onScreen(@ui.cursor.pos)
+                @ui.scrollTo(@ui.cursor.pos)
+
             for unit in @units
                 unit.onNewTurn()
         else
@@ -103,9 +106,6 @@ class _map.Chapter
                 @ui.cursor.moveTo(@ui.cursor.pos)
 
                 @ui.controlState = new _cs.cui.Map(@ui)
-
-        if @ui.cursor.pos?
-            @ui.scrollTo(@ui.cursor.pos)
 
         @ui.messageBox.showPhaseMessage(team, callback)
 

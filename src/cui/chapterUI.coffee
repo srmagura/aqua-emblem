@@ -54,6 +54,8 @@ class _cui.ChapterUI extends UI
     setChapter: (chapterCls) ->
         if not @file?
             console.log 'ChapterUI: file not set'
+            @file = new _file.File()
+            @file.difficulty = _file.difficulty.hard
         
         @expMultiplier = @file.difficulty.expMultiplier
 
@@ -64,14 +66,19 @@ class _cui.ChapterUI extends UI
         @origin = @chapter.origin0
         @mainLoop()
 
-    startChapter: (@callback) ->
+    startChapter: (@callback, devMode=false) ->
         afterFade = =>
             @chapter.doScrollSequence(afterScroll)
 
         afterScroll = =>
             @chapter.initTurn(@chapter.playerTeam)
 
-        @gameWrapper.fadeIn(@fadeDelay, afterFade)
+        if not devMode
+            @gameWrapper.fadeIn(@fadeDelay, afterFade)
+        else
+            @gameWrapper.show()
+            @origin = new Position(0,0)
+            afterScroll()
 
     doneVictory: =>
         @destroy(@callback)
