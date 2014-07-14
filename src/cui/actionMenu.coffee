@@ -33,38 +33,6 @@ class _cui.ActionMenu
 class _cui.ActionMenuItem
     constructor: (@name, @handler) ->
 
-class _cs.cui.Menu extends _cs.Menu
-
-    constructor: (@ui, @menuObj) ->
-        @chapterCs = new _cs.cui.Chapter(@ui)
-
-    v: -> @chapterCs.v()
-
-    onChange: ->
-
-    up: ->
-        sel = @menuObj.menu.find('.selected')
-        sel.removeClass('selected')
-
-        if sel.prev().size() != 0
-            sel.prev().addClass('selected')
-        else
-            @menuObj.menu.children('div').last().
-                addClass('selected')
-
-        @onChange()
-
-    down: ->
-        sel = @menuObj.menu.find('.selected')
-        sel.removeClass('selected')
-
-        if sel.next().size() != 0
-            sel.next().addClass('selected')
-        else
-            @menuObj.menu.children('div').first().
-                addClass('selected')
-
-        @onChange()
 
 class _cs.cui.ActionMenu extends _cs.cui.Menu
 

@@ -14,7 +14,8 @@ lib/vn/scene.js
 
 lib/vn/fs/chapter1.js
 
-lib/cui/chapterUI.js 
+lib/cui/chapterUI.js
+lib/cui/menu.js
 lib/cui/cursor.js
 lib/cui/unitInfoBox.js 
 lib/cui/unitInfoWindow.js

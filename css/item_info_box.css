@@ -11,9 +11,21 @@
     z-index: 10;
 }
 
-.item-info-box .weapon-stats
+.sidebar .item-info-box
 {
     margin-top: 5px;
+    width: 90px;
+    padding: 2px;
+}
+
+.sidebar .item-info-box .header
+{
+    display: none;
+}
+
+.item-info-box .header
+{
+    margin-bottom: 5px;
 }
 
 .item-info-box .label

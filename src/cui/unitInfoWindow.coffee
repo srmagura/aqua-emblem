@@ -197,7 +197,7 @@ class _cs.cui.UnitInfoWindow extends _cs.cui.Chapter
         @windowObj.changeTab(tabId)
 
 
-class _cs.cui.UnitInfoWindowInventory extends _cs.Menu
+class _cs.cui.UnitInfoWindowInventory extends _cs.cui.Menu
 
     constructor: (@ui, menu) ->
         super(@ui, {menu: menu})
