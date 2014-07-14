@@ -11,6 +11,7 @@ class _item.Item
         src = "images/items/#{@image}"
         el.append($("<img src='#{src}' />"))
         el.append($("<span>#{@name}</span>"))
+        el.data('item', this)
         return el
 
 class _item.Weapon extends _item.Item

@@ -20,6 +20,10 @@ class _cui.UnitInfoWindow
         skillsEl = $('.invisible .tab-content-skills .skills-box')
         @skillsBox = new _cui.SkillsBox(@ui, skillsEl, @skillInfoBox)
 
+        itemInfoBoxEl = $('.sidebar .item-info-box').clone()
+        $('.canvas-container').append(itemInfoBoxEl)
+        @itemInfoBox = new _cui.ItemInfoBox(@ui, itemInfoBoxEl)
+
     init: (@unit) ->
         @initCommon()
         @initInventoryTab()
@@ -38,6 +42,9 @@ class _cui.UnitInfoWindow
         css = @window.position()
         css.left += @window.width() + 20
         @skillInfoBox.box.css(css)
+
+        css.top += @window.find('.inventory').position().top + 3
+        @itemInfoBox.box.css(css)
 
     initCommon: ->
         @ui.viewportOverlay.show()
@@ -141,6 +148,11 @@ class _cui.UnitInfoWindow
         labels.find('.tab-label-' + tabId).addClass('selected')
         @window.find('.tab-container .tab-content-' + tabId).show()
 
+    selectedItemChanged: ->
+        selected = @window.find('.inventory .selected')
+        item = selected.data('item')
+        @itemInfoBox.init(item, @unit.canUse(item))
+
 
 class _cs.cui.UnitInfoWindow extends _cs.cui.Chapter
 
@@ -151,8 +163,16 @@ class _cs.cui.UnitInfoWindow extends _cs.cui.Chapter
         @ui.controlState = @windowObj.prevControlState
 
     s: ->
-        if @windowObj.getSelectedLabel().hasClass('tab-label-skills')
+        sel = @windowObj.getSelectedLabel()
+        if sel.hasClass('tab-label-skills')
             @windowObj.skillsBox.giveControl()
+
+        else if sel.hasClass('tab-label-inventory')
+            el = @windowObj.window.find('.inventory')
+            @ui.controlState = new _cs.cui.UnitInfoWindowInventory(@ui, el)
+
+            el.children().first().addClass('selected')
+            @windowObj.selectedItemChanged()
 
     left: ->
         selectedLabel = @windowObj.getSelectedLabel()
@@ -175,3 +195,17 @@ class _cs.cui.UnitInfoWindow extends _cs.cui.Chapter
 
         tabId = label.find('.tab-id').text()
         @windowObj.changeTab(tabId)
+
+
+class _cs.cui.UnitInfoWindowInventory extends _cs.Menu
+
+    constructor: (@ui, menu) ->
+        super(@ui, {menu: menu})
+
+    onChange: ->
+        @ui.unitInfoWindow.selectedItemChanged()
+
+    d: ->
+        @menuObj.menu.find('.selected').removeClass('selected')
+        @ui.unitInfoWindow.itemInfoBox.hide()
+        @ui.controlState = new _cs.cui.UnitInfoWindow(@ui, @ui.unitInfoWindow)

@@ -1,0 +1,30 @@
+.item-info-box
+{
+    display: none;
+    width: 150px;
+    padding: 4px;
+}
+
+.canvas-container .item-info-box
+{
+    position: absolute;
+    z-index: 10;
+}
+
+.item-info-box .weapon-stats
+{
+    margin-top: 5px;
+}
+
+.item-info-box .label
+{
+    padding-top: 2px;
+    font-size: 9pt;
+    width: 50px;
+    text-align: center;
+}
+
+.item-info-box .weapon-stats .value
+{
+    padding-left: 5px;
+}

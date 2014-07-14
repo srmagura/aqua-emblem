@@ -21,7 +21,7 @@
 
 .unit-info-window
 {
-    height: 230px;
+    height: 245px;
 }
 
 /***** COMMON *****/
@@ -114,7 +114,14 @@
 
 .unit-info-window .tab-content-inventory .item-element
 {
-    padding: 2px 0 3px;
+    padding: 1px 0 2px 3px;
+    border: 1px solid transparent;
+}
+
+.unit-info-window .item-element.selected
+{
+    background-color: rgba(0, 0, 255, 0.3);
+    border: 1px solid rgba(0, 0, 255, 0.35);
 }
 
 .item-element img
@@ -136,10 +143,10 @@
 /***** COMBAT STATS *****/
 .unit-info-window .combat-stats
 {
+    clear: both;
     border: 2px solid #007A29;
     background-color: #BEB;
     padding: 2px;
-    margin-top: 8px;
 }
 
 .unit-info-window .combat-stats table
@@ -209,11 +216,12 @@
     width: 35px;
 }
 
-.unit-info-window .tab-content-skills .controls
+.unit-info-window .controls
 {
     float: right;
     font-size: 8pt;
     padding: 3px;
+    margin-bottom: 5px;
 }
 
 /* LEVEL UP WINDOW */

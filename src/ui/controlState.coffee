@@ -41,4 +41,3 @@ class _cs.Menu extends _cs.ControlState
                 addClass('selected')
 
         @onChange()
-

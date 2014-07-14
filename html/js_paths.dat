@@ -24,6 +24,7 @@ lib/cui/levelUpWindow.js
 lib/cui/tradeWindow.js
 lib/cui/actionMenu.js
 lib/cui/weaponMenu.js
+lib/cui/itemInfoBox.js
 lib/cui/battleStatsPanel.js
 lib/cui/message.js
 lib/cui/endTurn.js
