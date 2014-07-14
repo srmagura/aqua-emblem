@@ -83,7 +83,7 @@ class _skill.Temper extends _skill.AidSkill
         @type = _skill.type.None
         @desc = 'Temporarily buff an ally\'s strength.'
 
-        @mp = 9
+        @mp = 2 #9
         @range = new Range(0, 1)
 
     doEffect: (target) ->
@@ -99,7 +99,7 @@ class _skill.Protect extends _skill.AidSkill
         @type = _skill.type.None
         @desc = 'Temporarily buff an ally\'s defence.'
 
-        @mp = 1
+        @mp = 2 #7
         @range = new Range(0, 1)
 
     doEffect: (target) ->

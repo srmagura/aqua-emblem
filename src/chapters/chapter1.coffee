@@ -70,8 +70,6 @@ class _chapters.Chapter1 extends _map.Chapter
             level: 5,
             inventory: [new _item.IronAxe()]})
         ]
-        enemyUnits = enemyUnits.splice(0,1)
-        enemyUnits[0].pos = new Position(8,3)
         @enemyTeam = new _team.EnemyTeam(enemyUnits, {defaultName: 'Bandit'})
         @enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'
 
@@ -94,7 +92,7 @@ class _chapters.Chapter1 extends _map.Chapter
             [1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 2, 1, 1, 1],
         ]
 
-        playerPositions = [[2,1], [9,1], [0,1], [1, 2]]
+        playerPositions = [[2,1], [1,0], [0,1], [1, 2]]
         @origin0 = new Position(0, 4*@ui.tw)
         @victoryCondition = _map.VICTORY_CONDITION.ROUT
         

@@ -105,7 +105,7 @@ class _enc.Battle extends _enc.Encounter
             recvr.hp -= dmg
 
             if giver is @getPlayerUnit()
-                if giver.mp < giver.baseMp
+                if giver.mp < giver.maxMp
                     giver.mp++
 
                 @attacksHit++

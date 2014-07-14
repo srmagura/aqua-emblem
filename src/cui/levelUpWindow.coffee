@@ -40,7 +40,7 @@ class _cui.LevelUpWindow
 
         for st in @statTypes
             el = stats.find('.' + st)
-            el.find('span').text(@unit[st])
+            el.find('span').text(@unit.baseStats[st])
             el.removeClass('stat-up')
 
     showIncrement: =>
@@ -53,7 +53,7 @@ class _cui.LevelUpWindow
                 return
 
         el = @window.find(".stats .#{st}")
-        el.find('span').text(@unit[st] + 1)
+        el.find('span').text(@unit.baseStats[st] + 1)
         el.addClass('stat-up')
         el.find('img').css('visibility', 'visible')
 

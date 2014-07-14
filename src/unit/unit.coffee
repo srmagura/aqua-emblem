@@ -22,7 +22,9 @@ class _unit.Unit
         if @name?
             @setName(@name)
 
+        @baseStats = {}
         @statuses = []
+
         @calcStatsInitial()
         
         if 'picture' not of this
@@ -117,7 +119,6 @@ class _unit.Unit
             @mp = Math.round(@maxMp/2)
 
     calcStats: (dryRun=false) ->
-        @baseStats = {}
         increment = {}
 
         for stat, value of @startStats
@@ -126,7 +127,7 @@ class _unit.Unit
 
             rounded = Math.round(value)
 
-            if rounded > this[stat]
+            if rounded > @baseStats[stat]
                 increment[stat] = 1
 
             if not dryRun
@@ -168,8 +169,10 @@ class _unit.Unit
             return null
 
     doIncrement: (increment) ->
-        for stat in increment
-            this[stat]++
+        for stat of increment
+            @baseStats[stat]++
+
+        @updateStats()
 
     canUse: (item) ->
         return @canWield(item)
