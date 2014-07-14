@@ -13,6 +13,21 @@ class _skill.type.None extends _skill.type.SkillType
 class _skill.type.Holy extends _skill.type.SkillType
     @image: 'aquabolt'
 
+class _skill.type.Dark extends _skill.type.SkillType
+    @image: 'fire'
+
+class _skill.type.Sword extends _skill.type.SkillType
+    @image: 'iron_sword'
+
+class _skill.type.Lance extends _skill.type.SkillType
+    @image: 'iron_lance'
+
+class _skill.type.Axe extends _skill.type.SkillType
+    @image: 'iron_axe'
+
+class _skill.type.Bow extends _skill.type.SkillType
+    @image: 'iron_bow'
+
 
 class _skill.Skill
 
@@ -47,6 +62,19 @@ class _cs.cui.Skill extends _cs.cui.MapTarget
 
     constructor: (@ui, @playerTurn, @skill) ->
 
+    getUserTarget: ->
+        user = @playerTurn.selectedUnit
+        target = @ui.chapter.getUnitAt(@ui.cursor.pos)
+
+        if not (target? and @skill.isValidTarget(target))
+            return false
+
+        dist = user.pos.distance(target.pos)
+        if @skill.range.contains(dist)
+            return {user: user, target: target}
+
+        return false
+
     f: ->
         @ui.cursor.visible = false
         @ui.unitInfoBox.hide()
@@ -57,6 +85,8 @@ class _cs.cui.Skill extends _cs.cui.MapTarget
 
     d: ->
         @ui.cursor.visible = false
+        @ui.battleStatsPanel.hide()
+        @playerTurn.selectedUnit.refreshInventory()
         @playerTurn.handleSkill()
 
     skillDone: =>

@@ -22,7 +22,7 @@ class _cui.UnitInfoBox
 
         @box.find('.name').text(unit.name)
 
-        src = "images/items/#{unit.equipped.image}"
+        src = unit.equipped.getImagePath()
         @box.find('.equipped').attr('src', src)
 
         @delay = 200 / @ui.speedMultiplier

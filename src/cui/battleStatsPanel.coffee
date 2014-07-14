@@ -8,7 +8,7 @@ class _cui.BattleStatsPanel
             nameCell = @panel.find(".#{unitName}-name")
             nameCell.find('span').text(unit.name)
 
-            imgSrc = "images/items/#{unit.equipped.image}"
+            imgSrc = unit.equipped.getImagePath()
             nameCell.find('img.weapon').attr('src', imgSrc)
 
             if unit.advantage is true

@@ -11,29 +11,27 @@ class _skill.AidSkill extends _skill.Skill
 class _cs.cui.AidSkill extends _cs.cui.Skill
 
     f: ->
-        unit = @playerTurn.selectedUnit
-        target = @ui.chapter.getUnitAt(@ui.cursor.pos)
+        result = @getUserTarget()
 
-        if not (target? and @skill.isValidTarget(target))
+        if result is false
             return
-
-        dist = unit.pos.distance(target.pos)
-        if dist > @skill.range.max
-            return
+        else
+            user = result.user
+            target = result.target
 
         super()
 
-        delta = @skill.getDelta(unit)
+        delta = @skill.getDelta(user)
 
         afterAction = =>
             @skill.doEffect(target)
             @skillDone()
 
-        if unit is target
-            action = new _enc.UnitAction(@ui, unit)
+        if user is target
+            action = new _enc.UnitAction(@ui, user)
             action.doAction(@skill, afterAction, delta)
         else
-            encounter = new _enc.AidEncounter(@ui, unit, target)
+            encounter = new _enc.AidEncounter(@ui, user, target)
             encounter.doEncounter(afterAction, @skill, delta)
 
 

@@ -53,7 +53,7 @@ class _unit.Unit
         @totalRange = new Range()
         for item in @inventory
             if @canWield(item)
-                if not @equipped?
+                if not @equipped? or @equipped instanceof _skill.Skill
                     @equipped = item
 
                 @totalRange = @totalRange.union(item.range)
