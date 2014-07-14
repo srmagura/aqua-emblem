@@ -22,6 +22,9 @@ class _cs.cui.MapAbstract extends _cs.cui.Chapter
         if unit?
             @ui.unitInfoWindow.init(unit)
 
+    e: ->
+        @ui.endTurnMenu.init()
+
     moved: ->
         @ui.terrainBox.init()
 
@@ -31,8 +34,7 @@ class _cs.cui.Map extends _cs.cui.MapAbstract
         pt = @ui.chapter.playerTurn
         if not pt.selectedUnit?
             unit = @ui.chapter.getUnitAt(@ui.cursor.pos)
-            if unit? and unit.team is @ui.chapter.playerTeam and
-            not unit.done
+            if unit? and not unit.done
                 pt.select(unit)
         else if pt.dest.pos.equals(@ui.cursor.pos)
             pt.initMove()
@@ -42,7 +44,13 @@ class _cs.cui.Map extends _cs.cui.MapAbstract
 
     e: ->
         @ui.chapter.playerTurn.deselect()
-        @ui.endTurnMenu.init()
+        super()
+
+class _cs.cui.EnemySelected extends _cs.cui.Map
+    f: ->
+    d: ->
+        super()
+        @ui.controlState = new _cs.cui.Map(@ui)
 
 class _cs.cui.MapTarget extends _cs.cui.MapAbstract
 

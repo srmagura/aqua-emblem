@@ -4,9 +4,9 @@ class _turn.PlayerTurn extends _turn.Turn
         super(@ui)
         @tradeRange = new Range(1)
 
-    select: (@selectedUnit) ->
-        @available = @getAvailable(@selectedUnit)
-        attackRange = @movementGetAttackRange(@available)
+    select: (unit) ->
+        @available = @getAvailable(unit)
+        attackRange = @movementGetAttackRange(@available, unit)
 
         for spot in attackRange
             @ui.chapter.map.setOverlay(spot.targetSpot, 'ATTACK')
@@ -14,18 +14,25 @@ class _turn.PlayerTurn extends _turn.Turn
         for spot in @available
             @ui.chapter.map.setOverlay(spot.pos, 'AVAILABLE')
 
-        @dest = new _turn.Destination()
-        @updateDestination()
+
+        if unit.team instanceof _team.PlayerTeam
+            @selectedUnit = unit
+            @dest = new _turn.Destination()
+            @updateDestination()
+        else
+            @selectedEnemy = unit
+            @ui.controlState = new _cs.cui.EnemySelected(@ui)
 
     deselect: ->
         @selectedUnit = null
+        @selectedEnemy = null
         @dest = null
         @ui.chapter.map.clearOverlay()
 
     updateDestination: ->
         cp = @ui.cursor.pos
         if @ui.chapter.map.overlayTiles[cp.i][cp.j] is
-        _map.OVERLAY_TYPES.AVAILABLE
+        _map.OVERLAY_TYPES.AVAILABLE and @selectedUnit?
             @dest.pos = cp.clone()
 
             for spot in @available

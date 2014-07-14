@@ -115,7 +115,7 @@ class _turn.Turn
 
         return actionRange
 
-    movementGetAttackRange: (available, unit=@selectedUnit) ->
+    movementGetAttackRange: (available, unit) ->
         attackRange = []
         for avail in available
             localRange = @getAttackRange(unit, avail.pos)

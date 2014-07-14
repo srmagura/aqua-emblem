@@ -15,7 +15,8 @@ div.wrapper
 div.game-wrapper
 {
     display: none;
-    height: 400px;
+    height: 350px;
+    margin: 15px 0 35px;
 }
 
 div.canvas-container
