@@ -104,6 +104,9 @@ class _enc.Battle extends _enc.Encounter
 
             recvr.hp -= dmg
 
+            if dmg == 0
+                @displayMessage(recvr, 'no-dmg')
+
             if giver is @getPlayerUnit()
                 if giver.mp < giver.maxMp
                     giver.mp++
@@ -172,9 +175,11 @@ class _enc.Battle extends _enc.Encounter
         tw = @ui.tw
 
         if mtype is 'miss'
-            el.text('Miss')
+            el.text('MISS')
         else if mtype is 'crit'
-            el.text('Crit!')
+            el.text('CRIT!')
+        else if mtype is 'no-dmg'
+            el.text('NO DMG')
         
         top = overUnit.pos.i*tw - ui.origin.i
         left = overUnit.pos.j*tw + tw/2 - el.width()/2 - ui.origin.j
@@ -187,4 +192,3 @@ class _enc.Battle extends _enc.Encounter
             el.remove()
 
         setTimeout(startFadeOut, 3*@delay/5)
-

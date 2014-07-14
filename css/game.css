@@ -179,8 +179,7 @@ div.battle-message
     border-style: solid;
 
     padding: 2px;
-    font-size: 9pt;
-    font-weight: bold;
+    font-size: 8pt;
 }
 
 div.battle-message.miss
@@ -195,6 +194,13 @@ div.battle-message.crit
 {
     background-color: #FAA;
     border-color: orangered;
+}
+
+div.battle-message.no-dmg
+{
+    background-color: #DDD;
+    border-color: #555;
+    opacity: .75;
 }
 
 /***** SPEED MULTIPLIER BOX *****/
