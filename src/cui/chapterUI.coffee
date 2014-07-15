@@ -15,8 +15,7 @@ class _cui.ChapterUI extends UI
         @then = Date.now()
         @canvas = $('canvas')
         @ctx = @canvas[0].getContext('2d')
-        @canvasDim = new Position(@canvas.height()/@tw,
-            @canvas.width()/@tw)
+        @canvasDim = new Position(10, 12)
 
         @cursor = new _cui.Cursor(this)
 
