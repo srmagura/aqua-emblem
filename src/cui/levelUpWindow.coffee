@@ -4,6 +4,7 @@ class _cui.LevelUpWindow
         @window = $('.level-up-window')
 
     init: (@unit, @increment, @callback) ->
+        console.log @increment
         @initCommon()
         @initStats()
 
@@ -45,19 +46,19 @@ class _cui.LevelUpWindow
 
     showIncrement: =>
         while true
+            if @incIndex == @statTypes.length
+                @ui.controlState = new _cs.cui.LevelUpWindow(@ui, this)
+                return
+
             st = @statTypes[@incIndex++]
             if st of @increment
                 break
-            else if @incIndex == @statTypes.length
-                @ui.controlState = new _cs.cui.LevelUpWindow(@ui, this)
-                return
 
         el = @window.find(".stats .#{st}")
         el.find('span').text(@unit.baseStats[st] + 1)
         el.addClass('stat-up')
         el.find('img').css('visibility', 'visible')
 
-        @incIndex++
         setTimeout(@showIncrement, @delay/2)
 
     hide: ->

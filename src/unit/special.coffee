@@ -11,7 +11,7 @@ class _uclass.special.Ace extends _uclass.Mercenary
         skill: 3.8, speed: 5, res: 2, luck: 8, mag: 3}
 
         @growthRates = {maxHp: .7, maxMp: 1, str: .5, skill: .35,
-        speed: .35, luck: .5, def: .4, res: .15}
+        speed: .35, luck: .5, def: .4, res: .15, mag: .3}
 
         super()
 
