@@ -4,7 +4,6 @@ class _cui.LevelUpWindow
         @window = $('.level-up-window')
 
     init: (@unit, @increment, @callback) ->
-        console.log @increment
         @initCommon()
         @initStats()
 

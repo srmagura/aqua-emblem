@@ -86,7 +86,7 @@
 .skill-info-box .stats .value
 {
     float: right;
-    padding-right: 30px;
+    padding-right: 20px;
 }
 
 .skill-info-box .stats .value.range
@@ -96,7 +96,7 @@
 
 .skill-info-box .stats .value.type
 {
-    padding-right: 24px;
+    padding-right: 16px;
 }
 
 .skill-info-box .stats .type img
