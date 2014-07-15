@@ -1,0 +1,577 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Aqua Emblem</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <link rel="stylesheet" type="text/css" href="css/battle_stats_panel.css"/>
+<link rel="stylesheet" type="text/css" href="css/unit_info_window.css"/>
+<link rel="stylesheet" type="text/css" href="css/vn.css"/>
+<link rel="stylesheet" type="text/css" href="css/terrain_box.css"/>
+<link rel="stylesheet" type="text/css" href="css/exp_bar.css"/>
+<link rel="stylesheet" type="text/css" href="css/item_info_box.css"/>
+<link rel="stylesheet" type="text/css" href="css/start.css"/>
+<link rel="stylesheet" type="text/css" href="css/unit_info_box.css"/>
+<link rel="stylesheet" type="text/css" href="css/trade_window.css"/>
+<link rel="stylesheet" type="text/css" href="css/skills.css"/>
+<link rel="stylesheet" type="text/css" href="css/game.css"/>
+<link rel="stylesheet" type="text/css" href="css/menu.css"/>
+
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="lib/ui/ui.js"></script>
+<script src="lib/ui/controlState.js"></script>
+<script src="lib/ui/init.js"></script>
+<script src="lib/sui/startUI.js"></script>
+<script src="lib/sui/file.js"></script>
+<script src="lib/vn/vn.js"></script>
+<script src="lib/vn/fullTextbox.js"></script>
+<script src="lib/vn/chapterDisplay.js"></script>
+<script src="lib/vn/scene.js"></script>
+<script src="lib/vn/fs/chapter1.js"></script>
+<script src="lib/cui/chapterUI.js"></script>
+<script src="lib/cui/menu.js"></script>
+<script src="lib/cui/cursor.js"></script>
+<script src="lib/cui/unitInfoBox.js "></script>
+<script src="lib/cui/unitInfoWindow.js"></script>
+<script src="lib/cui/skillsBox.js"></script>
+<script src="lib/cui/skillInfoBox.js"></script>
+<script src="lib/cui/levelUpWindow.js"></script>
+<script src="lib/cui/tradeWindow.js"></script>
+<script src="lib/cui/actionMenu.js"></script>
+<script src="lib/cui/weaponMenu.js"></script>
+<script src="lib/cui/itemInfoBox.js"></script>
+<script src="lib/cui/battleStatsPanel.js"></script>
+<script src="lib/cui/message.js"></script>
+<script src="lib/cui/endTurn.js"></script>
+<script src="lib/cui/terrainBox.js"></script>
+<script src="lib/cui/expBar.js"></script>
+<script src="lib/map/map.js"></script>
+<script src="lib/map/chapter.js"></script>
+<script src="lib/map/csmap.js"></script>
+<script src="lib/map/position.js"></script>
+<script src="lib/map/terrain.js"></script>
+<script src="lib/map/range.js"></script>
+<script src="lib/turn/turn.js"></script>
+<script src="lib/turn/playerTurn.js"></script>
+<script src="lib/turn/enemyTurn.js"></script>
+<script src="lib/enc/encounter.js"></script>
+<script src="lib/enc/battle.js"></script>
+<script src="lib/enc/unitAction.js"></script>
+<script src="lib/enc/aidEncounter.js"></script>
+<script src="lib/unit/unit.js"></script>
+<script src="lib/unit/team.js"></script>
+<script src="lib/unit/status.js"></script>
+<script src="lib/unit/uclass.js"></script>
+<script src="lib/unit/special.js"></script>
+<script src="lib/item/item.js"></script>
+<script src="lib/skill/skill.js"></script>
+<script src="lib/skill/aid.js"></script>
+<script src="lib/skill/attack.js"></script>
+<script src="lib/chapters/chapter1.js"></script>
+ 
+</head>
+<body>
+<script>
+$(window).load(init)
+</script>
+
+<div class="wrapper">
+    <div class="game-wrapper">
+        <div class="sidebar left-sidebar">
+            <div class="unit-info">
+    <div class="image-wrapper">
+        <img />
+    </div>
+    <div class="not-image">
+        <div>
+            <span class="name">.</span>
+            <img class="equipped" />
+        </div>
+        <div class="hp-bar-container bar-container">
+            <div class="bar hp-bar">
+                <div class="bar-filled hp-bar-filled"></div>
+            </div>
+            <div class="bar-text">HP 
+                <span class="hp"></span> /
+                <span class="max-hp"></span>
+            </div>
+        </div>
+        <div class="mp-bar-container bar-container">
+            <div class="bar mp-bar">
+                <div class="bar-filled mp-bar-filled"></div>
+            </div>
+            <div class="bar-text">MP 
+                <span class="mp"></span> /
+                <span class="max-mp"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="menu action-menu neutral-box">
+            </div>
+            <div class="menu weapon-menu neutral-box">
+            </div>
+            <div class="skills-box">
+</div>
+
+<div class="skill-info-box neutral-box">
+    <div class="heading">
+        <img />
+        <span></span>
+    </div>
+    <div class="stats">
+        <div class="half half-mp">
+            <span class="label">MP</span>
+            <span class="mp value"></span>
+        </div>
+        <div class="half half-type">
+            <span class="label">TYPE</span>
+            <span class="type value"></span>
+        </div>
+        <div class="half half-hit">
+            <span class="label">HIT</span>
+            <span class="hit value"></span>
+        </div>
+        <div class="half half-might">
+            <span class="label">MT</span>
+            <span class="might value"></span>
+        </div>
+        <div class="half half-crit">
+            <span class="label">CRIT</span>
+            <span class="crit value"></span>
+        </div>
+        <div class="half half-range">
+            <span class="label">RNG</span>
+            <span class="range value"></span>
+        </div>
+    </div>
+    <div class="desc">
+    </div>
+</div>
+
+            <div class="item-info-box neutral-box">
+    <div class="header"></div>
+    
+    <table class="weapon-stats">
+        <tr>
+            <td class="label">HIT</td>
+            <td class="value hit"></td>
+        </tr>
+        <tr>
+            <td class="label">MIGHT</td>
+            <td class="value might"></td>
+        </tr>
+        <tr>
+            <td class="label">CRIT</td>
+            <td class="value crit"></td>
+        </tr>
+        <tr>
+            <td class="label">WEIGHT</td>
+            <td class="value weight"></td>
+        </tr>
+        <tr>
+            <td class="label">RANGE</td>
+            <td class="value range"></td>
+        </tr>
+    </table>
+</div>
+
+            <div class="battle-stats-panel">
+    <table>
+        <tr>
+            <td colspan="3" class="atk-name blue-box">
+                <span></span><img class="weapon-arrow" /><img class="weapon" />
+            </td>
+        </tr>
+        <tr>
+            <td class="stat def-hp red-box">
+                <span class="stat"></span>
+            </td>
+            <td class="hp neutral-box">HP</td>
+            <td class="stat atk-hp blue-box">
+                <span class="stat"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="stat def-hit red-box">
+                <span class="stat"></span>
+            </td>
+            <td class="hit neutral-box">HIT</td>
+            <td class="stat atk-hit blue-box">
+                <span class="stat"></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="stat def-dmg red-box">
+                <span class="stat"></span><span class="x2">&times;2</span>
+            </td>
+            <td class="dmg neutral-box">DMG</td>
+            <td class="stat atk-dmg blue-box">
+                <span class="stat"></span><span class="x2">&times;2</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="stat def-crt red-box">
+                <span class="stat"></span>
+            </td>
+            <td class="crt neutral-box">CRT</td>
+            <td class="stat atk-crt blue-box">
+                <span class="stat"></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" class="def-name red-box">
+                <img class="weapon-arrow" /><img class="weapon" /><span></span>
+            </td>
+        </tr>
+    </table>
+</div>
+
+        </div>
+        <div class="canvas-container">
+            <canvas width="420" height="350"></canvas>
+
+            <div class="canvas-dark-overlay"></div>
+
+            <div class="end-turn neutral-box">
+                <div class="image"></div> End turn
+            </div>
+
+            <div class="exp-bar-container neutral-box">
+                EXP<div class="exp-bar">
+                    <div class="exp-bar-filled"></div>
+                </div>
+            </div>
+
+            <div class="unit-info-window blue-box">
+    <div class="common">
+        <div class="image-wrapper">
+            <img />
+        </div>
+        <div>
+            <div class="name"></div>
+            <div class="uclass"></div>
+            <div class="level-info">
+                Lv <span class="level"></span>
+                Exp <span class="exp"></span></div>
+        </div>
+    </div>
+    <div class="tab-container">
+        <div class="labels">
+            <div class="tab-label-inventory">Items
+                <span class="tab-id">inventory</span>
+            </div><div class="tab-label-stats">
+                <span class="tab-id">stats</span>
+                Stats
+            </div></div>
+        <div class="content">
+            <div class="tab-content tab-content-inventory">
+                <div class="inventory"></div>
+                
+                <div class="controls">
+                    S - view item info
+                </div>
+    
+                <div class="combat-stats">
+                    <table>
+                        <tr>
+                            <td class="label">HIT</td>
+                            <td class="stat hit"></td>
+                            <td class="label">EVADE</td>
+                            <td class="stat evade"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">ATK</td>
+                            <td class="stat atk"></td>
+                            <td class="label">CRIT</td>
+                            <td class="stat crit"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-content tab-content-stats">
+                <div class="stats">
+                    <table>
+                        <tr>
+                            <td class="label">STR</td>
+                            <td class="stat str"></td>
+                            <td class="label">SKILL</td>
+                            <td class="stat skill"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">MAG</td>
+                            <td class="stat mag"></td>
+                            <td class="label">SPEED</td>
+                            <td class="stat speed"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">DEF</td>
+                            <td class="stat def"></td>
+                            <td class="label">LUCK</td>
+                            <td class="stat luck"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">RES</td>
+                            <td class="stat res"></td>
+                            <td class="label">MOVE</td>
+                            <td class="stat move"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="wield">
+                    Wield:
+                    <div class="weapons">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="level-up-window blue-box">
+    <div class="common">
+        <div class="image-wrapper">
+            <img />
+        </div>
+        <div>
+            <div class="name"></div>
+            <div class="level-info">
+                Lv <span class="level"></span>
+            </div>
+        </div>
+    </div>
+    <div class="stats-container">
+        <span class="level-up">Level up!</span>
+        <div class="stats">
+            <table>
+                <tr>
+                    <td class="label">HP</td>
+                    <td class="stat maxHp">
+                        <span></span><img src="images/up_arrow.png" />
+                    </td>
+
+                    <td class="label">MP</td>
+                    <td class="stat maxMp">
+                        <span></span><img src="images/up_arrow.png" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">STR</td>
+                    <td class="stat str">
+                        <span></span><img src="images/up_arrow.png" />
+                    </td>
+
+                    <td class="label">SKILL</td>
+                    <td class="stat skill">
+                        <span></span><img src="images/up_arrow.png" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">MAG</td>
+                    <td class="stat mag">
+                        <span></span><img src="images/up_arrow.png" />
+                    </td>
+
+                    <td class="label">SPEED</td>
+                    <td class="stat speed">
+                        <span></span><img src="images/up_arrow.png" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">DEF</td>
+                    <td class="stat def">
+                        <span></span><img src="images/up_arrow.png" />
+                    </td>
+
+                    <td class="label">LUCK</td>
+                    <td class="stat luck">
+                        <span></span><img src="images/up_arrow.png" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">RES</td>
+                    <td class="stat res">
+                        <span></span><img src="images/up_arrow.png" />
+                    </td>
+
+                    <td class="label">MOVE</td>
+                    <td class="stat move">
+                        <span></span><img src="images/up_arrow.png" />
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+            <div class="trade-window"></div>
+        </div>
+        <div class="sidebar right-sidebar">
+            <div class="victory-condition neutral-box"></div>
+            <div class="terrain-box neutral-box">
+    <img /><span class="name"></span>
+    <table>
+        <tr>
+            <td class="label">EVADE</td>
+            <td class="stat evade"></td>
+        </tr>
+        <tr>
+            <td class="label">DEF/RES</td>
+            <td class="stat def"></td>
+        </tr>
+    </table>
+</div>
+
+            <div class="speed-multiplier-box alert-box">3x speed</div>
+        </div>
+    </div>
+
+    <div class="vn-wrapper">
+    <div class="start-menu-container">
+    
+        <div class="items"></div>
+    </div>
+    
+    <div class="full-textbox">
+        <div class="box">
+        </div>
+    </div>
+    
+    <div class="chapter-display">
+        <div class="title">
+            <span class="main">Chapter <span class="number"></span>:</span>
+            <span class="name"></span>
+        </div>
+    </div>
+    
+    <div class="scene">
+        <div class="location"></div>
+        
+        <div class="chatbox">
+            <div class="unit">
+                <div class="image"></div>
+                <div class="name"></div>
+            </div>
+            <div class="text"></div>
+        </div>
+    </div>
+    
+</div>
+
+
+    <div class="game-info">
+        <h3>Controls</h3>
+<table>
+    <tr>
+        <td class="control">Arrow keys:</td>
+        <td>move cursor / switch tabs</td>
+    </tr>
+    <tr>
+        <td class="control">F:</td>
+        <td>"A button" - select / choose</td>
+    </tr>
+    <tr>
+        <td class="control">D:</td>
+        <td>"B button" - back</td>
+    </tr>
+    <tr>
+        <td class="control">S:</td>
+        <td>more info (units, skills, items)</td>
+    </tr>
+    <tr>
+        <td class="control">E:</td>
+        <td>end turn</td>
+    </tr>
+    <tr>
+        <td class="control">V:</td>
+        <td>skip text / toggle 3x speed</td>
+    </tr>
+</table>
+<br />
+
+<h3>Release notes for demo-v0.01</h3>
+<ul>
+    <li>There's a start menu! And a story!</li>
+    <li>The four player units each have their basic skill. (Arrow has a healing skill.)</li>
+    <li>Use V to skip text, or to play the game at 3x speed.</li>
+    <li>Weapon stats are now displayed when choosing your weapon. You can also view weapon stats by pressing S while on the "Items" tab of the UnitInfoWindow.</li>
+    <li>Press F while the cursor is over an enemy to view that enemy's movement and attack range.</li>
+    <li>This version's Hard difficulty is the difficulty from earlier demos.</li>
+    <li>Firefox, Chrome, and Internet Explorer 11 are officially supported.</li>
+    <li>A manga adaptation of Aqua Emblem will begin serialization in the August issue of Jump Square!</li>
+</ul>
+
+    </div>
+</div>
+
+
+<div class="viewport-overlay"></div>
+
+<div class="invisible">
+    <div class="tab-label-skills">
+    <span class="tab-id">skills</span>
+    Skills
+</div>
+
+<div class="tab-content tab-content-skills">
+    <div class="skills-box">
+    </div>
+    <div class="controls">
+       S - view skill info
+    </div>
+</div>
+
+    <img src="images/crown.png" />
+<img src="images/bandit_insignia.png" />
+<img src="images/list_arrow.png" />
+<img src="images/up_arrow.png" />
+<img src="images/down_arrow.png" />
+<img src="images/skills/protect.png" />
+<img src="images/skills/defend.png" />
+<img src="images/skills/flare.png" />
+<img src="images/skills/temper.png" />
+<img src="images/skills/first_aid.png" />
+<img src="images/characters/luciana.png" />
+<img src="images/characters/kenji.png" />
+<img src="images/characters/arrow.png" />
+<img src="images/characters/ace.png" />
+<img src="images/terrain/plain.png" />
+<img src="images/terrain/rocks.png" />
+<img src="images/terrain/forest.png" />
+<img src="images/dango/enemy/soldier.png" />
+<img src="images/dango/enemy/fighter.png" />
+<img src="images/dango/enemy/mercenary.png" />
+<img src="images/dango/enemy/archer.png" />
+<img src="images/dango/player/soldier.png" />
+<img src="images/dango/player/fighter.png" />
+<img src="images/dango/player/mercenary.png" />
+<img src="images/dango/player/archer.png" />
+<img src="images/dango/done/soldier.png" />
+<img src="images/dango/done/fighter.png" />
+<img src="images/dango/done/mercenary.png" />
+<img src="images/dango/done/archer.png" />
+<img src="images/resources/title_cropped.png" />
+<img src="images/resources/tree.png" />
+<img src="images/resources/logo.png" />
+<img src="images/items/iron_axe.png" />
+<img src="images/items/steel_sword.png" />
+<img src="images/items/iron_sword.png" />
+<img src="images/items/iron_bow.png" />
+<img src="images/items/fire.png" />
+<img src="images/items/aquabolt.png" />
+<img src="images/items/iron_lance.png" />
+<img src="images/vn/arrow.png" />
+<img src="images/vn/backgrounds/start.png" />
+<img src="images/vn/backgrounds/hellhounds_hq.png" />
+<img src="images/vn/backgrounds/forest.png" />
+<img src="images/vn/backgrounds/chapter_display.png" />
+
+</div>
+</body>
+</html>
