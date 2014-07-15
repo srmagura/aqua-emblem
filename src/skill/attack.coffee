@@ -29,7 +29,15 @@ class _cs.cui.AttackSkill extends _cs.cui.Skill
             @ui.battleStatsPanel.init(@battle)
 
     f: ->
+        callback = =>
+            @playerTurn.selectedUnit.refreshInventory()
+            exp = @battle.getExpToAdd()
+            @skillDone(exp)
+
         super()
+        @ui.battleStatsPanel.hide()
+        @battle.doEncounter(callback)
+        @battle.showSkillMessage(@skill)
 
 class _skill.Flare extends _skill.Skill
 

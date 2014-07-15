@@ -93,7 +93,7 @@ class _cs.cui.Skill extends _cs.cui.MapTarget
         @playerTurn.selectedUnit.refreshInventory()
         @playerTurn.handleSkill(false)
 
-    skillDone: =>
+    skillDone: (exp=null) =>
         afterExpAdd = =>
             @ui.controlState = new _cs.cui.Map(@ui)
             @ui.cursor.visible = true
@@ -102,6 +102,8 @@ class _cs.cui.Skill extends _cs.cui.MapTarget
             @playerTurn.selectedUnit.setDone()
             @playerTurn.selectedUnit = null
 
-        _turn.addExp(@ui, afterExpAdd, @playerTurn.selectedUnit,
-        @skill.getExp())
+        if not exp?
+            exp = @skill.getExp()
+
+        _turn.addExp(@ui, afterExpAdd, @playerTurn.selectedUnit, exp)
 

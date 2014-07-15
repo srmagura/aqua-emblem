@@ -80,7 +80,7 @@ class _skill.Temper extends _skill.AidSkill
         @imageName = 'temper'
         @desc = 'Temporarily buff an ally\'s strength.'
 
-        @mp = 2 #9
+        @mp = 9
         @range = new Range(0, 1)
 
     doEffect: (target) ->
@@ -95,7 +95,7 @@ class _skill.Protect extends _skill.AidSkill
         @imageName = 'protect'
         @desc = 'Temporarily buff an ally\'s defence.'
 
-        @mp = 2 #7
+        @mp = 7
         @range = new Range(0, 1)
 
     doEffect: (target) ->

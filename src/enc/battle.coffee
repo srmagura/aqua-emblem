@@ -4,6 +4,8 @@ class _enc.Battle extends _enc.Encounter
         if not @dist?
             @dist = @atk.pos.distance(@def.pos)
 
+        @mpTaken = false
+
         @atk.calcCombatStats()
         @def.calcCombatStats()
         @calcBattleStats()
@@ -119,7 +121,11 @@ class _enc.Battle extends _enc.Encounter
                 @displayMessage(recvr, 'no-dmg')
 
             if giver is @getPlayerUnit()
-                if giver.mp < giver.maxMp
+                if giver.equipped.mp?
+                    if not @mpTaken
+                        giver.mp -= giver.equipped.mp
+                        @mpTaken = true
+                else if giver.mp < giver.maxMp
                     giver.mp++
 
                 @attacksHit++
@@ -142,6 +148,16 @@ class _enc.Battle extends _enc.Encounter
         @atkBox.init(@atk, true)
         @defBox.init(@def, true)
 
+    showSkillMessage: (skill) ->
+        afterFadeIn = =>
+            setTimeout(afterDelay, @delay*2/3)
+
+        afterDelay = =>
+            @message.fadeOut(@delay/5)
+
+        @message = skill.getMessageEl()
+        @message.addClass('blue-box').appendTo(@container)
+        @message.hide().fadeIn(@delay/5, afterFadeIn)
 
     encounterDone: =>
         super(false)
