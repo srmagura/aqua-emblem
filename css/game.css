@@ -1,0 +1,254 @@
+body
+{
+    font-family: monospace;
+    font-size: 11pt;
+    margin: 0;
+}
+
+div.wrapper
+{
+    width: 800px;
+    margin: 0 auto;
+    padding-top: 15px;
+}
+
+div.game-wrapper
+{
+    display: none;
+    height: 350px;
+    margin: 15px 0 35px;
+}
+
+div.canvas-container
+{
+    float: left;
+    position: relative;
+    width: 420px;
+    height: 350px;
+}
+
+canvas
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.invisible
+{
+    display: none;
+}
+
+div.game-info
+{
+    margin: 25px 0;
+}
+
+div.game-info h3
+{
+    margin: 3px;
+}
+
+div.game-info table
+{
+    border-spacing: 8px 0;
+}
+
+div.game-info table .control
+{
+    text-align: right;
+}
+
+div.sidebar
+{
+    width: 175px;
+    float: left;
+}
+
+div.sidebar > div
+{
+    margin-bottom: 10px;
+    clear: both;
+}
+
+div.left-sidebar
+{
+    margin-right: 10px;
+}
+
+div.right-sidebar
+{
+    margin-left: 10px;
+}
+
+div.left-sidebar > div
+{
+    float: right;
+}
+
+div.right-sidebar > div
+{
+    float: left;
+}
+
+/***** BOX TYPES *****/
+.blue-box 
+{
+    border: 1px solid #22F;
+    background-color: #B0B0FF;
+}
+
+.red-box 
+{
+    border: 1px solid #822;
+    background-color: #F88;
+}
+
+.neutral-box 
+{
+    border: 1px solid #666;
+    background-color: #DDD;
+}
+
+.alert-box
+{
+    border: 2px solid #FF3333;
+    background-color: #FDB;
+}
+
+/***** ENCOUNTER *****/
+.encounter-container
+{
+    position: absolute;
+    width: 400px;
+}
+
+.encounter-container .unit-info
+{
+    float: left;
+    margin: 3px;
+}
+
+/***** UNIT ACTION *****/
+.unit-action-container 
+{
+    position: absolute;
+    z-index: 10;
+}
+
+.unit-action-container .unit-info
+{
+    overflow: hidden;
+}
+
+.action-message
+{
+    display: none;
+    overflow: hidden;
+    border-radius: 30px;
+    margin-top: 6px;
+    padding: 3px 8px;
+}
+
+.encounter-container .action-message
+{
+    clear: left;
+    width: 150px;
+}
+
+
+.action-message img
+{
+    width: 25px;
+    float: left;
+}
+
+.action-message span
+{
+    float: left;
+    padding: 3px 0 0 5px;
+}
+
+/***** BATTLE MESSAGES *****/
+div.battle-message 
+{
+    display: none;
+    position: absolute;
+
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+
+    padding: 2px;
+    font-size: 8pt;
+}
+
+div.battle-message.miss
+{
+    background-color: #AAF;
+    border-color: blue; 
+    color: #11A;
+    opacity: .75;
+}
+
+div.battle-message.crit
+{
+    background-color: #FAA;
+    border-color: orangered;
+}
+
+div.battle-message.no-dmg
+{
+    background-color: #DDD;
+    border-color: #555;
+    opacity: .75;
+}
+
+/***** SPEED MULTIPLIER BOX *****/
+.speed-multiplier-box 
+{
+    padding: 4px;
+    font-weight: bold;
+    display: none;
+}
+
+/***** MESSAGES *****/
+div.victory-condition
+{
+    padding: 5px;
+    display: none;
+}
+
+div.message
+{
+    position: absolute;
+    visibility: hidden;
+    z-index: 10;
+    
+    background-color: rgba(255,255,255,.4);
+    padding: 10px 10px;
+    border-radius: 20px;
+    
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+div.canvas-dark-overlay 
+{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: .4;
+}
+
+.victory-message
+{
+    color: blue;
+}
+
+.defeat-message
+{
+    color: #C00;
+}

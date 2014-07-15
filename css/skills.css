@@ -58,23 +58,51 @@
 }
 
 .skill-info-box.not-usable .heading span,
-.skill-info-box.not-usable .usage-container .mp
+.skill-info-box.not-usable .stats .mp
 {
     color: #A00;
 }
 
-.skill-info-box .usage-container
+.skill-info-box .stats
 {
     background-color: #B0B0FF;
     display: none;
-    padding: 4px;
+    padding: 4px 4px 0;
+    overflow: hidden
 }
 
-.skill-info-box .usage-container .label
+.skill-info-box .stats .half
 {
-    display: inline-block;
-    padding: 0 4px;
+    width: 80px;
+    float: left;
+    height: 23px;
+}
+
+.skill-info-box .stats .label
+{
     font-size: 9pt;
+}
+
+.skill-info-box .stats .value
+{
+    float: right;
+    padding-right: 20px;
+}
+
+.skill-info-box .stats .value.range
+{
+    padding-right: 15px;
+}
+
+.skill-info-box .stats .value.type
+{
+    padding-right: 16px;
+}
+
+.skill-info-box .stats .type img
+{
+    width: 20px;
+    margin: -2px 0 0 2px;
 }
 
 .skill-info-box .desc

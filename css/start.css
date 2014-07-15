@@ -1,0 +1,39 @@
+.start-menu-container
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.start-menu-container .items
+{
+    position: absolute;
+    top: 100px;
+    padding-left: 20px;
+    width: 250px;
+}
+
+.start-menu-container .menu-item
+{
+    color: white;
+    padding: 5px 0 5px 10px;
+    border: 1px solid transparent;
+    margin: 2px 0;
+}
+
+.start-menu-container .menu-item .main-text
+{
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.start-menu-container .menu-item .subtext 
+{
+    font-size: 9pt;
+}
+
+.start-menu-container .menu-item.selected
+{
+    background-color: rgba(255, 255, 255, .4);
+    border: 1px solid rgba(255, 255, 255, .4);
+}

@@ -1,0 +1,42 @@
+.item-info-box
+{
+    display: none;
+    width: 150px;
+    padding: 4px;
+}
+
+.canvas-container .item-info-box
+{
+    position: absolute;
+    z-index: 10;
+}
+
+.sidebar .item-info-box
+{
+    margin-top: 5px;
+    width: 90px;
+    padding: 2px;
+}
+
+.sidebar .item-info-box .header
+{
+    display: none;
+}
+
+.item-info-box .header
+{
+    margin-bottom: 5px;
+}
+
+.item-info-box .label
+{
+    padding-top: 2px;
+    font-size: 9pt;
+    width: 50px;
+    text-align: center;
+}
+
+.item-info-box .weapon-stats .value
+{
+    padding-left: 5px;
+}

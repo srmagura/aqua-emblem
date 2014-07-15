@@ -71,12 +71,13 @@ div.unit-info .bar-text
 .unit-info .status-container
 {
     clear: both;
+    padding: 2px;
 }
 
 .unit-info .status-container .status
 {
-    padding: 4px;
     overflow: hidden;
+    padding: 2px;
 }
 
 .unit-info .status-container .status img
@@ -90,4 +91,17 @@ div.unit-info .bar-text
     float: left;
     font-size: 10pt;
     padding: 2px 0 0 2px;
+}
+
+.unit-info .status-container .status.status-buff img
+{
+    height: 18px;
+    width: 15px;
+    margin: 0 1.5px;
+}
+
+.unit-info .status-container .status span.stat 
+{
+    float: none;
+    font-size: 9pt;
 }

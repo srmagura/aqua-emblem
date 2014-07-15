@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Aqua Emblem</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    {css}
+    {js} 
+</head>
+<body>
+<script>
+$(window).load(init)
+</script>
+
+<div class="wrapper">
+    <div class="game-wrapper">
+        <div class="sidebar left-sidebar">
+            {unit_info_box}
+            <div class="menu action-menu neutral-box">
+            </div>
+            <div class="menu weapon-menu neutral-box">
+            </div>
+            {skills_box}
+            {item_info_box}
+            {battle_stats_panel}
+        </div>
+        <div class="canvas-container">
+            <canvas width="420" height="350"></canvas>
+
+            <div class="canvas-dark-overlay"></div>
+
+            <div class="end-turn neutral-box">
+                <div class="image"></div> End turn
+            </div>
+
+            <div class="exp-bar-container neutral-box">
+                EXP<div class="exp-bar">
+                    <div class="exp-bar-filled"></div>
+                </div>
+            </div>
+
+            {unit_info_window}
+            {level_up_window}
+            <div class="trade-window"></div>
+        </div>
+        <div class="sidebar right-sidebar">
+            <div class="victory-condition neutral-box"></div>
+            {terrain_box}
+            <div class="speed-multiplier-box alert-box">3x speed</div>
+        </div>
+    </div>
+
+    {vn}
+
+    <div class="game-info">
+        {game_info}
+    </div>
+</div>
+
+
+<div class="viewport-overlay"></div>
+
+<div class="invisible">
+    {skills_tab}
+    {images}
+</div>
+</body>
+</html>
