@@ -27,8 +27,13 @@ class _cui.SkillsBox
 
         @show()
 
-    giveControl: ->
-        @setCursorPos(new Position(0, 0))
+    giveControl: (resetCursor=true) ->
+        if resetCursor
+            pos = new Position(0, 0)
+        else
+            pos = @cursorPos
+
+        @setCursorPos(pos)
         @ui.controlState = new _cs.cui.SkillsBox(@ui, this)
 
     getSkill: ->

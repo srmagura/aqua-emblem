@@ -26,4 +26,7 @@ class window.Range
         return result
 
     toString: ->
-        return "#{@min}-#{@max}"
+        if @min == @max
+            return "#{@min}"
+        else
+            return "#{@min}-#{@max}"

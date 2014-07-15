@@ -14,33 +14,44 @@ class _cui.SkillInfoBox
 
         stats = @box.find('.stats')
         desc = @box.find('.desc')
-        rowMightRange = stats.find('.row-might-range')
 
         if full
-            stats.show()
-            stats.find('.mp').text(skill.mp)
-
-            typeHalf = stats.find('.half-type')
-
-            if skill.type is _skill.type.None
-                typeHalf.hide()
-            else
-                typeHalf.show()
-                stats.find('.type').html(skill.type.getEl())
-
+            @initStats(skill, stats)
             desc.text(skill.desc).show()
-
-            if skill.might?
-                stats.find('.might').text(skill.might)
-                stats.find('.range').text(skill.range.toString())
-                rowMightRange.show()
-            else
-                rowMightRange.hide()
         else
             stats.hide()
             desc.hide()
 
         @show()
+
+    initStats: (skill, stats) ->
+        getAttr = (key) ->
+            if key == 'type' and skill.type instanceof _skill.type.None
+                return null
+            else if not skill[key]?
+                return null
+
+            if key == 'range'
+                return skill[key].toString()
+            else if key == 'type'
+                return skill[key].getEl()
+            else
+                return skill[key]
+
+
+        keys = ['mp', 'type', 'hit', 'might', 'crit', 'range']
+
+        for key in keys
+            html = getAttr(key)
+            half = stats.find(".half-#{key}")
+
+            if html?
+                half.show()
+                half.find('.value').html(html)
+            else
+                half.hide()
+
+        stats.show()
 
     show: ->
         @box.css('display', 'block')

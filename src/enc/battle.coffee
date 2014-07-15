@@ -39,12 +39,16 @@ class _enc.Battle extends _enc.Encounter
         @attacksHit = 0
 
     calcAdvantage: (unit1, unit2) ->
-        w1 = unit1.equipped
-        w2 = unit2.equipped
+        t1 = unit1.equipped.type
+        t2 = unit2.equipped.type
 
-        if (w1 instanceof _item.Sword and w2 instanceof _item.Axe) or
-        (w1 instanceof _item.Axe and w2 instanceof _item.Lance) or
-        (w1 instanceof _item.Lance and w2 instanceof _item.Sword)
+        Sword = _skill.type.Sword
+        Lance = _skill.type.Lance
+        Axe = _skill.type.Axe
+
+        if (t1 instanceof Sword and t2 instanceof Axe) or
+        (t1 instanceof Axe and t2 instanceof Lance) or
+        (t1 instanceof Lance and t2 instanceof Sword)
             unit1.advantage = true
             unit2.advantage = false
 
@@ -55,8 +59,15 @@ class _enc.Battle extends _enc.Encounter
         if not w1.range.contains(@dist)
             return
 
+        if w1.type instanceof _skill.type.Physical
+            strOrMag = unit1.str
+            defOrRes = unit2.def
+        else if w1.type instanceof _skill.type.Magic
+            strOrMag = unit1.mag
+            defOrRes = unit2.res
+
         unit1.battleStats.hit = unit1.hit - unit2.evade
-        unit1.battleStats.dmg = unit1.str + w1.might - unit2.def
+        unit1.battleStats.dmg = strOrMag + w1.might - defOrRes
         unit1.battleStats.crt = unit1.crit - unit2.critEvade
 
         if unit1.advantage is true

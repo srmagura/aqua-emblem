@@ -93,11 +93,12 @@ class _turn.PlayerTurn extends _turn.Turn
         @ui.actionMenu.hide()
         @ui.weaponMenu.init(this)
 
-    handleSkill: =>
+    handleSkill: (resetCursor=true) =>
+        @ui.skillsBox.resetCursor = resetCursor
         @ui.skillsBox.init(@selectedUnit, @skillsBoxOnD,
         @skillsBoxOnCursorMove)
         @ui.skillsBox.onF = @skillsBoxOnF
-        @ui.skillsBox.giveControl()
+        @ui.skillsBox.giveControl(resetCursor)
 
     skillsBoxOnD: =>
         @ui.skillsBox.hide()

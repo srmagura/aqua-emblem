@@ -1,5 +1,19 @@
 class _cs.cui.AttackSkill extends _cs.cui.Skill
 
+    constructor: (@ui, @playerTurn, @skill) ->
+        super(@ui, @playerTurn, @skill)
+
+        user = @playerTurn.selectedUnit
+        spots = @playerTurn.getActionRange(user.pos, @skill.range)
+
+        for spot in spots
+            target = @ui.chapter.getUnitAt(spot)
+
+            if target? and @skill.isValidTarget(target)
+                @ui.cursor.moveTo(spot)
+                @moved()
+                break
+
     moved: ->
         result = @getUserTarget()
 
@@ -22,7 +36,7 @@ class _skill.Flare extends _skill.Skill
     constructor: ->
         super()
         @overlayType = 'ATTACK'
-        @type = _skill.type.Dark
+        @type = new _skill.type.Dark()
 
         @name = 'Flare'
         @imageName = 'flare'
@@ -33,6 +47,7 @@ class _skill.Flare extends _skill.Skill
         @hit = 90
         @might = 4
         @crit = 10
+        @weight = 10
         @range = new Range(1, 2)
 
         @controlState = _cs.cui.AttackSkill

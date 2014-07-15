@@ -58,7 +58,7 @@ class _skill.FirstAid extends _skill.AidSkill
         super()
         @name = 'First aid'
         @imageName = 'first_aid'
-        @type = _skill.type.Holy
+        @type = new _skill.type.Holy()
         @desc = 'Basic healing skill.'
 
         @mp = 4
@@ -78,7 +78,6 @@ class _skill.Temper extends _skill.AidSkill
         super()
         @name = 'Temper'
         @imageName = 'temper'
-        @type = _skill.type.None
         @desc = 'Temporarily buff an ally\'s strength.'
 
         @mp = 2 #9
@@ -94,7 +93,6 @@ class _skill.Protect extends _skill.AidSkill
         super()
         @name = 'Protect'
         @imageName = 'protect'
-        @type = _skill.type.None
         @desc = 'Temporarily buff an ally\'s defence.'
 
         @mp = 2 #7

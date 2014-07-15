@@ -10,6 +10,7 @@ class _cui.ItemInfoBox
         for stat in weaponStats
             weaponStatsEl.find('.' + stat).text(item[stat])
 
+        weaponStatsEl.find('.range').text(item.range.toString())
         @show()
 
     show: -> @box.show()

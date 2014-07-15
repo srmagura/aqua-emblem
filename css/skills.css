@@ -67,7 +67,7 @@
 {
     background-color: #B0B0FF;
     display: none;
-    padding: 4px;
+    padding: 4px 4px 0;
     overflow: hidden
 }
 
@@ -75,6 +75,7 @@
 {
     width: 80px;
     float: left;
+    height: 23px;
 }
 
 .skill-info-box .stats .label
