@@ -105,20 +105,24 @@ class _turn.PlayerTurn extends _turn.Turn
         @ui.actionMenu.init(@selectedUnit)
 
     skillsBoxOnF: =>
-        skl = @ui.skillsBox.getSkill()
+        skill = @ui.skillsBox.getSkill()
 
-        if not @selectedUnit.canUseSkill(skl)
+        if not @selectedUnit.canUseSkill(skill)
             return
 
         @ui.skillsBox.hide()
-        @ui.skillInfoBox.init(skl, true, false)
-        @ui.controlState = skl.getControlState(@ui, this)
+        @ui.skillInfoBox.init(skill, true, false)
+        @ui.controlState = skill.getControlState(@ui, this)
         @ui.cursor.visible = true
 
     skillsBoxOnCursorMove: =>
-        skl = @ui.skillsBox.getSkill()
-        @ui.chapter.map.setOverlayRange(@selectedUnit.pos,
-        skl.range, skl.overlayType)
+        skill = @ui.skillsBox.getSkill()
+        
+        if @selectedUnit.mp < skill.mp
+            @ui.chapter.map.clearOverlay()
+        else
+            @ui.chapter.map.setOverlayRange(@selectedUnit.pos,
+                skill.range, skill.overlayType)
 
     handleTrade: =>
         @ui.chapter.map.setOverlayRange(@selectedUnit.pos, @tradeRange, 'AID')

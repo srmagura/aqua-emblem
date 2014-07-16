@@ -1,6 +1,11 @@
 window.init = ->
-    ui = new _sui.StartUI()
-    ui.init()
-    #ui = new _cui.ChapterUI()
-    #ui.setChapter(_chapters.Chapter1)
-    #ui.startChapter((->), true)
+    #ui = new _sui.StartUI()
+    #ui.init()
+    doChapter()
+    
+    
+doChapter = ->
+    file = _file.createNewFile(_file.difficulty.hard)
+    ui = new _cui.ChapterUI(file)
+    ui.setChapter(_chapters.Chapter1)
+    ui.startChapter((->), true)

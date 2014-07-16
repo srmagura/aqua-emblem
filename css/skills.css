@@ -21,6 +21,11 @@
     width: 35px;
 }
 
+.sidebar .skills-box .not-usable img
+{
+    opacity: .45;
+}
+
 .sidebar .skills-box td
 {
     padding: 1px 3px;
