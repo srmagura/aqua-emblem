@@ -17,8 +17,12 @@ class _file.fs.Chapter1 extends _file.FileState
         ]
         @ui.fullTextbox.init(lines, @chapterDisplay)
 
+
+    chapterId: 1
+    chapterName: 'Hellhounds'
+
     chapterDisplay: =>
-        @ui.chapterDisplay.init('1', 'Hellhounds', @chapterIntro)
+        @ui.chapterDisplay.init(@chapterId, @chapterName, @chapterIntro)
 
     chapterIntro: =>
         lines = [

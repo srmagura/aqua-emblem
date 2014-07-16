@@ -15,6 +15,13 @@ class _file.File
 
     init: ->
         @fileState.init()
+        
+    pickle: ->
+        return 'cucumber'
+        return {
+            'fsCls': @fileState.constructor,
+            'playerTeam': @playerTeam.pickle()
+        }
 
 
 class _file.FileState

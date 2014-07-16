@@ -10,6 +10,7 @@ class _sui.StartUI extends UI
         @wrapper = @vn.find('.start-menu-container')
         @itemContainer = @wrapper.find('.items')
         @messageDiv = @wrapper.find('.message')
+        @saveBackupDialog = @wrapper.find('.save-backup')
         
         @messages = {
             'chapterComplete': 'Chapter complete! Game saved.'

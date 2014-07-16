@@ -47,23 +47,39 @@ class _sui.MenuDifficulty extends _sui.Menu
         
 class _sui.MenuMain extends _sui.Menu
 
-    init: ->    
+    init: ->  
+        fs = @ui.file.fileState  
         itemContinue = @getMenuEl('Continue',
-            'Chapter 2: Marshmallows of Fate')
+            "Chapter #{fs.chapterId}: #{fs.chapterName}")
         itemContinue.appendTo(@menu).data('handler', @handleContinue)
         
-        @getMenuEl('Save backup').appendTo(@menu).
-            data('handler', @handleSaveBackup)
+        @getMenuEl('Save backup',
+            'Clearing your browser data will delete your save. ' +
+            'Save a backup to be safe.').
+            appendTo(@menu).data('handler', @handleSaveBackup)
             
-        @getMenuEl('Erase data').appendTo(@menu).
-            data('handler', @handleErase)
+        @getMenuEl('Erase data',
+            'If you want to start a new game or upload a backup.').
+            appendTo(@menu).data('handler', @handleErase)
             
         @selectFirst()
         @controlState = new _cs.sui.Menu(this, @menu)
 
     handleContinue: =>
+    
+    dialogOnClose: =>
+        @ui.controlState = @prevControlState
         
     handleSaveBackup: =>
+    
+        dia = @ui.saveBackupDialog
+        dia.dialog({modal: true, width: 400, close: @dialogOnClose})
+        
+        str = @ui.file.pickle()
+        dia.find('textarea').val(str)
+        
+        @prevControlState = @ui.controlState
+        @ui.controlState = new _cs.ControlState(@ui)
     
     handleErase: =>
         
