@@ -219,7 +219,7 @@ div.victory-condition
     display: none;
 }
 
-div.message
+.canvas-container div.message
 {
     position: absolute;
     visibility: hidden;

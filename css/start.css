@@ -3,19 +3,26 @@
     position: absolute;
     width: 100%;
     height: 100%;
+    
+    color: white;
 }
 
-.start-menu-container .items
+.start-menu-container .start-menu
 {
     position: absolute;
-    top: 100px;
+    top: 105px;
     padding-left: 20px;
     width: 250px;
 }
 
+.start-menu .message
+{
+    font-size: 9pt;
+    padding-bottom: 10px;
+}
+
 .start-menu-container .menu-item
 {
-    color: white;
     padding: 5px 0 5px 10px;
     border: 1px solid transparent;
     margin: 2px 0;

@@ -1,6 +1,8 @@
 class _file.fs.Chapter1 extends _file.FileState
 
     init: ->
+        return @scene2()
+        
         @ui = new _vn.VisualNovelUI()
         lines = [
             [
@@ -29,26 +31,22 @@ class _file.fs.Chapter1 extends _file.FileState
         @ui.fullTextbox.init(lines, @scene1)
 
     scene1: =>
-        @ace = new _uclass.special.Ace()
-        @arrow = new _uclass.special.Arrow()
-        @luciana = new _uclass.special.Luciana()
-        @kenji = new _uclass.special.Kenji()
 
         lines = [
-            [@ace, 'Listen up everybody, we have a job today.'],
-            [@arrow, 'Finally something to do!'],
-            [@ace, 'Bandits have been raiding Yaksasu village, and the villagers will pay us if we drive them out.'],
-            [@luciana, 'I\'ve heard about this. They have a fort on Yaksasu ridge. Sneaking up on them will be nearly impossible...'],
-            [@ace, 'Exactly. Arrow, Kenji: be careful on this one. I know it’s been a long time since Hitomi died, but... I can’t let that happen again.'],
-            [@arrow, 'We hear you, Ace. Don\'t worry. We\'re stronger than we were back then.'],
-            [@luciana, 'Yeah, Arrow\'s right.'],
-            [@ace, 'Kenji, anything to add?'],
-            [@kenji, 'Huh? What are we talking about? But yes! That\'s a great idea, boss!'],
-            [@ace, 'Uh... I didn\'t suggest anything.'],
-            [@kenji, 'Okay, fine, whatever. Let\'s go out to play with those bandits! It’ll be fun!! =D'],
-            [@ace, 'And you wonder why I worry about your safety... -.-'],
-            [@arrow, 'Anyway, shouldn\'t we be heading out?'],
-            [@luciana, 'Yeah. Let\'s go.']
+            ['ace', 'Listen up everybody, we have a job today.'],
+            ['arrow', 'Finally something to do!'],
+            ['ace', 'Bandits have been raiding Yaksasu village, and the villagers will pay us if we drive them out.'],
+            ['luciana', 'I\'ve heard about this. They have a fort on Yaksasu ridge. Sneaking up on them will be nearly impossible...'],
+            ['ace', 'Exactly. Arrow, Kenji: be careful on this one. I know it’s been a long time since Hitomi died, but... I can’t let that happen again.'],
+            ['arrow', 'We hear you, Ace. Don\'t worry. We\'re stronger than we were back then.'],
+            ['luciana', 'Yeah, Arrow\'s right.'],
+            ['ace', 'Kenji, anything to add?'],
+            ['kenji', 'Huh? What are we talking about? But yes! That\'s a great idea, boss!'],
+            ['ace', 'Uh... I didn\'t suggest anything.'],
+            ['kenji', 'Okay, fine, whatever. Let\'s go out to play with those bandits! It’ll be fun!! =D'],
+            ['ace', 'And you wonder why I worry about your safety... -.-'],
+            ['arrow', 'Anyway, shouldn\'t we be heading out?'],
+            ['luciana', 'Yeah. Let\'s go.']
         ]
 
         @ui.scene.locationText = 'Hellhounds HQ'
@@ -66,14 +64,10 @@ class _file.fs.Chapter1 extends _file.FileState
         @ui = new _vn.VisualNovelUI()
 
         lines = [
-            [@luciana, 'Now that wasn\'t too hard, was it?'],
-            [@arrow, 'Yeah! We showed them!'],
-            [@kenji, 'w00t!'],
-            [@ace, 'Yeah, I\'m glad we\'re okay. Personally, I\'m exhausted, so let\'s return to HQ.']
+            ['luciana', 'Now that wasn\'t too hard, was it?'],
+            ['arrow', 'Yeah! We showed them!'],
+            ['kenji', 'w00t!'],
+            ['ace', 'Yeah, I\'m glad we\'re okay. Personally, I\'m exhausted, so let\'s return to HQ.']
         ]
 
-        @ui.scene.init(lines, 'forest', @saveMenu)
-        
-    @saveMenu: =>
-        @ui.destroy()
-        @ui = new _sui.StartUI()
+        @ui.scene.init(lines, 'forest', @chapterComplete)

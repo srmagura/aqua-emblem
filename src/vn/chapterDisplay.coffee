@@ -11,7 +11,7 @@ class _vn.ChapterDisplay
         @display.find('.number').text(number)
         @display.find('.name').text(name)
 
-        _vn.setBackgroundImage(@display, 'chapter_display.png')
+        _vn.setBackgroundImage(@display, 'chapter_display')
         @display.fadeIn(@fadeDelay, @afterFadeIn)
 
     afterFadeIn: =>

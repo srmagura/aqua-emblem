@@ -3,24 +3,31 @@ _cs.sui = {}
 
 class _sui.StartUI extends UI
 
-    constructor: ->
+    constructor: (@file) ->
         super()
         @vn = $('.vn-wrapper')
         @controlState = new _cs.ControlState(this)
         @wrapper = @vn.find('.start-menu-container')
         @itemContainer = @wrapper.find('.items')
+        @messageDiv = @wrapper.find('.message')
+        
+        @messages = {
+            'chapterComplete': 'Chapter complete! Game saved.'
+        }
 
     init: (options={}) ->
         @itemContainer.html('')
         @wrapper.show()
         _vn.setBackgroundImage(@wrapper, 'start')
 
-        if 'menuCls' of options
-            menuCls = options.menuCls
-        else
-            menuCls = _sui.MenuMain
-
-        next = => @initMenu(menuCls)
+        next = => 
+            if @file?
+                @initMenu(_sui.MenuMain)
+            else
+                @initMenu(_sui.MenuNoData)
+                       
+            if 'message' of options
+                @messageDiv.html(options.message).show()
 
         if 'fade' of options and options.fade
             @vn.fadeIn(1000, next)
@@ -29,6 +36,9 @@ class _sui.StartUI extends UI
             next()
 
     initMenu: (menuCls) ->
+        @messageDiv.hide()
+        @itemContainer.html('')
+        
         @menu = new menuCls(this, @itemContainer)
         @menu.init()
         @controlState = new _cs.sui.Menu(this, @menu)

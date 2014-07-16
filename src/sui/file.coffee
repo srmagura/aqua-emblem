@@ -18,7 +18,13 @@ class _file.File
 
 
 class _file.FileState
+
     constructor: (@file) ->
+
+    chapterComplete: =>
+        @ui.destroy()
+        @ui = new _sui.StartUI(@file)
+        @ui.init({message: @ui.messages.chapterComplete})
 
 
 _file.createNewFile = (difficulty) ->

@@ -52,7 +52,7 @@ class _vn.Scene
             @ui.controlState = new _cs.vn.SceneWaiting(@ui, this)
 
         lineObj = @lines[@lineIndex++]
-        unit = lineObj[0]
+        unit = @ui.units[lineObj[0]]
         text = lineObj[1]
 
         img = $('<img/>').attr('src', unit.getImagePath())

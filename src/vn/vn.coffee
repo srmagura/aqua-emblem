@@ -11,12 +11,20 @@ class _vn.VisualNovelUI extends UI
         @fullTextbox = new _vn.FullTextbox(this)
         @chapterDisplay = new _vn.ChapterDisplay(this)
         @scene = new _vn.Scene(this)
+        
+        @units = {
+            'ace': new _uclass.special.Ace(),
+            'arrow': new _uclass.special.Arrow(),
+            'luciana': new _uclass.special.Luciana(),
+            'kenji': new _uclass.special.Kenji(),
+        }
 
     destroy: (callback) ->
         if callback?
             @wrapper.fadeOut(1000, callback)
         else
             @wrapper.hide()
+                     
 
  
 _vn.setBackgroundImage = (el, name) ->
