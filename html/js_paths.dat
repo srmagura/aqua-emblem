@@ -5,6 +5,7 @@ lib/ui/controlState.js
 lib/ui/init.js
 
 lib/sui/startUI.js
+lib/sui/menus.js
 lib/sui/file.js
 
 lib/vn/vn.js

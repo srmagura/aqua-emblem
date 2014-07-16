@@ -51,9 +51,8 @@ class _file.fs.Chapter1 extends _file.FileState
             [@luciana, 'Yeah. Let\'s go.']
         ]
 
-        bgImage = 'hellhounds_hq.png'
         @ui.scene.locationText = 'Hellhounds HQ'
-        @ui.scene.init(lines, bgImage, @destroyVn)
+        @ui.scene.init(lines, 'hellhounds_hq', @destroyVn)
 
     destroyVn: =>
         @ui.destroy(@chapter)
@@ -73,7 +72,8 @@ class _file.fs.Chapter1 extends _file.FileState
             [@ace, 'Yeah, I\'m glad we\'re okay. Personally, I\'m exhausted, so let\'s return to HQ.']
         ]
 
-        bgImage = 'forest.png'
-        @ui.scene.init(lines, bgImage, @tempEnd)
+        @ui.scene.init(lines, 'forest', @saveMenu)
         
-    tempEnd: => alert('That\'s all for demo-v0.01. Refresh the page to play again')
+    @saveMenu: =>
+        @ui.destroy()
+        @ui = new _sui.StartUI()

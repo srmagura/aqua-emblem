@@ -1,7 +1,8 @@
 window.init = ->
-    #ui = new _sui.StartUI()
-    #ui.init()
-    doChapter()
+    return doChapter()
+    
+    ui = new _sui.StartUI()
+    ui.init()
     
     
 doChapter = ->

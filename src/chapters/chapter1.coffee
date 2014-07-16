@@ -63,7 +63,7 @@ class _chapters.Chapter1 extends _map.Chapter
             inventory: [new _item.IronAxe()]})
         ]
 
-        @enemyTeam = new _team.EnemyTeam(enemyUnits, {defaultName: 'Bandit'})
+        @enemyTeam = new _team.EnemyTeam(enemyUnits.splice(0,1), {defaultName: 'Bandit'})
         @enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'
 
         terrainMapping = {

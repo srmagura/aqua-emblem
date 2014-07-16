@@ -10,14 +10,19 @@ class _sui.StartUI extends UI
         @wrapper = @vn.find('.start-menu-container')
         @itemContainer = @wrapper.find('.items')
 
-    init: (fade=false) ->
+    init: (options={}) ->
         @itemContainer.html('')
         @wrapper.show()
-        _vn.setBackgroundImage(@wrapper, 'start.png')
+        _vn.setBackgroundImage(@wrapper, 'start')
 
-        next = => @initMenu(_sui.StartMenuMain)
+        if 'menuCls' of options
+            menuCls = options.menuCls
+        else
+            menuCls = _sui.MenuMain
 
-        if fade
+        next = => @initMenu(menuCls)
+
+        if 'fade' of options and options.fade
             @vn.fadeIn(1000, next)
         else
             @vn.show()
@@ -26,13 +31,13 @@ class _sui.StartUI extends UI
     initMenu: (menuCls) ->
         @menu = new menuCls(this, @itemContainer)
         @menu.init()
-        @controlState = new _cs.sui.StartMenu(this, @menu)
+        @controlState = new _cs.sui.Menu(this, @menu)
 
     destroy: ->
         @wrapper.hide()
         @vn.hide()
 
-class _sui.StartMenu
+class _sui.Menu
 
     constructor: (@ui, @menu) ->
 
@@ -50,49 +55,8 @@ class _sui.StartMenu
 
     back: ->
 
-class _sui.StartMenuMain extends _sui.StartMenu
 
-    init: ->
-        @menu.html('')
-
-        @getMenuEl('New game').appendTo(@menu).
-            data('handler', @handleNewGame)
-        @selectFirst()
-        @controlState = new _cs.sui.StartMenu(this, @menu)
-
-    handleNewGame: =>
-        @ui.initMenu(_sui.StartMenuDifficulty)
-
-class _sui.StartMenuDifficulty extends _sui.StartMenu
-
-    init: ->
-        @menu.html('')
-
-        normal = @getMenuEl('Normal',
-            'The default difficulty.')
-        normal.appendTo(@menu).data('handler', @handler)
-        normal.data('difficulty', _file.difficulty.normal)
-
-        hard = @getMenuEl('Hard',
-            'How Aqua Emblem is meant to be played. ' +
-            'Units start at a lower ' +
-            'level and gain experience more slowly.')
-        hard.appendTo(@menu).data('handler', @handler)
-        hard.data('difficulty', _file.difficulty.hard)
-
-        @selectFirst()
-
-    back: ->
-        @ui.initMenu(_sui.StartMenuMain)
-
-    handler: =>
-        file = new _file.createNewFile(
-            @getSelected().data('difficulty'))
-
-        @ui.destroy()
-        file.init()
-
-class _cs.sui.StartMenu extends _cs.Menu
+class _cs.sui.Menu extends _cs.Menu
     
     f: ->
         @menuObj.getSelected().data('handler')()

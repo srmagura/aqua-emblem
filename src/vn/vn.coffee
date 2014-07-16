@@ -13,10 +13,13 @@ class _vn.VisualNovelUI extends UI
         @scene = new _vn.Scene(this)
 
     destroy: (callback) ->
-        @wrapper.fadeOut(1000, callback)
+        if callback?
+            @wrapper.fadeOut(1000, callback)
+        else
+            @wrapper.hide()
 
  
-_vn.setBackgroundImage = (el, path) ->
+_vn.setBackgroundImage = (el, name) ->
     bgPrefix = 'images/vn/backgrounds/'
-    value = "url('#{bgPrefix + path}')"
+    value = "url('#{bgPrefix}#{name}.png')"
     el.css('background-image', value)
