@@ -86,9 +86,8 @@ class _sui.StartMenuDifficulty extends _sui.StartMenu
         @ui.initMenu(_sui.StartMenuMain)
 
     handler: =>
-        file = new _file.File()
-        file.setFileState(_file.fs.Chapter1)
-        file.difficulty = @getSelected().data('difficulty')
+        file = new _file.createNewFile(
+            @getSelected().data('difficulty'))
 
         @ui.destroy()
         file.init()

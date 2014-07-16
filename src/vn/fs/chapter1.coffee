@@ -59,8 +59,7 @@ class _file.fs.Chapter1 extends _file.FileState
         @ui.destroy(@chapter)
 
     chapter: =>
-        @ui = new _cui.ChapterUI()
-        @ui.file = @file
+        @ui = new _cui.ChapterUI(@file)
         @ui.setChapter(_chapters.Chapter1)
         @ui.startChapter(@scene2)
      

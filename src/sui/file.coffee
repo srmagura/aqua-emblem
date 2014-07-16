@@ -19,3 +19,19 @@ class _file.File
 
 class _file.FileState
     constructor: (@file) ->
+
+
+_file.createNewFile = (difficulty) ->
+    file = new _file.File()
+    file.difficulty = difficulty
+    file.setFileState(_file.fs.Chapter1)
+    
+    playerUnits = [
+        new _uclass.special.Ace(),
+        new _uclass.special.Arrow(),
+        new _uclass.special.Luciana(),
+        new _uclass.special.Kenji(),
+    ]
+    
+    file.playerTeam = new _team.PlayerTeam(playerUnits)
+    return file

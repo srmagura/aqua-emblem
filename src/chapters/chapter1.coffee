@@ -2,15 +2,7 @@ window._chapters = {}
 
 class _chapters.Chapter1 extends _map.Chapter
 
-    constructor: (@ui) ->
-        playerUnits = [
-            new _uclass.special.Ace(),
-            new _uclass.special.Arrow(),
-            new _uclass.special.Luciana(),
-            new _uclass.special.Kenji(),
-        ]
-        @playerTeam = new _team.PlayerTeam(playerUnits)
-     
+    constructor: (@ui) ->     
         enemyUnits = [
             new _uclass.Fighter({pos: new Position(4, 2),
             level: 1,

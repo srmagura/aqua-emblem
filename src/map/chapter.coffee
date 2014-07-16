@@ -6,11 +6,12 @@ class _map.Chapter
     
     constructor: (@ui, @map) ->
         @done = false
-        @initUnits()
-
         @map.ui = @ui
         @playerTurn = new _turn.PlayerTurn(@ui)
         @enemyTurn = new _turn.EnemyTurn(@ui)
+        
+    setPlayerTeam: (@playerTeam) ->
+        @initUnits()
 
     initUnits: ->
         @units = []
