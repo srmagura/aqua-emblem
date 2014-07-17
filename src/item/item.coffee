@@ -20,6 +20,15 @@ class _item.Item
         return {
             constructor: @constructor.name
         }
+        
+    @unpickle: (pickled) ->
+        if pickled.constructor of _item
+            constructor = _item[pickled.constructor]
+            item = new constructor()
+        else
+            return null
+            
+        return item
 
 class _item.Weapon extends _item.Item
 

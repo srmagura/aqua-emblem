@@ -13,10 +13,10 @@ class _vn.VisualNovelUI extends UI
         @scene = new _vn.Scene(this)
         
         @units = {
-            'ace': new _uclass.special.Ace(),
-            'arrow': new _uclass.special.Arrow(),
-            'luciana': new _uclass.special.Luciana(),
-            'kenji': new _uclass.special.Kenji(),
+            'ace': new _unit.special.Ace(),
+            'arrow': new _unit.special.Arrow(),
+            'luciana': new _unit.special.Luciana(),
+            'kenji': new _unit.special.Kenji(),
         }
 
     destroy: (callback) ->

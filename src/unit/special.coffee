@@ -1,4 +1,6 @@
-class _uclass.special.Ace extends _uclass.Mercenary
+_unit.special = {}
+
+class _unit.special.Ace extends _uclass.Mercenary
     constructor: ->
         @name = 'Ace'
         @level = 2
@@ -15,7 +17,7 @@ class _uclass.special.Ace extends _uclass.Mercenary
 
         super()
 
-class _uclass.special.Arrow extends _uclass.Archer
+class _unit.special.Arrow extends _uclass.Archer
     constructor: ->
         @name = 'Arrow'
         @level = 1
@@ -33,7 +35,7 @@ class _uclass.special.Arrow extends _uclass.Archer
 
         super()
 
-class _uclass.special.Luciana extends _uclass.Soldier
+class _unit.special.Luciana extends _uclass.Soldier
     constructor: ->
         @name = 'Luciana'
         @level = 3
@@ -50,7 +52,7 @@ class _uclass.special.Luciana extends _uclass.Soldier
 
         super()
 
-class _uclass.special.Kenji extends _uclass.Fighter
+class _unit.special.Kenji extends _uclass.Fighter
     constructor: ->
         @name = 'Kenji'
         @level = 2

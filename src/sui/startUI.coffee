@@ -50,7 +50,6 @@ class _sui.StartUI extends UI
         @controlState = new _cs.sui.Menu(this, @menu)
         
     dialogOnClose: =>
-        @uploadDialog.find('textarea').attr('readonly', 'readonly')
         @controlState = @prevControlState
 
     destroy: ->

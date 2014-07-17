@@ -1,6 +1,5 @@
 <div class="vn-wrapper">  
-    <input type="button" class="focus-dummy invisible" />
-  
+ 
     <div class="start-menu-container">
         <div class="start-menu">
             <div class="message"></div>
@@ -11,6 +10,9 @@
             <div>
                 <p>
                     Copy the text from the textbox below and save it on your computer.
+                    Use <b>Ctrl+A</b> to select all of the text.
+                </p>
+                <p>
                     You can upload a backup later by choosing "Erase data" and then
                     "Upload backup".
                 </p>
@@ -23,11 +25,16 @@
             <div>
                 <p>
                     If you have previously saved a backup, 
-                    paste the text into the box below and click "Upload".
+                    paste the text into the box below and click "Upload".                 
                 </p>
-            
+                
                 <textarea rows="5"></textarea>
+                <div class="error-div">
+                    <br />
+                    <span class="error"></span> 
+                </div>              
             </div>
+            
         </div>
            
     </div>

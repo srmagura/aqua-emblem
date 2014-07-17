@@ -1,4 +1,4 @@
-window._uclass = {special: {}}
+window._uclass = {}
 
 class _uclass.Mercenary extends _unit.Unit
     constructor: (attr) ->

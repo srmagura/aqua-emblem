@@ -30,11 +30,33 @@ class _sui.MenuNoData extends _sui.Menu
         
         @ui.prevControlState = @ui.controlState
         @ui.controlState = new _cs.ControlState(@ui)
+        
+        dia.find('.error-div').hide()
 
         setTimeout((-> dia.find('textarea').val('')), 0)
         
     doUpload: =>
-        console.log 'doUpload'
+        str = @ui.uploadDialog.find('textarea').val()
+        invalid = false
+        
+        try
+            pickled = $.parseJSON(str)
+        catch error
+            invalid = true
+            
+        unpickled = _file.File.unpickle(pickled)
+        
+        if unpickled is null
+            invalid = true 
+            
+        if invalid
+            @ui.uploadDialog.find('.error').text(
+                'Could not parse the save file.'
+            )
+            @ui.uploadDialog.find('.error-div').show()
+            return
+        else
+            @ui.uploadDialog.dialog('close')
 
 class _sui.MenuDifficulty extends _sui.Menu
 

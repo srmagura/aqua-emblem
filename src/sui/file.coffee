@@ -20,6 +20,31 @@ class _file.File
             'fsCls': @fileState.constructor.name,
             'playerTeam': @playerTeam.pickle()
         }
+        
+    @unpickle: (pickled) ->   
+        file = new _file.File()
+        
+        if 'difficultyStr' of pickled
+            file.difficultyStr = pickled.difficultyStr
+            file.difficulty = _file.difficulty[file.difficultyStr]
+        else
+            return null
+            
+        if 'fsCls' of pickled
+            fsCls = pickled.fsCls
+            
+            if fsCls of _file.fs
+                file.setFileState(_file.fs[fsCls])
+            else
+                return null
+        else
+            return null
+    
+        file.playerTeam = _team.PlayerTeam.unpickle(pickled.playerTeam)
+        if file.playerTeam is null
+            return null
+            
+        return file       
 
 
 class _file.FileState
@@ -39,10 +64,10 @@ _file.createNewFile = (difficultyStr) ->
     file.setFileState(_file.fs.Chapter1)
     
     playerUnits = [
-        new _uclass.special.Ace(),
-        new _uclass.special.Arrow(),
-        new _uclass.special.Luciana(),
-        new _uclass.special.Kenji(),
+        new _unit.special.Ace(),
+        new _unit.special.Arrow(),
+        new _unit.special.Luciana(),
+        new _unit.special.Kenji(),
     ]
     
     file.playerTeam = new _team.PlayerTeam(playerUnits)

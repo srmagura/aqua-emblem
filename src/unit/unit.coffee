@@ -297,3 +297,33 @@ class _unit.Unit
             obj.inventory.push(item.pickle())
             
         return obj
+        
+    @unpickle: (pickled) ->   
+        if pickled.constructor of _unit.special
+            constructor = _unit.special[pickled.constructor]
+            unit = new constructor()
+        else
+            return null
+            
+        if 'level' of pickled
+            unit.level = pickled.level
+        else
+            return null
+            
+        if 'exp' of pickled
+            unit.exp = pickled.exp
+        else
+            return null
+            
+        if pickled.inventory instanceof Array
+            unit.inventory = []          
+            for pickledItem in pickled.inventory
+                item = _item.Item.unpickle(pickledItem)
+                if item is null
+                    return null
+                else
+                    unit.inventory.push(item)
+        else
+            return null
+            
+        return unit
