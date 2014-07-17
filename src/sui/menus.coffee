@@ -13,10 +13,28 @@ class _sui.MenuNoData extends _sui.Menu
         @controlState = new _cs.sui.Menu(this, @menu)
 
     handleNewGame: =>
-        @ui.initMenu(_sui.MenuDifficulty)
+        @ui.initMenu(_sui.MenuDifficulty)              
         
-    handleUpload: =>
+    handleUpload: => 
+        options = $.extend(@ui.dialogOptions, {
+            buttons: [
+                { 
+                    text: 'Upload', 
+                    click: @doUpload
+                }
+            ] 
+        })
+      
+        dia = @ui.uploadDialog      
+        dia.dialog(options)
+        
+        @ui.prevControlState = @ui.controlState
+        @ui.controlState = new _cs.ControlState(@ui)
 
+        setTimeout((-> dia.find('textarea').val('')), 0)
+        
+    doUpload: =>
+        console.log 'doUpload'
 
 class _sui.MenuDifficulty extends _sui.Menu
 
@@ -66,19 +84,15 @@ class _sui.MenuMain extends _sui.Menu
         @controlState = new _cs.sui.Menu(this, @menu)
 
     handleContinue: =>
-    
-    dialogOnClose: =>
-        @ui.controlState = @prevControlState
         
-    handleSaveBackup: =>
-    
+    handleSaveBackup: =>  
         dia = @ui.saveBackupDialog
-        dia.dialog({modal: true, width: 400, close: @dialogOnClose})
+        dia.dialog(@ui.dialogOptions)
         
         str = JSON.stringify(@ui.file.pickle())
         dia.find('textarea').val(str)
         
-        @prevControlState = @ui.controlState
+        @ui.prevControlState = @ui.controlState
         @ui.controlState = new _cs.ControlState(@ui)
     
     handleErase: =>

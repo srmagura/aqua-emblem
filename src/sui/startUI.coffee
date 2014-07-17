@@ -7,14 +7,19 @@ class _sui.StartUI extends UI
         super()
         @vn = $('.vn-wrapper')
         @controlState = new _cs.ControlState(this)
+        
         @wrapper = @vn.find('.start-menu-container')
         @itemContainer = @wrapper.find('.items')
         @messageDiv = @wrapper.find('.message')
+        
         @saveBackupDialog = @wrapper.find('.save-backup')
+        @uploadDialog = @wrapper.find('.upload-backup')
         
         @messages = {
             'chapterComplete': 'Chapter complete! Game saved.'
         }
+        
+        @dialogOptions = {modal: true, width: 400, close: @dialogOnClose}
 
     init: (options={}) ->
         @itemContainer.html('')
@@ -43,6 +48,10 @@ class _sui.StartUI extends UI
         @menu = new menuCls(this, @itemContainer)
         @menu.init()
         @controlState = new _cs.sui.Menu(this, @menu)
+        
+    dialogOnClose: =>
+        @uploadDialog.find('textarea').attr('readonly', 'readonly')
+        @controlState = @prevControlState
 
     destroy: ->
         @wrapper.hide()
