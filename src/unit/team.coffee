@@ -6,7 +6,9 @@ class _team.Team
         for unit in @units
             unit.setTeam(this)
 
+
 class _team.PlayerTeam extends _team.Team
+
     constructor: (@units, attr={}) ->
         for unit in @units
             if 'skills' not of unit
@@ -15,8 +17,17 @@ class _team.PlayerTeam extends _team.Team
             unit.skills = [new _skill.Defend()].concat(unit.skills)
 
         super(@units)
+        
+    pickle: ->
+        array = []
+        for unit in @units
+            array.push(unit.pickle())
+            
+        return array
+    
 
 class _team.EnemyTeam extends _team.Team
+
     constructor: (@units, attr={}) ->
         for unit in @units
             if 'aiType' not of unit

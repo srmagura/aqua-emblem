@@ -24,14 +24,14 @@ class _sui.MenuDifficulty extends _sui.Menu
         normal = @getMenuEl('Normal',
             'The default difficulty.')
         normal.appendTo(@menu).data('handler', @handler)
-        normal.data('difficulty', _file.difficulty.normal)
+        normal.data('difficulty', 'normal')
 
         hard = @getMenuEl('Hard',
             'How Aqua Emblem is meant to be played. ' +
             'Units start at a lower ' +
             'level and gain experience more slowly.')
         hard.appendTo(@menu).data('handler', @handler)
-        hard.data('difficulty', _file.difficulty.hard)
+        hard.data('difficulty', 'hard')
 
         @selectFirst()
 
@@ -75,7 +75,7 @@ class _sui.MenuMain extends _sui.Menu
         dia = @ui.saveBackupDialog
         dia.dialog({modal: true, width: 400, close: @dialogOnClose})
         
-        str = @ui.file.pickle()
+        str = JSON.stringify(@ui.file.pickle())
         dia.find('textarea').val(str)
         
         @prevControlState = @ui.controlState

@@ -15,6 +15,11 @@ class _item.Item
         return el
 
     getImagePath: -> "images/items/#{@image}"
+    
+    pickle: ->
+        return {
+            constructor: @constructor.name
+        }
 
 class _item.Weapon extends _item.Item
 

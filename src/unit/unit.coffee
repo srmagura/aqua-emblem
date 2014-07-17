@@ -284,3 +284,16 @@ class _unit.Unit
             
     getImagePath: ->
         return 'images/characters/' + @name.toLowerCase() + '.png'
+        
+    pickle: ->
+        obj = {
+            constructor: @constructor.name,
+            level: @level,
+            exp: @exp,
+            inventory: []
+        }
+        
+        for item in @inventory
+            obj.inventory.push(item.pickle())
+            
+        return obj

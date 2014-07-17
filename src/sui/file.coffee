@@ -7,8 +7,6 @@ _file.difficulty = {
 }
 
 class _file.File
-    
-    constructor: ->
 
     setFileState: (fsCls) ->
         @fileState = new fsCls(this)
@@ -17,9 +15,9 @@ class _file.File
         @fileState.init()
         
     pickle: ->
-        return 'cucumber'
         return {
-            'fsCls': @fileState.constructor,
+            'difficultyStr': @difficultyStr
+            'fsCls': @fileState.constructor.name,
             'playerTeam': @playerTeam.pickle()
         }
 
@@ -34,9 +32,10 @@ class _file.FileState
         @ui.init({message: @ui.messages.chapterComplete})
 
 
-_file.createNewFile = (difficulty) ->
+_file.createNewFile = (difficultyStr) ->
     file = new _file.File()
-    file.difficulty = difficulty
+    file.difficultyStr = difficultyStr
+    file.difficulty = _file.difficulty[difficultyStr]
     file.setFileState(_file.fs.Chapter1)
     
     playerUnits = [
