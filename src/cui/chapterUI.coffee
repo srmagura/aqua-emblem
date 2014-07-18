@@ -25,6 +25,8 @@ class _cui.ChapterUI extends UI
 
         @actionMenu = new _cui.ActionMenu(this)
         @weaponMenu = new _cui.WeaponMenu(this)
+        @itemMenu = new _cui.ItemMenu(this)
+        
         @battleStatsPanel = new _cui.BattleStatsPanel(this)
         @expBar = new _cui.ExpBar(this)
 

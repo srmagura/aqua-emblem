@@ -80,7 +80,12 @@ class _cui.UnitInfoWindow
         inv = invContent.find('.inventory').html('')
 
         for item in @unit.inventory
-            inv.append(item.getElement(@unit.canUse(item)))
+            options = {
+                usable: @unit.canUse(item)
+                equipped: @unit.equipped is item
+            }
+        
+            inv.append(item.getElement(options))
 
         @unit.calcCombatStats()
         combatStats = invContent.find('.combat-stats')

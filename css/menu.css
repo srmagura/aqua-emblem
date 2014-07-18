@@ -19,7 +19,8 @@ div.menu .selected .image, .end-turn .image
     background-repeat: no-repeat;
 }
 
-.sidebar .weapon-menu
+/***** WEAPON MENU *****/
+.weapon-menu
 {
     overflow: hidden
 }
@@ -31,11 +32,17 @@ div.menu .selected .image, .end-turn .image
     float: left;
 }
 
+.weapon-menu, .item-menu
+{
+    width: 165px;
+}
+
 .menu.weapon-menu .image
 {
     margin-top: 7px;
 }
 
+/***** END TURN MENU *****/
 .end-turn
 {
     position: absolute;

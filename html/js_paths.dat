@@ -27,6 +27,7 @@ lib/cui/levelUpWindow.js
 lib/cui/tradeWindow.js
 lib/cui/actionMenu.js
 lib/cui/weaponMenu.js
+lib/cui/itemMenu.js
 lib/cui/itemInfoBox.js
 lib/cui/battleStatsPanel.js
 lib/cui/message.js
@@ -40,6 +41,7 @@ lib/map/csmap.js
 lib/map/position.js
 lib/map/terrain.js
 lib/map/range.js
+lib/map/destination.js
 
 lib/turn/turn.js
 lib/turn/playerTurn.js
@@ -57,6 +59,10 @@ lib/unit/uclass.js
 lib/unit/special.js
 
 lib/item/item.js
+lib/item/sword.js
+lib/item/lance.js
+lib/item/axe.js
+lib/item/bow.js
 
 lib/skill/skill.js
 lib/skill/aid.js

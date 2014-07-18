@@ -1,3 +1,32 @@
+/***** ITEM ELEMENT *****/
+.item-element img
+{
+    width: 13pt;
+    float: left;
+}
+
+.item-element .text
+{
+    padding: 0 0 0 6px;
+    font-size: 10pt;
+}
+
+.item-element .text .equipped
+{
+    font-size: 9pt;
+}
+
+.item-element.not-usable span
+{
+    color: #A00;
+}
+
+.item-element.drop span
+{
+    color: #00C;
+}
+
+/***** ITEM INFO BOX *****/
 .item-info-box
 {
     display: none;

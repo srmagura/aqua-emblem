@@ -23,7 +23,6 @@ class _unit.special.Arrow extends _uclass.Archer
         @level = 1
         @picture = true
         @inventory = [new _item.IronBow()]
-        @inventory.push(new _item.IronBow())
 
         @skills = [new _skill.FirstAid()]
 
@@ -40,8 +39,7 @@ class _unit.special.Luciana extends _uclass.Soldier
         @name = 'Luciana'
         @level = 3
         @picture = true
-        @inventory = [new _item.IronLance()]
-        @inventory.push(new _item.IronBow())
+        @inventory = [new _item.IronLance(), new _item.SteelLance()]
         @skills = [new _skill.Protect()]
 
         @startStats = {maxHp: 28, maxMp: 10, str: 3.5, def: 6,

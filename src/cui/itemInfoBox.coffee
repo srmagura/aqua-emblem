@@ -2,8 +2,9 @@ class _cui.ItemInfoBox
 
     constructor: (@ui, @box) ->
 
-    init: (item, canUse) ->
-        @box.find('.header').html(item.getElement(canUse))
+    init: (item, usable) ->
+        options = {usable: usable}
+        @box.find('.header').html(item.getElement(options))
 
         weaponStatsEl = @box.find('.weapon-stats')
         weaponStats = ['hit', 'might', 'crit', 'weight']

@@ -52,8 +52,9 @@ class _cui.TradeWindow
 
             item = unit.inventory[i]
             if item?
-                usable = unit.canUse(item)
-                itemContainer.append(item.getElement(usable))
+                options = {usable: unit.canUse(item)}
+                
+                itemContainer.append(item.getElement(options))
                 itemContainer.data('item', item)
 
             inventoryEl.append(itemContainer)

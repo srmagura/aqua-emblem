@@ -22,7 +22,7 @@ class _turn.Turn
 
     getAvailable: (unit) ->
         map = @ui.chapter.map
-        available = [new _turn.Destination(unit.pos, [unit.pos])]
+        available = [new _map.Destination(unit.pos, [unit.pos])]
 
         queue = []
         queuePerm = getRandomPermutation(map.width*map.height)
@@ -73,7 +73,7 @@ class _turn.Turn
                     alt <= unit.move
                         dist[pos2.i][pos2.j] = alt
                         prev[pos2.i][pos2.j] = pos
-                        dest = new _turn.Destination(pos2, [pos2])
+                        dest = new _map.Destination(pos2, [pos2])
 
                         prevPos = pos
                         while prevPos isnt null

@@ -1,7 +1,7 @@
 class _file.fs.Chapter1 extends _file.FileState
 
     init: ->
-        return @scene2()
+        return @chapter()
         
         @ui = new _vn.VisualNovelUI()
         lines = [

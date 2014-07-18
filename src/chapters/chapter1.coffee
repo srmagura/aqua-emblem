@@ -18,7 +18,7 @@ class _chapters.Chapter1 extends _map.Chapter
 
             new _uclass.Soldier({pos: new Position(6, 5),
             level: 2, aiType: _unit.AI_TYPE.HALT,
-            inventory: [new _item.IronLance()]}),
+            inventory: [new _item.SteelLance().letDrop()]}),
 
             new _uclass.Soldier({pos: new Position(7, 5),
             level: 2, aiType: _unit.AI_TYPE.HALT,
@@ -63,7 +63,7 @@ class _chapters.Chapter1 extends _map.Chapter
             inventory: [new _item.IronAxe()]})
         ]
 
-        @enemyTeam = new _team.EnemyTeam(enemyUnits.splice(0,1), {defaultName: 'Bandit'})
+        @enemyTeam = new _team.EnemyTeam(enemyUnits.splice(3,1), {defaultName: 'Bandit'})
         @enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'
 
         terrainMapping = {
@@ -85,7 +85,8 @@ class _chapters.Chapter1 extends _map.Chapter
             [1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 2, 1, 1, 1],
         ]
 
-        playerPositions = [[2,1], [1,0], [0,1], [1, 2]]
+        #playerPositions = [[2,1], [1,0], [0,1], [1, 2]]
+        playerPositions = [[6,3], [1,0], [0,1], [1, 2]]
         @origin0 = new Position(0, 4*@ui.tw)
         @victoryCondition = _map.VICTORY_CONDITION.ROUT
         
