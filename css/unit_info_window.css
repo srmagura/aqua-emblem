@@ -118,7 +118,8 @@
     border: 1px solid transparent;
 }
 
-.unit-info-window .item-element.selected
+.unit-info-window .item-element.selected,
+.item-menu.in-submenu .selected .item-element
 {
     background-color: rgba(0, 0, 255, 0.3);
     border: 1px solid rgba(0, 0, 255, 0.35);

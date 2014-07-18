@@ -23,7 +23,7 @@ class _cui.ChapterUI extends UI
 
         @controlState = new _cs.cui.Chapter(this)
 
-        @actionMenu = new _cui.ActionMenu(this)
+        @actionMenu = new _cui.ActionMenuMain(this)
         @weaponMenu = new _cui.WeaponMenu(this)
         @itemMenu = new _cui.ItemMenu(this)
         

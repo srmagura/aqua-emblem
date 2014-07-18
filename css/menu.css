@@ -42,6 +42,12 @@ div.menu .selected .image, .end-turn .image
     margin-top: 7px;
 }
 
+/***** ITEM MENU *****/
+.item-menu.in-submenu .image
+{
+    visibility: hidden;
+}
+
 /***** END TURN MENU *****/
 .end-turn
 {

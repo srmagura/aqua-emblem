@@ -64,7 +64,8 @@ html_files = (
     'game_info', 'terrain_box', 'skills_tab',
     'level_up_window', 'unit_info_window',
     'battle_stats_panel', 'skills_box',
-    'unit_info_box', 'vn', 'item_info_box'
+    'unit_info_box', 'vn', 'item_info_box',
+    'sidebar_menus'
 )
 
 for name in html_files:
