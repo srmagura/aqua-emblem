@@ -15,13 +15,20 @@ class _file.File
         @fileState.init()
         
     pickle: ->
-        return {
+        obj = {
             'difficultyStr': @difficultyStr
             'fsCls': @fileState.constructor.name,
             'playerTeam': @playerTeam.pickle()
         }
         
-    @unpickle: (pickled) ->   
+        return JSON.stringify(obj)
+        
+    @unpickle: (str) ->
+        try
+            pickled = $.parseJSON(str)
+        catch error
+            return null
+                
         file = new _file.File()
         
         if 'difficultyStr' of pickled
@@ -53,6 +60,9 @@ class _file.FileState
 
     chapterComplete: =>
         @ui.destroy()
+        
+        localStorage.setItem('file', @file.pickle())
+        
         @ui = new _sui.StartUI(@file)
         @ui.init({message: @ui.messages.chapterComplete})
 

@@ -36,16 +36,10 @@ class _sui.MenuNoData extends _sui.Menu
         setTimeout((-> dia.find('textarea').val('')), 0)
         
     doUpload: =>
-        str = @ui.uploadDialog.find('textarea').val()
         invalid = false
-        
-        try
-            pickled = $.parseJSON(str)
-        catch error
-            invalid = true
+        str = @ui.uploadDialog.find('textarea').val()
             
-        unpickled = _file.File.unpickle(pickled)
-        
+        unpickled = _file.File.unpickle(str)        
         if unpickled is null
             invalid = true 
             
@@ -54,9 +48,10 @@ class _sui.MenuNoData extends _sui.Menu
                 'Could not parse the save file.'
             )
             @ui.uploadDialog.find('.error-div').show()
-            return
         else
             @ui.uploadDialog.dialog('close')
+            @ui.file = unpickled
+            @ui.initMenu(_sui.MenuMain)
 
 class _sui.MenuDifficulty extends _sui.Menu
 
@@ -106,16 +101,21 @@ class _sui.MenuMain extends _sui.Menu
         @controlState = new _cs.sui.Menu(this, @menu)
 
     handleContinue: =>
+        @ui.destroy()
+        @ui.file.init()
         
     handleSaveBackup: =>  
         dia = @ui.saveBackupDialog
         dia.dialog(@ui.dialogOptions)
         
-        str = JSON.stringify(@ui.file.pickle())
+        str = @ui.file.pickle()
         dia.find('textarea').val(str)
         
         @ui.prevControlState = @ui.controlState
         @ui.controlState = new _cs.ControlState(@ui)
     
     handleErase: =>
-        
+        if confirm('Are you sure you want to delete your saved game?')
+            @ui.file = null
+            localStorage.removeItem('file')
+            @ui.initMenu(_sui.MenuNoData)

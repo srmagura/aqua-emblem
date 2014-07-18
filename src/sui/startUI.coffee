@@ -25,6 +25,10 @@ class _sui.StartUI extends UI
         @itemContainer.html('')
         @wrapper.show()
         _vn.setBackgroundImage(@wrapper, 'start')
+        
+        json = localStorage.getItem('file')
+        if json?
+            @file = _file.File.unpickle(json)
 
         next = => 
             if @file?
