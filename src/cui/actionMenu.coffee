@@ -14,6 +14,9 @@ class _cui.ActionMenu
 
         @show()
 
+    callSelectedHandler: ->
+        handler = @menu.find('.selected').data('handler')
+        handler()
 
     show: ->
         @menu.css('display', 'inline-block')
@@ -52,8 +55,7 @@ class _cs.cui.ActionMenuMain extends _cs.cui.Menu
         @menuObj.hide()
         @ui.controlState = new _cs.cui.Map(@ui)
 
-        handler = @menuObj.menu.find('.selected').data('handler')
-        handler()
+        @menuObj.callSelectedHandler()
 
     d: ->
         @ui.actionMenu.hide()

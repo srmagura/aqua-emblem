@@ -4,7 +4,7 @@ class _cui.ItemMenu
         @menu = $('.item-menu')
         @actionMenu = new _cui.ItemActionMenu(@ui, this, 
             $('.item-action-menu'))
-        @actionMenuConfirm = new _cui.ItemActionMenu(@ui, this,
+        @actionMenuConfirm = new _cui.ItemActionMenuConfirm(@ui, this,
             $('.item-action-menu-confirm'))
         
     init: (playerTurn) ->
@@ -32,8 +32,12 @@ class _cui.ItemMenu
     getSelectedItem: ->
         return @menu.find('.selected .item-container').data('item')
         
-    handleDiscard: ->
-        console.log 'handleDiscard'
+    handleDiscard: =>
+        @actionMenu.hide()
+        @actionMenuConfirm.init()
+        
+    handleConfirmDiscard: =>
+        console.log 'handle confirm discard'
         
     show: ->
         @menu.css('display', 'inline-block')
@@ -71,7 +75,43 @@ class _cui.ItemActionMenu extends _cui.ActionMenu
         
 class _cs.cui.ItemActionMenu extends _cs.cui.Menu
 
+    f: ->
+        @menuObj.callSelectedHandler()
+
     d: ->
         @menuObj.hide()
         @menuObj.itemMenu.init()
+        
+        
+class _cui.ItemActionMenuConfirm extends _cui.ActionMenu
+
+    constructor: (@ui, @itemMenu, @container) ->
+        super(@ui)
+        @menu = @container.find('.menu')
+        
+    init: ->
+        menuItems = [(new _cui.ActionMenuItem('Yes, discard', @itemMenu.handleConfirmDiscard))]
+        super(menuItems)
+        
+        @ui.controlState = new _cs.cui.ItemActionMenuConfirm(@ui, this)
+        
+    show: ->
+        super()
+        @container.show()
+        
+    hide: ->
+        super()
+        @container.hide()
+        
+        
+class _cs.cui.ItemActionMenuConfirm extends _cs.cui.Menu
+
+    f: ->
+        @menuObj.callSelectedHandler()
+        
+    d: ->
+        @menuObj.hide()
+        @menuObj.itemMenu.actionMenu.init()
+        
+
     
