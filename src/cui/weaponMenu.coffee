@@ -10,10 +10,12 @@ class _cui.WeaponMenu
         @menu.html('')
         @unit = @playerTurn.selectedUnit
 
-        for item in @unit.inventory
+        for item in @unit.inventory.it()
             if @unit.canWield(item)
+                options = {equipped: item is @unit.equipped}
+            
                 menuItem = $('<div><div class="image"></div></div>')
-                menuItem.append(item.getElement())
+                menuItem.append(item.getElement(options))
                 menuItem.data('weapon', item).appendTo(@menu)
 
         @menu.children('div').first().addClass('selected')

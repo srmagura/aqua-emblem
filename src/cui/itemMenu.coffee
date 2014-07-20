@@ -9,17 +9,21 @@ class _cui.ItemMenu
         
     init: (playerTurn) ->
         if playerTurn?
+            @playerTurn = playerTurn
             @unit = playerTurn.selectedUnit
     
         @menu.html('')
 
-        for item in @unit.inventory
-             options = {
+        i = 0
+        for item in @unit.inventory.it()             
+            menuItem = $('<div><div class="image"></div></div>')
+            menuItem.data('index', i++)
+            
+            options = {
                 usable: @unit.canUse(item),
                 equipped: @unit.equipped is item
-             }
-             
-            menuItem = $('<div><div class="image"></div></div>')
+            }
+            
             menuItem.append(item.getElement(options))
             menuItem.appendTo(@menu)
 
@@ -32,12 +36,23 @@ class _cui.ItemMenu
     getSelectedItem: ->
         return @menu.find('.selected .item-container').data('item')
         
+    getSelectedIndex: ->
+        return @menu.find('.selected').data('index')
+        
     handleDiscard: =>
         @actionMenu.hide()
         @actionMenuConfirm.init()
         
     handleConfirmDiscard: =>
-        console.log 'handle confirm discard'
+        @unit.inventory.remove(@getSelectedIndex())
+        
+        @actionMenuConfirm.hide()
+        
+        if @unit.inventory.size() != 0
+            @init()
+        else
+            @hide()
+            @playerTurn.initActionMenu()
         
     show: ->
         @menu.css('display', 'inline-block')

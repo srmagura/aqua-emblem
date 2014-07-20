@@ -22,19 +22,14 @@ class _unit.Inventory
     refresh: ->
         totalRange = new Range()
         
+        equippedSet = false
+        
         for item in @items
             if @unit.canWield(item)
-                if not @unit.equipped? or @unit.equipped instanceof _skill.Skill
+                if not equippedSet
                     @unit.equipped = item
+                    equippedSet = true
 
                 totalRange = totalRange.union(item.range)
                 
         @unit.totalRange = totalRange
-        
-        newItems = [@unit.equipped]
-        for item in @items
-            if not item is @unit.equipped
-                newItems.push(item)
-                
-        @items = newItems
-

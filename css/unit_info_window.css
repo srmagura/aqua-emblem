@@ -49,7 +49,6 @@
     width: 100%;
 }
 
-
 .unit-info-window .common .insignia img
 {
     border: none;
@@ -149,6 +148,7 @@
 {
     color: #007A29;
     font-weight: bold;
+    padding-top: 1px;
 }
 
 /***** STATS *****/
@@ -161,6 +161,7 @@
 .unit-info-window .label
 {
     font-size: 9pt;
+    padding-top: 2px;
 }
 
 .unit-info-window .tab-content-stats table .stat
