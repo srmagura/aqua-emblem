@@ -6,17 +6,21 @@ class _cui.WeaponMenu
         itemInfoBoxEl = $('.sidebar .item-info-box')
         @itemInfoBox = new _cui.ItemInfoBox(@ui, itemInfoBoxEl)
 
-    init: (@playerTurn) ->
+    init: (playerTurn) ->
+        if playerTurn?
+            @playerTurn = playerTurn
+            @unit = @playerTurn.selectedUnit
+    
         @menu.html('')
-        @unit = @playerTurn.selectedUnit
 
         for item in @unit.inventory.it()
             if @unit.canWield(item)
                 options = {equipped: item is @unit.equipped}
             
                 menuItem = $('<div><div class="image"></div></div>')
+                menuItem.addClass('menu-choice')
                 menuItem.append(item.getElement(options))
-                menuItem.data('weapon', item).appendTo(@menu)
+                menuItem.appendTo(@menu)
 
         @menu.children('div').first().addClass('selected')
         @selectedItemChanged()
@@ -24,9 +28,12 @@ class _cui.WeaponMenu
         @show()
         @ui.controlState = new _cs.cui.WeaponMenu(@ui, this)
 
+    getSelectedItem: ->
+        el = @menu.find('.selected .item-element')
+        return el.data('item')
+
     selectedItemChanged: ->
-        itemEl = @menu.find('.selected .item-element')
-        item = itemEl.data('item')
+        item = @getSelectedItem()
         @itemInfoBox.init(item, @unit.canUse(item))
 
     show: ->
@@ -45,6 +52,8 @@ class _cs.cui.WeaponMenu extends _cs.cui.Menu
         @menuObj.selectedItemChanged()
     
     f: ->
+        item = @menuObj.getSelectedItem()
+        @menuObj.unit.setEquipped(item)
         @ui.weaponMenu.hide()
 
         pt = @menuObj.playerTurn

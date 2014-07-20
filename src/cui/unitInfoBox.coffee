@@ -22,8 +22,11 @@ class _cui.UnitInfoBox
 
         @box.find('.name').text(unit.name)
 
-        src = unit.equipped.getImagePath()
-        @box.find('.equipped').attr('src', src)
+        if unit.equipped?
+            src = unit.equipped.getImagePath()
+            @box.find('.equipped').attr('src', src)
+        else
+            @box.find('.equipped').removeAttr('src')
 
         @delay = 200 / @ui.speedMultiplier
         @populateHp(unit, animate)

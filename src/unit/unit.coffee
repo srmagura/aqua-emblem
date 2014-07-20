@@ -84,6 +84,8 @@ class _unit.Unit
 
     setName: (@name) ->
         @id = @name.toLowerCase().replace(' ', '-')
+        
+    setEquipped: (item) -> @inventory.setEquipped(item)
 
     fillInStartStats: (startStats) ->
         if not @startStats?

@@ -82,11 +82,11 @@ class _cs.cui.ChooseAttackTarget extends _cs.cui.MapTarget
             @ui.controlState = new _cs.cui.Chapter(@ui)
 
     d: ->
-        @ui.actionMenu.init()
         @playerTurn.battle = null
         @ui.battleStatsPanel.hide()
         @ui.cursor.moveTo(@playerTurn.selectedUnit.pos)
-        @ui.controlState = new _cs.cui.ActionMenuMain(@ui, @ui.actionMenu)
+        
+        @ui.weaponMenu.init()
 
 
 class _cs.cui.ChooseTradeTarget extends _cs.cui.MapTarget

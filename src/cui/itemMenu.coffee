@@ -34,10 +34,16 @@ class _cui.ItemMenu
         @ui.controlState = new _cs.cui.ItemMenu(@ui, this)
         
     getSelectedItem: ->
-        return @menu.find('.selected .item-container').data('item')
+        return @menu.find('.selected .item-element').data('item')
         
     getSelectedIndex: ->
         return @menu.find('.selected').data('index')
+        
+    handleEquip: =>
+        @unit.setEquipped(@getSelectedItem())
+        @actionMenu.hide()
+        @ui.unitInfoBox.update()
+        @init()
         
     handleDiscard: =>
         @actionMenu.hide()
@@ -45,6 +51,7 @@ class _cui.ItemMenu
         
     handleConfirmDiscard: =>
         @unit.inventory.remove(@getSelectedIndex())
+        @ui.unitInfoBox.update()
         
         @actionMenuConfirm.hide()
         
@@ -53,6 +60,7 @@ class _cui.ItemMenu
         else
             @hide()
             @playerTurn.initActionMenu()
+                        
         
     show: ->
         @menu.css('display', 'inline-block')
@@ -82,6 +90,11 @@ class _cui.ItemActionMenu extends _cui.ActionMenu
         item = @itemMenu.getSelectedItem()
         
         menuItems = []
+        
+        if @itemMenu.unit.canWield(item)
+            menuItems.push(new _cui.ActionMenuItem('Equip',
+                @itemMenu.handleEquip))
+        
         menuItems.push(new _cui.ActionMenuItem('Discard', @itemMenu.handleDiscard))
         super(menuItems)
         

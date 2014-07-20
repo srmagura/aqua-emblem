@@ -19,6 +19,11 @@ div.menu .selected .image, .end-turn .image
     background-repeat: no-repeat;
 }
 
+.menu .menu-choice
+{
+    clear: left;
+}
+
 /***** WEAPON MENU *****/
 .weapon-menu
 {
@@ -52,6 +57,21 @@ div.menu .selected .image, .end-turn .image
 {
     display: none;
     font-size: 10pt;
+}
+
+.menu.item-menu .image
+{
+    margin-top: 5px;
+}
+
+.item-menu .item-element
+{
+    border: 1px solid transparent;
+}
+
+.item-action-menu-confirm
+{
+    padding: 3px;
 }
 
 /***** END TURN MENU *****/

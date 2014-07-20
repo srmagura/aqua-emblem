@@ -5,7 +5,7 @@ class _unit.special.Ace extends _uclass.Mercenary
         @name = 'Ace'
         @level = 2
         @picture = true
-        @items = [new _item.IronSword()]
+        @items = [new _item.IronSword(), new _item.SteelSword()]
 
         @skills = [new _skill.Flare()]
 

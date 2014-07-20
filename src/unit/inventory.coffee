@@ -18,6 +18,12 @@ class _unit.Inventory
     remove: (i) ->
         @items.splice(i, 1)
         @refresh()
+        
+    setEquipped: (item) ->
+        i = @items.indexOf(item)
+        @items.splice(i, 1)
+        @items = [item].concat(@items)
+        @refresh()
 
     refresh: ->
         totalRange = new Range()
@@ -33,3 +39,6 @@ class _unit.Inventory
                 totalRange = totalRange.union(item.range)
                 
         @unit.totalRange = totalRange
+        
+        if not equippedSet
+            @unit.equipped = null
