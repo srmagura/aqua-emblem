@@ -7,7 +7,7 @@ body
 
 div.wrapper
 {
-    width: 800px;
+    width: 900px;
     margin: 0 auto;
     padding-top: 15px;
 }
@@ -41,6 +41,7 @@ canvas
 
 div.game-info
 {
+    clear: both;
     margin: 25px 0;
 }
 
@@ -61,7 +62,6 @@ div.game-info table .control
 
 div.sidebar
 {
-    width: 175px;
     float: left;
 }
 
@@ -73,7 +73,8 @@ div.sidebar > div
 
 div.left-sidebar
 {
-    margin-right: 10px;
+    margin: 0 10px;
+    width: 210px;
 }
 
 div.right-sidebar

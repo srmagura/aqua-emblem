@@ -50,5 +50,8 @@ class _team.EnemyTeam extends _team.Team
 
             if 'defaultName' of attr and not unit.name?
                 unit.setName(attr.defaultName)
+                
+            for item in unit.inventory.it()
+                item.uses = null
 
         super(@units)

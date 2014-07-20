@@ -25,6 +25,12 @@
     color: #00C;
 }
 
+.item-element .uses
+{
+    float: right;
+    padding-right: 3px;
+}
+
 /***** ITEM INFO BOX *****/
 .item-info-box
 {
@@ -37,6 +43,11 @@
 {
     position: absolute;
     z-index: 10;
+}
+
+.canvas-container .item-info-box .item-element .uses
+{
+    display: none;
 }
 
 .sidebar .item-info-box

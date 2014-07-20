@@ -12,6 +12,8 @@ class _item.Item
     letDrop: -> 
         @drop = true
         return this
+        
+    hasUses: (n) -> (@uses is null or @uses >= n) 
 
     getElement: (options={}) ->
         el = $('<div class="item-element"></div>')
@@ -29,6 +31,10 @@ class _item.Item
         src = @getImagePath()
         el.append($("<img src='#{src}' />"))
         el.append($("<span class='text'>#{html}</span>"))
+        
+        if @uses?
+            el.append($("<div class='uses'>#{@uses}</div>"))
+        
         el.data('item', this)
         return el
 

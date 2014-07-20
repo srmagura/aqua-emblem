@@ -30,11 +30,14 @@ class _enc.Battle extends _enc.Encounter
             @turns.push(@def)
             @nTurns.def++
 
-        if @atk.attackSpeed - 4 > @def.attackSpeed
+        if(@atk.attackSpeed - 4 > @def.attackSpeed and
+        @atk.equipped.hasUses(2))
             @turns.push(@atk)
             @nTurns.atk++
-        else if defCanAttack and
-        @def.attackSpeed - 4 > @atk.attackSpeed
+            
+        else if(defCanAttack and
+        @def.attackSpeed - 4 > @atk.attackSpeed  and
+        @def.equipped.hasUses(2))    
             @turns.push(@def)
             @nTurns.def++
 

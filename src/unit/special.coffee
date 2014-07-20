@@ -5,12 +5,14 @@ class _unit.special.Ace extends _uclass.Mercenary
         @name = 'Ace'
         @level = 2
         @picture = true
-        @items = [new _item.IronSword(), new _item.SteelSword()]
+        @items = [new _item.IronSword(), new _item.SteelSword(), new _item.SteelSword()]
+        @items[1].uses = 2
+        @items[2].uses = 1
 
         @skills = [new _skill.Flare()]
 
         @startStats = {maxHp: 30, maxMp: 10, str: 6, def: 4,
-        skill: 3.8, speed: 5, res: 2, luck: 8, mag: 3}
+        skill: 38, speed: 5, res: 2, luck: 8, mag: 3}
 
         @growthRates = {maxHp: .7, maxMp: 1, str: .5, skill: .35,
         speed: .35, luck: .5, def: .4, res: .15, mag: .3}
