@@ -53,6 +53,7 @@ lib/enc/unitAction.js
 lib/enc/aidEncounter.js
 
 lib/unit/unit.js
+lib/unit/inventory.js
 lib/unit/team.js
 lib/unit/status.js
 lib/unit/uclass.js

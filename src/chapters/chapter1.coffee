@@ -6,61 +6,61 @@ class _chapters.Chapter1 extends _map.Chapter
         enemyUnits = [
             new _uclass.Fighter({pos: new Position(4, 2),
             level: 1,
-            inventory: [new _item.IronAxe()]}),
+            items: [new _item.IronAxe()]}),
 
             new _uclass.Fighter({pos: new Position(5, 4),
             level: 1,
-            inventory: [new _item.IronAxe()]}),
+            items: [new _item.IronAxe()]}),
 
             new _uclass.Archer({pos: new Position(8, 3),
             level: 1,
-            inventory: [new _item.IronBow()]}),
+            items: [new _item.IronBow()]}),
 
             new _uclass.Soldier({pos: new Position(6, 5),
             level: 2, aiType: _unit.AI_TYPE.HALT,
-            inventory: [new _item.SteelLance().letDrop()]}),
+            items: [new _item.SteelLance().letDrop()]}),
 
             new _uclass.Soldier({pos: new Position(7, 5),
             level: 2, aiType: _unit.AI_TYPE.HALT,
-            inventory: [new _item.IronLance()]}),
+            items: [new _item.IronLance()]}),
 
             new _uclass.Mercenary({pos: new Position(7, 8),
             level: 1,
-            inventory: [new _item.IronSword()]}),
+            items: [new _item.IronSword()]}),
 
             new _uclass.Fighter({pos: new Position(6, 7),
             level: 1,
-            inventory: [new _item.IronAxe()]}),
+            items: [new _item.IronAxe()]}),
 
             new _uclass.Archer({pos: new Position(6, 15),
             level: 1, aiType: _unit.AI_TYPE.HALT
-            inventory: [new _item.IronBow()]}),
+            items: [new _item.IronBow()]}),
 
             new _uclass.Archer({pos: new Position(7, 14),
             level: 1,
-            inventory: [new _item.IronBow()]}),
+            items: [new _item.IronBow()]}),
 
             new _uclass.Fighter({pos: new Position(1, 8),
             level: 1,
-            inventory: [new _item.IronAxe()]}),
+            items: [new _item.IronAxe()]}),
 
             new _uclass.Fighter({pos: new Position(3, 10),
             level: 1,
-            inventory: [new _item.IronAxe()]}),
+            items: [new _item.IronAxe()]}),
 
             new _uclass.Mercenary({pos: new Position(3, 12),
             level: 1,
-            inventory: [new _item.IronSword()]}),
+            items: [new _item.IronSword()]}),
 
             new _uclass.Mercenary({pos: new Position(6, 12),
             level: 1,
-            inventory: [new _item.IronSword()]}),
+            items: [new _item.IronSword()]}),
 
             new _uclass.Fighter({pos: new Position(3, 15),
             aiType: _unit.AI_TYPE.HALT,
             boss: true,
             level: 5,
-            inventory: [new _item.IronAxe()]})
+            items: [new _item.IronAxe()]})
         ]
 
         @enemyTeam = new _team.EnemyTeam(enemyUnits.splice(3,1), {defaultName: 'Bandit'})

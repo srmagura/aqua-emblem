@@ -5,7 +5,7 @@ class _unit.special.Ace extends _uclass.Mercenary
         @name = 'Ace'
         @level = 2
         @picture = true
-        @inventory = [new _item.IronSword()]
+        @items = [new _item.IronSword()]
 
         @skills = [new _skill.Flare()]
 
@@ -22,7 +22,7 @@ class _unit.special.Arrow extends _uclass.Archer
         @name = 'Arrow'
         @level = 1
         @picture = true
-        @inventory = [new _item.IronBow()]
+        @items = [new _item.IronBow()]
 
         @skills = [new _skill.FirstAid()]
 
@@ -39,7 +39,7 @@ class _unit.special.Luciana extends _uclass.Soldier
         @name = 'Luciana'
         @level = 3
         @picture = true
-        @inventory = [new _item.IronLance(), new _item.SteelLance()]
+        @items = [new _item.IronLance(), new _item.SteelLance()]
         @skills = [new _skill.Protect()]
 
         @startStats = {maxHp: 28, maxMp: 10, str: 3.5, def: 6,
@@ -55,7 +55,7 @@ class _unit.special.Kenji extends _uclass.Fighter
         @name = 'Kenji'
         @level = 2
         @picture = true
-        @inventory = [new _item.IronAxe()]
+        @items = [new _item.IronAxe()]
         @skills = [new _skill.Temper()]
 
         @startStats = {maxHp: 36, maxMp: 10, str: 7, def: 3.5,

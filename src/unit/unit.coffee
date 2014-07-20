@@ -13,8 +13,6 @@ _unit.LUNGE_STATUS = {
 
 class _unit.Unit
 
-    @INVENTORY_SIZE: 5
-
     constructor: (attr) ->
         for key, value of attr
             this[key] = value
@@ -33,30 +31,14 @@ class _unit.Unit
             @boss = false
         if 'exp' not of this
             @exp = 0
-        if 'inventory' not of this
-            @inventory = []
+        if 'items' not of this
+            @items = []
 
-        @refreshInventory()
+        @inventory = new _unit.Inventory(this, @items)
+        delete @items
 
         @lungeStatus = _unit.LUNGE_STATUS.NOT_LUNGING
         @offset = new Position(0, 0)
-
-    setInventory: (i, item) ->
-        @inventory[i] = item
-        @refreshInventory()
-
-    deleteItem: (i) ->
-        @inventory.splice(i, 1)
-        @refreshInventory()
-
-    refreshInventory: ->
-        @totalRange = new Range()
-        for item in @inventory
-            if @canWield(item)
-                if not @equipped? or @equipped instanceof _skill.Skill
-                    @equipped = item
-
-                @totalRange = @totalRange.union(item.range)
 
     onNewTurn: ->
         toRemove = []
@@ -293,6 +275,7 @@ class _unit.Unit
             inventory: []
         }
         
+        #FIXME
         for item in @inventory
             obj.inventory.push(item.pickle())
             
@@ -314,7 +297,8 @@ class _unit.Unit
             unit.exp = pickled.exp
         else
             return null
-            
+        
+        #FIXME   
         if pickled.inventory instanceof Array
             unit.inventory = []          
             for pickledItem in pickled.inventory

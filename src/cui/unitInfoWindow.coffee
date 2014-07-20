@@ -79,7 +79,7 @@ class _cui.UnitInfoWindow
         invContent = w.find('.tab-content-inventory').show()
         inv = invContent.find('.inventory').html('')
 
-        for item in @unit.inventory
+        for item in @unit.inventory.it()
             options = {
                 usable: @unit.canUse(item)
                 equipped: @unit.equipped is item
