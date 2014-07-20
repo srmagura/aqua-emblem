@@ -213,43 +213,9 @@ div.battle-message.no-dmg
     display: none;
 }
 
-/***** MESSAGES *****/
+/***** VICTORY CONDITION *****/
 div.victory-condition
 {
     padding: 5px;
     display: none;
-}
-
-.canvas-container div.message
-{
-    position: absolute;
-    visibility: hidden;
-    z-index: 10;
-    
-    background-color: rgba(255,255,255,.4);
-    padding: 10px 10px;
-    border-radius: 20px;
-    
-    font-size: 14pt;
-    font-weight: bold;
-}
-
-div.canvas-dark-overlay 
-{
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: black;
-    opacity: .4;
-}
-
-.victory-message
-{
-    color: blue;
-}
-
-.defeat-message
-{
-    color: #C00;
 }

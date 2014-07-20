@@ -1,0 +1,46 @@
+.canvas-container .message-box
+{
+    position: absolute;
+    visibility: hidden;
+    z-index: 10;   
+}
+
+.canvas-container .big-message
+{    
+    background-color: rgba(255,255,255,.4);
+    padding: 10px 10px;
+    border-radius: 20px;
+    
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+.canvas-dark-overlay 
+{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: .4;
+}
+
+.victory-message
+{
+    color: blue;
+}
+
+.defeat-message
+{
+    color: #C00;
+}
+
+.item-message
+{
+    padding: 3px;
+}
+
+.item-message .item-element, .item-message .text
+{
+    display: inline-block;
+}

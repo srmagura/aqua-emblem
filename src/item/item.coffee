@@ -32,7 +32,7 @@ class _item.Item
         el.append($("<img src='#{src}' />"))
         el.append($("<span class='text'>#{html}</span>"))
         
-        if @uses?
+        if @uses? and not ('showUses' of options and not options.showUses)
             el.append($("<div class='uses'>#{@uses}</div>"))
         
         el.data('item', this)

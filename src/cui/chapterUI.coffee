@@ -84,7 +84,7 @@ class _cui.ChapterUI extends UI
     doneDefeat: =>
         callback = =>
             ui = new _sui.StartUI()
-            ui.init(true)
+            ui.init({fade: true})
 
         @destroy(callback)
 

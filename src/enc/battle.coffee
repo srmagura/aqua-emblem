@@ -130,8 +130,12 @@ class _enc.Battle extends _enc.Encounter
                         @mpTaken = true
                 else if giver.mp < giver.maxMp
                     giver.mp++
+                    
+                    if giver.equipped.uses?
+                        giver.equipped.uses--
 
                 @attacksHit++
+                
         else
             @displayMessage(recvr, 'miss')
 
@@ -165,14 +169,19 @@ class _enc.Battle extends _enc.Encounter
     encounterDone: =>
         super(false)
         keepGoing = true
-
+        
         if @atk.hp == 0
             keepGoing = @ui.chapter.kill(@atk)
         if @def.hp == 0
             keepGoing = @ui.chapter.kill(@def)
 
         if(keepGoing and @callback?)
-            @callback()
+            pu = @getPlayerUnit()
+            if pu.equipped.uses == 0
+                @ui.messageBox.showBrokenMessage(pu.equipped, @callback)
+                pu.inventory.remove(pu.equipped)
+            else
+                @callback()
 
     getExpToAdd: ->
         player = @getPlayerUnit()

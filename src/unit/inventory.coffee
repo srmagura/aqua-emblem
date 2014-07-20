@@ -15,7 +15,12 @@ class _unit.Inventory
     
     size: -> @items.length
 
-    remove: (i) ->
+    remove: (arg) ->
+        if arg instanceof _item.Item
+            i = @items.indexOf(arg)
+        else
+            i = arg
+            
         @items.splice(i, 1)
         @refresh()
         

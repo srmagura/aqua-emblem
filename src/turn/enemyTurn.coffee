@@ -14,7 +14,7 @@ class _turn.EnemyTurn extends _turn.Turn
         @nextUnit = eu[eu.indexOf(unit)+1]
 
         if unit.aiType == _unit.AI_TYPE.HALT
-            available = [new _turn.Destination(unit.pos, [unit.pos])]
+            available = [new _map.Destination(unit.pos, [unit.pos])]
         else
             available0 = @getAvailable(unit)
 
