@@ -1,7 +1,8 @@
 window._item = {}
 
 _item.uses = {
-    steel: 30
+    steel: 30,
+    killer: 20,
 }
 
 class _item.Item

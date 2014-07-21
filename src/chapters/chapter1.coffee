@@ -18,7 +18,7 @@ class _chapters.Chapter1 extends _map.Chapter
 
             new _uclass.Soldier({pos: new Position(6, 5),
             level: 2, aiType: _unit.AI_TYPE.HALT,
-            items: [new _item.SteelLance().letDrop(), new _item.IronLance().letDrop()]}),
+            items: [new _item.SteelLance().letDrop()]}),
 
             new _uclass.Soldier({pos: new Position(7, 5),
             level: 2, aiType: _unit.AI_TYPE.HALT,
@@ -38,7 +38,7 @@ class _chapters.Chapter1 extends _map.Chapter
 
             new _uclass.Archer({pos: new Position(7, 14),
             level: 1,
-            items: [new _item.IronBow()]}),
+            items: [new _item.IronBow(), new _item.KillerBow().letDrop()]}),
 
             new _uclass.Fighter({pos: new Position(1, 8),
             level: 1,
@@ -60,10 +60,10 @@ class _chapters.Chapter1 extends _map.Chapter
             aiType: _unit.AI_TYPE.HALT,
             boss: true,
             level: 5,
-            items: [new _item.IronAxe()]})
+            items: [new _item.HandAxe().letDrop()]})
         ]
 
-        @enemyTeam = new _team.EnemyTeam(enemyUnits.splice(3,2), {defaultName: 'Bandit'})
+        @enemyTeam = new _team.EnemyTeam(enemyUnits, {defaultName: 'Bandit'})
         @enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'
 
         terrainMapping = {
@@ -85,8 +85,7 @@ class _chapters.Chapter1 extends _map.Chapter
             [1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 2, 1, 1, 1],
         ]
 
-        #playerPositions = [[2,1], [1,0], [0,1], [1, 2]]
-        playerPositions = [[6,3], [1,0], [0,1], [1, 2]]
+        playerPositions = [[2,1], [1,0], [0,1], [1, 2]]
         @origin0 = new Position(0, 4*@ui.tw)
         @victoryCondition = _map.VICTORY_CONDITION.ROUT
         
