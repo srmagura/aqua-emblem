@@ -51,6 +51,7 @@ class _sui.MenuNoData extends _sui.Menu
         else
             @ui.uploadDialog.dialog('close')
             @ui.file = unpickled
+            localStorage.setItem('file', @ui.file.pickle())
             @ui.initMenu(_sui.MenuMain)
 
 class _sui.MenuDifficulty extends _sui.Menu

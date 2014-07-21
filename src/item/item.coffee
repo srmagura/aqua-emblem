@@ -42,17 +42,22 @@ class _item.Item
     getImagePath: -> "images/items/#{@image}"
     
     pickle: ->
-        return {
-            constructor: @constructor.name
-        }
-        
+        obj = {constructor: @constructor.name}
+        if @uses?
+            obj.uses = @uses
+            
+        return obj
+                 
     @unpickle: (pickled) ->
         if pickled.constructor of _item
             constructor = _item[pickled.constructor]
             item = new constructor()
         else
             return null
-            
+           
+        if 'uses' of pickled
+            item.uses = pickled.uses
+         
         return item
 
 class _item.Weapon extends _item.Item

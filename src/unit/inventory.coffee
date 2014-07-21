@@ -49,3 +49,25 @@ class _unit.Inventory
         
         if not equippedSet
             @unit.equipped = null
+            
+    pickle: ->
+        array = []
+        for item in @items
+            array.push(item.pickle())
+            
+        return array
+        
+    @unpickle: (pickled, unit) ->
+        if not pickled?
+            return null
+    
+        items = []
+        
+        for pickledItem in pickled
+            item = _item.Item.unpickle(pickledItem)
+            if item is null
+                return null
+            else
+                items.push(item)
+                
+        return new _unit.Inventory(unit, items)

@@ -270,18 +270,12 @@ class _unit.Unit
         return 'images/characters/' + @name.toLowerCase() + '.png'
         
     pickle: ->
-        obj = {
+        {
             constructor: @constructor.name,
             level: @level,
             exp: @exp,
-            inventory: []
+            inventory: @inventory.pickle()
         }
-        
-        #FIXME
-        for item in @inventory
-            obj.inventory.push(item.pickle())
-            
-        return obj
         
     @unpickle: (pickled) ->   
         if pickled.constructor of _unit.special
@@ -299,17 +293,9 @@ class _unit.Unit
             unit.exp = pickled.exp
         else
             return null
-        
-        #FIXME   
-        if pickled.inventory instanceof Array
-            unit.inventory = []          
-            for pickledItem in pickled.inventory
-                item = _item.Item.unpickle(pickledItem)
-                if item is null
-                    return null
-                else
-                    unit.inventory.push(item)
-        else
+          
+        unit.inventory = _unit.Inventory.unpickle(pickled.inventory, unit)
+        if not unit.inventory?
             return null
             
         return unit
