@@ -3,13 +3,24 @@ div.unit-info
     visibility: hidden;
 }
 
-div.unit-info .image-wrapper
+.unit-info .image-wrapper
 {
     float: left;
     height: 75px;
-    border: 1px none #00B;
+    border: 1px none black;
     border-right-style: solid;
-    background: radial-gradient(#AAF, #66E);
+}
+
+.unit-info.blue-box .image-wrapper
+{
+    border-color: #00B;
+    background: radial-gradient(#AAF, #66E);  
+}
+
+.unit-info.red-box .image-wrapper
+{
+    border-color: #B00;
+    background: radial-gradient(#F99, #D55);  
 }
 
 .unit-info.show-status .image-wrapper

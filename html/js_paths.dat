@@ -70,4 +70,5 @@ lib/skill/aid.js
 lib/skill/attack.js
 
 lib/chapters/chapter1.js
+lib/chapters/chapter2.js
 

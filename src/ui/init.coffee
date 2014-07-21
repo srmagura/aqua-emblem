@@ -8,5 +8,5 @@ window.init = ->
 doChapter = ->
     file = _file.createNewFile('hard')
     ui = new _cui.ChapterUI(file)
-    ui.setChapter(_chapters.Chapter1)
+    ui.setChapter(_chapters.Chapter2)
     ui.startChapter((->), true)
