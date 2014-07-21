@@ -129,7 +129,7 @@ class _turn.Turn
         afterMessage = =>
             unit.inventory.push(item)
         
-            if unit.inventory.size() < _unit.Inventory.MAX_SIZE
+            if unit.inventory.size() <= _unit.Inventory.MAX_SIZE
                 callback()
             else
                 @ui.unitInfoBox.init(unit, false, true)

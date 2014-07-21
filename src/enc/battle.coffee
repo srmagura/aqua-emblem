@@ -178,8 +178,8 @@ class _enc.Battle extends _enc.Encounter
         if keepGoing
             pu = @getPlayerUnit()
             if pu.equipped.uses == 0
-                @ui.messageBox.showBrokenMessage(pu.equipped, @afterWeaponBreak)
                 pu.inventory.remove(pu.equipped)
+                @ui.messageBox.showBrokenMessage(pu.equipped, @afterWeaponBreak)
             else
                 @afterWeaponBreak()
                 
@@ -193,7 +193,8 @@ class _enc.Battle extends _enc.Encounter
                 if item.drop
                     eu.inventory.remove(item)
                     doDrop = true
-                    @ui.staticTurn.doReceiveItem(pu, item, @afterWeaponBreak)   
+                    @ui.staticTurn.doReceiveItem(pu, item, @afterWeaponBreak)
+                    break  
                                      
         if not doDrop
             @callback()

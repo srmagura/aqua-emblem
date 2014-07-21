@@ -18,7 +18,7 @@ class _chapters.Chapter1 extends _map.Chapter
 
             new _uclass.Soldier({pos: new Position(6, 5),
             level: 2, aiType: _unit.AI_TYPE.HALT,
-            items: [new _item.SteelLance().letDrop()]}),
+            items: [new _item.SteelLance().letDrop(), new _item.IronLance().letDrop()]}),
 
             new _uclass.Soldier({pos: new Position(7, 5),
             level: 2, aiType: _unit.AI_TYPE.HALT,

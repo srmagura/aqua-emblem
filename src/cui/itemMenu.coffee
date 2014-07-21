@@ -78,6 +78,7 @@ class _cui.ItemMenu
         @actionMenuConfirm.hide()
         
         if @forceDiscard
+            @ui.controlState = new _cs.cui.Chapter(@ui)
             @hide()
             @callback()
         else
@@ -102,8 +103,9 @@ class _cs.cui.ItemMenu extends _cs.cui.Menu
         @menuObj.actionMenu.init()
 
     d: ->
-        @menuObj.hide()
-        @ui.actionMenu.init()
+        if not @menuObj.forceDiscard
+            @menuObj.hide()
+            @ui.actionMenu.init()
       
         
 class _cui.ItemActionMenu extends _cui.ActionMenu
