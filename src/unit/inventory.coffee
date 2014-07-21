@@ -9,9 +9,11 @@ class _unit.Inventory
         @items[i] = item
         @refresh()
         
+    push: (item) -> @items.push(item)
+        
     get: (i) -> @items[i]
                 
-    it: -> @items
+    it: -> @items.slice(0, @items.length)
     
     size: -> @items.length
 

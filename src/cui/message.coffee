@@ -92,6 +92,17 @@ class _cui.MessageBox
             html: content,
             cls: 'neutral-box item-message',
             css: {},
-            callback: null,
-            doFadeOut: false
+            callback: callback,
+            doFadeOut: true
+        })
+        
+    showReceivedMessage: (unit, item, callback) ->
+        content = $("<div><div class='text'>#{unit.name} received</div> </div>")
+        content.append(item.getElement({showUses: false}))
+        @showMessage({
+            html: content,
+            cls: 'neutral-box item-message',
+            css: {},
+            callback: callback,
+            doFadeOut: true
         })

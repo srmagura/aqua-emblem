@@ -175,13 +175,28 @@ class _enc.Battle extends _enc.Encounter
         if @def.hp == 0
             keepGoing = @ui.chapter.kill(@def)
 
-        if(keepGoing and @callback?)
+        if keepGoing
             pu = @getPlayerUnit()
             if pu.equipped.uses == 0
-                @ui.messageBox.showBrokenMessage(pu.equipped, @callback)
+                @ui.messageBox.showBrokenMessage(pu.equipped, @afterWeaponBreak)
                 pu.inventory.remove(pu.equipped)
             else
-                @callback()
+                @afterWeaponBreak()
+                
+    afterWeaponBreak: =>
+        pu = @getPlayerUnit()
+        eu = @getEnemyUnit()       
+        doDrop = false
+        
+        if eu.hp == 0
+            for item in eu.inventory.it()
+                if item.drop
+                    eu.inventory.remove(item)
+                    doDrop = true
+                    @ui.staticTurn.doReceiveItem(pu, item, @afterWeaponBreak)   
+                                     
+        if not doDrop
+            @callback()
 
     getExpToAdd: ->
         player = @getPlayerUnit()

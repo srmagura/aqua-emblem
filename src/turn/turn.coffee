@@ -124,6 +124,19 @@ class _turn.Turn
                 attackRange.push(obj)
 
         return attackRange
+        
+    doReceiveItem: (unit, item, callback) ->
+        afterMessage = =>
+            if unit.inventory.size() < _unit.Inventory.MAX_SIZE
+                unit.inventory.push(item)
+                callback()
+            else
+                console.log 'unhandled case'
+            
+            
+    
+        item = new item.constructor()
+        @ui.messageBox.showReceivedMessage(unit, item, afterMessage)
 
     afterBattle: =>
         toAdd = @battle.getExpToAdd()
