@@ -1,22 +1,46 @@
 class _cui.ItemMenu
 
     constructor: (@ui) ->
-        @menu = $('.item-menu')
+        @container = $('.item-menu')
+        @menu = @container.find('.menu-items')
         @actionMenu = new _cui.ItemActionMenu(@ui, this, 
             $('.item-action-menu'))
         @actionMenuConfirm = new _cui.ItemActionMenuConfirm(@ui, this,
             $('.item-action-menu-confirm'))
         
-    init: (playerTurn) ->
-        if playerTurn?
-            @playerTurn = playerTurn
-            @unit = playerTurn.selectedUnit
+    init: (options={}) ->
+        messageEl = @container.find('.message')
+        messageEl.hide()
+        
+        selected = @menu.find('.selected')
+        if selected.size() != 0
+            cursorPos = selected.index()
+        else
+            cursorPos = 0
     
+        if 'playerTurn' of options
+            @playerTurn = options.playerTurn
+            @unit = @playerTurn.selectedUnit
+            @forceDiscard = false
+            cursorPos = 0
+            
+        else if 'forceDiscard' of options and options.forceDiscard       
+            @unit = options.unit
+            @callback = options.callback
+            @forceDiscard = true
+            cursorPos = 0
+            
+        if @forceDiscard
+            messageEl.text('Inventory full. Discard an item.').show()
+            
         @menu.html('')
 
         i = 0
         for item in @unit.inventory.it()             
             menuItem = $('<div><div class="image"></div></div>')
+            if i == cursorPos
+                menuItem.addClass('selected')
+            
             menuItem.data('index', i++)
             
             options = {
@@ -26,8 +50,6 @@ class _cui.ItemMenu
             
             menuItem.append(item.getElement(options))
             menuItem.appendTo(@menu)
-
-        @menu.children('div').first().addClass('selected')
 
         @show()
         @menu.removeClass('in-submenu')
@@ -55,18 +77,21 @@ class _cui.ItemMenu
         
         @actionMenuConfirm.hide()
         
-        if @unit.inventory.size() != 0
-            @init()
-        else
+        if @forceDiscard
             @hide()
-            @playerTurn.initActionMenu()
-                        
+            @callback()
+        else
+            if @unit.inventory.size() != 0
+                @init()
+            else
+                @hide()
+                @playerTurn.initActionMenu()                     
         
     show: ->
-        @menu.css('display', 'inline-block')
+        @container.css('display', 'inline-block')
 
     hide: ->
-        @menu.css('display', 'none')
+        @container.css('display', 'none')
 
         
 class _cs.cui.ItemMenu extends _cs.cui.Menu
@@ -91,9 +116,10 @@ class _cui.ItemActionMenu extends _cui.ActionMenu
         
         menuItems = []
         
-        if @itemMenu.unit.canWield(item)
-            menuItems.push(new _cui.ActionMenuItem('Equip',
-                @itemMenu.handleEquip))
+        if not @itemMenu.forceDiscard
+            if @itemMenu.unit.canWield(item)
+                menuItems.push(new _cui.ActionMenuItem('Equip',
+                    @itemMenu.handleEquip))
         
         menuItems.push(new _cui.ActionMenuItem('Discard', @itemMenu.handleDiscard))
         super(menuItems)
@@ -115,7 +141,7 @@ class _cui.ItemActionMenuConfirm extends _cui.ActionMenu
 
     constructor: (@ui, @itemMenu, @container) ->
         super(@ui)
-        @menu = @container.find('.menu')
+        @menu = @container.find('.menu-items')
         
     init: ->
         menuItems = [(new _cui.ActionMenuItem('Yes, discard', @itemMenu.handleConfirmDiscard))]

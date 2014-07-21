@@ -127,13 +127,20 @@ class _turn.Turn
         
     doReceiveItem: (unit, item, callback) ->
         afterMessage = =>
+            unit.inventory.push(item)
+        
             if unit.inventory.size() < _unit.Inventory.MAX_SIZE
-                unit.inventory.push(item)
                 callback()
             else
-                console.log 'unhandled case'
-            
-            
+                @ui.unitInfoBox.init(unit, false, true)
+                @ui.itemMenu.init({
+                    forceDiscard: true,
+                    callback: ( => 
+                        @ui.unitInfoBox.hide()
+                        callback()
+                    ),
+                    unit: unit
+                })            
     
         item = new item.constructor()
         @ui.messageBox.showReceivedMessage(unit, item, afterMessage)

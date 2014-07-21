@@ -96,7 +96,7 @@ class _turn.PlayerTurn extends _turn.Turn
         @deselect()
         
     handleItems: =>
-        @ui.itemMenu.init(this)
+        @ui.itemMenu.init({playerTurn: this})
 
     handleAttack: =>
         @ui.actionMenu.hide()

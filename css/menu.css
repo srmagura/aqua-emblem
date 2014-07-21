@@ -1,4 +1,4 @@
-div.menu  
+.menu 
 {
     padding: 4px;
     display: none;
@@ -50,7 +50,7 @@ div.menu .selected .image, .end-turn .image
 }
 
 /***** ITEM MENU *****/
-.item-menu.in-submenu .image
+.item-menu .in-submenu .image
 {
     visibility: hidden;
 }
