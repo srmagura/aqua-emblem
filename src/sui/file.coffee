@@ -78,6 +78,7 @@ _file.createNewFile = (difficultyStr) ->
         new _unit.special.Arrow(),
         new _unit.special.Luciana(),
         new _unit.special.Kenji(),
+        new _unit.special.Shiina()
     ]
     
     file.playerTeam = new _team.PlayerTeam(playerUnits)

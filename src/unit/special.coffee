@@ -65,3 +65,20 @@ class _unit.special.Kenji extends _uclass.Fighter
         speed: .35, luck: .45, def: .35, res: .15}
 
         super()
+        
+class _unit.special.Shiina extends _uclass.Mercenary
+    constructor: ->
+        @name = 'Shiina'
+        @level = 2
+        @picture = true
+        @items = []
+
+        @skills = []
+
+        @startStats = {maxHp: 30, maxMp: 10, str: 60, def: 4,
+        skill: 3.8, speed: 50, res: 2, luck: 8, mag: 3}
+
+        @growthRates = {maxHp: .7, maxMp: 1, str: .5, skill: .35,
+        speed: .35, luck: .5, def: .4, res: .15, mag: .3}
+
+        super()

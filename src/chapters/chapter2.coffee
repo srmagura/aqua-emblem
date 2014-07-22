@@ -32,7 +32,7 @@ class _chapters.Chapter2 extends _map.Chapter
             [0, 0, 0, 0,0,0,0,0,0,0,0,0],            
         ]
 
-        playerPositions = [[2,1], [1,0], [0,1], [1, 2]]
+        playerPositions = [[2,1], [1,0], [0,1], [1, 2],[2,3]]
         @origin0 = new Position(0, 4*@ui.tw)
         @victoryCondition = _map.VICTORY_CONDITION.ROUT
         
