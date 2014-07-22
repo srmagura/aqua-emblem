@@ -61,6 +61,7 @@ class _file.FileState
     chapterComplete: =>
         @ui.destroy()
         
+        @file.setFileState(@nextFs)
         localStorage.setItem('file', @file.pickle())
         
         @ui = new _sui.StartUI(@file)

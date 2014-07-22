@@ -14,8 +14,6 @@ lib/vn/fullTextbox.js
 lib/vn/chapterDisplay.js
 lib/vn/scene.js
 
-lib/vn/fs/chapter1.js
-
 lib/cui/chapterUI.js
 lib/cui/menu.js
 lib/cui/cursor.js
@@ -71,4 +69,7 @@ lib/skill/attack.js
 
 lib/chapters/chapter1.js
 lib/chapters/chapter2.js
+
+lib/vn/fs/chapter1.js
+lib/vn/fs/chapter2.js
 

@@ -30,7 +30,7 @@ class _cs.cui.AttackSkill extends _cs.cui.Skill
 
     f: ->
         callback = =>
-            @playerTurn.selectedUnit.refreshInventory()
+            @playerTurn.selectedUnit.inventory.refresh()
             exp = @battle.getExpToAdd()
             @skillDone(exp)
 

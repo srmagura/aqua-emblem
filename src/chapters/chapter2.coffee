@@ -1,5 +1,3 @@
-window._chapters = {}
-
 class _chapters.Chapter2 extends _map.Chapter
 
     constructor: (@ui) ->

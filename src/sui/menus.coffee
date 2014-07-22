@@ -64,8 +64,8 @@ class _sui.MenuDifficulty extends _sui.Menu
 
         hard = @getMenuEl('Hard',
             'How Aqua Emblem is meant to be played. ' +
-            'Units start at a lower ' +
-            'level and gain experience more slowly.')
+            'Units start with lower stats ' +
+            'and gain experience more slowly.')
         hard.appendTo(@menu).data('handler', @handler)
         hard.data('difficulty', 'hard')
 

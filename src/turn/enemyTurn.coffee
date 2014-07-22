@@ -13,7 +13,7 @@ class _turn.EnemyTurn extends _turn.Turn
         eu = @ui.chapter.enemyTeam.units
         @nextUnit = eu[eu.indexOf(unit)+1]
 
-        if unit.aiType == _unit.AI_TYPE.HALT
+        if unit.aiType == _unit.aiType.halt
             available = [new _map.Destination(unit.pos, [unit.pos])]
         else
             available0 = @getAvailable(unit)

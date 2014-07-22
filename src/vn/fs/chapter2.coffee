@@ -1,12 +1,14 @@
-class _file.fs.Chapter1 extends _file.FileState
-    
+class _file.fs.Chapter2 extends _file.FileState
+
     constructor: (@file) ->
         super(@file)
-        @chapterId = 1
-        @chapterName = 'Hellhounds'
+        @chapterId = 2
+        @chapterName = 'The red string of fate'
+    
         @nextFs = _file.fs.Chapter2
-        
-    init: ->       
+    
+    init: ->
+        return @scene2()       
         @ui = new _vn.VisualNovelUI()
         lines = [
             [

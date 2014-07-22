@@ -206,13 +206,13 @@ class _enc.Battle extends _enc.Encounter
         levelDif = enemy.level - player.level
 
         if @attacksHit > 0
-            dmgExp = .15 + levelDif/100
+            dmgExp = .10 + levelDif/100
         else
             dmgExp = .01
 
         defeatExp = 0
         if enemy.hp == 0
-            defeatExp = .3 + levelDif/100
+            defeatExp = .25 + levelDif/100
 
         exp = dmgExp + defeatExp
         exp *= ui.expMultiplier

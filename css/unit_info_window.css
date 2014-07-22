@@ -215,7 +215,7 @@
 {
     float: left;
     padding: 5px;
-    width: 180px;
+    width: 190px;
 }
 
 .level-up-window .level-up
@@ -245,7 +245,7 @@
 
 .level-up-window .stats .stat
 {
-    padding-right: 15px;
+    padding-right: 10px;
     text-align: right;
 }
 
