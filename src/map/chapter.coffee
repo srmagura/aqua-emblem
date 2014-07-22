@@ -34,8 +34,8 @@ class _map.Chapter
         for unit in @units
             unit.ui = @ui
 
-    getUnitAt: (pos) ->
-        for unit in @units
+    getUnitAt: (pos) ->      
+        for unit in @units        
             if unit.pos.equals(pos)
                 return unit
 

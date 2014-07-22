@@ -5,7 +5,7 @@ class window.Position
     clone: -> new Position(@i, @j)
 
     equals: (pos) ->
-        @i == pos.i && @j == pos.j
+        @i == pos.i and @j == pos.j
 
     add: (pos) ->
         new Position(@i + pos.i, @j + pos.j)

@@ -20,7 +20,12 @@ class _turn.Turn
         @directions = [new Position(-1, 0), new Position(1, 0)
         new Position(0, -1), new Position(0, 1)]
 
-    getAvailable: (unit) ->
+    getAvailable: (unit, options={}) ->
+        if 'noLimit' of options and options.noLimit
+            noLimit = true
+        else
+            noLimit = false
+    
         map = @ui.chapter.map
         available = [new _map.Destination(unit.pos, [unit.pos])]
 
@@ -70,7 +75,7 @@ class _turn.Turn
 
                     if (unitAt is null or unitAt.team is unit.team) and
                     alt < dist[pos2.i][pos2.j] and
-                    alt <= unit.move
+                    (noLimit or alt <= unit.move)
                         dist[pos2.i][pos2.j] = alt
                         prev[pos2.i][pos2.j] = pos
                         dest = new _map.Destination(pos2, [pos2])

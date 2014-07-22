@@ -61,7 +61,10 @@ class _turn.EnemyTurn extends _turn.Turn
             else
                 afterScroll()
         else
-            @doUnitTurn(@nextUnit)
+            if unit.aiType is _unit.aiType.aggressive
+                @doAdvance(unit)
+            else
+                @doUnitTurn(@nextUnit)
     
     afterExpAdd: =>
         setTimeout((=> @doUnitTurn(@nextUnit)), 250/@ui.speedMultiplier)
@@ -96,3 +99,46 @@ class _turn.EnemyTurn extends _turn.Turn
 
         return @chooseMaxDmg(inRange)
 
+    doAdvance: (unit) ->
+        available = @getAvailable(unit, {noLimit: true})
+        attackRange = @movementGetAttackRange(available, unit)
+        
+        minDist = Infinity
+        for obj in attackRange
+            dist = unit.pos.distance(obj.moveSpot)          
+            target = @ui.chapter.getUnitAt(obj.targetSpot)
+            
+            if target? and target.team instanceof _team.PlayerTeam and 
+            dist < minDist
+                fullPath = obj.path
+                minDist = dist
+       
+        if fullPath.length-1 < unit.move
+            i = fullPath.length-1
+        else
+            i = unit.move
+         
+        while true
+            moveSpot = fullPath[i]
+            path = fullPath.slice(0, i+1)
+            i--
+            
+            unitAt = @ui.chapter.getUnitAt(moveSpot)           
+            if not unitAt?
+                break
+                
+            if i < 0
+                @doUnitTurn(@nextUnit)
+                return
+        
+        
+        afterScroll = =>
+            if not @ui.onScreen(moveSpot)
+                @ui.scrollTo(moveSpot, ->)
+
+            unit.followPath(path, => @doUnitTurn(@nextUnit))
+
+        if not @ui.onScreen(unit.pos)
+            @ui.scrollTo(unit.pos, afterScroll)
+        else
+            afterScroll()
