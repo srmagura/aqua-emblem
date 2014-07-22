@@ -27,3 +27,21 @@ class _terrain.Forest extends _terrain.Terrain
         @name = 'Forest'
         @evade = 20
         @def = 1
+        
+class _terrain.River extends _terrain.Terrain
+    constructor: ->
+        super('river')
+        @name = 'River'
+        @block = true
+        
+class _terrain.Bridge extends _terrain.Terrain
+    constructor: ->
+        super('bridge')
+        @name = 'Bridge'
+        
+class _terrain.Fort extends _terrain.Terrain
+    constructor: ->
+        super('fort')
+        @name = 'Fort'
+        @evade = 30
+        @def = 2

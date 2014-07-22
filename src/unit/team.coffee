@@ -46,7 +46,7 @@ class _team.EnemyTeam extends _team.Team
     constructor: (@units, attr={}) ->
         for unit in @units
             if 'aiType' not of unit
-                unit.aiType = _unit.AI_TYPE.NORMAL
+                unit.aiType = _unit.aiType.normal
 
             if 'defaultName' of attr and not unit.name?
                 unit.setName(attr.defaultName)

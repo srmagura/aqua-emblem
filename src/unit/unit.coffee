@@ -1,8 +1,9 @@
 window._unit = {}
 
-_unit.AI_TYPE = {
-    NORMAL: 0,
-    HALT: 1
+_unit.aiType = {
+    normal: 0,
+    halt: 1,
+    aggressive: 2
 }
 
 _unit.LUNGE_STATUS = {
