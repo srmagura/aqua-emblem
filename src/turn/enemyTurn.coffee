@@ -46,12 +46,25 @@ class _turn.EnemyTurn extends _turn.Turn
 
             if not @ui.onScreen(moveSpot) or
             not @ui.onScreen(target.pos)
-                @ui.scrollTo(moveSpot, ->)
+                @ui.scrollTo(moveSpot, =>
+                    @scrollToMoveSpotDone = true
+                    afterMove()
+                )
+            else
+                @scrollToMoveSpotDone = true
 
+            @battle = new _enc.Battle(@ui, unit, target)
             unit.followPath(selectedInRange.path, =>
-                @battle = new _enc.Battle(@ui, unit, target)
-                @battle.doEncounter(@afterBattle)
+                @followPathDone = true
+                afterMove()
             )
+            
+        @scrollToMoveSpotDone = false
+        @followPathDone = false
+        
+        afterMove = =>
+            if @scrollToMoveSpotDone and @followPathDone
+                @battle.doEncounter(@afterBattle)
 
         if inRange.length != 0
             selectedInRange = @chooseTarget(unit, inRange)

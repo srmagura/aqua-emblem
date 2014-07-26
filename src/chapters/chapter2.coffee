@@ -6,7 +6,7 @@ class _chapters.Chapter2 extends _map.Chapter
        
         enemyUnits = [
             new _uclass.Archer({pos: new Position(0, 8),
-            level: 2, items: [new _item.IronBow()]}),
+            level: 3, items: [new _item.IronBow()]}),
             
             new _uclass.Archer({pos: new Position(0, 9),
             level: 2, items: [new _item.IronBow()],
@@ -25,17 +25,17 @@ class _chapters.Chapter2 extends _map.Chapter
             aiType: agg}),
             
             new _uclass.Soldier({pos: new Position(4, 11),
-            level: 2, items: [new _item.IronLance()]}),
+            level: 3, items: [new _item.IronLance()]}),
         
             new _uclass.Mercenary({pos: new Position(6, 10),
             level: 2, items: [new _item.IronSword()],
             aiType: agg}),
             
             new _uclass.Mercenary({pos: new Position(2, 10),
-            level: 2, items: [new _item.IronSword()]}),
+            level: 3, items: [new _item.IronSword()]}),
             
             new _uclass.Soldier({pos: new Position(9, 5),
-            level: 2, items: [new _item.IronLance()]}),
+            level: 3, items: [new _item.IronLance()]}),
             
             new _uclass.Archer({pos: new Position(14, 0),
             level: 2, items: [new _item.IronBow()],
@@ -46,7 +46,7 @@ class _chapters.Chapter2 extends _map.Chapter
             aiType: agg}),
             
             new _uclass.Soldier({pos: new Position(14, 11),
-            level: 2, items: [new _item.IronLance()]}),
+            level: 3, items: [new _item.IronLance()]}),
             
             new _uclass.Mercenary({pos: new Position(14, 9),
             level: 2, items: [new _item.IronSword()],
@@ -61,10 +61,10 @@ class _chapters.Chapter2 extends _map.Chapter
             aiType: agg}),
             
             new _uclass.Mercenary({pos: new Position(10, 7),
-            level: 2, items: [new _item.IronSword()]}),
+            level: 3, items: [new _item.IronSword()]}),
             
             new _uclass.Mercenary({pos: new Position(15, 8),
-            level: 2, items: [new _item.IronSword()]}),
+            level: 3, items: [new _item.IronSword()]}),
             
             new _uclass.Mercenary({pos: new Position(15, 4),
             level: 2, items: [new _item.IronSword()]}),
@@ -72,7 +72,7 @@ class _chapters.Chapter2 extends _map.Chapter
             new _uclass.Fighter({pos: new Position(15, 10),
             name: 'Morgan', boss: true, picture: true,
             level: 7, aiType: halt,
-            items: [new _item.IronAxe()]}),
+            items: [new _item.HandAxe()]}),
         ]
 
         @enemyTeam = new _team.EnemyTeam(enemyUnits, {defaultName: 'Sellsword'})

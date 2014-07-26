@@ -82,18 +82,10 @@ class _map.Chapter
 
         @ui.controlState = new _cs.cui.Chapter(@ui)
 
-        if team instanceof _team.PlayerTeam
-            if @ui.cursor.pos? and not @ui.onScreen(@ui.cursor.pos)
-                @ui.scrollTo(@ui.cursor.pos)
-
-            for unit in @units
-                unit.onNewTurn()
-        else
-            @ui.cursor.visible = false
-            @ui.unitInfoBox.hide()
-            @ui.terrainBox.hide()
-
-        callback = (team) =>
+        callback = =>
+            if not (doneFlags.scroll and doneFlags.phaseMessage)
+                return
+        
             if team is @enemyTeam
                 @enemyTurn.doTurn()
             else
@@ -107,8 +99,30 @@ class _map.Chapter
                 @ui.cursor.moveTo(@ui.cursor.pos)
 
                 @ui.controlState = new _cs.cui.Map(@ui)
+                
+        doneFlags = {scroll: false, phaseMessage: false}
+                
+        if team instanceof _team.PlayerTeam
+            if @ui.cursor.pos? and not @ui.onScreen(@ui.cursor.pos)
+                @ui.scrollTo(@ui.cursor.pos, =>
+                    doneFlags.scroll = true
+                    callback()
+                )
+            else
+                doneFlags.scroll = true
 
-        @ui.messageBox.showPhaseMessage(team, callback)
+            for unit in @units
+                unit.onNewTurn()
+        else
+            @ui.cursor.visible = false
+            @ui.unitInfoBox.hide()
+            @ui.terrainBox.hide()
+            doneFlags.scroll = true
+
+        @ui.messageBox.showPhaseMessage(team, =>
+            doneFlags.phaseMessage = true
+            callback()
+        )
 
     checkAllDone: ->
         allDone = true
