@@ -64,7 +64,6 @@ class _chapters.Chapter1 extends _map.Chapter
         ]
 
         @enemyTeam = new _team.EnemyTeam(enemyUnits, {defaultName: 'Bandit'})
-        @enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'
 
         terrainMapping = {
             0: _terrain.Plain

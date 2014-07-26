@@ -43,6 +43,8 @@ class _team.PlayerTeam extends _team.Team
 
 class _team.EnemyTeam extends _team.Team
 
+    insigniaImagePath: 'images/bandit_insignia.png'
+
     constructor: (@units, attr={}) ->
         for unit in @units
             if 'aiType' not of unit

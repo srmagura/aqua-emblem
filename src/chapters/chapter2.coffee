@@ -71,12 +71,11 @@ class _chapters.Chapter2 extends _map.Chapter
             
             new _uclass.Fighter({pos: new Position(15, 10),
             name: 'Morgan', boss: true, picture: true,
-            level: 7, aiType: halt,
+            level: 10, aiType: halt,
             items: [new _item.HandAxe()]}),
         ]
 
         @enemyTeam = new _team.EnemyTeam(enemyUnits, {defaultName: 'Sellsword'})
-        @enemyTeam.insigniaImagePath = 'images/bandit_insignia.png'
 
         terrainMapping = {
             0: _terrain.Plain,

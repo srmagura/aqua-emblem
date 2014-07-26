@@ -28,6 +28,9 @@ class _file.File
             pickled = $.parseJSON(str)
         catch error
             return null
+            
+        if not pickled?
+            return null
                 
         file = new _file.File()
         
