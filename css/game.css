@@ -39,27 +39,6 @@ canvas
     display: none;
 }
 
-div.game-info
-{
-    clear: both;
-    margin: 25px 0;
-}
-
-div.game-info h3
-{
-    margin: 3px;
-}
-
-div.game-info table
-{
-    border-spacing: 8px 0;
-}
-
-div.game-info table .control
-{
-    text-align: right;
-}
-
 div.sidebar
 {
     float: left;
