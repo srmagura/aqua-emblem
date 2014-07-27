@@ -42,14 +42,18 @@ class _unit.Unit
         @offset = new Position(0, 0)
 
     onNewTurn: ->
-        toRemove = []
+        while true
+            toRemove = null
 
-        for status, i in @statuses
-            if not status.newTurn()
-                toRemove.push(i)
+            for status, i in @statuses
+                if not status.newTurn()
+                    toRemove = i
+                    break
 
-        for i in toRemove
-            @statuses.splice(i, 1)
+            if toRemove?
+                @statuses.splice(toRemove, 1)
+            else
+                break
 
         @updateStats()
 
@@ -242,7 +246,7 @@ class _unit.Unit
         @direction.dot(@offset) > 0
             @direction = null
             @offset = new Position(0, 0)
-            @lungeStatus = 0
+            @lungeStatus = 0          
 
     render: (ui, ctx) ->
         if @done

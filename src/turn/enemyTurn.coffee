@@ -1,16 +1,16 @@
 class _turn.EnemyTurn extends _turn.Turn
 
     doTurn: ->
-        eu = @ui.chapter.enemyTeam.units
-        if eu.length != 0
-            @doUnitTurn(eu[0])
+        @team = @ui.chapter.enemyTeam
+        eu = @team.units
+        @doUnitTurn(eu[0]) #may be undefined
 
     doUnitTurn: (unit) ->
         if not unit?
-            @ui.chapter.initTurn(@ui.chapter.playerTeam)
+            @spawnReinforcements()
             return
 
-        eu = @ui.chapter.enemyTeam.units
+        eu = @team.units
         @nextUnit = eu[eu.indexOf(unit)+1]
 
         if unit.aiType == _unit.aiType.halt
@@ -53,7 +53,8 @@ class _turn.EnemyTurn extends _turn.Turn
             else
                 @scrollToMoveSpotDone = true
 
-            @battle = new _enc.Battle(@ui, unit, target)
+            @battle = new _enc.Battle(@ui, unit, target,
+                moveSpot.distance(target.pos))
             unit.followPath(selectedInRange.path, =>
                 @followPathDone = true
                 afterMove()
@@ -155,3 +156,36 @@ class _turn.EnemyTurn extends _turn.Turn
             @ui.scrollTo(unit.pos, afterScroll)
         else
             afterScroll()
+            
+    spawnUnit: (toAdd, i) ->
+        if i == toAdd.length
+            @ui.chapter.initTurn(@ui.chapter.playerTeam) 
+            return 
+    
+        unit = toAdd[i]
+        
+        if @ui.chapter.getUnitAt(unit.pos)?
+            @spawnUnit(toAdd, i+1)
+            return
+        
+        afterScroll = =>
+            @ui.chapter.addUnit(@team, unit)
+            setTimeout((=> @spawnUnit(toAdd, i+1)),
+                750/@ui.speedMultiplier)
+
+        if not @ui.onScreen(unit.pos)
+            @ui.scrollTo(unit.pos, afterScroll)
+        else
+            afterScroll()
+            
+    spawnReinforcements: ->
+        toAdd = []
+        turnIndex = @ui.chapter.turnIndex
+        
+        for unit in @team.reinforcements
+            if unit.spawnTurn == turnIndex
+                toAdd.push(unit)
+        
+        @spawnUnit(toAdd, 0)    
+        
+

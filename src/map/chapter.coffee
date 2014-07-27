@@ -10,6 +10,8 @@ class _map.Chapter
         @playerTurn = new _turn.PlayerTurn(@ui)
         @enemyTurn = new _turn.EnemyTurn(@ui)
         
+        @turnIndex = 0
+        
     setPlayerTeam: (@playerTeam) ->
         @initUnits()
 
@@ -33,6 +35,10 @@ class _map.Chapter
 
         for unit in @units
             unit.ui = @ui
+            
+    addUnit: (team, unit) ->
+        @units.push(unit)
+        team.units.push(unit)
 
     getUnitAt: (pos) ->      
         for unit in @units        
@@ -103,6 +109,8 @@ class _map.Chapter
         doneFlags = {scroll: false, phaseMessage: false}
                 
         if team instanceof _team.PlayerTeam
+            @turnIndex++
+        
             if @ui.cursor.pos? and not @ui.onScreen(@ui.cursor.pos)
                 @ui.scrollTo(@ui.cursor.pos, =>
                     doneFlags.scroll = true

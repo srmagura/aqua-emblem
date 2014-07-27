@@ -61,8 +61,8 @@ class _skill.FirstAid extends _skill.AidSkill
         @type = new _skill.type.Holy()
         @desc = 'Basic healing skill.'
 
-        @mp = 4
-        @might = 10
+        @mp = 3
+        @might = 20
         @range = new Range(0, 1)
 
     getDelta: (user) ->
@@ -78,13 +78,14 @@ class _skill.Temper extends _skill.AidSkill
         super()
         @name = 'Temper'
         @imageName = 'temper'
-        @desc = 'Temporarily buff an ally\'s strength.'
+        @desc = 'Temporarily buff an ally\'s strength and magic.'
 
-        @mp = 9
+        @mp = 4
         @range = new Range(0, 1)
 
     doEffect: (target) ->
         target.addStatus(new _status.Buff('str', 3))
+        target.addStatus(new _status.Buff('mag', 3))
 
 
 class _skill.Protect extends _skill.AidSkill
@@ -93,10 +94,11 @@ class _skill.Protect extends _skill.AidSkill
         super()
         @name = 'Protect'
         @imageName = 'protect'
-        @desc = 'Temporarily buff an ally\'s defence.'
+        @desc = 'Temporarily buff an ally\'s defence and resistance.'
 
-        @mp = 7
+        @mp = 4
         @range = new Range(0, 1)
 
     doEffect: (target) ->
         target.addStatus(new _status.Buff('def', 3))
+        target.addStatus(new _status.Buff('res', 3))

@@ -74,8 +74,46 @@ class _chapters.Chapter2 extends _map.Chapter
             level: 10, aiType: halt,
             items: [new _item.HandAxe()]}),
         ]
-
-        @enemyTeam = new _team.EnemyTeam(enemyUnits, {defaultName: 'Sellsword'})
+        
+        reinforcements1 = [
+            {
+                cls: _uclass.Soldier, 
+                attr: {
+                    pos: new Position(0, 9),
+                    level: 2, items: [new _item.IronLance()],
+                    aiType: agg
+                },
+            },
+            {
+                cls: _uclass.Mercenary,
+                attr: {
+                    pos: new Position(15, 1),
+                    level: 2, items: [new _item.IronSword()],
+                    aiType: agg
+                },
+            },
+            {
+                cls: _uclass.Archer,
+                attr: {
+                    pos: new Position(14, 0),
+                    level: 2, items: [new _item.IronBow()],
+                    aiType: agg
+                },
+            }
+        ]
+        
+        reinforcements = []
+        
+        for turn in [4, 6, 8]
+            for obj in reinforcements1
+                unit = new obj.cls(obj.attr)
+                unit.spawnTurn = turn
+                reinforcements.push(unit)
+                
+        @enemyTeam = new _team.EnemyTeam(enemyUnits, {
+            defaultName: 'Sellsword',
+            reinforcements: reinforcements
+        })
 
         terrainMapping = {
             0: _terrain.Plain,
