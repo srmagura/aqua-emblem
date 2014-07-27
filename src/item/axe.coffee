@@ -7,6 +7,17 @@ class _item.IronAxe extends _item.Axe
         @might = 8
         @weight = 10
         
+class _item.SteelAxe extends _item.Axe
+
+    constructor: ->
+        super()
+        @name = 'Steel axe'
+        @image = 'steel_axe.png'
+        @hit = 65
+        @might = 11
+        @weight = 13
+        @uses = _item.uses.steel
+        
 class _item.HandAxe extends _item.Axe
 
     constructor: ->
@@ -16,5 +27,5 @@ class _item.HandAxe extends _item.Axe
         @hit = 60
         @might = 8
         @weight = 8
-        @uses = 25
+        @uses = 20
         @range = new Range(1, 2)

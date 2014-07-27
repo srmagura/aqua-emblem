@@ -32,7 +32,7 @@ class _chapters.Chapter2 extends _map.Chapter
             aiType: agg}),
             
             new _uclass.Mercenary({pos: new Position(2, 10),
-            level: 3, items: [new _item.IronSword()]}),
+            level: 3, items: [new _item.SteelSword().letDrop()]}),
             
             new _uclass.Soldier({pos: new Position(9, 5),
             level: 3, items: [new _item.IronLance()]}),
@@ -42,7 +42,7 @@ class _chapters.Chapter2 extends _map.Chapter
             aiType: agg}),
             
             new _uclass.Archer({pos: new Position(15, 1),
-            level: 2, items: [new _item.IronBow()],
+            level: 2, items: [new _item.SteelBow().letDrop()],
             aiType: agg}),
             
             new _uclass.Soldier({pos: new Position(14, 11),
@@ -72,7 +72,7 @@ class _chapters.Chapter2 extends _map.Chapter
             new _uclass.Fighter({pos: new Position(15, 10),
             name: 'Morgan', boss: true, picture: true,
             level: 10, aiType: halt,
-            items: [new _item.HandAxe()]}),
+            items: [new _item.HandAxe(), new _item.SteelAxe().letDrop()]}),
         ]
         
         reinforcements1 = [

@@ -26,7 +26,7 @@ class _cui.MessageBox
         el.addClass('message-box').html(params.html)
         @canvasContainer.append(el)
 
-        css = $.extend(params.css, @ui.centerElement(el, 10))
+        css = $.extend(params.css, @ui.centerElement(el, params.padding))
         css.visibility = 'visible'
         css.display = 'none'
 
@@ -63,6 +63,7 @@ class _cui.MessageBox
             html: text,
             cls: 'big-message phase-message',
             css: css, 
+            padding: 10,
             callback: (-> callback(team))
             doFadeOut: true
         })
@@ -72,6 +73,7 @@ class _cui.MessageBox
             html: 'Victory!',
             cls: 'big-message victory-message',
             css: {},
+            padding: 10,
             callback: @ui.doneVictory, 
             doFadeOut: false
         })
@@ -81,6 +83,7 @@ class _cui.MessageBox
             html: 'Defeat.',
             cls: 'big-message defeat-message',
             css: {},
+            padding: 10,
             callback: @ui.doneDefeat, 
             doFadeOut: false
         })
@@ -92,6 +95,7 @@ class _cui.MessageBox
             html: content,
             cls: 'neutral-box item-message',
             css: {},
+            padding: 3,
             callback: callback,
             doFadeOut: true
         })
@@ -103,6 +107,7 @@ class _cui.MessageBox
             html: content,
             cls: 'neutral-box item-message',
             css: {},
+            padding: 3,
             callback: callback,
             doFadeOut: true
         })

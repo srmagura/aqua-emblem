@@ -23,7 +23,8 @@ class _enc.Battle extends _enc.Encounter
         @turns = [@atk]
         @nTurns = {atk: 1, def: 0}
 
-        defCanAttack = (@def.equipped.range.contains(@dist) and
+        defCanAttack = (@def.equipped? and
+        @def.equipped.range.contains(@dist) and
         not @def.hasStatus(_status.Defend))
 
         if defCanAttack
@@ -36,7 +37,7 @@ class _enc.Battle extends _enc.Encounter
             @nTurns.atk++
             
         else if(defCanAttack and
-        @def.attackSpeed - 4 > @atk.attackSpeed  and
+        @def.attackSpeed - 4 > @atk.attackSpeed and
         @def.equipped.hasUses(2))    
             @turns.push(@def)
             @nTurns.def++
@@ -44,6 +45,9 @@ class _enc.Battle extends _enc.Encounter
         @attacksHit = 0
 
     calcAdvantage: (unit1, unit2) ->
+        if not (unit1.equipped? and unit2.equipped?)
+            return
+    
         t1 = unit1.equipped.type
         t2 = unit2.equipped.type
 
@@ -59,6 +63,9 @@ class _enc.Battle extends _enc.Encounter
 
     calcIndividual: (unit1, unit2) ->
         w1 = unit1.equipped
+        if not w1?
+            return
+        
         unit1.battleStats ={}
 
         if not w1.range.contains(@dist)
@@ -157,31 +164,25 @@ class _enc.Battle extends _enc.Encounter
 
     showSkillMessage: (skill) ->
         afterFadeIn = =>
-            setTimeout(afterDelay, @delay*2/3)
+            setTimeout(afterDelay, @delay*5/6)
 
         afterDelay = =>
-            @message.fadeOut(@delay/5)
+            @message.fadeOut(@delay/6)
 
         @message = skill.getMessageEl()
         @message.addClass('blue-box').appendTo(@container)
-        @message.hide().fadeIn(@delay/5, afterFadeIn)
+        @message.hide().fadeIn(@delay/6, afterFadeIn)
 
     encounterDone: =>
         super(false)
-        keepGoing = true
-        
-        if @atk.hp == 0
-            keepGoing = @ui.chapter.kill(@atk)
-        if @def.hp == 0
-            keepGoing = @ui.chapter.kill(@def)
 
-        if keepGoing
-            pu = @getPlayerUnit()
-            if pu.equipped.uses == 0
-                pu.inventory.remove(pu.equipped)
-                @ui.messageBox.showBrokenMessage(pu.equipped, @afterWeaponBreak)
-            else
-                @afterWeaponBreak()
+        pu = @getPlayerUnit()
+        if pu.equipped? and pu.equipped.uses == 0
+            item = pu.equipped
+            pu.inventory.remove(item)
+            @ui.messageBox.showBrokenMessage(item, @afterWeaponBreak)
+        else
+            @afterWeaponBreak()
                 
     afterWeaponBreak: =>
         pu = @getPlayerUnit()
@@ -197,6 +198,17 @@ class _enc.Battle extends _enc.Encounter
                     break  
                                      
         if not doDrop
+            @afterReceiveItem()
+            
+    afterReceiveItem: =>
+        keepGoing = true
+        
+        if @atk.hp == 0
+            keepGoing = @ui.chapter.kill(@atk)
+        if @def.hp == 0
+            keepGoing = @ui.chapter.kill(@def)
+
+        if keepGoing
             @callback()
 
     getExpToAdd: ->
