@@ -1,0 +1,49 @@
+body
+{
+    font-family: sans-serif;
+    font-size: 12pt;
+}
+
+.wrapper
+{
+    width: 700px;
+    margin: 0 auto;
+}
+
+.title-bar img
+{
+    height: 55px;
+    float: left;
+}
+
+.title-bar .game-guide
+{
+    float: left;
+    font-size: 20pt;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.title-bar .return-link
+{
+    float: right;
+    margin-top: 21px;
+    font-size: 14pt;
+}
+
+.content
+{
+    clear: both;
+    padding-top: 15px;
+}
+
+.content li
+{
+    padding-bottom: 10px;
+}
+
+.content img
+{
+    display: block;
+    padding: 10px 0;
+}
