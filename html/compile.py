@@ -26,7 +26,7 @@ def get_data_css():
     result = ''
     tag = '<link rel="stylesheet" type="text/css" href="{}"/>\n'
 
-    for path in walk('css'):
+    for path in walk('game_css'):
         result += tag.format(path)
 
     return result
