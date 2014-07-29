@@ -37,13 +37,32 @@ body
     padding-top: 15px;
 }
 
-.content li
+.guide li
 {
     padding-bottom: 10px;
 }
 
-.content img
+.guide img
 {
     display: block;
     padding: 10px 0;
+}
+
+.toc
+{
+    border: 1px solid #AAA;
+    background-color: #EEE;
+    
+    padding: 10px 20px 10px 10px;
+    display: inline-block;
+}
+
+.toc ol
+{
+    margin: 0;
+}
+
+.toc li
+{
+    margin: 5px 0;
 }
