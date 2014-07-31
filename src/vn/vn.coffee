@@ -17,6 +17,7 @@ class _vn.VisualNovelUI extends UI
             'arrow': new _unit.special.Arrow(),
             'luciana': new _unit.special.Luciana(),
             'kenji': new _unit.special.Kenji(),
+            'morgan': new _unit.Unit({name: 'Morgan'})
         }
 
     destroy: (callback) ->
