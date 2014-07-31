@@ -22,13 +22,17 @@
     width: 100%;
 }
 
+.terrain-box td
+{
+    padding: 3px 2px;
+}
+
 .terrain-box .label
 {
-    font-size: 8pt;
     width: 45px;
 }
 
 .terrain-box .stat
 {
-    text-align: center;  
+    text-align: center;
 }

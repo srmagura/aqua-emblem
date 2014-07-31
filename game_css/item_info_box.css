@@ -67,15 +67,18 @@
     margin-bottom: 5px;
 }
 
+.item-info-box td
+{
+    padding: 2px;
+}
+
 .item-info-box .label
 {
-    padding-top: 2px;
-    font-size: 9pt;
     width: 50px;
-    text-align: center;
+    text-align: right;
 }
 
 .item-info-box .weapon-stats .value
 {
-    padding-left: 5px;
+    padding-left: 7px;
 }

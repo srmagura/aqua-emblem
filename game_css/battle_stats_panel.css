@@ -7,16 +7,12 @@ div.battle-stats-panel
 div.battle-stats-panel table
 {
     border-spacing: 0;
+    border-collapse: separate;
 }
 
 div.battle-stats-panel td
 {
    padding: 1px 3px;
-}
-
-div.battle-stats-panel .atk-name span, div.battle-stats-panel .def-name span
-{
-    font-size: 9pt;
 }
 
 div.battle-stats-panel img.weapon
@@ -33,6 +29,7 @@ div.battle-stats-panel .atk-name
 {
     border-bottom-style: none;
     text-align: left;
+    overflow: auto;
 }
 
 div.battle-stats-panel .atk-name img.weapon
@@ -131,5 +128,4 @@ div.battle-stats-panel .x2
 div.battle-stats-panel .neutral-box
 {
     text-align: center;
-    font-size: 9pt;
 }

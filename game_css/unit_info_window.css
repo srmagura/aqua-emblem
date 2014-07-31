@@ -141,14 +141,13 @@
 .unit-info-window .combat-stats td
 {
     padding: 2px;
-    width: 25%;
 }
 
 .unit-info-window .combat-stats td.stat
 {
     color: #007A29;
     font-weight: bold;
-    padding-top: 1px;
+    text-align: left;
 }
 
 /***** STATS *****/
@@ -158,10 +157,9 @@
     width: 100%;
 }
 
-.unit-info-window .label
+.unit-info-window .stats table td
 {
-    font-size: 9pt;
-    padding-top: 2px;
+    padding: 2px;
 }
 
 .unit-info-window .tab-content-stats table .stat

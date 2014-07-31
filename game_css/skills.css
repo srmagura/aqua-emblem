@@ -83,11 +83,6 @@
     height: 23px;
 }
 
-.skill-info-box .stats .label
-{
-    font-size: 9pt;
-}
-
 .skill-info-box .stats .value
 {
     float: right;
@@ -96,12 +91,12 @@
 
 .skill-info-box .stats .value.range
 {
-    padding-right: 15px;
+    padding-right: 5px;
 }
 
 .skill-info-box .stats .value.type
 {
-    padding-right: 16px;
+    padding-right: 15px;
 }
 
 .skill-info-box .stats .type img
