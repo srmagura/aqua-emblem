@@ -36,12 +36,23 @@ class _file.fs.Chapter2 extends _file.FileState
     chapter: =>
         @ui = new _cui.ChapterUI(@file)
         @ui.setChapter(_chapters.Chapter2)
-        @ui.startChapter(@scene2)
+        @ui.startChapter(@deathScene)
      
-    scene2: =>
+    deathScene: =>
         @ui = new _vn.VisualNovelUI()
 
         lines = [
+            ['morgan', 'Kah... to think that I could lose to a group of nobodies like you guys... this was supposed to be an easy job......']
         ]
+        
+        @ui.scene.init(lines, 'forest', @victoryScene)
+
+    victoryScene: =>
+        lines = [
+            ['luciana', 'We did it... I can hardly believe it.'],
+            ['ace', 'Yeah. The girl\'s over here. It looks likes she\'s still out of it. We\'ll take her with us.'],
+            ['shiina', '... ungh ..... who are you?'],
+            ['ace', 'I\'m Ace. You\'re safe now.'] 
+        ]       
 
         @ui.scene.init(lines, 'forest', @chapterComplete)

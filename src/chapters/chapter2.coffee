@@ -143,15 +143,15 @@ class _chapters.Chapter2 extends _map.Chapter
             [0, 5, 0, 2, 2, 2, 2, 0, 0, 0, 2, 0], 
         ]
 
-        playerPositions = [[2,1], [1,0], [0,1], [1, 2]]
-        @origin0 = new Position(0, 4*@ui.tw)
+        playerPositions = [[0,1], [1,0], [2,1], [1, 2]]
+        @origin0 = new Position(6*@ui.tw, 0)
         @victoryCondition = _map.VICTORY_CONDITION.ROUT
         
         map = new _map.Map(tiles, terrainMapping, playerPositions)
         super(@ui, map)
 
     doScrollSequence: (callback) ->
-        #f = =>
-        #    @ui.scrollTo(new Position(0, 0), callback, .07)
+        f = =>
+            @ui.scrollTo(new Position(0, 0), callback, .07)
 
-        #setTimeout(f, 1000/@ui.speedMultiplier)
+        setTimeout(f, 1000/@ui.speedMultiplier)

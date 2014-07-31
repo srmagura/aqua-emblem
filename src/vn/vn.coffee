@@ -17,6 +17,7 @@ class _vn.VisualNovelUI extends UI
             'arrow': new _unit.special.Arrow(),
             'luciana': new _unit.special.Luciana(),
             'kenji': new _unit.special.Kenji(),
+            'shiina': new _unit.special.Shiina(),
             'morgan': new _unit.Unit({name: 'Morgan'})
         }
 

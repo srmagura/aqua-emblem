@@ -7,7 +7,7 @@ class _vn.Scene
         @chatbox = @wrapper.find('.chatbox')
         @locationBox = @wrapper.find('.location')
 
-        @fadeDelay = 400
+        @fadeDelay = 800
         @locationText = null
 
     init: (@lines, bgImage, @callback) ->
@@ -49,7 +49,8 @@ class _vn.Scene
             return
 
         callback = =>
-            @ui.controlState = new _cs.vn.SceneWaiting(@ui, this)
+            if not @callbackMade
+                @ui.controlState = new _cs.vn.SceneWaiting(@ui, this)
 
         lineObj = @lines[@lineIndex++]
         unit = @ui.units[lineObj[0]]
@@ -59,7 +60,15 @@ class _vn.Scene
         @chatbox.find('.unit .image').html(img)
         @chatbox.find('.unit .name').text(unit.name).show()
         
-        _vn.animateTextWithArrow(@chatbox.find('.text'), text, callback)
+        sceneId = @sceneId
+        check = => @ui.scene.sceneId == sceneId
+        
+        _vn.animateTextWithArrow({
+            el: @chatbox.find('.text'),
+            text: text, 
+            callback: callback, 
+            check: check
+        })
 
     skip: ->
         @wrapper.hide()

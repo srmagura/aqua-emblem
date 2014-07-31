@@ -72,7 +72,7 @@ class _sui.MenuDifficulty extends _sui.Menu
         @selectFirst()
 
     back: ->
-        @ui.initMenu(_sui.MenuMain)
+        @ui.initMenu(_sui.MenuNoData)
 
     handler: =>
         file = new _file.createNewFile(
