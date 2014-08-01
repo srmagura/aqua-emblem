@@ -229,6 +229,10 @@ class _unit.Unit
             @hit = @equipped.hit + 2*@skill + @luck / 2
             @atk = @str + @equipped.might
             @crit = @equipped.crit + @skill / 2
+        else
+            @hit = null
+            @atk = null
+            @crit = null
 
         @evade = @attackSpeed*2 + @luck
         @critEvade = @luck
@@ -276,7 +280,7 @@ class _unit.Unit
         
     pickle: ->
         {
-            constructor: @constructor.name,
+            constructor: _util.getFunctionName(@constructor),
             level: @level,
             exp: @exp,
             inventory: @inventory.pickle()

@@ -17,7 +17,7 @@ class _file.File
     pickle: ->
         obj = {
             'difficultyStr': @difficultyStr
-            'fsCls': @fileState.constructor.name,
+            'fsCls': _util.getFunctionName(@fileState.constructor),
             'playerTeam': @playerTeam.pickle()
         }
         

@@ -50,6 +50,8 @@ class _unit.Inventory
         if not equippedSet
             @unit.equipped = null
             
+        @unit.calcCombatStats()
+            
     pickle: ->
         array = []
         for item in @items

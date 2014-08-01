@@ -48,6 +48,7 @@ div.unit-info .equipped
 
 div.unit-info .bar
 {    
+    clear: both;
     float: right;
     width: 90px;
     height: 7px;

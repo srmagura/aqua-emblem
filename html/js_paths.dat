@@ -4,6 +4,7 @@ http://code.jquery.com/ui/1.11.0/jquery-ui.js
 lib/ui/ui.js
 lib/ui/controlState.js
 lib/ui/init.js
+lib/ui/util.js
 
 lib/sui/startUI.js
 lib/sui/menus.js

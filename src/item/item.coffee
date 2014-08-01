@@ -42,7 +42,7 @@ class _item.Item
     getImagePath: -> "images/items/#{@image}"
     
     pickle: ->
-        obj = {constructor: @constructor.name}
+        obj = {constructor: _util.getFunctionName(@constructor)}
         if @uses?
             obj.uses = @uses
             
