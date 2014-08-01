@@ -106,6 +106,9 @@ class _unit.Unit
         @hp = @maxHp
         if @maxMp?
             @mp = Math.round(@maxMp/2)
+            
+        @statuses = []
+        @done = false
 
     calcStats: (dryRun=false) ->
         increment = {}
@@ -217,6 +220,9 @@ class _unit.Unit
             @pathFollowCallback()
 
     calcCombatStats: ->
+        if not @ui?
+            return
+    
         if not @equipped?
             @attackSpeed = @speed
         else
@@ -234,8 +240,11 @@ class _unit.Unit
             @atk = null
             @crit = null
 
-        @evade = @attackSpeed*2 + @luck
+        terrain = @ui.chapter.map.getTerrain(@pos)
+
+        @evade = @attackSpeed*2 + @luck + terrain.evade
         @critEvade = @luck
+        @defResBonus = terrain.def
 
     updateLunge: =>
         if @lungeStatus is _unit.LUNGE_STATUS.NOT_LUNGING

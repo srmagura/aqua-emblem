@@ -35,6 +35,7 @@ class _map.Chapter
 
         for unit in @units
             unit.ui = @ui
+            unit.calcCombatStats()
             
     addUnit: (team, unit) ->
         @units.push(unit)

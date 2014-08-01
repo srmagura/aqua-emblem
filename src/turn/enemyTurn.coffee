@@ -159,7 +159,7 @@ class _turn.EnemyTurn extends _turn.Turn
             
     spawnUnit: (toAdd, i) ->
         if i == toAdd.length
-            @ui.chapter.initTurn(@ui.chapter.playerTeam) 
+            @calcCombatStats()
             return 
     
         unit = toAdd[i]
@@ -184,8 +184,15 @@ class _turn.EnemyTurn extends _turn.Turn
         
         for unit in @team.reinforcements
             if unit.spawnTurn == turnIndex
+                unit.ui = @ui
                 toAdd.push(unit)
         
-        @spawnUnit(toAdd, 0)    
+        @spawnUnit(toAdd, 0)
+        
+    calcCombatStats: ->  
+        for unit in @team.units
+            unit.calcCombatStats()
+            
+        @ui.chapter.initTurn(@ui.chapter.playerTeam)
         
 

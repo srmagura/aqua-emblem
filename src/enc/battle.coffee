@@ -73,10 +73,10 @@ class _enc.Battle extends _enc.Encounter
 
         if w1.type instanceof _skill.type.Physical
             strOrMag = unit1.str
-            defOrRes = unit2.def
+            defOrRes = unit2.def + unit2.defResBonus
         else if w1.type instanceof _skill.type.Magic
             strOrMag = unit1.mag
-            defOrRes = unit2.res
+            defOrRes = unit2.res + unit2.defResBonus
 
         unit1.battleStats.hit = unit1.hit - unit2.evade
         unit1.battleStats.dmg = strOrMag + w1.might - defOrRes

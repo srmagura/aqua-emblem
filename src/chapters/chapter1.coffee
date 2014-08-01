@@ -4,7 +4,7 @@ class _chapters.Chapter1 extends _map.Chapter
 
     constructor: (@ui) ->     
         enemyUnits = [
-            new _uclass.Fighter({pos: new Position(4, 2),
+            new _uclass.Fighter({pos: new Position(5, 2),
             level: 1,
             items: [new _item.IronAxe()]}),
 
