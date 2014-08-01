@@ -11,7 +11,7 @@ class _status.Status
     getEl: ->
         div = $('<div></div>').addClass('status')
         
-        clsName = @constructor.name.toLowerCase()
+        clsName = _util.getFunctionName(@constructor).toLowerCase()
         div.addClass('status-' + clsName)
 
         img = $('<img/>').attr('src', @getImagePath())

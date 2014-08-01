@@ -14,11 +14,15 @@ class _cui.SkillsBox
 
             td = $('<td></td>').appendTo(tr)
             td.addClass('skill')
-
-            skl = @unit.skills[i]
-            img = $('<img />').attr('src', skl.getImagePath()).
+            
+            skill = @unit.skills[i]
+            
+            if @unit.mp < skill.mp
+                td.addClass('not-usable')               
+             
+            img = $('<img />').attr('src', skill.getImagePath()).
                 appendTo(td)
-            td.data('skill', skl)
+            td.data('skill', skill)
 
         i %= WIDTH
         while i < WIDTH

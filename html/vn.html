@@ -1,9 +1,44 @@
-<div class="vn-wrapper">
+<div class="vn-wrapper">  
+ 
     <div class="start-menu-container">
-    
-        <div class="items"></div>
+        <div class="start-menu">
+            <div class="message"></div>
+            <div class="items"></div>
+        </div>  
+        
+        <div class="save-backup" title="Save backup">
+            <div>
+                <p>
+                    Copy the text from the textbox below and save it on your computer.
+                    Use <b>Ctrl+A</b> to select all of the text.
+                </p>
+                <p>
+                    You can upload a backup later by choosing "Erase data" and then
+                    "Upload backup".
+                </p>
+            
+                <textarea readonly="readonly" rows="5"></textarea>
+            </div>
+        </div>
+        
+        <div class="upload-backup" title="Upload backup">
+            <div>
+                <p>
+                    If you have previously saved a backup, 
+                    paste the text into the box below and click "Upload".                 
+                </p>
+                
+                <textarea rows="5"></textarea>
+                <div class="error-div">
+                    <br />
+                    <span class="error"></span> 
+                </div>              
+            </div>
+            
+        </div>
+           
     </div>
-    
+        
     <div class="full-textbox">
         <div class="box">
         </div>

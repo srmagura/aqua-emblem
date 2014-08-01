@@ -21,12 +21,12 @@ class _cui.MessageBox
         @canvasContainer = $('.canvas-container')
         @ui.canvasOverlay.init()
 
-    showMessage: (text, cls, css, callback, callbackArg, doFadeOut) ->
-        el = $(document.createElement('div'))
-        el.addClass('message').addClass(cls).text(text)
+    showMessage: (params) ->
+        el = $('<div></div>').addClass(params.cls)
+        el.addClass('message-box').html(params.html)
         @canvasContainer.append(el)
 
-        css = $.extend(css, @ui.centerElement(el, 10))
+        css = $.extend(params.css, @ui.centerElement(el, params.padding))
         css.visibility = 'visible'
         css.display = 'none'
 
@@ -36,37 +36,78 @@ class _cui.MessageBox
         el.css(css).fadeIn(fadeDuration)
 
         afterFadeOut = =>
-            if callback?
-                el.hide()
-                callback(callbackArg)
+            if params.callback?
+                el.remove()
+                params.callback()
 
         toDelay = =>
             @ui.canvasOverlay.overlay.fadeOut(fadeDuration)
             el.fadeOut(fadeDuration, afterFadeOut)
 
-        if doFadeOut
+        if params.doFadeOut
             setTimeout(toDelay, fadeDuration*2)
         else
             setTimeout(afterFadeOut, fadeDuration*2)
 
     showPhaseMessage: (team, callback) ->
-        ch = @ui.chapter
         css = {}
 
-        if team is ch.playerTeam
+        if team instanceof _team.PlayerTeam
             text = 'Player phase'
             css.color = '#00C'
         else
             text = 'Enemy phase'
             css.color = '#C00'
-
-        @showMessage(text, 'phase-message', css, callback, team, true)
-
+       
+        @showMessage({
+            html: text,
+            cls: 'big-message phase-message',
+            css: css, 
+            padding: 10,
+            callback: (-> callback(team))
+            doFadeOut: true
+        })
 
     showVictoryMessage: ->
-        @showMessage('Victory!', 'victory-message', {},
-            @ui.doneVictory, null, false)
+        @showMessage({
+            html: 'Victory!',
+            cls: 'big-message victory-message',
+            css: {},
+            padding: 10,
+            callback: @ui.doneVictory, 
+            doFadeOut: false
+        })
 
     showDefeatMessage: ->
-        @showMessage('Defeat.', 'defeat-message', {},
-            @ui.doneDefeat, null, false)
+        @showMessage({
+            html: 'Defeat.',
+            cls: 'big-message defeat-message',
+            css: {},
+            padding: 10,
+            callback: @ui.doneDefeat, 
+            doFadeOut: false
+        })
+            
+    showBrokenMessage: (item, callback) ->
+        content = $('<div> <div class="text">broke.</div></div>')
+        content.prepend(item.getElement({showUses: false}))
+        @showMessage({
+            html: content,
+            cls: 'neutral-box item-message',
+            css: {},
+            padding: 3,
+            callback: callback,
+            doFadeOut: true
+        })
+        
+    showReceivedMessage: (unit, item, callback) ->
+        content = $("<div><div class='text'>#{unit.name} received</div> </div>")
+        content.append(item.getElement({showUses: false}))
+        @showMessage({
+            html: content,
+            cls: 'neutral-box item-message',
+            css: {},
+            padding: 3,
+            callback: callback,
+            doFadeOut: true
+        })

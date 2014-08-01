@@ -1,0 +1,84 @@
+/***** ITEM ELEMENT *****/
+.item-element img
+{
+    width: 13pt;
+    float: left;
+}
+
+.item-element .text
+{
+    padding: 0 0 0 6px;
+}
+
+.item-element .text .equipped
+{
+    font-size: 9pt;
+}
+
+.item-element.not-usable span
+{
+    color: #A00;
+}
+
+.item-element.drop span
+{
+    color: #00C;
+}
+
+.item-element .uses
+{
+    float: right;
+    padding-right: 3px;
+}
+
+/***** ITEM INFO BOX *****/
+.item-info-box
+{
+    display: none;
+    width: 150px;
+    padding: 4px;
+}
+
+.canvas-container .item-info-box
+{
+    position: absolute;
+    z-index: 10;
+}
+
+.canvas-container .item-info-box .item-element .uses
+{
+    display: none;
+}
+
+.sidebar .item-info-box
+{
+    margin-top: 5px;
+    width: 90px;
+    padding: 2px;
+}
+
+.sidebar .item-info-box .header
+{
+    display: none;
+}
+
+.item-info-box .header
+{
+    margin-bottom: 5px;
+}
+
+.item-info-box td
+{
+    padding: 2px;
+}
+
+.item-info-box .label
+{
+    width: 50px;
+    text-align: right;
+}
+
+.item-info-box .weapon-stats .value
+{
+    padding-left: 7px;
+}

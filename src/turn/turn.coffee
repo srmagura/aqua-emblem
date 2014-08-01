@@ -20,9 +20,14 @@ class _turn.Turn
         @directions = [new Position(-1, 0), new Position(1, 0)
         new Position(0, -1), new Position(0, 1)]
 
-    getAvailable: (unit) ->
+    getAvailable: (unit, options={}) ->
+        if 'noLimit' of options and options.noLimit
+            noLimit = true
+        else
+            noLimit = false
+    
         map = @ui.chapter.map
-        available = [new _turn.Destination(unit.pos, [unit.pos])]
+        available = [new _map.Destination(unit.pos, [unit.pos])]
 
         queue = []
         queuePerm = getRandomPermutation(map.width*map.height)
@@ -70,10 +75,10 @@ class _turn.Turn
 
                     if (unitAt is null or unitAt.team is unit.team) and
                     alt < dist[pos2.i][pos2.j] and
-                    alt <= unit.move
+                    (noLimit or alt <= unit.move)
                         dist[pos2.i][pos2.j] = alt
                         prev[pos2.i][pos2.j] = pos
-                        dest = new _turn.Destination(pos2, [pos2])
+                        dest = new _map.Destination(pos2, [pos2])
 
                         prevPos = pos
                         while prevPos isnt null
@@ -124,6 +129,26 @@ class _turn.Turn
                 attackRange.push(obj)
 
         return attackRange
+        
+    doReceiveItem: (unit, item, callback) ->
+        afterMessage = =>
+            unit.inventory.push(item)
+        
+            if unit.inventory.size() <= _unit.Inventory.MAX_SIZE
+                callback()
+            else
+                @ui.unitInfoBox.init(unit, false, true)
+                @ui.itemMenu.init({
+                    forceDiscard: true,
+                    callback: ( => 
+                        @ui.unitInfoBox.hide()
+                        callback()
+                    ),
+                    unit: unit
+                })            
+    
+        item = new item.constructor()
+        @ui.messageBox.showReceivedMessage(unit, item, afterMessage)
 
     afterBattle: =>
         toAdd = @battle.getExpToAdd()

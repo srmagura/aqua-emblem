@@ -1,8 +1,9 @@
 window._unit = {}
 
-_unit.AI_TYPE = {
-    NORMAL: 0,
-    HALT: 1
+_unit.aiType = {
+    normal: 0,
+    halt: 1,
+    aggressive: 2
 }
 
 _unit.LUNGE_STATUS = {
@@ -12,8 +13,6 @@ _unit.LUNGE_STATUS = {
 }
 
 class _unit.Unit
-
-    @INVENTORY_SIZE: 5
 
     constructor: (attr) ->
         for key, value of attr
@@ -33,40 +32,28 @@ class _unit.Unit
             @boss = false
         if 'exp' not of this
             @exp = 0
-        if 'inventory' not of this
-            @inventory = []
+        if 'items' not of this
+            @items = []
 
-        @refreshInventory()
+        @inventory = new _unit.Inventory(this, @items)
+        delete @items
 
         @lungeStatus = _unit.LUNGE_STATUS.NOT_LUNGING
         @offset = new Position(0, 0)
 
-    setInventory: (i, item) ->
-        @inventory[i] = item
-        @refreshInventory()
-
-    deleteItem: (i) ->
-        @inventory.splice(i, 1)
-        @refreshInventory()
-
-    refreshInventory: ->
-        @totalRange = new Range()
-        for item in @inventory
-            if @canWield(item)
-                if not @equipped? or @equipped instanceof _skill.Skill
-                    @equipped = item
-
-                @totalRange = @totalRange.union(item.range)
-
     onNewTurn: ->
-        toRemove = []
+        while true
+            toRemove = null
 
-        for status, i in @statuses
-            if not status.newTurn()
-                toRemove.push(i)
+            for status, i in @statuses
+                if not status.newTurn()
+                    toRemove = i
+                    break
 
-        for i in toRemove
-            @statuses.splice(i, 1)
+            if toRemove?
+                @statuses.splice(toRemove, 1)
+            else
+                break
 
         @updateStats()
 
@@ -102,6 +89,8 @@ class _unit.Unit
 
     setName: (@name) ->
         @id = @name.toLowerCase().replace(' ', '-')
+        
+    setEquipped: (item) -> @inventory.setEquipped(item)
 
     fillInStartStats: (startStats) ->
         if not @startStats?
@@ -117,6 +106,9 @@ class _unit.Unit
         @hp = @maxHp
         if @maxMp?
             @mp = Math.round(@maxMp/2)
+            
+        @statuses = []
+        @done = false
 
     calcStats: (dryRun=false) ->
         increment = {}
@@ -228,6 +220,9 @@ class _unit.Unit
             @pathFollowCallback()
 
     calcCombatStats: ->
+        if not @ui?
+            return
+    
         if not @equipped?
             @attackSpeed = @speed
         else
@@ -240,9 +235,16 @@ class _unit.Unit
             @hit = @equipped.hit + 2*@skill + @luck / 2
             @atk = @str + @equipped.might
             @crit = @equipped.crit + @skill / 2
+        else
+            @hit = null
+            @atk = null
+            @crit = null
 
-        @evade = @attackSpeed*2 + @luck
+        terrain = @ui.chapter.map.getTerrain(@pos)
+
+        @evade = @attackSpeed*2 + @luck + terrain.evade
         @critEvade = @luck
+        @defResBonus = terrain.def
 
     updateLunge: =>
         if @lungeStatus is _unit.LUNGE_STATUS.NOT_LUNGING
@@ -257,7 +259,7 @@ class _unit.Unit
         @direction.dot(@offset) > 0
             @direction = null
             @offset = new Position(0, 0)
-            @lungeStatus = 0
+            @lungeStatus = 0          
 
     render: (ui, ctx) ->
         if @done
@@ -284,3 +286,34 @@ class _unit.Unit
             
     getImagePath: ->
         return 'images/characters/' + @name.toLowerCase() + '.png'
+        
+    pickle: ->
+        {
+            constructor: _util.getFunctionName(@constructor),
+            level: @level,
+            exp: @exp,
+            inventory: @inventory.pickle()
+        }
+        
+    @unpickle: (pickled) ->   
+        if pickled.constructor of _unit.special
+            constructor = _unit.special[pickled.constructor]
+            unit = new constructor()
+        else
+            return null
+            
+        if 'level' of pickled
+            unit.level = pickled.level
+        else
+            return null
+            
+        if 'exp' of pickled
+            unit.exp = pickled.exp
+        else
+            return null
+          
+        unit.inventory = _unit.Inventory.unpickle(pickled.inventory, unit)
+        if not unit.inventory?
+            return null
+            
+        return unit

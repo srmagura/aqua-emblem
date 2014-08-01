@@ -1,0 +1,79 @@
+.menu 
+{
+    padding: 4px;
+    display: none;
+}
+
+div.menu .image, .end-turn .image
+{
+    width: 9px;
+    height: 9px;
+    float: left;
+    padding: 0;
+    margin: 4px 5px 0px 2px;
+}
+
+div.menu .selected .image, .end-turn .image
+{
+    background-image: url('../images/list_arrow.png');
+    background-repeat: no-repeat;
+}
+
+.menu .menu-choice
+{
+    clear: left;
+}
+
+/***** WEAPON MENU *****/
+.weapon-menu
+{
+    overflow: hidden
+}
+
+.menu .item-element
+{
+    padding: 1.5px;
+    padding-right: 5px;
+    float: left;
+    width: 170px;
+    border: 1px solid transparent;
+}
+
+.weapon-menu, .item-menu
+{
+    width: 200px;
+}
+
+.menu.weapon-menu .image, .menu.item-menu .image
+{
+    margin-top: 7px;
+}
+
+/***** ITEM MENU *****/
+.item-menu .in-submenu .image
+{
+    visibility: hidden;
+}
+
+.item-action-menu-confirm
+{
+    display: none;
+}
+
+.item-menu .item-element
+{
+    border: 1px solid transparent;
+}
+
+.item-action-menu-confirm
+{
+    padding: 3px;
+}
+
+/***** END TURN MENU *****/
+.end-turn
+{
+    position: absolute;
+    visibility: hidden;
+    padding: 5px;
+}

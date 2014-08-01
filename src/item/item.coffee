@@ -1,24 +1,70 @@
 window._item = {}
 
+_item.uses = {
+    steel: 30,
+    killer: 20,
+}
+
 class _item.Item
 
-    getElement: (usable=true) ->
-        el = $('<div class="item-element"></div>')
+    constructor: ->
+        @drop = false
+        
+    letDrop: -> 
+        @drop = true
+        return this
+        
+    hasUses: (n) -> (@uses is null or @uses >= n) 
 
-        if not usable
+    getElement: (options={}) ->
+        el = $('<div class="item-element"></div>')
+        
+        html = @name
+        if 'equipped' of options and options.equipped
+            html += ' <span class="equipped">(E)</span>' 
+
+        if 'usable' of options and not options.usable
             el.addClass('not-usable')
+        
+        if @drop
+            el.addClass('drop')
 
         src = @getImagePath()
         el.append($("<img src='#{src}' />"))
-        el.append($("<span>#{@name}</span>"))
+        el.append($("<span class='text'>#{html}</span>"))
+        
+        if @uses? and not ('showUses' of options and not options.showUses)
+            el.append($("<div class='uses'>#{@uses}</div>"))
+        
         el.data('item', this)
         return el
 
     getImagePath: -> "images/items/#{@image}"
+    
+    pickle: ->
+        obj = {constructor: _util.getFunctionName(@constructor)}
+        if @uses?
+            obj.uses = @uses
+            
+        return obj
+                 
+    @unpickle: (pickled) ->
+        if pickled.constructor of _item
+            constructor = _item[pickled.constructor]
+            item = new constructor()
+        else
+            return null
+           
+        if 'uses' of pickled
+            item.uses = pickled.uses
+         
+        return item
 
 class _item.Weapon extends _item.Item
 
     constructor: ->
+        @crit = 0
+        @uses = null
         super()
 
 class _item.Sword extends _item.Weapon
@@ -29,32 +75,12 @@ class _item.Sword extends _item.Weapon
         @range = new Range(1)
         super()
 
-class _item.IronSword extends _item.Sword
-
-    constructor: ->
-        @name = 'Iron sword'
-        @hit = 90
-        @might = 5
-        @weight = 5
-        @crit = 0
-        super()
-
 class _item.Lance extends _item.Weapon
 
     constructor: ->
         @type = new _skill.type.Lance()
         @image = 'iron_lance.png'
         @range = new Range(1)
-        super()
-
-class _item.IronLance extends _item.Lance
-
-    constructor: ->
-        @name = 'Iron lance'
-        @hit = 80
-        @might = 7
-        @weight = 8
-        @crit = 0
         super()
 
 class _item.Axe extends _item.Weapon
@@ -65,31 +91,11 @@ class _item.Axe extends _item.Weapon
         @range = new Range(1)
         super()
 
-class _item.IronAxe extends _item.Axe
-
-    constructor: ->
-        @name = 'Iron axe'
-        @hit = 75
-        @might = 8
-        @weight = 10
-        @crit = 0
-        super()
-
 class _item.Bow extends _item.Weapon
 
     constructor: ->
         @type = new _skill.type.Bow()
         @image = 'iron_bow.png'
         @range = new Range(2)
-        super()
-
-class _item.IronBow extends _item.Bow
-
-    constructor: ->
-        @name = 'Iron bow'
-        @hit = 85
-        @might = 6
-        @weight = 5
-        @crit = 0
         super()
 

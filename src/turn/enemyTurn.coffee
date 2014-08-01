@@ -1,20 +1,20 @@
 class _turn.EnemyTurn extends _turn.Turn
 
     doTurn: ->
-        eu = @ui.chapter.enemyTeam.units
-        if eu.length != 0
-            @doUnitTurn(eu[0])
+        @team = @ui.chapter.enemyTeam
+        eu = @team.units
+        @doUnitTurn(eu[0]) #may be undefined
 
     doUnitTurn: (unit) ->
         if not unit?
-            @ui.chapter.initTurn(@ui.chapter.playerTeam)
+            @spawnReinforcements()
             return
 
-        eu = @ui.chapter.enemyTeam.units
+        eu = @team.units
         @nextUnit = eu[eu.indexOf(unit)+1]
 
-        if unit.aiType == _unit.AI_TYPE.HALT
-            available = [new _turn.Destination(unit.pos, [unit.pos])]
+        if unit.aiType == _unit.aiType.halt
+            available = [new _map.Destination(unit.pos, [unit.pos])]
         else
             available0 = @getAvailable(unit)
 
@@ -46,12 +46,26 @@ class _turn.EnemyTurn extends _turn.Turn
 
             if not @ui.onScreen(moveSpot) or
             not @ui.onScreen(target.pos)
-                @ui.scrollTo(moveSpot, ->)
+                @ui.scrollTo(moveSpot, =>
+                    @scrollToMoveSpotDone = true
+                    afterMove()
+                )
+            else
+                @scrollToMoveSpotDone = true
 
+            @battle = new _enc.Battle(@ui, unit, target,
+                moveSpot.distance(target.pos))
             unit.followPath(selectedInRange.path, =>
-                @battle = new _enc.Battle(@ui, unit, target)
-                @battle.doEncounter(@afterBattle)
+                @followPathDone = true
+                afterMove()
             )
+            
+        @scrollToMoveSpotDone = false
+        @followPathDone = false
+        
+        afterMove = =>
+            if @scrollToMoveSpotDone and @followPathDone
+                @battle.doEncounter(@afterBattle)
 
         if inRange.length != 0
             selectedInRange = @chooseTarget(unit, inRange)
@@ -61,7 +75,10 @@ class _turn.EnemyTurn extends _turn.Turn
             else
                 afterScroll()
         else
-            @doUnitTurn(@nextUnit)
+            if unit.aiType is _unit.aiType.aggressive
+                @doAdvance(unit)
+            else
+                @doUnitTurn(@nextUnit)
     
     afterExpAdd: =>
         setTimeout((=> @doUnitTurn(@nextUnit)), 250/@ui.speedMultiplier)
@@ -95,4 +112,87 @@ class _turn.EnemyTurn extends _turn.Turn
             return @chooseMaxDmg(noRetaliate)
 
         return @chooseMaxDmg(inRange)
+
+    doAdvance: (unit) ->
+        available = @getAvailable(unit, {noLimit: true})
+        attackRange = @movementGetAttackRange(available, unit)
+        
+        minDist = Infinity
+        for obj in attackRange
+            dist = unit.pos.distance(obj.moveSpot)          
+            target = @ui.chapter.getUnitAt(obj.targetSpot)
+            
+            if target? and target.team instanceof _team.PlayerTeam and 
+            dist < minDist
+                fullPath = obj.path
+                minDist = dist
+       
+        if fullPath.length-1 < unit.move
+            i = fullPath.length-1
+        else
+            i = unit.move
+         
+        while true
+            moveSpot = fullPath[i]
+            path = fullPath.slice(0, i+1)
+            i--
+            
+            unitAt = @ui.chapter.getUnitAt(moveSpot)           
+            if not unitAt?
+                break
+                
+            if i < 0
+                @doUnitTurn(@nextUnit)
+                return
+        
+        
+        afterScroll = =>
+            if not @ui.onScreen(moveSpot)
+                @ui.scrollTo(moveSpot, ->)
+
+            unit.followPath(path, => @doUnitTurn(@nextUnit))
+
+        if not @ui.onScreen(unit.pos)
+            @ui.scrollTo(unit.pos, afterScroll)
+        else
+            afterScroll()
+            
+    spawnUnit: (toAdd, i) ->
+        if i == toAdd.length
+            @calcCombatStats()
+            return 
+    
+        unit = toAdd[i]
+        
+        if @ui.chapter.getUnitAt(unit.pos)?
+            @spawnUnit(toAdd, i+1)
+            return
+        
+        afterScroll = =>
+            @ui.chapter.addUnit(@team, unit)
+            setTimeout((=> @spawnUnit(toAdd, i+1)),
+                750/@ui.speedMultiplier)
+
+        if not @ui.onScreen(unit.pos)
+            @ui.scrollTo(unit.pos, afterScroll)
+        else
+            afterScroll()
+            
+    spawnReinforcements: ->
+        toAdd = []
+        turnIndex = @ui.chapter.turnIndex
+        
+        for unit in @team.reinforcements
+            if unit.spawnTurn == turnIndex
+                unit.ui = @ui
+                toAdd.push(unit)
+        
+        @spawnUnit(toAdd, 0)
+        
+    calcCombatStats: ->  
+        for unit in @team.units
+            unit.calcCombatStats()
+            
+        @ui.chapter.initTurn(@ui.chapter.playerTeam)
+        
 

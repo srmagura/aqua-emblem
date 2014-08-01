@@ -89,8 +89,11 @@ class _cs.cui.Skill extends _cs.cui.MapTarget
 
     d: ->
         @ui.cursor.visible = false
+        @ui.cursor.pos = @playerTurn.selectedUnit.pos.clone()
+        @ui.unitInfoBox.update()
+        
         @ui.battleStatsPanel.hide()
-        @playerTurn.selectedUnit.refreshInventory()
+        @playerTurn.selectedUnit.inventory.refresh()
         @playerTurn.handleSkill(false)
 
     skillDone: (exp=null) =>

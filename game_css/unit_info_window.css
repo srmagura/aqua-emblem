@@ -49,7 +49,6 @@
     width: 100%;
 }
 
-
 .unit-info-window .common .insignia img
 {
     border: none;
@@ -118,26 +117,11 @@
     border: 1px solid transparent;
 }
 
-.unit-info-window .item-element.selected
+.unit-info-window .item-element.selected,
+.item-menu .in-submenu .selected .item-element
 {
     background-color: rgba(0, 0, 255, 0.3);
     border: 1px solid rgba(0, 0, 255, 0.35);
-}
-
-.item-element img
-{
-    width: 13pt;
-    float: left;
-}
-
-.item-element span
-{
-    padding: 0 0 0 6px;
-}
-
-.item-element.not-usable span
-{
-    color: #A00;
 }
 
 /***** COMBAT STATS *****/
@@ -157,13 +141,13 @@
 .unit-info-window .combat-stats td
 {
     padding: 2px;
-    width: 25%;
 }
 
 .unit-info-window .combat-stats td.stat
 {
     color: #007A29;
     font-weight: bold;
+    text-align: left;
 }
 
 /***** STATS *****/
@@ -173,9 +157,9 @@
     width: 100%;
 }
 
-.unit-info-window .label
+.unit-info-window .stats table td
 {
-    font-size: 9pt;
+    padding: 2px;
 }
 
 .unit-info-window .tab-content-stats table .stat
@@ -192,7 +176,7 @@
 
 .unit-info-window .tab-content-stats .wield 
 {
-    margin-top: 24px;
+    margin-top: 10px;
 }
 
 .unit-info-window .tab-content-stats .wield .weapons div
@@ -229,7 +213,7 @@
 {
     float: left;
     padding: 5px;
-    width: 180px;
+    width: 190px;
 }
 
 .level-up-window .level-up
@@ -247,11 +231,6 @@
     padding: 2px;
 }
 
-.level-up-window .stats .label
-{
-    font-size: 9pt;
-}
-
 .level-up-window .stats td
 {
     padding: 3px 1px;
@@ -259,7 +238,7 @@
 
 .level-up-window .stats .stat
 {
-    padding-right: 15px;
+    padding-right: 10px;
     text-align: right;
 }
 

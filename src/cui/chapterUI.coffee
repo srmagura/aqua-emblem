@@ -5,10 +5,12 @@ class _cui.ChapterUI extends UI
 
     tw: 35
 
-    constructor: ->
+    constructor: (@file) ->
         super()
 
+        @expMultiplier = @file.difficulty.expMultiplier
         @speedMultiplier = 1
+        
         @fadeDelay = 1000
         @gameWrapper = $('.game-wrapper')
 
@@ -21,8 +23,10 @@ class _cui.ChapterUI extends UI
 
         @controlState = new _cs.cui.Chapter(this)
 
-        @actionMenu = new _cui.ActionMenu(this)
+        @actionMenu = new _cui.ActionMenuMain(this)
         @weaponMenu = new _cui.WeaponMenu(this)
+        @itemMenu = new _cui.ItemMenu(this)
+        
         @battleStatsPanel = new _cui.BattleStatsPanel(this)
         @expBar = new _cui.ExpBar(this)
 
@@ -50,15 +54,10 @@ class _cui.ChapterUI extends UI
 
         @staticTurn = new _turn.Turn(this)
 
-    setChapter: (chapterCls) ->
-        if not @file?
-            console.log 'ChapterUI: file not set'
-            @file = new _file.File()
-            @file.difficulty = _file.difficulty.hard
-        
-        @expMultiplier = @file.difficulty.expMultiplier
-
+    setChapter: (chapterCls) ->       
         @chapter = new chapterCls(this)
+        @chapter.setPlayerTeam(@file.playerTeam)
+        
         $('.victory-condition').text(@chapter.victoryCondition.text).
             show()
 
@@ -85,7 +84,7 @@ class _cui.ChapterUI extends UI
     doneDefeat: =>
         callback = =>
             ui = new _sui.StartUI()
-            ui.init(true)
+            ui.init({fade: true})
 
         @destroy(callback)
 

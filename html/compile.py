@@ -26,7 +26,7 @@ def get_data_css():
     result = ''
     tag = '<link rel="stylesheet" type="text/css" href="{}"/>\n'
 
-    for path in walk('css'):
+    for path in walk('game_css'):
         result += tag.format(path)
 
     return result
@@ -64,7 +64,8 @@ html_files = (
     'game_info', 'terrain_box', 'skills_tab',
     'level_up_window', 'unit_info_window',
     'battle_stats_panel', 'skills_box',
-    'unit_info_box', 'vn', 'item_info_box'
+    'unit_info_box', 'vn', 'item_info_box',
+    'sidebar_menus'
 )
 
 for name in html_files:

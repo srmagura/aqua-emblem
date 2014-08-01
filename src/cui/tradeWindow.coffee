@@ -44,16 +44,17 @@ class _cui.TradeWindow
             inventoryEl = @window.find(sel)
             
         inventoryEl.html('')
-        for i in [0 .. _unit.Unit.INVENTORY_SIZE-1]
+        for i in [0 .. _unit.Inventory.MAX_SIZE-1]
             itemContainer = $('<div></div>').addClass('item-container')
             itemContainer.data('pos', new Position(i, j))
             arrowImg = $('<div></div>').addClass('arrow-image')
             arrowImg.appendTo(itemContainer)
 
-            item = unit.inventory[i]
+            item = unit.inventory.get(i)
             if item?
-                usable = unit.canUse(item)
-                itemContainer.append(item.getElement(usable))
+                options = {usable: unit.canUse(item)}
+                
+                itemContainer.append(item.getElement(options))
                 itemContainer.data('item', item)
 
             inventoryEl.append(itemContainer)
@@ -89,12 +90,12 @@ class _cui.TradeWindow
         unitTo = @units[@cursorPos.j]
 
         iFrom = @selectedEl.data('pos').i
-        if @cursorPos.i == unitTo.inventory.length
-            unitFrom.deleteItem(iFrom)
+        if @cursorPos.i == unitTo.inventory.size()
+            unitFrom.inventory.remove(iFrom)
         else
-            unitFrom.setInventory(iFrom, @getCursorEl().data('item'))
+            unitFrom.inventory.set(iFrom, @getCursorEl().data('item'))
 
-        unitTo.setInventory(@cursorPos.i, @selectedEl.data('item'))
+        unitTo.inventory.set(@cursorPos.i, @selectedEl.data('item'))
 
         @fillInventory(@units[0], null, 0)
         @fillInventory(@units[1], null, 1)
@@ -130,14 +131,14 @@ class _cs.cui.TradeWindow extends _cs.cui.Chapter
             @windowObj.moveCursor(new Position(-1, 0))
         else
             unit = @windowObj.units[cp.j]
-            cp.i = unit.inventory.length - 1
+            cp.i = unit.inventory.size() - 1
             @windowObj.setCursorPos(cp)
 
     down: ->
         cp = @windowObj.cursorPos
         unit = @windowObj.units[cp.j]
 
-        if cp.i + 1 < unit.inventory.length
+        if cp.i + 1 < unit.inventory.size()
             @windowObj.moveCursor(new Position(1, 0))
         else
             cp.i = 0
@@ -146,7 +147,7 @@ class _cs.cui.TradeWindow extends _cs.cui.Chapter
     left: ->
         cp = @windowObj.cursorPos
         if cp.j == 1
-            len = @windowObj.units[0].inventory.length
+            len = @windowObj.units[0].inventory.size()
             if cp.i >= len
                 cp.i = len - 1
                 @windowObj.setCursorPos(cp)
@@ -156,7 +157,7 @@ class _cs.cui.TradeWindow extends _cs.cui.Chapter
     right: ->
         cp = @windowObj.cursorPos
         if cp.j == 0
-            len = @windowObj.units[1].inventory.length
+            len = @windowObj.units[1].inventory.size()
             if cp.i >= len
                 cp.i = len - 1
                 @windowObj.setCursorPos(cp)
@@ -180,15 +181,15 @@ class _cs.cui.TradeWindow2 extends _cs.cui.Chapter
         if cp.i > 0
             @windowObj.moveCursor(new Position(-1, 0))
         else
-            cp.i = unit.inventory.length
+            cp.i = unit.inventory.size()
             @windowObj.setCursorPos(cp)
 
     down: ->
         cp = @windowObj.cursorPos
         unit = @windowObj.units[cp.j]
 
-        if cp.i + 1 < _unit.Unit.INVENTORY_SIZE and
-        cp.i < unit.inventory.length
+        if cp.i + 1 < _unit.Inventory.MAX_SIZE and
+        cp.i < unit.inventory.size()
             @windowObj.moveCursor(new Position(1, 0))
         else
             cp.i = 0

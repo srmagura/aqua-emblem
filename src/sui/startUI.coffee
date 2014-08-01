@@ -3,36 +3,64 @@ _cs.sui = {}
 
 class _sui.StartUI extends UI
 
-    constructor: ->
+    constructor: (@file) ->
         super()
         @vn = $('.vn-wrapper')
         @controlState = new _cs.ControlState(this)
+        
         @wrapper = @vn.find('.start-menu-container')
         @itemContainer = @wrapper.find('.items')
+        @messageDiv = @wrapper.find('.message')
+        
+        @saveBackupDialog = @wrapper.find('.save-backup')
+        @uploadDialog = @wrapper.find('.upload-backup')
+        
+        @messages = {
+            'chapterComplete': 'Chapter complete! Game saved.'
+        }
+        
+        @dialogOptions = {modal: true, width: 400, close: @dialogOnClose}
 
-    init: (fade=false) ->
+    init: (options={}) ->
         @itemContainer.html('')
         @wrapper.show()
-        _vn.setBackgroundImage(@wrapper, 'start.png')
+        _vn.setBackgroundImage(@wrapper, 'start')
+        
+        json = localStorage.getItem('file')
+        if json? and not @file
+            @file = _file.File.unpickle(json)
 
-        next = => @initMenu(_sui.StartMenuMain)
+        next = => 
+            if @file?
+                @initMenu(_sui.MenuMain)
+            else
+                @initMenu(_sui.MenuNoData)
+                       
+            if 'message' of options
+                @messageDiv.html(options.message).show()
 
-        if fade
+        if 'fade' of options and options.fade
             @vn.fadeIn(1000, next)
         else
             @vn.show()
             next()
 
     initMenu: (menuCls) ->
+        @messageDiv.hide()
+        @itemContainer.html('')
+        
         @menu = new menuCls(this, @itemContainer)
         @menu.init()
-        @controlState = new _cs.sui.StartMenu(this, @menu)
+        @controlState = new _cs.sui.Menu(this, @menu)
+        
+    dialogOnClose: =>
+        @controlState = @prevControlState
 
     destroy: ->
         @wrapper.hide()
         @vn.hide()
 
-class _sui.StartMenu
+class _sui.Menu
 
     constructor: (@ui, @menu) ->
 
@@ -50,50 +78,8 @@ class _sui.StartMenu
 
     back: ->
 
-class _sui.StartMenuMain extends _sui.StartMenu
 
-    init: ->
-        @menu.html('')
-
-        @getMenuEl('New game').appendTo(@menu).
-            data('handler', @handleNewGame)
-        @selectFirst()
-        @controlState = new _cs.sui.StartMenu(this, @menu)
-
-    handleNewGame: =>
-        @ui.initMenu(_sui.StartMenuDifficulty)
-
-class _sui.StartMenuDifficulty extends _sui.StartMenu
-
-    init: ->
-        @menu.html('')
-
-        normal = @getMenuEl('Normal',
-            'The default difficulty.')
-        normal.appendTo(@menu).data('handler', @handler)
-        normal.data('difficulty', _file.difficulty.normal)
-
-        hard = @getMenuEl('Hard',
-            'How Aqua Emblem is meant to be played. ' +
-            'Units start at a lower ' +
-            'level and gain experience more slowly.')
-        hard.appendTo(@menu).data('handler', @handler)
-        hard.data('difficulty', _file.difficulty.hard)
-
-        @selectFirst()
-
-    back: ->
-        @ui.initMenu(_sui.StartMenuMain)
-
-    handler: =>
-        file = new _file.File()
-        file.setFileState(_file.fs.Chapter1)
-        file.difficulty = @getSelected().data('difficulty')
-
-        @ui.destroy()
-        file.init()
-
-class _cs.sui.StartMenu extends _cs.Menu
+class _cs.sui.Menu extends _cs.Menu
     
     f: ->
         @menuObj.getSelected().data('handler')()

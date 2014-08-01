@@ -1,28 +1,22 @@
 class _cui.ActionMenu
 
     constructor: (@ui) ->
-        @menu = $('.action-menu')
 
-    init: (unit, menuItems) ->
-        if unit?
-            @unit = unit
-
+    init: (menuItems) ->
         if menuItems?
-            @menuItems = menuItems
             @menu.html('')
-            for item, k in menuItems
+            for item in menuItems
                 el = $('<div><div class="image"></div></div>')
-                el.data('index', k).append(item.name).
-                    appendTo('.action-menu')
+                el.append(item.name).appendTo(@menu)
+                el.data('handler', item.handler)
 
             @menu.children('div').first().addClass('selected')
 
-        @ui.cursor.visible = false
-        @ui.controlState = new _cs.cui.ActionMenu(@ui, this)
         @show()
 
-        @ui.chapter.map.setOverlayRange(@unit.pos,
-        @unit.totalRange, 'ATTACK')
+    callSelectedHandler: ->
+        handler = @menu.find('.selected').data('handler')
+        handler()
 
     show: ->
         @menu.css('display', 'inline-block')
@@ -30,18 +24,38 @@ class _cui.ActionMenu
     hide: ->
         @menu.css('display', 'none')
 
+
 class _cui.ActionMenuItem
+
     constructor: (@name, @handler) ->
 
 
-class _cs.cui.ActionMenu extends _cs.cui.Menu
+class _cui.ActionMenuMain extends _cui.ActionMenu
+
+    constructor: (@ui) ->
+        super(@ui)
+        @menu = $('.action-menu')   
+
+    init: (unit, menuItems) ->
+        super(menuItems)
+        
+        if unit?
+            @unit = unit
+            
+        @ui.cursor.visible = false
+        @ui.controlState = new _cs.cui.ActionMenuMain(@ui, this)
+        
+        @ui.chapter.map.setOverlayRange(@unit.pos,
+        @unit.totalRange, 'ATTACK')
+
+
+class _cs.cui.ActionMenuMain extends _cs.cui.Menu
 
     f: ->
-        k = @menuObj.menu.find('.selected').data('index')
         @menuObj.hide()
         @ui.controlState = new _cs.cui.Map(@ui)
 
-        @menuObj.menuItems[k].handler()
+        @menuObj.callSelectedHandler()
 
     d: ->
         @ui.actionMenu.hide()

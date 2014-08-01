@@ -1,4 +1,4 @@
-_vn.animateText = (el, text, callback=(->)) ->
+animateText = (el, text, callback, check) ->
     msPerChar = 30
 
     spans = []
@@ -16,6 +16,9 @@ _vn.animateText = (el, text, callback=(->)) ->
     $({count: 0}).animate({count: text.length}, {
         duration: text.length*msPerChar,
         step: ->
+            if not check()
+                return
+        
             rounded = Math.round(@count)
             if rounded >= spanI
                 for j in [spanI .. rounded]
@@ -29,13 +32,24 @@ _vn.animateText = (el, text, callback=(->)) ->
         complete: callback
     })
 
-_vn.animateTextWithArrow = (el, text, callback=(->)) ->
-    callback2 = =>
-        img = $('<img />').attr('src', 'images/vn/arrow.png')
-        img.addClass('vn-arrow').appendTo(el)
-        callback()
+_vn.animateTextWithArrow = (options) ->
+    if options.callback?
+        callback = options.callback
+    else
+        callback = (->)
+        
+    if options.check?
+        check = options.check
+    else
+        check = (-> true)
 
-    _vn.animateText(el, text, callback2)
+    callback2 = =>
+        if check()
+            img = $('<img />').attr('src', 'images/vn/arrow.png')
+            img.addClass('vn-arrow').appendTo(options.el)
+            callback()
+
+    animateText(options.el, options.text, callback2, check)
 
 class _vn.FullTextbox
 
@@ -79,7 +93,11 @@ class _vn.FullTextbox
                 @lineIndex = 0
 
         el = $('<div></div>').addClass('line').appendTo(@box)
-        _vn.animateTextWithArrow(el, lines[@lineIndex++], callback)
+        _vn.animateTextWithArrow({
+            el: el, 
+            text: lines[@lineIndex++], 
+            callback: callback
+        })
 
     skip: ->
         @wrapper.hide()

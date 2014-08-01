@@ -33,7 +33,7 @@ class _cui.BattleStatsPanel
                 if value?
                     value = Math.round(value)
                 else
-                    value = '--'
+                    value = '---'
 
                 td = @panel.find(".#{unitName}-#{statType}")
                 td.find('.stat').text(value)

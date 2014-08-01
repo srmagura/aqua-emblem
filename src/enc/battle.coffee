@@ -23,24 +23,31 @@ class _enc.Battle extends _enc.Encounter
         @turns = [@atk]
         @nTurns = {atk: 1, def: 0}
 
-        defCanAttack = (@def.equipped.range.contains(@dist) and
+        defCanAttack = (@def.equipped? and
+        @def.equipped.range.contains(@dist) and
         not @def.hasStatus(_status.Defend))
 
         if defCanAttack
             @turns.push(@def)
             @nTurns.def++
 
-        if @atk.attackSpeed - 4 > @def.attackSpeed
+        if(@atk.attackSpeed - 4 > @def.attackSpeed and
+        @atk.equipped.hasUses(2))
             @turns.push(@atk)
             @nTurns.atk++
-        else if defCanAttack and
-        @def.attackSpeed - 4 > @atk.attackSpeed
+            
+        else if(defCanAttack and
+        @def.attackSpeed - 4 > @atk.attackSpeed and
+        @def.equipped.hasUses(2))    
             @turns.push(@def)
             @nTurns.def++
 
         @attacksHit = 0
 
     calcAdvantage: (unit1, unit2) ->
+        if not (unit1.equipped? and unit2.equipped?)
+            return
+    
         t1 = unit1.equipped.type
         t2 = unit2.equipped.type
 
@@ -56,6 +63,9 @@ class _enc.Battle extends _enc.Encounter
 
     calcIndividual: (unit1, unit2) ->
         w1 = unit1.equipped
+        if not w1?
+            return
+        
         unit1.battleStats ={}
 
         if not w1.range.contains(@dist)
@@ -63,10 +73,10 @@ class _enc.Battle extends _enc.Encounter
 
         if w1.type instanceof _skill.type.Physical
             strOrMag = unit1.str
-            defOrRes = unit2.def
+            defOrRes = unit2.def + unit2.defResBonus
         else if w1.type instanceof _skill.type.Magic
             strOrMag = unit1.mag
-            defOrRes = unit2.res
+            defOrRes = unit2.res + unit2.defResBonus
 
         unit1.battleStats.hit = unit1.hit - unit2.evade
         unit1.battleStats.dmg = strOrMag + w1.might - defOrRes
@@ -127,8 +137,12 @@ class _enc.Battle extends _enc.Encounter
                         @mpTaken = true
                 else if giver.mp < giver.maxMp
                     giver.mp++
+                    
+                    if giver.equipped.uses?
+                        giver.equipped.uses--
 
                 @attacksHit++
+                
         else
             @displayMessage(recvr, 'miss')
 
@@ -150,25 +164,51 @@ class _enc.Battle extends _enc.Encounter
 
     showSkillMessage: (skill) ->
         afterFadeIn = =>
-            setTimeout(afterDelay, @delay*2/3)
+            setTimeout(afterDelay, @delay*5/6)
 
         afterDelay = =>
-            @message.fadeOut(@delay/5)
+            @message.fadeOut(@delay/6)
 
         @message = skill.getMessageEl()
         @message.addClass('blue-box').appendTo(@container)
-        @message.hide().fadeIn(@delay/5, afterFadeIn)
+        @message.hide().fadeIn(@delay/6, afterFadeIn)
 
     encounterDone: =>
         super(false)
-        keepGoing = true
 
+        pu = @getPlayerUnit()
+        if pu.equipped? and pu.equipped.uses == 0
+            item = pu.equipped
+            pu.inventory.remove(item)
+            @ui.messageBox.showBrokenMessage(item, @afterWeaponBreak)
+        else
+            @afterWeaponBreak()
+                
+    afterWeaponBreak: =>
+        pu = @getPlayerUnit()
+        eu = @getEnemyUnit()       
+        doDrop = false
+        
+        if eu.hp == 0
+            for item in eu.inventory.it()
+                if item.drop
+                    eu.inventory.remove(item)
+                    doDrop = true
+                    @ui.staticTurn.doReceiveItem(pu, item, @afterWeaponBreak)
+                    break  
+                                     
+        if not doDrop
+            @afterReceiveItem()
+            
+    afterReceiveItem: =>
+        keepGoing = true
+        
         if @atk.hp == 0
             keepGoing = @ui.chapter.kill(@atk)
         if @def.hp == 0
             keepGoing = @ui.chapter.kill(@def)
 
-        if(keepGoing and @callback?)
+        if keepGoing
             @callback()
 
     getExpToAdd: ->
@@ -178,15 +218,19 @@ class _enc.Battle extends _enc.Encounter
         levelDif = enemy.level - player.level
 
         if @attacksHit > 0
-            dmgExp = .15 + levelDif/100
+            dmgExp = .10 + levelDif/100          
         else
             dmgExp = .01
 
         defeatExp = 0
         if enemy.hp == 0
-            defeatExp = .3 + levelDif/100
+            defeatExp = .25 + levelDif/100
+            
+            if enemy.boss
+                defeatExp += .4
 
-        exp = dmgExp + defeatExp
+        exp = dmgExp + defeatExp        
+        
         exp *= ui.expMultiplier
 
         if exp > 1
