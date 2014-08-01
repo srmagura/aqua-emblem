@@ -3,31 +3,36 @@
 <head>
     <title>Aqua Emblem</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-    <link rel="stylesheet" type="text/css" href="css/battle_stats_panel.css"/>
-<link rel="stylesheet" type="text/css" href="css/unit_info_window.css"/>
-<link rel="stylesheet" type="text/css" href="css/vn.css"/>
-<link rel="stylesheet" type="text/css" href="css/terrain_box.css"/>
-<link rel="stylesheet" type="text/css" href="css/exp_bar.css"/>
-<link rel="stylesheet" type="text/css" href="css/item_info_box.css"/>
-<link rel="stylesheet" type="text/css" href="css/start.css"/>
-<link rel="stylesheet" type="text/css" href="css/unit_info_box.css"/>
-<link rel="stylesheet" type="text/css" href="css/trade_window.css"/>
-<link rel="stylesheet" type="text/css" href="css/skills.css"/>
-<link rel="stylesheet" type="text/css" href="css/game.css"/>
-<link rel="stylesheet" type="text/css" href="css/menu.css"/>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="game_css/battle_stats_panel.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/unit_info_window.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/vn.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/terrain_box.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/game_info.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/exp_bar.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/message.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/item_info_box.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/start.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/unit_info_box.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/trade_window.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/skills.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/normalize.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/game.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/menu.css"/>
 
     <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <script src="lib/ui/ui.js"></script>
 <script src="lib/ui/controlState.js"></script>
 <script src="lib/ui/init.js"></script>
+<script src="lib/ui/util.js"></script>
 <script src="lib/sui/startUI.js"></script>
+<script src="lib/sui/menus.js"></script>
 <script src="lib/sui/file.js"></script>
 <script src="lib/vn/vn.js"></script>
 <script src="lib/vn/fullTextbox.js"></script>
 <script src="lib/vn/chapterDisplay.js"></script>
 <script src="lib/vn/scene.js"></script>
-<script src="lib/vn/fs/chapter1.js"></script>
 <script src="lib/cui/chapterUI.js"></script>
 <script src="lib/cui/menu.js"></script>
 <script src="lib/cui/cursor.js"></script>
@@ -39,6 +44,7 @@
 <script src="lib/cui/tradeWindow.js"></script>
 <script src="lib/cui/actionMenu.js"></script>
 <script src="lib/cui/weaponMenu.js"></script>
+<script src="lib/cui/itemMenu.js"></script>
 <script src="lib/cui/itemInfoBox.js"></script>
 <script src="lib/cui/battleStatsPanel.js"></script>
 <script src="lib/cui/message.js"></script>
@@ -51,6 +57,7 @@
 <script src="lib/map/position.js"></script>
 <script src="lib/map/terrain.js"></script>
 <script src="lib/map/range.js"></script>
+<script src="lib/map/destination.js"></script>
 <script src="lib/turn/turn.js"></script>
 <script src="lib/turn/playerTurn.js"></script>
 <script src="lib/turn/enemyTurn.js"></script>
@@ -59,15 +66,23 @@
 <script src="lib/enc/unitAction.js"></script>
 <script src="lib/enc/aidEncounter.js"></script>
 <script src="lib/unit/unit.js"></script>
+<script src="lib/unit/inventory.js"></script>
 <script src="lib/unit/team.js"></script>
 <script src="lib/unit/status.js"></script>
 <script src="lib/unit/uclass.js"></script>
 <script src="lib/unit/special.js"></script>
 <script src="lib/item/item.js"></script>
+<script src="lib/item/sword.js"></script>
+<script src="lib/item/lance.js"></script>
+<script src="lib/item/axe.js"></script>
+<script src="lib/item/bow.js"></script>
 <script src="lib/skill/skill.js"></script>
 <script src="lib/skill/aid.js"></script>
 <script src="lib/skill/attack.js"></script>
 <script src="lib/chapters/chapter1.js"></script>
+<script src="lib/chapters/chapter2.js"></script>
+<script src="lib/vn/fs/chapter1.js"></script>
+<script src="lib/vn/fs/chapter2.js"></script>
  
 </head>
 <body>
@@ -108,10 +123,22 @@ $(window).load(init)
     </div>
 </div>
 
-            <div class="menu action-menu neutral-box">
-            </div>
-            <div class="menu weapon-menu neutral-box">
-            </div>
+            <div class="menu action-menu neutral-box"></div>
+
+<div class="menu weapon-menu neutral-box"></div>
+
+<div class="menu item-menu neutral-box">
+    <div class="message"></div>
+    <div class="menu-items"></div>
+</div>
+
+<div class="menu item-action-menu neutral-box"></div>
+
+<div class="menu item-action-menu-confirm neutral-box">
+    <div class="message">Are you sure you want to discard this item?</div>
+    <div class="menu-items"></div>
+</div>
+
             <div class="skills-box">
 </div>
 
@@ -126,23 +153,23 @@ $(window).load(init)
             <span class="mp value"></span>
         </div>
         <div class="half half-type">
-            <span class="label">TYPE</span>
+            <span class="label">Type</span>
             <span class="type value"></span>
         </div>
         <div class="half half-hit">
-            <span class="label">HIT</span>
+            <span class="label">Hit</span>
             <span class="hit value"></span>
         </div>
         <div class="half half-might">
-            <span class="label">MT</span>
+            <span class="label">Might</span>
             <span class="might value"></span>
         </div>
         <div class="half half-crit">
-            <span class="label">CRIT</span>
+            <span class="label">Crit</span>
             <span class="crit value"></span>
         </div>
         <div class="half half-range">
-            <span class="label">RNG</span>
+            <span class="label">Range</span>
             <span class="range value"></span>
         </div>
     </div>
@@ -155,23 +182,23 @@ $(window).load(init)
     
     <table class="weapon-stats">
         <tr>
-            <td class="label">HIT</td>
+            <td class="label">Hit</td>
             <td class="value hit"></td>
         </tr>
         <tr>
-            <td class="label">MIGHT</td>
+            <td class="label">Might</td>
             <td class="value might"></td>
         </tr>
         <tr>
-            <td class="label">CRIT</td>
+            <td class="label">Crit</td>
             <td class="value crit"></td>
         </tr>
         <tr>
-            <td class="label">WEIGHT</td>
+            <td class="label">Weight</td>
             <td class="value weight"></td>
         </tr>
         <tr>
-            <td class="label">RANGE</td>
+            <td class="label">Range</td>
             <td class="value range"></td>
         </tr>
     </table>
@@ -197,7 +224,7 @@ $(window).load(init)
             <td class="stat def-hit red-box">
                 <span class="stat"></span>
             </td>
-            <td class="hit neutral-box">HIT</td>
+            <td class="hit neutral-box">Hit</td>
             <td class="stat atk-hit blue-box">
                 <span class="stat"></span>
             </td>
@@ -206,7 +233,7 @@ $(window).load(init)
             <td class="stat def-dmg red-box">
                 <span class="stat"></span><span class="x2">&times;2</span>
             </td>
-            <td class="dmg neutral-box">DMG</td>
+            <td class="dmg neutral-box">Dmg</td>
             <td class="stat atk-dmg blue-box">
                 <span class="stat"></span><span class="x2">&times;2</span>
             </td>
@@ -215,7 +242,7 @@ $(window).load(init)
             <td class="stat def-crt red-box">
                 <span class="stat"></span>
             </td>
-            <td class="crt neutral-box">CRT</td>
+            <td class="crt neutral-box">Crt</td>
             <td class="stat atk-crt blue-box">
                 <span class="stat"></span>
             </td>
@@ -276,15 +303,15 @@ $(window).load(init)
                 <div class="combat-stats">
                     <table>
                         <tr>
-                            <td class="label">HIT</td>
+                            <td class="label">Hit</td>
                             <td class="stat hit"></td>
-                            <td class="label">EVADE</td>
+                            <td class="label">Evade</td>
                             <td class="stat evade"></td>
                         </tr>
                         <tr>
-                            <td class="label">ATK</td>
+                            <td class="label">Atk</td>
                             <td class="stat atk"></td>
-                            <td class="label">CRIT</td>
+                            <td class="label">Crit</td>
                             <td class="stat crit"></td>
                         </tr>
                     </table>
@@ -294,27 +321,27 @@ $(window).load(init)
                 <div class="stats">
                     <table>
                         <tr>
-                            <td class="label">STR</td>
+                            <td class="label">Str</td>
                             <td class="stat str"></td>
-                            <td class="label">SKILL</td>
+                            <td class="label">Skill</td>
                             <td class="stat skill"></td>
                         </tr>
                         <tr>
-                            <td class="label">MAG</td>
+                            <td class="label">Mag</td>
                             <td class="stat mag"></td>
-                            <td class="label">SPEED</td>
+                            <td class="label">Speed</td>
                             <td class="stat speed"></td>
                         </tr>
                         <tr>
-                            <td class="label">DEF</td>
+                            <td class="label">Def</td>
                             <td class="stat def"></td>
-                            <td class="label">LUCK</td>
+                            <td class="label">Luck</td>
                             <td class="stat luck"></td>
                         </tr>
                         <tr>
-                            <td class="label">RES</td>
+                            <td class="label">Res</td>
                             <td class="stat res"></td>
-                            <td class="label">MOVE</td>
+                            <td class="label">Move</td>
                             <td class="stat move"></td>
                         </tr>
                     </table>
@@ -358,48 +385,48 @@ $(window).load(init)
                 </tr>
 
                 <tr>
-                    <td class="label">STR</td>
+                    <td class="label">Str</td>
                     <td class="stat str">
                         <span></span><img src="images/up_arrow.png" />
                     </td>
 
-                    <td class="label">SKILL</td>
+                    <td class="label">Skill</td>
                     <td class="stat skill">
                         <span></span><img src="images/up_arrow.png" />
                     </td>
                 </tr>
 
                 <tr>
-                    <td class="label">MAG</td>
+                    <td class="label">Mag</td>
                     <td class="stat mag">
                         <span></span><img src="images/up_arrow.png" />
                     </td>
 
-                    <td class="label">SPEED</td>
+                    <td class="label">Speed</td>
                     <td class="stat speed">
                         <span></span><img src="images/up_arrow.png" />
                     </td>
                 </tr>
 
                 <tr>
-                    <td class="label">DEF</td>
+                    <td class="label">Def</td>
                     <td class="stat def">
                         <span></span><img src="images/up_arrow.png" />
                     </td>
 
-                    <td class="label">LUCK</td>
+                    <td class="label">Luck</td>
                     <td class="stat luck">
                         <span></span><img src="images/up_arrow.png" />
                     </td>
                 </tr>
 
                 <tr>
-                    <td class="label">RES</td>
+                    <td class="label">Res</td>
                     <td class="stat res">
                         <span></span><img src="images/up_arrow.png" />
                     </td>
 
-                    <td class="label">MOVE</td>
+                    <td class="label">Move</td>
                     <td class="stat move">
                         <span></span><img src="images/up_arrow.png" />
                     </td>
@@ -418,11 +445,11 @@ $(window).load(init)
     <img /><span class="name"></span>
     <table>
         <tr>
-            <td class="label">EVADE</td>
+            <td class="label">Evade</td>
             <td class="stat evade"></td>
         </tr>
         <tr>
-            <td class="label">DEF/RES</td>
+            <td class="label">Def/res</td>
             <td class="stat def"></td>
         </tr>
     </table>
@@ -432,12 +459,47 @@ $(window).load(init)
         </div>
     </div>
 
-    <div class="vn-wrapper">
+    <div class="vn-wrapper">  
+ 
     <div class="start-menu-container">
-    
-        <div class="items"></div>
+        <div class="start-menu">
+            <div class="message"></div>
+            <div class="items"></div>
+        </div>  
+        
+        <div class="save-backup" title="Save backup">
+            <div>
+                <p>
+                    Copy the text from the textbox below and save it on your computer.
+                    Use <b>Ctrl+A</b> to select all of the text.
+                </p>
+                <p>
+                    You can upload a backup later by choosing "Erase data" and then
+                    "Upload backup".
+                </p>
+            
+                <textarea readonly="readonly" rows="5"></textarea>
+            </div>
+        </div>
+        
+        <div class="upload-backup" title="Upload backup">
+            <div>
+                <p>
+                    If you have previously saved a backup, 
+                    paste the text into the box below and click "Upload".                 
+                </p>
+                
+                <textarea rows="5"></textarea>
+                <div class="error-div">
+                    <br />
+                    <span class="error"></span> 
+                </div>              
+            </div>
+            
+        </div>
+           
     </div>
-    
+        
     <div class="full-textbox">
         <div class="box">
         </div>
@@ -466,7 +528,11 @@ $(window).load(init)
 
 
     <div class="game-info">
-        <h3>Controls</h3>
+        <p>version 0.2 - complete up to Chapter 2</p>
+
+<div class="two-column">
+<div class="controls">
+<h3 class="first">Controls</h3>
 <table>
     <tr>
         <td class="control">Arrow keys:</td>
@@ -493,21 +559,36 @@ $(window).load(init)
         <td>skip text / toggle 3x speed</td>
     </tr>
 </table>
-<p>
-    <b>Supported browsers:</b> Chrome, Firefox. Mobile devices are not supported. 
-</p>
-<br />
+</div>
 
-<h3>Release notes for demo-v0.01</h3>
-<ul>
-    <li>There's a start menu! And a story!</li>
-    <li>The four player units each have their basic skill. (Arrow has a healing skill.)</li>
-    <li>Use V to skip text, or to play the game at 3x speed.</li>
-    <li>Weapon stats are now displayed when choosing your weapon. You can also view weapon stats by pressing S while on the "Items" tab of the UnitInfoWindow.</li>
-    <li>Press F while the cursor is over an enemy to view that enemy's movement and attack range.</li>
-    <li>This version's Hard difficulty is the difficulty from earlier demos.</li>
-    <li>A manga adaptation of Aqua Emblem will begin serialization in the August issue of Jump Square!</li>
+<div class="how-to-play">
+<h3>How to play</h3>
+<a href="game_guide.html" target="_blank">
+    <div class="game-guide-link">
+        View the Game Guide
+    </div>
+</a>
+<p>
+    Aqua Emblem is a lot like Fire Emblem. Use F to select your units (blue) and move them around the map.
+    Defeat the enemy army to beat the chapter. Click the button above to view the full Game Guide.
+</p> 
+<ul class="how-to-play-list">
+    <li><span class="defeat">You lose if ANY of your units die!</span></li>
+    <li><span class="first-aid">Use Arrow's First Aid skill to heal your units!</span> 
+        Units can even use healing skills on themselves unlike in Fire Emblem. 
+        You'll get more healing skills as the game goes on.</li>
 </ul>
+</div>
+</div>
+
+<h3>Supported browsers</h3> 
+Aqua Emblem is tested in Chrome, Firefox, and Internet Explorer 11. Mobile devices are not officially supported. The game probably works in Safari, but I don't test in Safari.
+
+<h3>Community</h3>
+Aqua Emblem is developed by me: Sam Magura, <b>srmagura AT ncsu.edu</b>. Did you like the game? Did you find a bug? Did you write an X-rated Ace/Shiina romance fanfic? Send me an email!</p>
+
+<p>The game is open source. Visit the <a href="https://github.com/srmagura/aqua-emblem">GitHub repository</a>.
+Also, special thanks to <a href="http://coffeescript.org">CoffeeScript</a>. Aqua Emblem is copyright 2014 Sam Magura. Released under the GNU General Public License.</p>
 
     </div>
 </div>
@@ -529,7 +610,8 @@ $(window).load(init)
     </div>
 </div>
 
-    <img src="images/crown.png" />
+    <img src="images/title_cropped.png" />
+<img src="images/crown.png" />
 <img src="images/bandit_insignia.png" />
 <img src="images/list_arrow.png" />
 <img src="images/up_arrow.png" />
@@ -543,9 +625,25 @@ $(window).load(init)
 <img src="images/characters/kenji.png" />
 <img src="images/characters/arrow.png" />
 <img src="images/characters/ace.png" />
+<img src="images/characters/shiina.png" />
+<img src="images/characters/morgan.png" />
+<img src="images/terrain/river.png" />
 <img src="images/terrain/plain.png" />
 <img src="images/terrain/rocks.png" />
+<img src="images/terrain/fort.png" />
+<img src="images/terrain/bridge.png" />
 <img src="images/terrain/forest.png" />
+<img src="images/game_guide/item_info_box.png" />
+<img src="images/game_guide/enemy_range.png" />
+<img src="images/game_guide/end_turn.png" />
+<img src="images/game_guide/unit_info_window.png" />
+<img src="images/game_guide/select.png" />
+<img src="images/game_guide/stats.png" />
+<img src="images/game_guide/battle_stats_panel.png" />
+<img src="images/game_guide/3x_speed.png" />
+<img src="images/game_guide/use_skill.png" />
+<img src="images/game_guide/status.png" />
+<img src="images/game_guide/action_menu.png" />
 <img src="images/dango/enemy/soldier.png" />
 <img src="images/dango/enemy/fighter.png" />
 <img src="images/dango/enemy/mercenary.png" />
@@ -558,14 +656,18 @@ $(window).load(init)
 <img src="images/dango/done/fighter.png" />
 <img src="images/dango/done/mercenary.png" />
 <img src="images/dango/done/archer.png" />
-<img src="images/resources/title_cropped.png" />
 <img src="images/resources/tree.png" />
 <img src="images/resources/logo.png" />
 <img src="images/items/iron_axe.png" />
+<img src="images/items/steel_lance.png" />
+<img src="images/items/steel_axe.png" />
+<img src="images/items/killer_bow.png" />
 <img src="images/items/steel_sword.png" />
+<img src="images/items/steel_bow.png" />
 <img src="images/items/iron_sword.png" />
 <img src="images/items/iron_bow.png" />
 <img src="images/items/fire.png" />
+<img src="images/items/hand_axe.png" />
 <img src="images/items/aquabolt.png" />
 <img src="images/items/iron_lance.png" />
 <img src="images/vn/arrow.png" />
