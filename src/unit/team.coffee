@@ -5,18 +5,30 @@ class _team.Team
     constructor: (@units) ->
         for unit in @units
             unit.setTeam(this)
+            
+    # Should only be used before Chapter has been created
+    addUnit: (unit) ->
+        @units.push(unit)
+        unit.setTeam(this)
 
 
 class _team.PlayerTeam extends _team.Team
 
     constructor: (@units) ->
         for unit in @units
-            if 'skills' not of unit
-                unit.skills = []
-
-            unit.skills = [new _skill.Defend()].concat(unit.skills)
+            @initPlayerUnit(unit)
 
         super(@units)
+   
+    addUnit: (unit) ->
+        super(unit)
+        @initPlayerUnit(unit)
+        
+    initPlayerUnit: (unit) ->
+        if 'skills' not of unit
+            unit.skills = []
+
+        unit.skills = [new _skill.Defend()].concat(unit.skills)
         
     pickle: ->
         array = []

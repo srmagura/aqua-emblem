@@ -70,7 +70,9 @@ lib/skill/attack.js
 
 lib/chapters/chapter1.js
 lib/chapters/chapter2.js
+lib/chapters/chapter3.js
 
 lib/vn/fs/chapter1.js
 lib/vn/fs/chapter2.js
+lib/vn/fs/chapter3.js
 
