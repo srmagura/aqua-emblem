@@ -66,10 +66,10 @@ class _unit.special.Kenji extends _uclass.Fighter
 
         super()
         
-class _unit.special.Shiina extends _uclass.Mercenary
+class _unit.special.Shiina extends _uclass.Monk
     constructor: ->
         @name = 'Shiina'
-        @level = 2
+        @level = 3
         @picture = true
         @items = []
 
