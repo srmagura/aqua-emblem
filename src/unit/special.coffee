@@ -9,8 +9,8 @@ class _unit.special.Ace extends _uclass.Mercenary
 
         @skills = [new _skill.Flare()]
 
-        @startStats = {maxHp: 30, maxMp: 10, str: 6, def: 4,
-        skill: 3.8, speed: 5, res: 2, luck: 8, mag: 3}
+        @startStats = {maxHp: 30, maxMp: 10, str: 4.2, def: 4,
+        skill: 3.8, speed: 5, res: 2, luck: 4, mag: 3}
 
         @growthRates = {maxHp: .7, maxMp: 1, str: .5, skill: .35,
         speed: .35, luck: .5, def: .4, res: .15, mag: .3}
@@ -37,7 +37,7 @@ class _unit.special.Arrow extends _uclass.Archer
 class _unit.special.Luciana extends _uclass.Soldier
     constructor: ->
         @name = 'Luciana'
-        @level = 3
+        @level = 2
         @picture = true
         @items = [new _item.IronLance()]
         @skills = [new _skill.Protect()]
@@ -69,7 +69,7 @@ class _unit.special.Kenji extends _uclass.Fighter
 class _unit.special.Shiina extends _uclass.Monk
     constructor: ->
         @name = 'Shiina'
-        @level = 3
+        @level = 5
         @picture = true
         @items = [new _item.Shine()]
 

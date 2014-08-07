@@ -73,5 +73,6 @@ class _cs.cui.LevelUpWindow extends _cs.cui.Chapter
     f: -> @d()
 
     d: ->
+        @ui.controlState = new _cs.cui.Chapter(@ui)
         @windowObj.hide()
         @windowObj.callback()

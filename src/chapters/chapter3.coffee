@@ -38,37 +38,46 @@ class _chapters.Chapter3 extends _map.Chapter
             level: 3, items: [new _item.IronAxe()]}),
             
             new _uclass.Mercenary({pos: new Position(0, 2),
-            level: 4, items: [new _item.SteelSword()]}),
+            level: 4, items: [new _item.SteelSword()]
+            aiOptions: {startTurn: 4}}),
             
             new _uclass.Mercenary({pos: new Position(3, 0),
-            level: 4, items: [new _item.IronSword()]}),
+            level: 4, items: [new _item.IronSword()]
+            aiOptions: {startTurn: 1}}),
             
             new _uclass.Archer({pos: new Position(13, 5),
             level: 4, items: [new _item.IronBow()]}),
             
             new _uclass.Archer({pos: new Position(8, 14),
-            level: 3, items: [new _item.IronBow()]}),
+            level: 3, items: [new _item.IronBow()]
+            aiOptions: {startTurn: 2}}),
             
             new _uclass.Archer({pos: new Position(7, 15),
-            level: 4, items: [new _item.SteelBow()]}),
+            level: 4, items: [new _item.SteelBow()],
+            aiOptions: {startTurn: 2}}),
             
             new _uclass.Mercenary({pos: new Position(9, 12),
-            level: 4, items: [new _item.IronSword()]}),
+            level: 4, items: [new _item.IronSword()],
+            aiOptions: {startTurn: 2}}),
             
             new _uclass.Fighter({pos: new Position(13, 13),
-            level: 3, items: [new _item.HandAxe()]}),
+            level: 3, items: [new _item.HandAxe()],
+            aiOptions: {startTurn: 2}}),
             
             new _uclass.Fighter({pos: new Position(9, 0),
-            level: 3, items: [new _item.IronAxe()]}),
+            level: 3, items: [new _item.IronAxe()],
+            aiOptions: {startTurn: 2}}),
             
             new _uclass.Fighter({pos: new Position(7, 0),
-            level: 4, items: [new _item.SteelAxe()]}),
+            level: 4, items: [new _item.SteelAxe()],
+            aiOptions: {startTurn: 2}}),
             
             new _uclass.Fighter({pos: new Position(6, 11),
             level: 4, items: [new _item.IronAxe()]}),
         
             new _uclass.Archer({pos: new Position(10, 9),
-            level: 3, items: [new _item.IronBow()]}),
+            level: 3, items: [new _item.IronBow()]
+            aiOptions: {startTurn: 2}}),
                       
             new _uclass.Soldier({pos: new Position(12, 1),
             boss: true, level: 10,
