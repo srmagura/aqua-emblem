@@ -63,6 +63,7 @@ lib/item/sword.js
 lib/item/lance.js
 lib/item/axe.js
 lib/item/bow.js
+lib/item/holy.js
 
 lib/skill/skill.js
 lib/skill/aid.js

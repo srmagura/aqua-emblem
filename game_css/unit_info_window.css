@@ -188,6 +188,12 @@
     margin-top: 2px
 }
 
+.unit-info-window .wield img
+{
+    width: 35px;
+    height: 35px;
+}
+
 /***** SKILLS TAB *****/
 .unit-info-window .tab-content-skills .skills-box td
 {
@@ -252,5 +258,13 @@
 {
     height: 10pt;
     margin-left: 4px;
+    visibility: hidden;
+}
+
+.level-up-window .continue
+{
+    font-size: 9pt;
+    float: right;
+    padding-top: 4px;
     visibility: hidden;
 }

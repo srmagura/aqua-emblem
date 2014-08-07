@@ -71,14 +71,14 @@ class _unit.special.Shiina extends _uclass.Monk
         @name = 'Shiina'
         @level = 3
         @picture = true
-        @items = []
+        @items = [new _item.Shine()]
 
         @skills = []
 
-        @startStats = {maxHp: 30, maxMp: 10, str: 60, def: 4,
-        skill: 3.8, speed: 50, res: 2, luck: 8, mag: 3}
+        @startStats = {maxHp: 26, maxMp: 10, str: 1, def: 2,
+        skill: 4, speed: 4, res: 5, luck: 5, mag: 4}
 
-        @growthRates = {maxHp: .7, maxMp: 1, str: .5, skill: .35,
-        speed: .35, luck: .5, def: .4, res: .15, mag: .3}
+        @growthRates = {maxHp: .65, maxMp: 1, str: .1, skill: .45,
+        speed: .45, luck: .6, def: .2, res: .5, mag: .55}
 
         super()

@@ -41,7 +41,7 @@ class _skill.Skill
         @mp = 0
 
     getExp: ->
-        return @mp*.02
+        return @mp*.02*ui.expMultiplier
 
     getImagePath: ->
         return "images/skills/#{@imageName}.png"

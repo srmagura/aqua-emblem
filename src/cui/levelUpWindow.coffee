@@ -47,6 +47,7 @@ class _cui.LevelUpWindow
         while true
             if @incIndex == @statTypes.length
                 @ui.controlState = new _cs.cui.LevelUpWindow(@ui, this)
+                @window.find('.continue').css('visibility', 'visible')
                 return
 
             st = @statTypes[@incIndex++]
@@ -63,7 +64,7 @@ class _cui.LevelUpWindow
     hide: ->
         @ui.viewportOverlay.hide()
         @window.css('visibility', 'hidden')
-        @window.find('.stat img').css('visibility', 'hidden')
+        @window.find('.stat img, .continue').css('visibility', 'hidden')
 
 class _cs.cui.LevelUpWindow extends _cs.cui.Chapter
 

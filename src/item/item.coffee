@@ -99,3 +99,10 @@ class _item.Bow extends _item.Weapon
         @range = new Range(2)
         super()
 
+class _item.Holy extends _item.Weapon
+
+    constructor: ->
+        @type = new _skill.type.Holy()
+        @image = 'shine.png'
+        @range = new Range(1, 2)
+        super()
