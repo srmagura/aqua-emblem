@@ -11,5 +11,6 @@ doChapter = ->
     #file = _file.createNewFile('normal')
     
     ui = new _cui.ChapterUI(file)
+    ui.setConfirmUnload(false)
     ui.setChapter(_chapters.Chapter3)
     ui.startChapter((->), true)

@@ -5,6 +5,7 @@ class _vn.VisualNovelUI extends UI
 
     constructor: ->
         super()
+        @setConfirmUnload(true)
         @wrapper = $('.vn-wrapper').show()
         @controlState = new _cs.ControlState(this)
 

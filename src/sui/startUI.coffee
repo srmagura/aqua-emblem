@@ -5,6 +5,9 @@ class _sui.StartUI extends UI
 
     constructor: (@file) ->
         super()
+        
+        @setConfirmUnload(false)
+        
         @vn = $('.vn-wrapper')
         @controlState = new _cs.ControlState(this)
         

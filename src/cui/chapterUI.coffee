@@ -7,6 +7,8 @@ class _cui.ChapterUI extends UI
 
     constructor: (@file) ->
         super()
+        
+        @setConfirmUnload(true)
 
         @expMultiplier = @file.difficulty.expMultiplier
         @speedMultiplier = 1
