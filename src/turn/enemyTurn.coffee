@@ -75,7 +75,9 @@ class _turn.EnemyTurn extends _turn.Turn
             else
                 afterScroll()
         else
-            if unit.aiType is _unit.aiType.aggressive
+            if unit.aiType is _unit.aiType.aggressive and
+            (not 'startTurn' of unit.aiOptions or
+            @ui.chapter.turnIndex >= unit.aiOptions.startTurn)
                 @doAdvance(unit)
             else
                 @doUnitTurn(@nextUnit)
