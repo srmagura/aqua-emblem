@@ -2,102 +2,79 @@ class _chapters.Chapter3 extends _map.Chapter
 
     constructor: (@ui) ->
         @ui.file.playerTeam.addUnit(new _unit.special.Shiina())
-
-        agg = _unit.aiType.aggressive
        
         enemyUnits = [
             new _uclass.Mercenary({pos: new Position(3, 3),
-            level: 3, items: [new _item.IronSword()]},
-            aiType: agg),
+            level: 3, items: [new _item.IronSword()]}),
             
             new _uclass.Mercenary({pos: new Position(6, 7),
-            level: 3, items: [new _item.IronSword()]},
-            aiType: agg),
+            level: 3, items: [new _item.IronSword()]}),
             
             new _uclass.Mercenary({pos: new Position(4, 15),
-            level: 4, items: [new _item.IronSword()]},
-            aiType: agg),
+            level: 4, items: [new _item.IronSword()]}),
             
             new _uclass.Soldier({pos: new Position(1, 2),
-            level: 3, items: [new _item.SteelLance()]},
-            aiType: agg),
+            level: 3, items: [new _item.SteelLance()]}),
             
             new _uclass.Soldier({pos: new Position(4, 12),
-            level: 3, items: [new _item.IronLance()]},
-            aiType: agg),
+            level: 3, items: [new _item.IronLance()]}),
             
             new _uclass.Soldier({pos: new Position(7, 4),
-            level: 3, items: [new _item.IronLance()]},
-            aiType: agg),
+            level: 3, items: [new _item.IronLance()]}),
             
             new _uclass.Soldier({pos: new Position(6, 15),
-            level: 4, items: [new _item.IronLance()]},
-            aiType: agg),
+            level: 4, items: [new _item.IronLance()]}),
             
             new _uclass.Fighter({pos: new Position(13, 12),
-            level: 4, items: [new _item.IronAxe()]},
-            aiType: agg),
+            level: 4, items: [new _item.IronAxe()]}),
             
             new _uclass.Fighter({pos: new Position(0, 15),
-            level: 4, items: [new _item.IronAxe()]},
-            aiType: agg),
+            level: 4, items: [new _item.IronAxe()]}),
             
             new _uclass.Fighter({pos: new Position(13, 4),
-            level: 3, items: [new _item.IronAxe()]},
-            aiType: agg),
+            level: 3, items: [new _item.IronAxe()]}),
             
             new _uclass.Fighter({pos: new Position(13, 5),
-            level: 3, items: [new _item.IronAxe()]},
-            aiType: agg),
+            level: 3, items: [new _item.IronAxe()]}),
             
             new _uclass.Mercenary({pos: new Position(0, 2),
-            level: 4, items: [new _item.SteelSword()]},
-            aiType: agg),
+            level: 4, items: [new _item.SteelSword()]}),
             
             new _uclass.Mercenary({pos: new Position(3, 0),
-            level: 4, items: [new _item.IronSword()]},
-            aiType: agg),
+            level: 4, items: [new _item.IronSword()]}),
             
             new _uclass.Archer({pos: new Position(13, 5),
-            level: 4, items: [new _item.IronBow()]},
-            aiType: agg),
+            level: 4, items: [new _item.IronBow()]}),
             
             new _uclass.Archer({pos: new Position(8, 14),
-            level: 3, items: [new _item.IronBow()]},
-            aiType: agg),
+            level: 3, items: [new _item.IronBow()]}),
             
             new _uclass.Archer({pos: new Position(7, 15),
-            level: 4, items: [new _item.SteelBow()]},
-            aiType: agg),
+            level: 4, items: [new _item.SteelBow()]}),
             
             new _uclass.Mercenary({pos: new Position(9, 12),
-            level: 4, items: [new _item.IronSword()]},
-            aiType: agg),
+            level: 4, items: [new _item.IronSword()]}),
             
             new _uclass.Fighter({pos: new Position(13, 13),
-            level: 3, items: [new _item.HandAxe()]},
-            aiType: agg),
+            level: 3, items: [new _item.HandAxe()]}),
             
             new _uclass.Fighter({pos: new Position(9, 0),
-            level: 3, items: [new _item.IronAxe()]},
-            aiType: agg),
+            level: 3, items: [new _item.IronAxe()]}),
             
             new _uclass.Fighter({pos: new Position(7, 0),
-            level: 4, items: [new _item.SteelAxe()]},
-            aiType: agg),
+            level: 4, items: [new _item.SteelAxe()]}),
             
             new _uclass.Fighter({pos: new Position(6, 11),
-            level: 4, items: [new _item.IronAxe()]},
-            aiType: agg),
+            level: 4, items: [new _item.IronAxe()]}),
         
             new _uclass.Archer({pos: new Position(10, 9),
             level: 3, items: [new _item.IronBow()]}),
                       
             new _uclass.Soldier({pos: new Position(12, 1),
             boss: true, level: 10,
-            items: [new _item.SteelLance()]},
-            aiType: agg, aiOptions: {startTurn: 5})
-            #items: [new _item.SteelLance(), new _item.BraveLance().letDrop()]}),
+            items: [new _item.SteelLance()],
+            aiOptions: {startTurn: 5}})
+            
         ]
         
         reinforcements1 = [
@@ -106,7 +83,6 @@ class _chapters.Chapter3 extends _map.Chapter
                 attr: {
                     pos: new Position(13, 13),
                     level: 3, items: [new _item.IronAxe()],
-                    aiType: agg
                 },
            },
            { 
@@ -114,7 +90,6 @@ class _chapters.Chapter3 extends _map.Chapter
                 attr: {
                     pos: new Position(13, 5),
                     level: 3, items: [new _item.IronBow()],
-                    aiType: agg
                 },
             },
         ]
@@ -129,6 +104,7 @@ class _chapters.Chapter3 extends _map.Chapter
                 
         @enemyTeam = new _team.EnemyTeam(enemyUnits, {
             defaultName: 'Bandit',
+            defaultAiType: _unit.aiType.aggressive,
             reinforcements: reinforcements
         })
 

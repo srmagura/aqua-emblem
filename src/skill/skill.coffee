@@ -13,7 +13,7 @@ class _skill.type.None extends _skill.type.SkillType
 class _skill.type.Magic extends _skill.type.SkillType
 
 class _skill.type.Holy extends _skill.type.Magic
-    image: 'aquabolt'
+    image: 'shine'
 
 class _skill.type.Dark extends _skill.type.Magic
     image: 'fire'

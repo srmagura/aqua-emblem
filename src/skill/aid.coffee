@@ -52,7 +52,15 @@ class _skill.Defend extends _skill.AidSkill
         target.addStatus(new _status.Defend())
 
 
-class _skill.FirstAid extends _skill.AidSkill
+class _skill.HealSkill extends _skill.AidSkill
+
+    getDelta: (user) ->
+        return {hp: user.mag + @might}
+
+    isValidTarget: (target) ->
+        return target.hp < target.maxHp
+
+class _skill.FirstAid extends _skill.HealSkill
 
     constructor: ->
         super()
@@ -62,15 +70,24 @@ class _skill.FirstAid extends _skill.AidSkill
         @desc = 'Basic healing skill.'
 
         @mp = 3
-        @might = 20
+        @might = 18
+        @range = new Range(0, 1)
+      
+        
+class _skill.Heal extends _skill.HealSkill
+
+    constructor: ->
+        super()
+        @name = 'Heal'
+        @imageName = 'heal'
+        @type = new _skill.type.Holy()
+        @desc = 'Healing magic.'
+
+        @mp = 1
+        @might = 22
         @range = new Range(0, 1)
 
-    getDelta: (user) ->
-        return {hp: user.mag + @might}
-
-    isValidTarget: (target) ->
-        return target.hp < target.maxHp
-
+    getExp: -> .08*ui.expMultiplier
 
 class _skill.Temper extends _skill.AidSkill
 

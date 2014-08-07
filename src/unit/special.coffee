@@ -73,7 +73,7 @@ class _unit.special.Shiina extends _uclass.Monk
         @picture = true
         @items = [new _item.Shine()]
 
-        @skills = []
+        @skills = [new _skill.Heal()]
 
         @startStats = {maxHp: 26, maxMp: 10, str: 1, def: 2,
         skill: 4, speed: 4, res: 5, luck: 5, mag: 4}

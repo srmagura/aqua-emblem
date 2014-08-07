@@ -86,7 +86,7 @@
 .skill-info-box .stats .value
 {
     float: right;
-    padding-right: 20px;
+    padding-right: 12px;
 }
 
 .skill-info-box .stats .value.range

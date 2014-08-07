@@ -63,12 +63,15 @@ class _team.EnemyTeam extends _team.Team
         else
             @reinforcements = []
             
+        if 'defaultAiType' not of attr
+            attr.defaultAiType = _unit.aiType.normal
+            
         for unit in @reinforcements
             unit.setTeam(this)
     
         for unit in @units.concat(@reinforcements)
             if 'aiType' not of unit
-                unit.aiType = _unit.aiType.normal
+                unit.aiType = attr.defaultAiType
             if 'aiOptions' not of unit
                 unit.aiOptions = {}
             if 'defaultName' of attr and not unit.name?
