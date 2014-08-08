@@ -72,8 +72,8 @@ class _chapters.Chapter3 extends _map.Chapter
             dld: 2, aiOptions: {startTurn: 2}}),
                       
             new _enemy.Soldier({pos: new Position(12, 1),
-            boss: true, level: 10,
-            items: [new _item.SteelLance()],
+            boss: true, dld: 3,
+            items: [new _item.BraveLance().letDrop()],
             aiOptions: {startTurn: 5}})
             
         ]

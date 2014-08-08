@@ -3,6 +3,7 @@ window._item = {}
 _item.uses = {
     steel: 30,
     killer: 20,
+    brave: 30,
 }
 
 class _item.Item
@@ -65,6 +66,7 @@ class _item.Weapon extends _item.Item
     constructor: ->
         @crit = 0
         @uses = null
+        @nAttackMultiplier = 1
         super()
 
 class _item.Sword extends _item.Weapon

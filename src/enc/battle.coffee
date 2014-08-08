@@ -20,27 +20,36 @@ class _enc.Battle extends _enc.Encounter
         @calcIndividual(@atk, @def)
         @calcIndividual(@def, @atk)
 
-        @turns = [@atk]
-        @nTurns = {atk: 1, def: 0}
+        @turns = []
+        for i in [1..@atk.equipped.nAttackMultiplier]
+            @turns.push(@atk)
 
         defCanAttack = (@def.equipped? and
         @def.equipped.range.contains(@dist) and
         not @def.hasStatus(_status.Defend))
 
         if defCanAttack
-            @turns.push(@def)
-            @nTurns.def++
+            for i in [1..@def.equipped.nAttackMultiplier]
+                @turns.push(@def)
 
         if(@atk.attackSpeed - 4 > @def.attackSpeed and
         @atk.equipped.hasUses(2))
-            @turns.push(@atk)
-            @nTurns.atk++
+            for i in [1..@atk.equipped.nAttackMultiplier]
+                @turns.push(@atk)
             
         else if(defCanAttack and
         @def.attackSpeed - 4 > @atk.attackSpeed and
-        @def.equipped.hasUses(2))    
-            @turns.push(@def)
-            @nTurns.def++
+        @def.equipped.hasUses(2)) 
+            for i in [1..@def.equipped.nAttackMultiplier]   
+                @turns.push(@def)
+             
+        @nTurns = {atk: 0, def: 0}   
+        
+        for unit in @turns
+            if unit is @atk
+                @nTurns.atk++
+            else
+                @nTurns.def++
 
         @attacksHit = 0
 
@@ -177,7 +186,7 @@ class _enc.Battle extends _enc.Encounter
         super(false)
 
         pu = @getPlayerUnit()
-        if pu.equipped? and pu.equipped.uses == 0
+        if pu.equipped? and pu.equipped.uses? and pu.equipped.uses <= 0
             item = pu.equipped
             pu.inventory.remove(item)
             @ui.messageBox.showBrokenMessage(item, @afterWeaponBreak)
