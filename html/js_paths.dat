@@ -57,6 +57,7 @@ lib/unit/team.js
 lib/unit/status.js
 lib/unit/uclass.js
 lib/unit/special.js
+lib/unit/enemy.js
 
 lib/item/item.js
 lib/item/sword.js

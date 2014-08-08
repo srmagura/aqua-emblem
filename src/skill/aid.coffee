@@ -87,7 +87,7 @@ class _skill.Heal extends _skill.HealSkill
         @might = 22
         @range = new Range(0, 1)
 
-    getExp: -> .08*ui.expMultiplier
+    getExp: -> .1*ui.expMultiplier
 
 class _skill.Temper extends _skill.AidSkill
 

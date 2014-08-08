@@ -15,7 +15,7 @@ class _item.SteelAxe extends _item.Axe
         @image = 'steel_axe.png'
         @hit = 65
         @might = 11
-        @weight = 13
+        @weight = 10
         @uses = _item.uses.steel
         
 class _item.HandAxe extends _item.Axe

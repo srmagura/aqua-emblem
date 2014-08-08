@@ -53,12 +53,14 @@ class _skill.Flare extends _skill.Skill
         @mp = 4
 
         @hit = 90
-        @might = 4
+        @might = 5
         @crit = 10
-        @weight = 10
+        @weight = 6
         @range = new Range(1, 2)
 
         @controlState = _cs.cui.AttackSkill
 
     isValidTarget: (target) ->
         return target.team instanceof _team.EnemyTeam
+        
+    hasUses: (x) -> true

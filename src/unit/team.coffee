@@ -72,12 +72,25 @@ class _team.EnemyTeam extends _team.Team
         for unit in @units.concat(@reinforcements)
             if 'aiType' not of unit
                 unit.aiType = attr.defaultAiType
+                
             if 'aiOptions' not of unit
                 unit.aiOptions = {}
+                
             if 'defaultName' of attr and not unit.name?
                 unit.setName(attr.defaultName)
                 
+            if 'defaultLevel' of attr and not unit.level?
+                if unit.dld?
+                    dld = unit.dld
+                else
+                    dld = 0
+                    
+                unit.level = attr.defaultLevel + dld
+                delete unit.dld
+                
             for item in unit.inventory.it()
                 item.uses = null
+                
+            unit.calcStatsInitial()
 
         super(@units)

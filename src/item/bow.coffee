@@ -15,7 +15,7 @@ class _item.SteelBow extends _item.Bow
         @image = 'steel_bow.png'
         @hit = 75
         @might = 9
-        @weight = 8
+        @weight = 5
         @uses = _item.uses.steel
        
 class _item.KillerBow extends _item.Bow

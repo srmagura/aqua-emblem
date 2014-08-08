@@ -4,82 +4,74 @@ class _chapters.Chapter3 extends _map.Chapter
         @ui.file.playerTeam.addUnit(new _unit.special.Shiina())
        
         enemyUnits = [
-            new _uclass.Mercenary({pos: new Position(3, 3),
-            level: 3, items: [new _item.IronSword()]}),
+            new _enemy.Mercenary({pos: new Position(3, 3),
+            }),
             
-            new _uclass.Mercenary({pos: new Position(6, 7),
-            level: 3, items: [new _item.IronSword()]}),
+            new _enemy.Mercenary({pos: new Position(6, 7),
+            }),
             
-            new _uclass.Mercenary({pos: new Position(4, 15),
-            level: 4, items: [new _item.IronSword()]}),
+            new _enemy.Mercenary({pos: new Position(4, 15),
+            }),
             
-            new _uclass.Soldier({pos: new Position(1, 2),
-            level: 3, items: [new _item.SteelLance()]}),
+            new _enemy.Soldier({pos: new Position(1, 2),
+            items: [new _item.SteelLance()]}),
             
-            new _uclass.Soldier({pos: new Position(4, 12),
-            level: 3, items: [new _item.IronLance()]}),
+            new _enemy.Soldier({pos: new Position(4, 12),
+            }),
             
-            new _uclass.Soldier({pos: new Position(7, 4),
-            level: 3, items: [new _item.IronLance()]}),
+            new _enemy.Soldier({pos: new Position(7, 4),
+            }),
             
-            new _uclass.Soldier({pos: new Position(6, 15),
-            level: 4, items: [new _item.IronLance()]}),
+            new _enemy.Soldier({pos: new Position(6, 15),
+            }),
             
-            new _uclass.Fighter({pos: new Position(13, 12),
-            level: 4, items: [new _item.IronAxe()]}),
+            new _enemy.Fighter({pos: new Position(13, 12),
+            }),
             
-            new _uclass.Fighter({pos: new Position(0, 15),
-            level: 4, items: [new _item.IronAxe()]}),
+            new _enemy.Fighter({pos: new Position(0, 15),
+            }),
             
-            new _uclass.Fighter({pos: new Position(13, 4),
-            level: 3, items: [new _item.IronAxe()]}),
+            new _enemy.Fighter({pos: new Position(13, 4),
+            }),
             
-            new _uclass.Fighter({pos: new Position(13, 5),
-            level: 3, items: [new _item.IronAxe()]}),
+            new _enemy.Fighter({pos: new Position(13, 5),
+            dld: -2}),
             
-            new _uclass.Mercenary({pos: new Position(0, 2),
-            level: 4, items: [new _item.SteelSword()]
+            new _enemy.Mercenary({pos: new Position(0, 2),
+            items: [new _item.SteelSword()]
             aiOptions: {startTurn: 4}}),
             
-            new _uclass.Mercenary({pos: new Position(3, 0),
-            level: 4, items: [new _item.IronSword()]
+            new _enemy.Mercenary({pos: new Position(3, 0),
             aiOptions: {startTurn: 1}}),
             
-            new _uclass.Archer({pos: new Position(13, 5),
-            level: 4, items: [new _item.IronBow()]}),
-            
-            new _uclass.Archer({pos: new Position(8, 14),
-            level: 3, items: [new _item.IronBow()]
+            new _enemy.Archer({pos: new Position(8, 14),
             aiOptions: {startTurn: 2}}),
             
-            new _uclass.Archer({pos: new Position(7, 15),
-            level: 4, items: [new _item.SteelBow()],
+            new _enemy.Archer({pos: new Position(7, 15),
+            dld: 2, items: [new _item.SteelBow()],
             aiOptions: {startTurn: 2}}),
             
-            new _uclass.Mercenary({pos: new Position(9, 12),
-            level: 4, items: [new _item.IronSword()],
+            new _enemy.Mercenary({pos: new Position(9, 12),
             aiOptions: {startTurn: 2}}),
             
-            new _uclass.Fighter({pos: new Position(13, 13),
-            level: 3, items: [new _item.HandAxe()],
+            new _enemy.Fighter({pos: new Position(13, 13),
+            items: [new _item.HandAxe()],
             aiOptions: {startTurn: 2}}),
             
-            new _uclass.Fighter({pos: new Position(9, 0),
-            level: 3, items: [new _item.IronAxe()],
+            new _enemy.Fighter({pos: new Position(9, 0),
             aiOptions: {startTurn: 2}}),
             
-            new _uclass.Fighter({pos: new Position(7, 0),
-            level: 4, items: [new _item.SteelAxe()],
-            aiOptions: {startTurn: 2}}),
+            new _enemy.Fighter({pos: new Position(7, 0),
+            items: [new _item.SteelAxe()],
+            dld: 1, aiOptions: {startTurn: 2}}),
             
-            new _uclass.Fighter({pos: new Position(6, 11),
-            level: 4, items: [new _item.IronAxe()]}),
+            new _enemy.Fighter({pos: new Position(6, 11),
+            dld: 2, }),
         
-            new _uclass.Archer({pos: new Position(10, 9),
-            level: 3, items: [new _item.IronBow()]
-            aiOptions: {startTurn: 2}}),
+            new _enemy.Archer({pos: new Position(10, 9),
+            dld: 2, aiOptions: {startTurn: 2}}),
                       
-            new _uclass.Soldier({pos: new Position(12, 1),
+            new _enemy.Soldier({pos: new Position(12, 1),
             boss: true, level: 10,
             items: [new _item.SteelLance()],
             aiOptions: {startTurn: 5}})
@@ -88,24 +80,23 @@ class _chapters.Chapter3 extends _map.Chapter
         
         reinforcements1 = [
             {
-                cls: _uclass.Fighter, 
+                cls: _enemy.Fighter, 
                 attr: {
                     pos: new Position(13, 13),
-                    level: 3, items: [new _item.IronAxe()],
                 },
            },
            { 
-                cls: _uclass.Archer, 
+                cls: _enemy.Archer, 
                 attr: {
                     pos: new Position(13, 5),
-                    level: 3, items: [new _item.IronBow()],
+                    dld: -1
                 },
             },
         ]
         
         reinforcements = []
         
-        for turn in [1,3,5,7]
+        for turn in [3, 5, 7]
             for obj in reinforcements1
                 unit = new obj.cls(obj.attr)
                 unit.spawnTurn = turn
@@ -114,6 +105,7 @@ class _chapters.Chapter3 extends _map.Chapter
         @enemyTeam = new _team.EnemyTeam(enemyUnits, {
             defaultName: 'Bandit',
             defaultAiType: _unit.aiType.aggressive,
+            defaultLevel: 5,
             reinforcements: reinforcements
         })
 
@@ -129,7 +121,7 @@ class _chapters.Chapter3 extends _map.Chapter
             [0, 0, 2, 0, 1, 1, 2, 0, 2, 2, 2, 2, 0, 0, 0, 2],
             [0, 1, 1, 2, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 2, 2],
             [2, 2, 1, 2, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 2],
-            [0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 1, 2, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 2, 2, 0, 2, 0, 1, 2, 0, 0, 0],
             [1, 0, 1, 1, 0, 0, 2, 1, 1, 0, 0, 0, 0, 1, 2, 0],
             [2, 2, 2, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0],
             [2, 0, 0, 1, 2, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 2],

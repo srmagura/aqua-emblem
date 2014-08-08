@@ -15,5 +15,5 @@ class _item.SteelSword extends _item.Sword
         @image = 'steel_sword.png'
         @hit = 80
         @might = 8
-        @weight = 8
+        @weight = 5
         @uses = _item.uses.steel
