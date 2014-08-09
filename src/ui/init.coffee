@@ -12,5 +12,5 @@ doChapter = ->
     
     ui = new _cui.ChapterUI(file)
     ui.setConfirmUnload(false)
-    ui.setChapter(_chapters.Chapter2)
+    ui.setChapter(_chapters.Chapter1)
     ui.startChapter((->), true)

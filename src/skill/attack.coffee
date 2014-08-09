@@ -38,8 +38,21 @@ class _cs.cui.AttackSkill extends _cs.cui.Skill
         @ui.battleStatsPanel.hide()
         @battle.doEncounter(callback)
         @battle.showSkillMessage(@skill)
+        
+        
+class _skill.AttackSkill extends _skill.Skill
 
-class _skill.Flare extends _skill.Skill
+    constructor: ->
+        super()
+        @nAttackMultiplier = 1
+
+    isValidTarget: (target) ->
+        return target.team instanceof _team.EnemyTeam
+        
+    hasUses: (x) -> true
+
+
+class _skill.Flare extends _skill.AttackSkill
 
     constructor: ->
         super()
@@ -59,8 +72,3 @@ class _skill.Flare extends _skill.Skill
         @range = new Range(1, 2)
 
         @controlState = _cs.cui.AttackSkill
-
-    isValidTarget: (target) ->
-        return target.team instanceof _team.EnemyTeam
-        
-    hasUses: (x) -> true
