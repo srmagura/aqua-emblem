@@ -44,7 +44,9 @@ class _skill.AttackSkill extends _skill.Skill
 
     constructor: ->
         super()
+        @crit = 0
         @nAttackMultiplier = 1
+        @controlState = _cs.cui.AttackSkill
 
     isValidTarget: (target) ->
         return target.team instanceof _team.EnemyTeam
@@ -70,5 +72,23 @@ class _skill.Flare extends _skill.AttackSkill
         @crit = 10
         @weight = 6
         @range = new Range(1, 2)
+        
+        
+class _skill.SwordRain extends _skill.AttackSkill
 
-        @controlState = _cs.cui.AttackSkill
+    constructor: ->
+        super()
+        @overlayType = 'ATTACK'
+        @type = new _skill.type.Sword()
+
+        @name = 'Sword Rain'
+        @imageName = 'sword_rain'
+        @desc = 'Hit four times in a row.'
+
+        @mp = 10
+
+        @hit = 70
+        @might = 3
+        @weight = Infinity
+        @range = new Range(1)
+        @nAttackMultiplier = 4

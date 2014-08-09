@@ -7,7 +7,7 @@ class _unit.special.Ace extends _uclass.Mercenary
         @picture = true
         @items = [new _item.IronSword()]
 
-        @skills = [new _skill.Flare()]
+        @skills = [new _skill.Flare(), new _skill.SwordRain()]
 
         @startStats = {maxHp: 30, maxMp: 10, str: 4.2, def: 4,
         skill: 3.8, speed: 5, res: 2, luck: 4, mag: 3}
