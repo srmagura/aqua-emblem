@@ -125,6 +125,14 @@ class _unit.Unit
             if not dryRun
                 @baseStats[stat] = rounded
                 @updateStat(stat)
+                
+        if @allSkills?
+            @skills = []
+            for obj in @allSkills
+                if @level >= obj.level
+                    @skills.push(obj.skill)
+                if @level == obj.level
+                    increment.newSkill = obj.skill
 
         return increment
 

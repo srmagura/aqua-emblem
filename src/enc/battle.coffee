@@ -124,6 +124,11 @@ class _enc.Battle extends _enc.Encounter
         giver = @turns[@turnIndex]
         recvr = @getOther(giver)
         @doLunge(giver)
+        
+        if giver.equipped.mp?
+            if not @mpTaken
+                giver.mp -= giver.equipped.mp
+                @mpTaken = true
 
         randHit = 100*Math.random()
         if randHit < giver.battleStats.hit
@@ -140,11 +145,7 @@ class _enc.Battle extends _enc.Encounter
                 @displayMessage(recvr, 'no-dmg')
 
             if giver is @getPlayerUnit()
-                if giver.equipped.mp?
-                    if not @mpTaken
-                        giver.mp -= giver.equipped.mp
-                        @mpTaken = true
-                else if giver.mp < giver.maxMp
+                if (not giver.equipped.mp?) and giver.mp < giver.maxMp
                     giver.mp++
                     
                     if giver.equipped.uses?
@@ -228,12 +229,18 @@ class _enc.Battle extends _enc.Encounter
 
         if @attacksHit > 0
             dmgExp = .10 + levelDif/100          
+            
+            if dmgExp <= .05
+                dmgExp = .05
         else
             dmgExp = .01
 
         defeatExp = 0
         if enemy.hp == 0
             defeatExp = .25 + levelDif/100
+            
+            if defeatExp < 0
+                defeatExp = .1
             
             if enemy.boss
                 defeatExp += .4

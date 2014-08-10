@@ -25,10 +25,7 @@ class _team.PlayerTeam extends _team.Team
         @initPlayerUnit(unit)
         
     initPlayerUnit: (unit) ->
-        if 'skills' not of unit
-            unit.skills = []
-
-        unit.skills = [new _skill.Defend()].concat(unit.skills)
+        unit.allSkills = [{level: 1, skill: new _skill.Defend()}].concat(unit.allSkills)        
         
     pickle: ->
         array = []

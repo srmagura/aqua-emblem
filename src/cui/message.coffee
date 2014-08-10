@@ -36,9 +36,8 @@ class _cui.MessageBox
         el.css(css).fadeIn(fadeDuration)
 
         afterFadeOut = =>
-            if params.callback?
-                el.remove()
-                params.callback()
+            el.remove()
+            params.callback()
 
         toDelay = =>
             @ui.canvasOverlay.overlay.fadeOut(fadeDuration)
@@ -87,7 +86,7 @@ class _cui.MessageBox
             callback: @ui.doneDefeat, 
             doFadeOut: false
         })
-            
+                    
     showBrokenMessage: (item, callback) ->
         content = $('<div> <div class="text">broke.</div></div>')
         content.prepend(item.getElement({showUses: false}))
@@ -103,6 +102,17 @@ class _cui.MessageBox
     showReceivedMessage: (unit, item, callback) ->
         content = $("<div><div class='text'>#{unit.name} received</div> </div>")
         content.append(item.getElement({showUses: false}))
+        @showMessage({
+            html: content,
+            cls: 'neutral-box item-message',
+            css: {},
+            padding: 3,
+            callback: callback,
+            doFadeOut: true
+        })
+        
+    showSkillLearnedMessage: (unit, skill, callback) ->
+        content = $("<div><div class='text'>#{unit.name} learned</div> #{skill.name}</div>")
         @showMessage({
             html: content,
             cls: 'neutral-box item-message',
