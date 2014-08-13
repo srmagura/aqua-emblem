@@ -9,7 +9,8 @@ class _unit.special.Ace extends _uclass.Mercenary
 
         @allSkills = [
             {level: 1, skill: new _skill.Flare()},
-            {level: 5, skill: new _skill.SwordRain()}
+            {level: 5, skill: new _skill.SwordRain()},
+            {level: 1, skill: new _skill.Meteor()}
         ]
 
         @startStats = {maxHp: 30, maxMp: 10, str: 4.2, def: 4,

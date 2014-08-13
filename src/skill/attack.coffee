@@ -11,8 +11,9 @@ class _cs.cui.AttackSkill extends _cs.cui.Skill
 
             if target? and @skill.isValidTarget(target)
                 @ui.cursor.moveTo(spot)
-                @moved()
                 break
+                
+        @moved()
 
     moved: ->
         result = @getUserTarget()
@@ -27,6 +28,13 @@ class _cs.cui.AttackSkill extends _cs.cui.Skill
             user.equipped = @skill
             @battle = new _enc.Battle(@ui, user, target)
             @ui.battleStatsPanel.init(@battle)
+            
+         @playerTurn.setSkillOverlay(@skill)
+         area = @skill.getEffectArea(@ui.chapter.map, @ui.cursor.pos)
+
+         if area?
+            for pos in area
+                @ui.chapter.map.setOverlay(pos, 'DAMAGE')
 
     f: ->
         callback = =>
@@ -52,6 +60,8 @@ class _skill.AttackSkill extends _skill.Skill
         return target.team instanceof _team.EnemyTeam
         
     hasUses: (x) -> true
+    
+    getEffectArea: (pos) -> null
 
 
 class _skill.Flare extends _skill.AttackSkill
@@ -92,3 +102,38 @@ class _skill.SwordRain extends _skill.AttackSkill
         @weight = Infinity
         @range = new Range(1)
         @nAttackMultiplier = 4
+        
+class _skill.Meteor extends _skill.AttackSkill
+
+    constructor: ->
+        super()
+        @overlayType = 'ATTACK'
+        @type = new _skill.type.Dark()
+
+        @name = 'Meteor'
+        @imageName = 'meteor'
+        @desc = 'Damage is centered on the target, ' +
+        'but adjacent enemies also take damage.'
+
+        @mp = 2
+
+        @hit = 70
+        @might = 3
+        @weight = Infinity
+        @range = new Range(1, 3)
+        
+    getEffectArea: (map, pos) ->
+        rawArea = [
+            pos,
+            new Position(pos.i+1, pos.j),
+            new Position(pos.i-1, pos.j),
+            new Position(pos.i, pos.j+1),
+            new Position(pos.i, pos.j-1),
+        ]
+        
+        area = []
+        for pos1 in rawArea
+            if map.onMap(pos1)
+                area.push(pos1)
+                
+        return area

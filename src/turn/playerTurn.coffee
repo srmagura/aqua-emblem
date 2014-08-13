@@ -130,8 +130,11 @@ class _turn.PlayerTurn extends _turn.Turn
         if @selectedUnit.mp < skill.mp
             @ui.chapter.map.clearOverlay()
         else
-            @ui.chapter.map.setOverlayRange(@selectedUnit.pos,
-                skill.range, skill.overlayType)
+            @setSkillOverlay(skill)
+        
+    setSkillOverlay: (skill) ->
+        @ui.chapter.map.setOverlayRange(@selectedUnit.pos,
+            skill.range, skill.overlayType)
 
     handleTrade: =>
         @ui.chapter.map.setOverlayRange(@selectedUnit.pos, @tradeRange, 'AID')

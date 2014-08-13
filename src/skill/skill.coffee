@@ -87,14 +87,14 @@ class _cs.cui.Skill extends _cs.cui.MapTarget
         @ui.chapter.map.clearOverlay()
         @ui.controlState = new _cs.cui.Chapter(@ui)
 
-    d: ->
-        @ui.cursor.visible = false
-        @ui.cursor.pos = @playerTurn.selectedUnit.pos.clone()
-        @ui.unitInfoBox.update()
-        
+    d: ->        
         @ui.battleStatsPanel.hide()
         @playerTurn.selectedUnit.inventory.refresh()
         @playerTurn.handleSkill(false)
+        
+        @ui.cursor.visible = false
+        @ui.cursor.pos = @playerTurn.selectedUnit.pos.clone()
+        @ui.unitInfoBox.update()
 
     skillDone: (exp=null) =>
         afterExpAdd = =>
