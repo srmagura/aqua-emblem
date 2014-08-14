@@ -67,7 +67,10 @@ class _unit.Unit
                 if other.value > status.value
                     doAdd = false
                 else
-                    toRemove.push(i)
+                    toRemove.push(i)                  
+            else if other instanceof _status.Poison and
+            status instanceof _status.Poison
+                toRemove.push(i)
 
         for i in toRemove
             @statuses.splice(i, 1)
@@ -83,6 +86,11 @@ class _unit.Unit
                 return true
 
         return false
+        
+    getStatus: (cls) ->
+        for status in @statuses
+            if status instanceof cls
+                return status
 
     canUseSkill: (skl) ->
         return @mp >= skl.mp
@@ -154,6 +162,8 @@ class _unit.Unit
 
         if newHp > @maxHp
             @hp = @maxHp
+        else if newHp < 0
+            @hp = 0
         else
             @hp = newHp
 

@@ -5,6 +5,7 @@ class _enc.Battle extends _enc.Encounter
             @dist = @atk.pos.distance(@def.pos)
 
         @mpTaken = false
+        @statusInflicted = false
 
         @atk.calcCombatStats()
         @def.calcCombatStats()
@@ -152,6 +153,11 @@ class _enc.Battle extends _enc.Encounter
                         giver.equipped.uses--
 
                 @attacksHit++
+                
+            if giver.equipped.getStatusEffect? and not @statusInflicted
+                data = {battle: this}
+                recvr.addStatus(giver.equipped.getStatusEffect(data))
+                @statusInflicted = true
                 
         else
             @displayMessage(recvr, 'miss')

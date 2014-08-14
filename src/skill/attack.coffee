@@ -37,6 +37,7 @@ class _cs.cui.AttackSkill extends _cs.cui.Skill
 
         super()
         @ui.battleStatsPanel.hide()
+        
         @battle.doEncounter(callback)
         @battle.showSkillMessage(@skill)
         
@@ -125,6 +126,9 @@ class _skill.PoisonArrow extends _skill.AttackSkill
 
         ironBow = new _item.IronBow()
         @hit = ironBow.hit
-        @might = ironBow.might
+        @might = 2#ironBow.might
         @weight = ironBow.weight
         @range = new Range(2)
+        
+    getStatusEffect: (data) ->
+        return new _status.Poison(data.battle.atk.battleStats.dmg)

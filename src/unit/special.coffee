@@ -33,7 +33,7 @@ class _unit.special.Arrow extends _uclass.Archer
             {level: 1, skill: new _skill.PoisonArrow()}
         ]
 
-        @startStats = {maxHp: 24, maxMp: 10, str: 4, def: 4,
+        @startStats = {maxHp: 24, maxMp: 10, str: .4, def: 4,
         skill: 4.0, speed: 4.1, res: 2, luck: 2, mag: 2}
 
         @growthRates = {maxHp: .65, maxMp: 1, str: .4, skill: .45,

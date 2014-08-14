@@ -33,6 +33,18 @@ class _skill.type.Bow extends _skill.type.Physical
     image: 'iron_bow'
 
 
+_skill.getMessageEl = (options) ->
+    message = $('<div></div>').addClass('action-message')
+
+    img = $('<img/>').attr('src', options.imagePath)
+    img.appendTo(message)
+
+    span = $('<span></span>').text(options.text)
+    span.appendTo(message)
+
+    return message
+
+
 class _skill.Skill
 
     constructor: ->
@@ -47,15 +59,10 @@ class _skill.Skill
         return "images/skills/#{@imageName}.png"
 
     getMessageEl: ->
-        message = $('<div></div>').addClass('action-message')
-
-        img = $('<img/>').attr('src', @getImagePath())
-        img.appendTo(message)
-
-        span = $('<span></span>').text(@name + '!')
-        span.appendTo(message)
-
-        return message
+        return _skill.getMessageEl({
+            imagePath: @getImagePath(),
+            text: @name + '!'
+        })
 
     getControlState: (ui, playerTurn) ->
         return new @controlState(ui, playerTurn, this)

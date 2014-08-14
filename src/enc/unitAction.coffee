@@ -23,19 +23,25 @@ class _enc.UnitAction
         css.top = (@unit.pos.i + 1)*tw + 5 - @ui.origin.i
         @container.css(css)
 
-        if @action instanceof _skill.Skill
+        if @action.getMessageEl?
             @message = @action.getMessageEl()
-            @message.addClass('blue-box').appendTo(@container)
+            @message.appendTo(@container)
+            
+            if @unit.team instanceof _team.PlayerTeam
+                @message.addClass('blue-box')
+            else
+                @message.addClass('red-box')
 
         afterFadeIn = =>
             setTimeout(afterDelay, @delay*4/3)
 
             if @action instanceof _skill.Skill
                 @unit.mp -= @action.mp
-                if @delta? and 'hp' of @delta
-                    @unit.addHp(@delta.hp)
+                
+            if @delta? and 'hp' of @delta
+                @unit.addHp(@delta.hp)
 
-                @box.init(@unit, true, false)
+            @box.init(@unit, true, false)
 
         afterDelay = =>
             @container.fadeOut(@delay/3)
