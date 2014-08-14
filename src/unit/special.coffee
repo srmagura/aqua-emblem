@@ -30,6 +30,7 @@ class _unit.special.Arrow extends _uclass.Archer
 
         @allSkills = [
             {level: 1, skill: new _skill.FirstAid()}
+            {level: 1, skill: new _skill.PoisonArrow()}
         ]
 
         @startStats = {maxHp: 24, maxMp: 10, str: 4, def: 4,

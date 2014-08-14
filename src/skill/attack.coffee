@@ -103,11 +103,28 @@ class _skill.Meteor extends _skill.AttackSkill
         @imageName = 'meteor'
         @desc = 'Medium-range dark magic.'
 
-        @mp = 2
+        @mp = 15
 
         @hit = 70
         @might = 13
         @weight = Infinity
         @range = new Range(1, 4)
-        
-        
+
+       
+class _skill.PoisonArrow extends _skill.AttackSkill
+
+    constructor: ->
+        super()
+        @type = new _skill.type.Bow()
+
+        @name = 'Poison Arrow'
+        @imageName = 'poison_arrow'
+        @desc = 'Poisons the target.'
+
+        @mp = 2
+
+        ironBow = new _item.IronBow()
+        @hit = ironBow.hit
+        @might = ironBow.might
+        @weight = ironBow.weight
+        @range = new Range(2)
