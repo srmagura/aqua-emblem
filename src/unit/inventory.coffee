@@ -9,6 +9,8 @@ class _unit.Inventory
         @items[i] = item
         @refresh()
         
+    prepend: (item) -> @items = [item].concat(@items)
+        
     push: (item) -> @items.push(item)
         
     get: (i) -> @items[i]

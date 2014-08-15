@@ -6,6 +6,7 @@ class _enc.Battle extends _enc.Encounter
 
         @mpTaken = false
         @statusInflicted = false
+        @skillMessageShown = false
 
         @atk.calcCombatStats()
         @def.calcCombatStats()
@@ -130,6 +131,9 @@ class _enc.Battle extends _enc.Encounter
             if not @mpTaken
                 giver.mp -= giver.equipped.mp
                 @mpTaken = true
+                
+        if giver.equipped.getMessageEl? and not @skillMessageShown
+            @showSkillMessage(giver.equipped)
 
         randHit = 100*Math.random()
         if randHit < giver.battleStats.hit
@@ -185,6 +189,8 @@ class _enc.Battle extends _enc.Encounter
         afterDelay = =>
             @message.fadeOut(@delay/6)
 
+        @skillMessageShown = true
+                    
         @message = skill.getMessageEl()
         @message.addClass('blue-box').appendTo(@container)
         @message.hide().fadeIn(@delay/6, afterFadeIn)

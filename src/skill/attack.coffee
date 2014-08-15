@@ -39,7 +39,6 @@ class _cs.cui.AttackSkill extends _cs.cui.Skill
         @ui.battleStatsPanel.hide()
         
         @battle.doEncounter(callback)
-        @battle.showSkillMessage(@skill)
         
         
 class _skill.AttackSkill extends _skill.Skill

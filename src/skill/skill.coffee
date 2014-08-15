@@ -40,6 +40,10 @@ _skill.getMessageEl = (options) ->
     img.appendTo(message)
 
     span = $('<span></span>').text(options.text)
+    
+    if 'spanClass' of options
+        span.addClass(options.spanClass)
+    
     span.appendTo(message)
 
     return message

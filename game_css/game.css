@@ -149,6 +149,12 @@ div.right-sidebar > div
     padding: 3px 0 0 5px;
 }
 
+.action-message span.small
+{
+    padding-top: 5px;
+    font-size: 9pt;
+}
+
 /***** BATTLE MESSAGES *****/
 div.battle-message 
 {

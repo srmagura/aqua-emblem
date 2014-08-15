@@ -42,11 +42,14 @@ class _unit.Unit
         @offset = new Position(0, 0)
 
     onNewTurn: ->
+        for status in @statuses
+            status.newTurn(this)
+    
         while true
             toRemove = null
 
             for status, i in @statuses
-                if not status.newTurn()
+                if status.turns == 0
                     toRemove = i
                     break
 
@@ -56,20 +59,27 @@ class _unit.Unit
                 break
 
         @updateStats()
+        @inventory.refresh()
+        
+    onEnemyTurn: ->
+        for status in @statuses
+            status.onEnemyTurn(this)
 
     addStatus: (status) ->
         doAdd = true
         toRemove = []
 
         for other, i in @statuses
+        
             if other instanceof _status.Buff and
             other.stat == status.stat
                 if other.value > status.value
                     doAdd = false
                 else
-                    toRemove.push(i)                  
-            else if other instanceof _status.Poison and
-            status instanceof _status.Poison
+                    toRemove.push(i) 
+                                     
+            else if other.constructor is status.constructor and
+            status.replaceOther
                 toRemove.push(i)
 
         for i in toRemove

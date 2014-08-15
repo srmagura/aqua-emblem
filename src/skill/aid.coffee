@@ -119,3 +119,18 @@ class _skill.Protect extends _skill.AidSkill
     doEffect: (target) ->
         target.addStatus(new _status.Buff('def', 3))
         target.addStatus(new _status.Buff('res', 3))
+        
+class _skill.ThrowingKnives extends _skill.AidSkill
+    
+    constructor: ->
+        super()
+        @name = 'Throwing Knives'
+        @imageName = 'throwing_knives'
+        @desc = 'For the next 3 enemy turns, Arrow counterattacks with throwing knives, ' +
+        'which have a range of 1-2. Throwing knives have the same accuracy and might as iron bows.'
+        
+        @mp = 15
+        @range = new Range(0)
+        
+    doEffect: (target) ->
+        target.addStatus(new _status.ThrowingKnives())

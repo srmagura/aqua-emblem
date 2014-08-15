@@ -7,6 +7,21 @@ class _item.IronBow extends _item.Bow
         @might = 6
         @weight = 5
         
+class _item.ThrowingKnives extends _item.IronBow
+
+    constructor: ->
+        super()
+        @name = 'Throwing knives'
+        @image = '../skills/throwing_knives.png'
+        @range = new Range(1, 2)
+        
+    getMessageEl: ->
+        _skill.getMessageEl({
+            imagePath: 'images/skills/throwing_knives.png',
+            text: @name + '!',
+            spanClass: 'small'
+        })
+        
 class _item.SteelBow extends _item.Bow
 
     constructor: ->
