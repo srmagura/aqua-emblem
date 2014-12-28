@@ -71,18 +71,22 @@
 <script src="lib/unit/status.js"></script>
 <script src="lib/unit/uclass.js"></script>
 <script src="lib/unit/special.js"></script>
+<script src="lib/unit/enemy.js"></script>
 <script src="lib/item/item.js"></script>
 <script src="lib/item/sword.js"></script>
 <script src="lib/item/lance.js"></script>
 <script src="lib/item/axe.js"></script>
 <script src="lib/item/bow.js"></script>
+<script src="lib/item/holy.js"></script>
 <script src="lib/skill/skill.js"></script>
 <script src="lib/skill/aid.js"></script>
 <script src="lib/skill/attack.js"></script>
 <script src="lib/chapters/chapter1.js"></script>
 <script src="lib/chapters/chapter2.js"></script>
+<script src="lib/chapters/chapter3.js"></script>
 <script src="lib/vn/fs/chapter1.js"></script>
 <script src="lib/vn/fs/chapter2.js"></script>
+<script src="lib/vn/fs/chapter3.js"></script>
  
 </head>
 <body>
@@ -231,11 +235,11 @@ $(window).load(init)
         </tr>
         <tr>
             <td class="stat def-dmg red-box">
-                <span class="stat"></span><span class="x2">&times;2</span>
+                <span class="stat"></span><span class="multiplier">&times;<span class="number"></span></span>
             </td>
             <td class="dmg neutral-box">Dmg</td>
             <td class="stat atk-dmg blue-box">
-                <span class="stat"></span><span class="x2">&times;2</span>
+                <span class="stat"></span><span class="multiplier">&times;<span class="number"></span></span>
             </td>
         </tr>
         <tr>
@@ -434,6 +438,9 @@ $(window).load(init)
 
             </table>
         </div>
+        <div class="continue">
+            Press F to continue.
+        </div>
     </div>
 </div>
 
@@ -528,9 +535,7 @@ $(window).load(init)
 
 
     <div class="game-info">
-        <p>version 0.2 - complete up to Chapter 2</p>
-
-<div class="two-column">
+        <div class="two-column">
 <div class="controls">
 <h3 class="first">Controls</h3>
 <table>
@@ -584,11 +589,18 @@ $(window).load(init)
 <h3>Supported browsers</h3> 
 Aqua Emblem is tested in Chrome, Firefox, and Internet Explorer 11. Mobile devices are not officially supported. The game probably works in Safari, but I don't test in Safari.
 
-<h3>Community</h3>
-Aqua Emblem is developed by me: Sam Magura, <b>srmagura AT ncsu.edu</b>. Did you like the game? Did you find a bug? Did you write an X-rated Ace/Shiina romance fanfic? Send me an email!</p>
+<h3>About</h3>
+Aqua Emblem was developed by me: Sam Magura, <b>srmagura AT ncsu.edu</b>.
+I originally planned for Aqua Emblem to be a 10 chapter game, but I had
+only gotten to Chapter 3 when school started. So I decided to just release
+what I had.
 
-<p>The game is open source. Visit the <a href="https://github.com/srmagura/aqua-emblem">GitHub repository</a>.
-Also, special thanks to <a href="http://coffeescript.org">CoffeeScript</a>. Aqua Emblem is copyright 2014 Sam Magura. Released under the GNU General Public License.</p>
+<p>Aqua Emblem is open source. Please email me if you have feedback, or
+are interested in continuing the game's development. The code is online
+at the <a href="https://github.com/srmagura/aqua-emblem">GitHub repository</a>.
+Special thanks to <a href="http://coffeescript.org">CoffeeScript</a>. 
+Aqua Emblem is copyright 2014 Sam Magura. Released under the GNU General 
+Public License.</p>
 
     </div>
 </div>
@@ -619,8 +631,13 @@ Also, special thanks to <a href="http://coffeescript.org">CoffeeScript</a>. Aqua
 <img src="images/skills/defend.png" />
 <img src="images/skills/first_aid.png" />
 <img src="images/skills/temper.png" />
+<img src="images/skills/heal.png" />
 <img src="images/skills/protect.png" />
+<img src="images/skills/poison_arrow.png" />
+<img src="images/skills/throwing_knives.png" />
+<img src="images/skills/meteor.png" />
 <img src="images/skills/flare.png" />
+<img src="images/skills/sword_rain.png" />
 <img src="images/vn/arrow.png" />
 <img src="images/vn/backgrounds/start.png" />
 <img src="images/vn/backgrounds/chapter_display.png" />
@@ -641,14 +658,17 @@ Also, special thanks to <a href="http://coffeescript.org">CoffeeScript</a>. Aqua
 <img src="images/dango/player/soldier.png" />
 <img src="images/dango/player/archer.png" />
 <img src="images/dango/player/fighter.png" />
+<img src="images/dango/player/monk.png" />
 <img src="images/dango/done/mercenary.png" />
 <img src="images/dango/done/soldier.png" />
 <img src="images/dango/done/archer.png" />
 <img src="images/dango/done/fighter.png" />
+<img src="images/dango/done/monk.png" />
 <img src="images/dango/enemy/mercenary.png" />
 <img src="images/dango/enemy/soldier.png" />
 <img src="images/dango/enemy/archer.png" />
 <img src="images/dango/enemy/fighter.png" />
+<img src="images/dango/enemy/monk.png" />
 <img src="images/characters/shiina.png" />
 <img src="images/characters/ace.png" />
 <img src="images/characters/kenji.png" />
@@ -663,14 +683,18 @@ Also, special thanks to <a href="http://coffeescript.org">CoffeeScript</a>. Aqua
 <img src="images/terrain/forest.png" />
 <img src="images/resources/logo.png" />
 <img src="images/resources/tree.png" />
+<img src="images/resources/throwing_knife.png" />
+<img src="images/resources/promo.png" />
 <img src="images/items/aquabolt.png" />
 <img src="images/items/iron_bow.png" />
 <img src="images/items/iron_lance.png" />
 <img src="images/items/killer_bow.png" />
 <img src="images/items/iron_axe.png" />
 <img src="images/items/steel_lance.png" />
+<img src="images/items/brave_lance.png" />
 <img src="images/items/hand_axe.png" />
 <img src="images/items/iron_sword.png" />
+<img src="images/items/shine.png" />
 <img src="images/items/steel_sword.png" />
 <img src="images/items/steel_axe.png" />
 <img src="images/items/steel_bow.png" />
