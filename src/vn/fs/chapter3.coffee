@@ -70,4 +70,9 @@ class _file.fs.Chapter3 extends _file.FileState
             ['kenji', 'Thank you for playing Aqua Emblem! I\'m sorry that it isn\'t a complete game!']
         ]
 
-        @ui.scene.init(lines, 'forest', @chapterComplete)
+        @ui.scene.init(lines, 'forest', @refreshPage)
+
+    refreshPage: =>
+        @ui.setConfirmUnload(false)
+        localStorage.removeItem('file')
+        document.location.reload(true)
