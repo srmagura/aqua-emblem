@@ -5,7 +5,7 @@ class _file.fs.Chapter2 extends _file.FileState
         @chapterId = 2
         @chapterName = 'The red string of fate'
     
-        @nextFs = _file.fs.Chapter2
+        @nextFs = _file.fs.Chapter3
     
     
     init:  =>
