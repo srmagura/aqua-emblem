@@ -129,7 +129,7 @@ class _skill.ThrowingKnives extends _skill.AidSkill
         @desc = 'For the next 3 enemy turns, Arrow counterattacks with throwing knives, ' +
         'which have a range of 1-2. Throwing knives have the same accuracy and might as iron bows.'
         
-        @mp = 15
+        @mp = 12
         @range = new Range(0)
         
     doEffect: (target) ->

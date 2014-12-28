@@ -28,14 +28,14 @@ class _file.fs.Chapter3 extends _file.FileState
             ['ace', 'Wow... the men who abducted you carried you all the way across Eutruria.'],
             ['luciana', 'There\'s nothing ordinary about that. This is getting suspicious...'],
             ['ace', 'Yeah. Shiina, do you have any idea why someone would want to abduct you?'],
-            ['shiina', 'I mean... uh... they probably wanted money, I guess? Or maybe they mistook me for someone else?'], 
+            ['shiina', 'I mean... uh... they probably wanted money, I guess? Or maybe they mistook me for someone else?'],
             ['luciana', 'I guess that\'s possible.'],
             ['ace', 'Seems kinda farfetched to me... -.-'],
             ['ace', 'Anyway, you can\'t stay with us forever.'],
             ['luciana', 'Sorry to be rude, but he\'s right. What do you plan to do? We can escort you to the closest town if you want.'],
             ['shiina', 'Umm... I think I want to join you!'],
             ['ace', 'What the ...? You know we\'re a mercenary group, right? Like we fight for a living?'],
-            ['shiina', 'I know. I can fight too. I\'ve been practicing holy magic since I was a child!'], 
+            ['shiina', 'I know. I can fight too. I\'ve been practicing holy magic since I was a child!'],
             ['shiina', '(I probably shouldn\'t tell them that I\'ve never used my magic for fighting.)'],
             ['ace', 'Really? You don\'t look like you could survive a single hit.'],
             ['luciana', 'Come on Ace, why don\'t we give her a chance?'],
@@ -62,12 +62,13 @@ class _file.fs.Chapter3 extends _file.FileState
     
         lines = [
             ['ace', 'Well that wasn\'t the best fighting I\'ve ever seen, but at least you\'re still alive.'],
-            ['shiina', 'Eh, thank you?'], 
+            ['shiina', 'Eh, thank you?'],
             ['luciana', 'Oh come on Ace, lighten up. You did well Shiina.'],
             ['arrow', 'Your magic was like sooooo cool Shiina! You were amazing!'],
             ['ace', '(Shut up Arrow, you just think she\'s cute...)'],
             ['shiina', 'Thanks Luciana! Thanks Arrow! Does this mean I can join the Hellhounds now?'],
-            ['ace', 'No... but I\'ll think about letting you fight with us again. So you can stay with us for now.'] 
-        ]       
+            ['ace', 'No... but I\'ll think about letting you fight with us again. So you can stay with us for now.'],
+            ['kenji', 'Thank you for playing Aqua Emblem! I\'m sorry that it isn\'t a complete game!']
+        ]
 
         @ui.scene.init(lines, 'forest', @chapterComplete)

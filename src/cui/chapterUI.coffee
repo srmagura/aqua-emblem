@@ -56,7 +56,7 @@ class _cui.ChapterUI extends UI
 
         @staticTurn = new _turn.Turn(this)
 
-    setChapter: (chapterCls) ->       
+    setChapter: (chapterCls) ->
         @chapter = new chapterCls(this)
         @chapter.setPlayerTeam(@file.playerTeam)
         

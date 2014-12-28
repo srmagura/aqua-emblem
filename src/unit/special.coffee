@@ -9,8 +9,8 @@ class _unit.special.Ace extends _uclass.Mercenary
 
         @allSkills = [
             {level: 1, skill: new _skill.Flare()},
-            {level: 6, skill: new _skill.SwordRain()},
-            {level: 13, skill: new _skill.Meteor()}
+            {level: 3, skill: new _skill.SwordRain()},
+            {level: 5, skill: new _skill.Meteor()}
         ]
 
         @startStats = {maxHp: 30, maxMp: 10, str: 4.2, def: 4,
@@ -30,8 +30,8 @@ class _unit.special.Arrow extends _uclass.Archer
 
         @allSkills = [
             {level: 1, skill: new _skill.FirstAid()}
-            {level: 8, skill: new _skill.PoisonArrow()}
-            {level: 13, skill: new _skill.ThrowingKnives()}
+            {level: 3, skill: new _skill.PoisonArrow()}
+            {level: 5, skill: new _skill.ThrowingKnives()}
         ]
 
         @startStats = {maxHp: 24, maxMp: 10, str: .4, def: 4,

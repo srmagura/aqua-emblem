@@ -5,6 +5,8 @@ class _turn.PlayerTurn extends _turn.Turn
         @tradeRange = new Range(1)
 
     select: (unit) ->
+        @origin0 = @ui.origin.clone()
+
         @available = @getAvailable(unit)
         attackRange = @movementGetAttackRange(@available, unit)
 
@@ -24,10 +26,15 @@ class _turn.PlayerTurn extends _turn.Turn
             @ui.controlState = new _cs.cui.EnemySelected(@ui)
 
     deselect: ->
+        if @selectedUnit
+            @ui.origin = @origin0
+            @ui.cursor.pos = @selectedUnit.pos.clone()
+
         @selectedUnit = null
         @selectedEnemy = null
         @dest = null
         @ui.chapter.map.clearOverlay()
+
 
     updateDestination: ->
         cp = @ui.cursor.pos

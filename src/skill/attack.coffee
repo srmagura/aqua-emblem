@@ -85,7 +85,7 @@ class _skill.SwordRain extends _skill.AttackSkill
         @imageName = 'sword_rain'
         @desc = 'Hit four times in a row.'
 
-        @mp = 10
+        @mp = 6
 
         @hit = 70
         @might = 3
@@ -103,7 +103,7 @@ class _skill.Meteor extends _skill.AttackSkill
         @imageName = 'meteor'
         @desc = 'Medium-range dark magic.'
 
-        @mp = 15
+        @mp = 10
 
         @hit = 70
         @might = 13
@@ -125,7 +125,7 @@ class _skill.PoisonArrow extends _skill.AttackSkill
 
         ironBow = new _item.IronBow()
         @hit = ironBow.hit
-        @might = 2#ironBow.might
+        @might = 2
         @weight = ironBow.weight
         @range = new Range(2)
         
