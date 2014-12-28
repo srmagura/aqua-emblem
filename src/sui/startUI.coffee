@@ -33,7 +33,7 @@ class _sui.StartUI extends UI
         if json? and not @file
             @file = _file.File.unpickle(json)
 
-        next = => 
+        next = =>
             if @file?
                 @initMenu(_sui.MenuMain)
             else

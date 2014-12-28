@@ -7,25 +7,25 @@ class _sui.MenuNoData extends _sui.Menu
             data('handler', @handleNewGame)
             
         @getMenuEl('Upload backup').appendTo(@menu).
-            data('handler', @handleUpload)     
+            data('handler', @handleUpload)
             
         @selectFirst()
         @controlState = new _cs.sui.Menu(this, @menu)
 
     handleNewGame: =>
-        @ui.initMenu(_sui.MenuDifficulty)              
+        @ui.initMenu(_sui.MenuDifficulty)
         
-    handleUpload: => 
+    handleUpload: =>
         options = $.extend(@ui.dialogOptions, {
             buttons: [
-                { 
-                    text: 'Upload', 
+                {
+                    text: 'Upload',
                     click: @doUpload
                 }
-            ] 
+            ]
         })
       
-        dia = @ui.uploadDialog      
+        dia = @ui.uploadDialog
         dia.dialog(options)
         
         @ui.prevControlState = @ui.controlState
@@ -39,9 +39,9 @@ class _sui.MenuNoData extends _sui.Menu
         invalid = false
         str = @ui.uploadDialog.find('textarea').val()
             
-        unpickled = _file.File.unpickle(str)        
+        unpickled = _file.File.unpickle(str)
         if unpickled is null
-            invalid = true 
+            invalid = true
             
         if invalid
             @ui.uploadDialog.find('.error').text(
@@ -83,8 +83,8 @@ class _sui.MenuDifficulty extends _sui.Menu
         
 class _sui.MenuMain extends _sui.Menu
 
-    init: ->  
-        fs = @ui.file.fileState  
+    init: ->
+        fs = @ui.file.fileState
         itemContinue = @getMenuEl('Continue',
             "Chapter #{fs.chapterId}: #{fs.chapterName}")
         itemContinue.appendTo(@menu).data('handler', @handleContinue)
@@ -105,7 +105,7 @@ class _sui.MenuMain extends _sui.Menu
         @ui.destroy()
         @ui.file.init()
         
-    handleSaveBackup: =>  
+    handleSaveBackup: =>
         dia = @ui.saveBackupDialog
         dia.dialog(@ui.dialogOptions)
         
