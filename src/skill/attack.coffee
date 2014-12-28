@@ -35,6 +35,9 @@ class _cs.cui.AttackSkill extends _cs.cui.Skill
             exp = @battle.getExpToAdd()
             @skillDone(exp)
 
+        if @battle is null
+            return
+
         super()
         @ui.battleStatsPanel.hide()
         
