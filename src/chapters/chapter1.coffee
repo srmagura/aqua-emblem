@@ -4,59 +4,48 @@ class _chapters.Chapter1 extends _map.Chapter
 
     constructor: (@ui) ->     
         enemyUnits = [
-            new _uclass.Fighter({pos: new Position(4, 2),
-            level: 1,
-            items: [new _item.IronAxe()]}),
+            new _enemy.Fighter({pos: new Position(4, 2),
+            level: 1}),
 
-            new _uclass.Fighter({pos: new Position(5, 4),
-            level: 1,
-            items: [new _item.IronAxe()]}),
+            new _enemy.Fighter({pos: new Position(5, 4),
+            level: 1}),
 
-            new _uclass.Archer({pos: new Position(8, 3),
-            level: 1,
-            items: [new _item.IronBow()]}),
+            new _enemy.Archer({pos: new Position(8, 3),
+            level: 1}),
 
-            new _uclass.Soldier({pos: new Position(6, 5),
+            new _enemy.Soldier({pos: new Position(6, 5),
             level: 2, aiType: _unit.aiType.halt,
             items: [new _item.SteelLance().letDrop()]}),
 
-            new _uclass.Soldier({pos: new Position(7, 5),
-            level: 2, aiType: _unit.aiType.halt,
-            items: [new _item.IronLance()]}),
+            new _enemy.Soldier({pos: new Position(7, 5),
+            level: 2, aiType: _unit.aiType.halt}),
 
-            new _uclass.Mercenary({pos: new Position(7, 8),
-            level: 1,
-            items: [new _item.IronSword()]}),
+            new _enemy.Mercenary({pos: new Position(7, 8),
+            level: 1}),
 
-            new _uclass.Fighter({pos: new Position(6, 7),
-            level: 1,
-            items: [new _item.IronAxe()]}),
+            new _enemy.Fighter({pos: new Position(6, 7),
+            level: 1}),
 
-            new _uclass.Archer({pos: new Position(6, 15),
-            level: 1, aiType: _unit.aiType.halt
-            items: [new _item.IronBow()]}),
+            new _enemy.Archer({pos: new Position(6, 15),
+            level: 1, aiType: _unit.aiType.halt}),
 
-            new _uclass.Archer({pos: new Position(7, 14),
+            new _enemy.Archer({pos: new Position(7, 14),
             level: 1,
             items: [new _item.IronBow(), new _item.KillerBow().letDrop()]}),
 
-            new _uclass.Fighter({pos: new Position(1, 8),
-            level: 1,
-            items: [new _item.IronAxe()]}),
+            new _enemy.Fighter({pos: new Position(1, 8),
+            level: 1}),
 
-            new _uclass.Fighter({pos: new Position(3, 10),
-            level: 1,
-            items: [new _item.IronAxe()]}),
+            new _enemy.Fighter({pos: new Position(3, 10),
+            level: 1}),
 
-            new _uclass.Mercenary({pos: new Position(3, 12),
-            level: 1,
-            items: [new _item.IronSword()]}),
+            new _enemy.Mercenary({pos: new Position(3, 12),
+            level: 1}),
 
-            new _uclass.Mercenary({pos: new Position(6, 12),
-            level: 1,
-            items: [new _item.IronSword()]}),
+            new _enemy.Mercenary({pos: new Position(6, 12),
+            level: 1}),
 
-            new _uclass.Fighter({pos: new Position(3, 15),
+            new _enemy.Fighter({pos: new Position(3, 15),
             aiType: _unit.aiType.halt,
             boss: true,
             level: 5,

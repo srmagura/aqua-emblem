@@ -1,4 +1,4 @@
-keydownHandlerSet = false
+handlersSet = false
 
 keydownHandler = (e) ->
     #console.log(e.which)
@@ -17,13 +17,20 @@ keydownHandler = (e) ->
     if e.which in prevent
         e.preventDefault()
         return false
-
+        
+unloadStr = 'Are you sure you want to quit? If you do, your unsaved progress will be lost.'
 
 class window.UI
 
     constructor: ->
         window.ui = this
 
-        if not keydownHandlerSet
+        if not handlersSet
             $(window).keydown(keydownHandler)
-            keydownHandlerSet = true
+            handlersSet = true
+            
+    setConfirmUnload: (bool) ->
+        if bool
+            window.onbeforeunload = (-> unloadStr)
+        else
+            window.onbeforeunload = null

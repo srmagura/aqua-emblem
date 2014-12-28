@@ -13,7 +13,7 @@ class _skill.type.None extends _skill.type.SkillType
 class _skill.type.Magic extends _skill.type.SkillType
 
 class _skill.type.Holy extends _skill.type.Magic
-    image: 'aquabolt'
+    image: 'shine'
 
 class _skill.type.Dark extends _skill.type.Magic
     image: 'fire'
@@ -33,6 +33,22 @@ class _skill.type.Bow extends _skill.type.Physical
     image: 'iron_bow'
 
 
+_skill.getMessageEl = (options) ->
+    message = $('<div></div>').addClass('action-message')
+
+    img = $('<img/>').attr('src', options.imagePath)
+    img.appendTo(message)
+
+    span = $('<span></span>').text(options.text)
+    
+    if 'spanClass' of options
+        span.addClass(options.spanClass)
+    
+    span.appendTo(message)
+
+    return message
+
+
 class _skill.Skill
 
     constructor: ->
@@ -41,21 +57,16 @@ class _skill.Skill
         @mp = 0
 
     getExp: ->
-        return @mp*.02
+        return @mp*.02*ui.expMultiplier
 
     getImagePath: ->
         return "images/skills/#{@imageName}.png"
 
     getMessageEl: ->
-        message = $('<div></div>').addClass('action-message')
-
-        img = $('<img/>').attr('src', @getImagePath())
-        img.appendTo(message)
-
-        span = $('<span></span>').text(@name + '!')
-        span.appendTo(message)
-
-        return message
+        return _skill.getMessageEl({
+            imagePath: @getImagePath(),
+            text: @name + '!'
+        })
 
     getControlState: (ui, playerTurn) ->
         return new @controlState(ui, playerTurn, this)
@@ -87,14 +98,14 @@ class _cs.cui.Skill extends _cs.cui.MapTarget
         @ui.chapter.map.clearOverlay()
         @ui.controlState = new _cs.cui.Chapter(@ui)
 
-    d: ->
-        @ui.cursor.visible = false
-        @ui.cursor.pos = @playerTurn.selectedUnit.pos.clone()
-        @ui.unitInfoBox.update()
-        
+    d: ->        
         @ui.battleStatsPanel.hide()
         @playerTurn.selectedUnit.inventory.refresh()
         @playerTurn.handleSkill(false)
+        
+        @ui.cursor.visible = false
+        @ui.cursor.pos = @playerTurn.selectedUnit.pos.clone()
+        @ui.unitInfoBox.update()
 
     skillDone: (exp=null) =>
         afterExpAdd = =>

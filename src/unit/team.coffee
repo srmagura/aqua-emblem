@@ -5,18 +5,27 @@ class _team.Team
     constructor: (@units) ->
         for unit in @units
             unit.setTeam(this)
+            
+    # Should only be used before Chapter has been created
+    addUnit: (unit) ->
+        @units.push(unit)
+        unit.setTeam(this)
 
 
 class _team.PlayerTeam extends _team.Team
 
     constructor: (@units) ->
         for unit in @units
-            if 'skills' not of unit
-                unit.skills = []
-
-            unit.skills = [new _skill.Defend()].concat(unit.skills)
+            @initPlayerUnit(unit)
 
         super(@units)
+   
+    addUnit: (unit) ->
+        super(unit)
+        @initPlayerUnit(unit)
+        
+    initPlayerUnit: (unit) ->
+        unit.allSkills = [{level: 1, skill: new _skill.Defend()}].concat(unit.allSkills)        
         
     pickle: ->
         array = []
@@ -51,17 +60,34 @@ class _team.EnemyTeam extends _team.Team
         else
             @reinforcements = []
             
+        if 'defaultAiType' not of attr
+            attr.defaultAiType = _unit.aiType.normal
+            
         for unit in @reinforcements
             unit.setTeam(this)
     
         for unit in @units.concat(@reinforcements)
             if 'aiType' not of unit
-                unit.aiType = _unit.aiType.normal
-
+                unit.aiType = attr.defaultAiType
+                
+            if 'aiOptions' not of unit
+                unit.aiOptions = {}
+                
             if 'defaultName' of attr and not unit.name?
                 unit.setName(attr.defaultName)
                 
+            if 'defaultLevel' of attr and not unit.level?
+                if unit.dld?
+                    dld = unit.dld
+                else
+                    dld = 0
+                    
+                unit.level = attr.defaultLevel + dld
+                delete unit.dld
+                
             for item in unit.inventory.it()
                 item.uses = null
+                
+            unit.calcStatsInitial()
 
         super(@units)

@@ -2,11 +2,11 @@ window._status = {}
 
 class _status.Status
 
-    constructor: ->
+    replaceOther: false
+    
+    onEnemyTurn: ->
 
-    newTurn: ->
-        @turns--
-        return @turns > 0
+    newTurn: (unit) -> @turns--
 
     getEl: ->
         div = $('<div></div>').addClass('status')
@@ -34,14 +34,64 @@ class _status.Buff extends _status.Status
 
     constructor: (@stat, @value) ->
         @imagePath = 'up_arrow.png'
-        @turns =  @value
+        @turns = @value
         @updateText()
 
     updateText: ->
         @text = "<span class='stat'>#{@stat.toUpperCase()}</span>"
         @text += ' +' + @value
 
-    newTurn: ->
+    newTurn: (unit) ->
         @value--
         @updateText()
         super()
+        
+class _status.Poison extends _status.Status
+
+    constructor: (@dmg) ->
+        @imagePath = 'skills/poison_arrow.png'
+        @turns = 3
+        @replaceOther = true
+        @updateText()
+        
+     updateText: ->
+        @text = "Poison (#{@turns})"
+        
+     newTurn: (unit) ->
+        super()
+        @dmg -= 2
+        
+        if @dmg <= 0
+            @dmg = 1
+            
+        @updateText()
+       
+class _status.PoisonAction
+
+    getMessageEl: ->
+        return _skill.getMessageEl({
+            imagePath: 'images/skills/poison_arrow.png',
+            text: 'Poison'
+        })
+        
+class _status.ThrowingKnives extends _status.Status
+
+    constructor: ->
+        @imagePath = 'skills/throwing_knives.png'
+        @turns = 3
+        @replaceOther = true
+        @updateText()
+        
+    updateText: ->
+        @text = "Throwing Knives (#{@turns})"
+        
+    newTurn: (unit) ->
+        super(unit)
+        @updateText()
+        
+        if unit.inventory.items[0] instanceof _item.ThrowingKnives
+            unit.inventory.remove(0)
+        
+    onEnemyTurn: (unit) ->
+        unit.inventory.prepend(new _item.ThrowingKnives())
+        unit.inventory.refresh()

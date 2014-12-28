@@ -118,11 +118,16 @@ div.battle-stats-panel .crt
     border-top-style: none;
 }
 
-div.battle-stats-panel .x2
+div.battle-stats-panel .multiplier
 {
     color: green;
     font-weight: bold;
     display: none;
+}
+
+div.battle-stats-panel .multiplier.x4
+{
+    color: blue;
 }
 
 div.battle-stats-panel .neutral-box

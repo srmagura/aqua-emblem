@@ -11,8 +11,9 @@ class _cs.cui.AttackSkill extends _cs.cui.Skill
 
             if target? and @skill.isValidTarget(target)
                 @ui.cursor.moveTo(spot)
-                @moved()
                 break
+                
+        @moved()
 
     moved: ->
         result = @getUserTarget()
@@ -36,14 +37,29 @@ class _cs.cui.AttackSkill extends _cs.cui.Skill
 
         super()
         @ui.battleStatsPanel.hide()
+        
         @battle.doEncounter(callback)
-        @battle.showSkillMessage(@skill)
-
-class _skill.Flare extends _skill.Skill
+        
+        
+class _skill.AttackSkill extends _skill.Skill
 
     constructor: ->
         super()
+        @crit = 0
+        @nAttackMultiplier = 1
+        @controlState = _cs.cui.AttackSkill
         @overlayType = 'ATTACK'
+
+    isValidTarget: (target) ->
+        return target? and target.team instanceof _team.EnemyTeam
+        
+    hasUses: (x) -> true
+
+
+class _skill.Flare extends _skill.AttackSkill
+
+    constructor: ->
+        super()
         @type = new _skill.type.Dark()
 
         @name = 'Flare'
@@ -53,12 +69,65 @@ class _skill.Flare extends _skill.Skill
         @mp = 4
 
         @hit = 90
-        @might = 4
+        @might = 5
         @crit = 10
-        @weight = 10
+        @weight = 6
         @range = new Range(1, 2)
+        
+        
+class _skill.SwordRain extends _skill.AttackSkill
 
-        @controlState = _cs.cui.AttackSkill
+    constructor: ->
+        super()
+        @type = new _skill.type.Sword()
 
-    isValidTarget: (target) ->
-        return target.team instanceof _team.EnemyTeam
+        @name = 'Sword Rain'
+        @imageName = 'sword_rain'
+        @desc = 'Hit four times in a row.'
+
+        @mp = 6
+
+        @hit = 70
+        @might = 3
+        @weight = Infinity
+        @range = new Range(1)
+        @nAttackMultiplier = 4
+        
+class _skill.Meteor extends _skill.AttackSkill
+
+    constructor: ->
+        super()
+        @type = new _skill.type.Dark()
+
+        @name = 'Meteor'
+        @imageName = 'meteor'
+        @desc = 'Medium-range dark magic.'
+
+        @mp = 10
+
+        @hit = 70
+        @might = 13
+        @weight = Infinity
+        @range = new Range(1, 4)
+
+       
+class _skill.PoisonArrow extends _skill.AttackSkill
+
+    constructor: ->
+        super()
+        @type = new _skill.type.Bow()
+
+        @name = 'Poison Arrow'
+        @imageName = 'poison_arrow'
+        @desc = 'Poisons the target.'
+
+        @mp = 2
+
+        ironBow = new _item.IronBow()
+        @hit = ironBow.hit
+        @might = 2
+        @weight = ironBow.weight
+        @range = new Range(2)
+        
+    getStatusEffect: (data) ->
+        return new _status.Poison(data.battle.atk.battleStats.dmg)

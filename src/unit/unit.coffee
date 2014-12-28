@@ -42,11 +42,14 @@ class _unit.Unit
         @offset = new Position(0, 0)
 
     onNewTurn: ->
+        for status in @statuses
+            status.newTurn(this)
+    
         while true
             toRemove = null
 
             for status, i in @statuses
-                if not status.newTurn()
+                if status.turns == 0
                     toRemove = i
                     break
 
@@ -56,18 +59,28 @@ class _unit.Unit
                 break
 
         @updateStats()
+        @inventory.refresh()
+        
+    onEnemyTurn: ->
+        for status in @statuses
+            status.onEnemyTurn(this)
 
     addStatus: (status) ->
         doAdd = true
         toRemove = []
 
         for other, i in @statuses
+        
             if other instanceof _status.Buff and
             other.stat == status.stat
                 if other.value > status.value
                     doAdd = false
                 else
-                    toRemove.push(i)
+                    toRemove.push(i) 
+                                     
+            else if other.constructor is status.constructor and
+            status.replaceOther
+                toRemove.push(i)
 
         for i in toRemove
             @statuses.splice(i, 1)
@@ -83,6 +96,11 @@ class _unit.Unit
                 return true
 
         return false
+        
+    getStatus: (cls) ->
+        for status in @statuses
+            if status instanceof cls
+                return status
 
     canUseSkill: (skl) ->
         return @mp >= skl.mp
@@ -125,6 +143,14 @@ class _unit.Unit
             if not dryRun
                 @baseStats[stat] = rounded
                 @updateStat(stat)
+                
+        if @allSkills?
+            @skills = []
+            for obj in @allSkills
+                if @level >= obj.level
+                    @skills.push(obj.skill)
+                if @level == obj.level
+                    increment.newSkill = obj.skill
 
         return increment
 
@@ -146,6 +172,8 @@ class _unit.Unit
 
         if newHp > @maxHp
             @hp = @maxHp
+        else if newHp < 0
+            @hp = 0
         else
             @hp = newHp
 

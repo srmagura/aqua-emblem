@@ -27,6 +27,7 @@ class _file.File
         try
             pickled = $.parseJSON(str)
         catch error
+            console.log 'File.unpickle: could not parse JSON.'
             return null
             
         if not pickled?

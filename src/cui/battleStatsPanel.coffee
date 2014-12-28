@@ -38,11 +38,20 @@ class _cui.BattleStatsPanel
                 td = @panel.find(".#{unitName}-#{statType}")
                 td.find('.stat').text(value)
 
-                if statType == 'dmg' and
-                battle.nTurns[unitName] == 2
-                    td.find('.x2').show()
+                multEl = td.find('.multiplier')
+                nTurns = battle.nTurns[unitName]
+                
+                if statType == 'dmg' and nTurns > 1
+                    multEl.find('.number').text(nTurns)
+                    
+                    if nTurns == 4
+                        multEl.addClass('x4')
+                    else
+                        multEl.removeClass('x4')
+                        
+                    multEl.show()
                 else
-                    td.find('.x2').hide()
+                    multEl.hide()
 
         fillHalf(battle.atk, 'atk')
         fillHalf(battle.def, 'def')

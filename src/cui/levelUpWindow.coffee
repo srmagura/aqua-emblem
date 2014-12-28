@@ -47,6 +47,7 @@ class _cui.LevelUpWindow
         while true
             if @incIndex == @statTypes.length
                 @ui.controlState = new _cs.cui.LevelUpWindow(@ui, this)
+                @window.find('.continue').css('visibility', 'visible')
                 return
 
             st = @statTypes[@incIndex++]
@@ -59,11 +60,20 @@ class _cui.LevelUpWindow
         el.find('img').css('visibility', 'visible')
 
         setTimeout(@showIncrement, @delay/2)
+        
+    done: ->
+        @ui.controlState = new _cs.cui.Chapter(@ui)
+        @hide()
+        
+        if 'newSkill' of @increment
+            @ui.messageBox.showSkillLearnedMessage(@unit, @increment.newSkill, @callback)
+        else
+            @callback()
 
     hide: ->
         @ui.viewportOverlay.hide()
         @window.css('visibility', 'hidden')
-        @window.find('.stat img').css('visibility', 'hidden')
+        @window.find('.stat img, .continue').css('visibility', 'hidden')
 
 class _cs.cui.LevelUpWindow extends _cs.cui.Chapter
 
@@ -72,5 +82,4 @@ class _cs.cui.LevelUpWindow extends _cs.cui.Chapter
     f: -> @d()
 
     d: ->
-        @windowObj.hide()
-        @windowObj.callback()
+        @windowObj.done()

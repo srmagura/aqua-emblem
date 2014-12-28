@@ -3,7 +3,8 @@ window._map = {}
 _map.OVERLAY_TYPES = {
     AVAILABLE: {startColor: '#AAF', endColor: '#22F'},
     ATTACK: {startColor: '#FAA', endColor: '#F22'},
-    AID: {startColor: '#AFA', endColor: '#2F2'}
+    AID: {startColor: '#AFA', endColor: '#2F2'},
+    DAMAGE: {startColor: '#ffe6aa', endColor: '#d28704'}
 }
 
 class _map.Map

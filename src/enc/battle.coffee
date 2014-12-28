@@ -5,6 +5,8 @@ class _enc.Battle extends _enc.Encounter
             @dist = @atk.pos.distance(@def.pos)
 
         @mpTaken = false
+        @statusInflicted = false
+        @skillMessageShown = false
 
         @atk.calcCombatStats()
         @def.calcCombatStats()
@@ -20,27 +22,36 @@ class _enc.Battle extends _enc.Encounter
         @calcIndividual(@atk, @def)
         @calcIndividual(@def, @atk)
 
-        @turns = [@atk]
-        @nTurns = {atk: 1, def: 0}
+        @turns = []
+        for i in [1..@atk.equipped.nAttackMultiplier]
+            @turns.push(@atk)
 
         defCanAttack = (@def.equipped? and
         @def.equipped.range.contains(@dist) and
         not @def.hasStatus(_status.Defend))
 
         if defCanAttack
-            @turns.push(@def)
-            @nTurns.def++
+            for i in [1..@def.equipped.nAttackMultiplier]
+                @turns.push(@def)
 
         if(@atk.attackSpeed - 4 > @def.attackSpeed and
         @atk.equipped.hasUses(2))
-            @turns.push(@atk)
-            @nTurns.atk++
+            for i in [1..@atk.equipped.nAttackMultiplier]
+                @turns.push(@atk)
             
         else if(defCanAttack and
         @def.attackSpeed - 4 > @atk.attackSpeed and
-        @def.equipped.hasUses(2))    
-            @turns.push(@def)
-            @nTurns.def++
+        @def.equipped.hasUses(2)) 
+            for i in [1..@def.equipped.nAttackMultiplier]   
+                @turns.push(@def)
+             
+        @nTurns = {atk: 0, def: 0}   
+        
+        for unit in @turns
+            if unit is @atk
+                @nTurns.atk++
+            else
+                @nTurns.def++
 
         @attacksHit = 0
 
@@ -115,6 +126,14 @@ class _enc.Battle extends _enc.Encounter
         giver = @turns[@turnIndex]
         recvr = @getOther(giver)
         @doLunge(giver)
+        
+        if giver.equipped.mp?
+            if not @mpTaken
+                giver.mp -= giver.equipped.mp
+                @mpTaken = true
+                
+        if giver.equipped.getMessageEl? and not @skillMessageShown
+            @showSkillMessage(giver.equipped)
 
         randHit = 100*Math.random()
         if randHit < giver.battleStats.hit
@@ -131,17 +150,18 @@ class _enc.Battle extends _enc.Encounter
                 @displayMessage(recvr, 'no-dmg')
 
             if giver is @getPlayerUnit()
-                if giver.equipped.mp?
-                    if not @mpTaken
-                        giver.mp -= giver.equipped.mp
-                        @mpTaken = true
-                else if giver.mp < giver.maxMp
+                if (not giver.equipped.mp?) and giver.mp < giver.maxMp
                     giver.mp++
                     
                     if giver.equipped.uses?
                         giver.equipped.uses--
 
                 @attacksHit++
+                
+            if giver.equipped.getStatusEffect? and not @statusInflicted
+                data = {battle: this}
+                recvr.addStatus(giver.equipped.getStatusEffect(data))
+                @statusInflicted = true
                 
         else
             @displayMessage(recvr, 'miss')
@@ -169,6 +189,8 @@ class _enc.Battle extends _enc.Encounter
         afterDelay = =>
             @message.fadeOut(@delay/6)
 
+        @skillMessageShown = true
+                    
         @message = skill.getMessageEl()
         @message.addClass('blue-box').appendTo(@container)
         @message.hide().fadeIn(@delay/6, afterFadeIn)
@@ -177,7 +199,7 @@ class _enc.Battle extends _enc.Encounter
         super(false)
 
         pu = @getPlayerUnit()
-        if pu.equipped? and pu.equipped.uses == 0
+        if pu.equipped? and pu.equipped.uses? and pu.equipped.uses <= 0
             item = pu.equipped
             pu.inventory.remove(item)
             @ui.messageBox.showBrokenMessage(item, @afterWeaponBreak)
@@ -219,12 +241,18 @@ class _enc.Battle extends _enc.Encounter
 
         if @attacksHit > 0
             dmgExp = .10 + levelDif/100          
+            
+            if dmgExp <= .05
+                dmgExp = .05
         else
             dmgExp = .01
 
         defeatExp = 0
         if enemy.hp == 0
             defeatExp = .25 + levelDif/100
+            
+            if defeatExp < 0
+                defeatExp = .1
             
             if enemy.boss
                 defeatExp += .4

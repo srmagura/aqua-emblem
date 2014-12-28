@@ -75,7 +75,9 @@ class _turn.EnemyTurn extends _turn.Turn
             else
                 afterScroll()
         else
-            if unit.aiType is _unit.aiType.aggressive
+            if unit.aiType is _unit.aiType.aggressive and
+            ('startTurn' not of unit.aiOptions or
+            @ui.chapter.turnIndex >= unit.aiOptions.startTurn)
                 @doAdvance(unit)
             else
                 @doUnitTurn(@nextUnit)
@@ -159,7 +161,7 @@ class _turn.EnemyTurn extends _turn.Turn
             
     spawnUnit: (toAdd, i) ->
         if i == toAdd.length
-            @calcCombatStats()
+            @doStatus()
             return 
     
         unit = toAdd[i]
@@ -188,6 +190,39 @@ class _turn.EnemyTurn extends _turn.Turn
                 toAdd.push(unit)
         
         @spawnUnit(toAdd, 0)
+        
+    doStatus: ->
+        poisoned = []
+        
+        for unit in @team.units
+            if unit.hasStatus(_status.Poison)
+                poisoned.push(unit)
+                
+        i = 0
+        unit = null
+        
+        callback = =>
+            keepGoing = true
+            if unit.hp == 0
+                keepGoing = @ui.chapter.kill(unit)
+                
+            if keepGoing
+                i++
+                doPoison()
+        
+        doPoison = =>
+            if i == poisoned.length
+                @calcCombatStats()
+                return
+            
+            unit = poisoned[i]
+            action = new _status.PoisonAction()
+            delta = {hp: -unit.getStatus(_status.Poison).dmg}
+            
+            unitAction = new _enc.UnitAction(@ui, unit)
+            unitAction.doAction(action, callback, delta)
+        
+        doPoison()
         
     calcCombatStats: ->  
         for unit in @team.units

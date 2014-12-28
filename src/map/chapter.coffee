@@ -127,6 +127,9 @@ class _map.Chapter
             @ui.unitInfoBox.hide()
             @ui.terrainBox.hide()
             doneFlags.scroll = true
+            
+            for unit in @units
+                unit.onEnemyTurn()
 
         @ui.messageBox.showPhaseMessage(team, =>
             doneFlags.phaseMessage = true
