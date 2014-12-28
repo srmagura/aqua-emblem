@@ -9,7 +9,6 @@ class _file.fs.Chapter3 extends _file.FileState
     
     
     init:  =>
-        return @endScene()
         @ui = new _vn.VisualNovelUI()
         lines = [
             ['ace', 'So... who are you? And what happened?'],
