@@ -98,7 +98,7 @@ class _cs.cui.Skill extends _cs.cui.MapTarget
         @ui.chapter.map.clearOverlay()
         @ui.controlState = new _cs.cui.Chapter(@ui)
 
-    d: ->        
+    d: ->
         @ui.battleStatsPanel.hide()
         @playerTurn.selectedUnit.inventory.refresh()
         @playerTurn.handleSkill(false)
