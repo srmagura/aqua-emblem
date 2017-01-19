@@ -1,4 +1,4 @@
-class _cui.UnitInfoBox
+class _chapterui.UnitInfoBox
 
     constructor: (@ui, selector) ->
         @box = $(selector)

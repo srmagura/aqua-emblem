@@ -1,7 +1,7 @@
 WIDTH = 4
 HEIGHT = 4
 
-class _cui.SkillsBox
+class _chapterui.SkillsBox
 
     constructor: (@ui, @box, @skillInfoBox) ->
 

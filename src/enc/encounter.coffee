@@ -27,11 +27,11 @@ class _enc.Encounter
 
         @container.append(@leftBox).append(@rightBox)
 
-        @atkBox = new _cui.UnitInfoBox(@ui, atkBoxEl)
+        @atkBox = new _chapterui.UnitInfoBox(@ui, atkBoxEl)
         @atkBox.init(@atk)
         @atkBox.show()
 
-        @defBox = new _cui.UnitInfoBox(@ui, defBoxEl)
+        @defBox = new _chapterui.UnitInfoBox(@ui, defBoxEl)
         @defBox.init(@def)
         @defBox.show()
 

@@ -1,4 +1,4 @@
-class _cui.ExpBar
+class _chapterui.ExpBar
 
     constructor: (@ui) ->
         @container = $('.exp-bar-container')

@@ -1,11 +1,11 @@
-class _cui.ItemMenu
+class _chapterui.ItemMenu
 
     constructor: (@ui) ->
         @container = $('.item-menu')
         @menu = @container.find('.menu-items')
-        @actionMenu = new _cui.ItemActionMenu(@ui, this, 
+        @actionMenu = new _chapterui.ItemActionMenu(@ui, this, 
             $('.item-action-menu'))
-        @actionMenuConfirm = new _cui.ItemActionMenuConfirm(@ui, this,
+        @actionMenuConfirm = new _chapterui.ItemActionMenuConfirm(@ui, this,
             $('.item-action-menu-confirm'))
         
     init: (options={}) ->
@@ -108,7 +108,7 @@ class _cs.cui.ItemMenu extends _cs.cui.Menu
             @ui.actionMenu.init()
       
         
-class _cui.ItemActionMenu extends _cui.ActionMenu
+class _chapterui.ItemActionMenu extends _chapterui.ActionMenu
 
     constructor: (@ui, @itemMenu, @menu) ->
         super(@ui)
@@ -120,10 +120,10 @@ class _cui.ItemActionMenu extends _cui.ActionMenu
         
         if not @itemMenu.forceDiscard
             if @itemMenu.unit.canWield(item)
-                menuItems.push(new _cui.ActionMenuItem('Equip',
+                menuItems.push(new _chapterui.ActionMenuItem('Equip',
                     @itemMenu.handleEquip))
         
-        menuItems.push(new _cui.ActionMenuItem('Discard', @itemMenu.handleDiscard))
+        menuItems.push(new _chapterui.ActionMenuItem('Discard', @itemMenu.handleDiscard))
         super(menuItems)
         
         @itemMenu.menu.addClass('in-submenu')
@@ -139,14 +139,14 @@ class _cs.cui.ItemActionMenu extends _cs.cui.Menu
         @menuObj.itemMenu.init()
         
         
-class _cui.ItemActionMenuConfirm extends _cui.ActionMenu
+class _chapterui.ItemActionMenuConfirm extends _chapterui.ActionMenu
 
     constructor: (@ui, @itemMenu, @container) ->
         super(@ui)
         @menu = @container.find('.menu-items')
         
     init: ->
-        menuItems = [(new _cui.ActionMenuItem('Yes, discard', @itemMenu.handleConfirmDiscard))]
+        menuItems = [(new _chapterui.ActionMenuItem('Yes, discard', @itemMenu.handleConfirmDiscard))]
         super(menuItems)
         
         @ui.controlState = new _cs.cui.ItemActionMenuConfirm(@ui, this)

@@ -1,4 +1,4 @@
-class _cui.LevelUpWindow
+class _chapterui.LevelUpWindow
 
     constructor: (@ui) ->
         @window = $('.level-up-window')

@@ -1,10 +1,10 @@
-class _cui.WeaponMenu
+class _chapterui.WeaponMenu
 
     constructor: (@ui) ->
         @menu = $('.weapon-menu')
         
         itemInfoBoxEl = $('.sidebar .item-info-box')
-        @itemInfoBox = new _cui.ItemInfoBox(@ui, itemInfoBoxEl)
+        @itemInfoBox = new _chapterui.ItemInfoBox(@ui, itemInfoBoxEl)
 
     init: (playerTurn) ->
         if playerTurn?

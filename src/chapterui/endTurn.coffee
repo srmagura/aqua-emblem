@@ -1,4 +1,4 @@
-class _cui.EndTurnMenu
+class _chapterui.EndTurnMenu
 
     constructor: (@ui) ->
         @menu = $('.end-turn')

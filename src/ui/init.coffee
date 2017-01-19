@@ -1,7 +1,7 @@
 window.init = ->
     #return doChapter()
     
-    ui = new _sui.StartUI()
+    ui = new _startui.StartUI()
     ui.init()
     
     
@@ -10,7 +10,7 @@ doChapter = ->
     #file = _file.createNewFile('normal')
     file = _file.File.unpickle(localStorage.getItem('file'))
     
-    ui = new _cui.ChapterUI(file)
+    ui = new _chapterui.ChapterUI(file)
     ui.setConfirmUnload(false)
     ui.setChapter(_chapters.Chapter1)
     ui.startChapter((->), true)
