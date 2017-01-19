@@ -1,4 +1,4 @@
-class _cui.BattleStatsPanel
+class _chapterui.BattleStatsPanel
 
     constructor: (@ui) ->
         @panel = $('.battle-stats-panel')

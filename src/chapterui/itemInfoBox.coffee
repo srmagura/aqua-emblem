@@ -1,4 +1,4 @@
-class _cui.ItemInfoBox
+class _chapterui.ItemInfoBox
 
     constructor: (@ui, @box) ->
 

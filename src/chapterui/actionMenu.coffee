@@ -1,4 +1,4 @@
-class _cui.ActionMenu
+class _chapterui.ActionMenu
 
     constructor: (@ui) ->
 
@@ -25,12 +25,12 @@ class _cui.ActionMenu
         @menu.css('display', 'none')
 
 
-class _cui.ActionMenuItem
+class _chapterui.ActionMenuItem
 
     constructor: (@name, @handler) ->
 
 
-class _cui.ActionMenuMain extends _cui.ActionMenu
+class _chapterui.ActionMenuMain extends _chapterui.ActionMenu
 
     constructor: (@ui) ->
         super(@ui)

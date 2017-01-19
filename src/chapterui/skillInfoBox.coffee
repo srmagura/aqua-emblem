@@ -1,4 +1,4 @@
-class _cui.SkillInfoBox
+class _chapterui.SkillInfoBox
 
     constructor: (@ui, @box) ->
 

@@ -1,4 +1,4 @@
-class _sui.MenuNoData extends _sui.Menu
+class _startui.MenuNoData extends _startui.Menu
 
     init: ->
         @ui.messageDiv.text('Press F to continue').show()
@@ -13,7 +13,7 @@ class _sui.MenuNoData extends _sui.Menu
         @controlState = new _cs.sui.Menu(this, @menu)
 
     handleNewGame: =>
-        @ui.initMenu(_sui.MenuDifficulty)
+        @ui.initMenu(_startui.MenuDifficulty)
         
     handleUpload: =>
         options = $.extend(@ui.dialogOptions, {
@@ -52,9 +52,9 @@ class _sui.MenuNoData extends _sui.Menu
             @ui.uploadDialog.dialog('close')
             @ui.file = unpickled
             localStorage.setItem('file', @ui.file.pickle())
-            @ui.initMenu(_sui.MenuMain)
+            @ui.initMenu(_startui.MenuMain)
 
-class _sui.MenuDifficulty extends _sui.Menu
+class _startui.MenuDifficulty extends _startui.Menu
 
     init: ->
         normal = @getMenuEl('Normal',
@@ -72,7 +72,7 @@ class _sui.MenuDifficulty extends _sui.Menu
         @selectFirst()
 
     back: ->
-        @ui.initMenu(_sui.MenuNoData)
+        @ui.initMenu(_startui.MenuNoData)
 
     handler: =>
         file = new _file.createNewFile(
@@ -81,7 +81,7 @@ class _sui.MenuDifficulty extends _sui.Menu
         @ui.destroy()
         file.init()
         
-class _sui.MenuMain extends _sui.Menu
+class _startui.MenuMain extends _startui.Menu
 
     init: ->
         fs = @ui.file.fileState
@@ -119,4 +119,4 @@ class _sui.MenuMain extends _sui.Menu
         if confirm('Are you sure you want to delete your saved game?')
             @ui.file = null
             localStorage.removeItem('file')
-            @ui.initMenu(_sui.MenuNoData)
+            @ui.initMenu(_startui.MenuNoData)

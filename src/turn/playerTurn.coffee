@@ -84,17 +84,17 @@ class _turn.PlayerTurn extends _turn.Turn
         actions = []
 
         if @inAttackRange.length != 0
-            actions.push(new _cui.ActionMenuItem('Attack', @handleAttack))
+            actions.push(new _chapterui.ActionMenuItem('Attack', @handleAttack))
 
-        actions.push(new _cui.ActionMenuItem('Skill', @handleSkill))
+        actions.push(new _chapterui.ActionMenuItem('Skill', @handleSkill))
             
         if @inTradeRange.length != 0
-            actions.push(new _cui.ActionMenuItem('Trade', @handleTrade))
+            actions.push(new _chapterui.ActionMenuItem('Trade', @handleTrade))
 
         if @selectedUnit.inventory.size() != 0
-            actions.push(new _cui.ActionMenuItem('Items', @handleItems))
+            actions.push(new _chapterui.ActionMenuItem('Items', @handleItems))
             
-        actions.push(new _cui.ActionMenuItem('Wait', @handleWait))
+        actions.push(new _chapterui.ActionMenuItem('Wait', @handleWait))
         @ui.actionMenu.init(@selectedUnit, actions)
 
     handleWait: =>

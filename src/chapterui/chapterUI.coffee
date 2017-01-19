@@ -1,7 +1,7 @@
-window._cui = {}
+window._chapterui = {}
 _cs.cui = {}
 
-class _cui.ChapterUI extends UI
+class _chapterui.ChapterUI extends UI
 
     tw: 35
 
@@ -21,37 +21,37 @@ class _cui.ChapterUI extends UI
         @ctx = @canvas[0].getContext('2d')
         @canvasDim = new Position(10, 12)
 
-        @cursor = new _cui.Cursor(this)
+        @cursor = new _chapterui.Cursor(this)
 
         @controlState = new _cs.cui.Chapter(this)
 
-        @actionMenu = new _cui.ActionMenuMain(this)
-        @weaponMenu = new _cui.WeaponMenu(this)
-        @itemMenu = new _cui.ItemMenu(this)
+        @actionMenu = new _chapterui.ActionMenuMain(this)
+        @weaponMenu = new _chapterui.WeaponMenu(this)
+        @itemMenu = new _chapterui.ItemMenu(this)
         
-        @battleStatsPanel = new _cui.BattleStatsPanel(this)
-        @expBar = new _cui.ExpBar(this)
+        @battleStatsPanel = new _chapterui.BattleStatsPanel(this)
+        @expBar = new _chapterui.ExpBar(this)
 
         skillInfoBoxEl = $('.sidebar .skill-info-box')
         skillInfoBoxEl.clone().appendTo($('.canvas-container'))
-        @skillInfoBox = new _cui.SkillInfoBox(this, skillInfoBoxEl)
+        @skillInfoBox = new _chapterui.SkillInfoBox(this, skillInfoBoxEl)
 
         skillsBoxEl = $('.sidebar .skills-box')
         skillsBoxEl.addClass('neutral-box')
-        @skillsBox = new _cui.SkillsBox(this, skillsBoxEl, @skillInfoBox)
+        @skillsBox = new _chapterui.SkillsBox(this, skillsBoxEl, @skillInfoBox)
 
-        @unitInfoBox = new _cui.UnitInfoBox(this, '.sidebar .unit-info')
-        @unitInfoWindow = new _cui.UnitInfoWindow(this)
-        @levelUpWindow = new _cui.LevelUpWindow(this)
-        @tradeWindow = new _cui.TradeWindow(this)
+        @unitInfoBox = new _chapterui.UnitInfoBox(this, '.sidebar .unit-info')
+        @unitInfoWindow = new _chapterui.UnitInfoWindow(this)
+        @levelUpWindow = new _chapterui.LevelUpWindow(this)
+        @tradeWindow = new _chapterui.TradeWindow(this)
 
-        @canvasOverlay = new _cui.CanvasOverlay(this)
-        @viewportOverlay = new _cui.ViewportOverlay(this)
+        @canvasOverlay = new _chapterui.CanvasOverlay(this)
+        @viewportOverlay = new _chapterui.ViewportOverlay(this)
 
-        @messageBox = new _cui.MessageBox(this)
-        @endTurnMenu = new _cui.EndTurnMenu(this)
+        @messageBox = new _chapterui.MessageBox(this)
+        @endTurnMenu = new _chapterui.EndTurnMenu(this)
 
-        @terrainBox = new _cui.TerrainBox(this)
+        @terrainBox = new _chapterui.TerrainBox(this)
         @speedMultiplierBox = $('.speed-multiplier-box').hide()
 
         @staticTurn = new _turn.Turn(this)
@@ -85,7 +85,7 @@ class _cui.ChapterUI extends UI
 
     doneDefeat: =>
         callback = =>
-            ui = new _sui.StartUI()
+            ui = new _startui.StartUI()
             ui.init({fade: true})
 
         @destroy(callback)

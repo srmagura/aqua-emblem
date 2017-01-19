@@ -1,4 +1,4 @@
-class _cui.TradeWindow
+class _chapterui.TradeWindow
 
     constructor: (@ui) ->
         @window = $('.trade-window')

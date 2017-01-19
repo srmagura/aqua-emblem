@@ -1,4 +1,4 @@
-class _cui.ViewportOverlay
+class _chapterui.ViewportOverlay
 
     constructor: (@ui) ->
         @overlay = $('.viewport-overlay')
@@ -9,20 +9,20 @@ class _cui.ViewportOverlay
     hide: ->
         @overlay.hide()
 
-class _cui.UnitInfoWindow
+class _chapterui.UnitInfoWindow
 
     constructor: (@ui) ->
         @window = $('.unit-info-window')
 
         skillInfoBoxEl = $('.canvas-container .skill-info-box')
-        @skillInfoBox = new _cui.SkillInfoBox(@ui, skillInfoBoxEl)
+        @skillInfoBox = new _chapterui.SkillInfoBox(@ui, skillInfoBoxEl)
 
         skillsEl = $('.invisible .tab-content-skills .skills-box')
-        @skillsBox = new _cui.SkillsBox(@ui, skillsEl, @skillInfoBox)
+        @skillsBox = new _chapterui.SkillsBox(@ui, skillsEl, @skillInfoBox)
 
         itemInfoBoxEl = $('.sidebar .item-info-box').clone()
         $('.canvas-container').append(itemInfoBoxEl)
-        @itemInfoBox = new _cui.ItemInfoBox(@ui, itemInfoBoxEl)
+        @itemInfoBox = new _chapterui.ItemInfoBox(@ui, itemInfoBoxEl)
 
     init: (@unit) ->
         @initCommon()

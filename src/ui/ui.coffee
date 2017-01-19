@@ -1,7 +1,6 @@
 handlersSet = false
 
 keydownHandler = (e) ->
-    #console.log(e.which)
     switch e.which
         when 38 then ui.controlState.up()
         when 40 then ui.controlState.down()
@@ -12,12 +11,12 @@ keydownHandler = (e) ->
         when 83 then ui.controlState.s()
         when 69 then ui.controlState.e()
         when 86 then ui.controlState.v()
-        
+
     prevent = [37, 38, 39, 40]
     if e.which in prevent
         e.preventDefault()
         return false
-        
+
 unloadStr = 'Are you sure you want to quit? If you do, your unsaved progress will be lost.'
 
 class window.UI
@@ -28,7 +27,7 @@ class window.UI
         if not handlersSet
             $(window).keydown(keydownHandler)
             handlersSet = true
-            
+
     setConfirmUnload: (bool) ->
         if bool
             window.onbeforeunload = (-> unloadStr)

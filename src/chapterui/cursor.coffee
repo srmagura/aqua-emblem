@@ -1,4 +1,4 @@
-class _cui.Cursor
+class _chapterui.Cursor
 
     constructor: (@ui) ->
         @visible = false
