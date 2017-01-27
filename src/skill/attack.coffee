@@ -1,4 +1,4 @@
-class _cs.cui.AttackSkill extends _cs.cui.Skill
+class _cs.chapterui.AttackSkill extends _cs.chapterui.Skill
 
     constructor: (@ui, @playerTurn, @skill) ->
         super(@ui, @playerTurn, @skill)
@@ -50,7 +50,7 @@ class _skill.AttackSkill extends _skill.Skill
         super()
         @crit = 0
         @nAttackMultiplier = 1
-        @controlState = _cs.cui.AttackSkill
+        @controlState = _cs.chapterui.AttackSkill
         @overlayType = 'ATTACK'
 
     isValidTarget: (target) ->

@@ -7,7 +7,7 @@ class _chapterui.LevelUpWindow
         @initCommon()
         @initStats()
 
-        @ui.controlState = new _cs.cui.Chapter(@ui)
+        @ui.controlState = new _cs.chapterui.Chapter(@ui)
 
         css = @ui.centerElement(@window, 4)
         css.visibility = 'visible'
@@ -46,7 +46,7 @@ class _chapterui.LevelUpWindow
     showIncrement: =>
         while true
             if @incIndex == @statTypes.length
-                @ui.controlState = new _cs.cui.LevelUpWindow(@ui, this)
+                @ui.controlState = new _cs.chapterui.LevelUpWindow(@ui, this)
                 @window.find('.continue').css('visibility', 'visible')
                 return
 
@@ -62,7 +62,7 @@ class _chapterui.LevelUpWindow
         setTimeout(@showIncrement, @delay/2)
         
     done: ->
-        @ui.controlState = new _cs.cui.Chapter(@ui)
+        @ui.controlState = new _cs.chapterui.Chapter(@ui)
         @hide()
         
         if 'newSkill' of @increment
@@ -75,7 +75,7 @@ class _chapterui.LevelUpWindow
         @window.css('visibility', 'hidden')
         @window.find('.stat img, .continue').css('visibility', 'hidden')
 
-class _cs.cui.LevelUpWindow extends _cs.cui.Chapter
+class _cs.chapterui.LevelUpWindow extends _cs.chapterui.Chapter
 
     constructor: (@ui, @windowObj) ->
 

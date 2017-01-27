@@ -15,7 +15,7 @@ class _chapterui.TradeWindow
         @setCursorPos(new Position(0, 0))
 
         @prevControlState = @ui.controlState
-        @ui.controlState = new _cs.cui.TradeWindow(@ui, this)
+        @ui.controlState = new _cs.chapterui.TradeWindow(@ui, this)
         @ui.viewportOverlay.show()
 
         css = @ui.centerElement(@window, 0)
@@ -76,13 +76,13 @@ class _chapterui.TradeWindow
         @cursorPos.i = 0
         @cursorPos.j = (@cursorPos.j + 1) % 2
         @setCursorPos(@cursorPos)
-        @ui.controlState = new _cs.cui.TradeWindow2(@ui, this)
+        @ui.controlState = new _cs.chapterui.TradeWindow2(@ui, this)
 
     doDeselect: ->
         selected = @window.find('.item-container.selected')
         @setCursorPos(selected.data('pos'))
         selected.removeClass('selected')
-        @ui.controlState = new _cs.cui.TradeWindow(@ui, this)
+        @ui.controlState = new _cs.chapterui.TradeWindow(@ui, this)
 
     doTrade: ->
         @tradeMade = true
@@ -100,7 +100,7 @@ class _chapterui.TradeWindow
         @fillInventory(@units[0], null, 0)
         @fillInventory(@units[1], null, 1)
         @setCursorPos(@cursorPos)
-        @ui.controlState = new _cs.cui.TradeWindow(@ui, this)
+        @ui.controlState = new _cs.chapterui.TradeWindow(@ui, this)
 
     show: ->
         @window.css('visibility', 'visible')
@@ -113,7 +113,7 @@ class _chapterui.TradeWindow
         @window.find('.arrow-image').css(hide)
 
 
-class _cs.cui.TradeWindow extends _cs.cui.Chapter
+class _cs.chapterui.TradeWindow extends _cs.chapterui.Chapter
 
     constructor: (@ui, @windowObj) ->
 
@@ -164,7 +164,7 @@ class _cs.cui.TradeWindow extends _cs.cui.Chapter
 
             @windowObj.moveCursor(new Position(0, 1))
 
-class _cs.cui.TradeWindow2 extends _cs.cui.Chapter
+class _cs.chapterui.TradeWindow2 extends _cs.chapterui.Chapter
 
     constructor: (@ui, @windowObj) ->
 

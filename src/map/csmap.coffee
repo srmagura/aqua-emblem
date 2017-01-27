@@ -1,4 +1,4 @@
-class _cs.cui.MapAbstract extends _cs.cui.Chapter
+class _cs.chapterui.MapAbstract extends _cs.chapterui.Chapter
 
     up: ->
         if @ui.cursor.pos.i - 1 >= 0
@@ -28,7 +28,7 @@ class _cs.cui.MapAbstract extends _cs.cui.Chapter
     moved: ->
         @ui.terrainBox.init()
 
-class _cs.cui.Map extends _cs.cui.MapAbstract
+class _cs.chapterui.Map extends _cs.chapterui.MapAbstract
 
     f: ->
         pt = @ui.chapter.playerTurn
@@ -46,17 +46,17 @@ class _cs.cui.Map extends _cs.cui.MapAbstract
         @ui.chapter.playerTurn.deselect()
         super()
 
-class _cs.cui.EnemySelected extends _cs.cui.Map
+class _cs.chapterui.EnemySelected extends _cs.chapterui.Map
     f: ->
     d: ->
         super()
-        @ui.controlState = new _cs.cui.Map(@ui)
+        @ui.controlState = new _cs.chapterui.Map(@ui)
 
-class _cs.cui.MapTarget extends _cs.cui.MapAbstract
+class _cs.chapterui.MapTarget extends _cs.chapterui.MapAbstract
 
     constructor: (@ui, @playerTurn) ->
 
-class _cs.cui.ChooseAttackTarget extends _cs.cui.MapTarget
+class _cs.chapterui.ChooseAttackTarget extends _cs.chapterui.MapTarget
 
     moved: ->
         super()
@@ -79,7 +79,7 @@ class _cs.cui.ChooseAttackTarget extends _cs.cui.MapTarget
             @ui.unitInfoBox.hide()
             @ui.terrainBox.hide()
             @playerTurn.battle.doEncounter(@playerTurn.afterBattle)
-            @ui.controlState = new _cs.cui.Chapter(@ui)
+            @ui.controlState = new _cs.chapterui.Chapter(@ui)
 
     d: ->
         @playerTurn.battle = null
@@ -89,14 +89,14 @@ class _cs.cui.ChooseAttackTarget extends _cs.cui.MapTarget
         @ui.weaponMenu.init()
 
 
-class _cs.cui.ChooseTradeTarget extends _cs.cui.MapTarget
+class _cs.chapterui.ChooseTradeTarget extends _cs.chapterui.MapTarget
 
     f: ->
         callback = (tradeMade) =>
             if tradeMade
                 @playerTurn.selectedUnit.setDone()
                 @playerTurn.deselect()
-                @ui.controlState = new _cs.cui.Map(@ui)
+                @ui.controlState = new _cs.chapterui.Map(@ui)
 
         target = @ui.chapter.getUnitAt(@ui.cursor.pos)
         if target isnt null and target in @playerTurn.inTradeRange
@@ -106,4 +106,4 @@ class _cs.cui.ChooseTradeTarget extends _cs.cui.MapTarget
     d: ->
         @ui.actionMenu.init(@playerTurn.selectedUnit)
         @ui.cursor.moveTo(@playerTurn.selectedUnit.pos)
-        @ui.controlState = new _cs.cui.ActionMenuMain(@ui, @ui.actionMenu)
+        @ui.controlState = new _cs.chapterui.ActionMenuMain(@ui, @ui.actionMenu)

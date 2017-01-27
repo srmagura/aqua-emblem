@@ -3,12 +3,12 @@ class _skill.AidSkill extends _skill.Skill
     constructor: ->
         super()
         @overlayType = 'AID'
-        @controlState = _cs.cui.AidSkill
+        @controlState = _cs.chapterui.AidSkill
 
     getDelta: (user) -> {}
     doEffect: (target) ->
 
-class _cs.cui.AidSkill extends _cs.cui.Skill
+class _cs.chapterui.AidSkill extends _cs.chapterui.Skill
 
     f: ->
         result = @getUserTarget()
