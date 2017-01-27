@@ -73,7 +73,7 @@ class _skill.Skill
 
     isValidTarget: (target) -> true
 
-class _cs.cui.Skill extends _cs.cui.MapTarget
+class _cs.chapterui.Skill extends _cs.chapterui.MapTarget
 
     constructor: (@ui, @playerTurn, @skill) ->
 
@@ -96,7 +96,7 @@ class _cs.cui.Skill extends _cs.cui.MapTarget
         @ui.terrainBox.hide()
         @ui.skillInfoBox.hide()
         @ui.chapter.map.clearOverlay()
-        @ui.controlState = new _cs.cui.Chapter(@ui)
+        @ui.controlState = new _cs.chapterui.Chapter(@ui)
 
     d: ->
         @ui.battleStatsPanel.hide()
@@ -109,7 +109,7 @@ class _cs.cui.Skill extends _cs.cui.MapTarget
 
     skillDone: (exp=null) =>
         afterExpAdd = =>
-            @ui.controlState = new _cs.cui.Map(@ui)
+            @ui.controlState = new _cs.chapterui.Map(@ui)
             @ui.cursor.visible = true
             @ui.unitInfoBox.update()
             @ui.terrainBox.show()

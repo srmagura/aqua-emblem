@@ -87,7 +87,7 @@ class _map.Chapter
         for unit in @units
             unit.done = false
 
-        @ui.controlState = new _cs.cui.Chapter(@ui)
+        @ui.controlState = new _cs.chapterui.Chapter(@ui)
 
         callback = =>
             if not (doneFlags.scroll and doneFlags.phaseMessage)
@@ -105,7 +105,7 @@ class _map.Chapter
                 @ui.cursor.visible = true
                 @ui.cursor.moveTo(@ui.cursor.pos)
 
-                @ui.controlState = new _cs.cui.Map(@ui)
+                @ui.controlState = new _cs.chapterui.Map(@ui)
                 
         doneFlags = {scroll: false, phaseMessage: false}
                 

@@ -33,7 +33,7 @@ class _chapterui.UnitInfoWindow
             @initSkillsTab()
 
         @prevControlState = @ui.controlState
-        @ui.controlState = new _cs.cui.UnitInfoWindow(@ui, this)
+        @ui.controlState = new _cs.chapterui.UnitInfoWindow(@ui, this)
 
         css = @ui.centerElement(@window, 4)
         css.visibility = 'visible'
@@ -132,7 +132,7 @@ class _chapterui.UnitInfoWindow
         @skillsBox.init(@unit, @skillsBoxOnD)
 
     skillsBoxOnD: =>
-        @ui.controlState = new _cs.cui.UnitInfoWindow(@ui, this)
+        @ui.controlState = new _cs.chapterui.UnitInfoWindow(@ui, this)
 
     hide: ->
         @window.find('.tab-label-skills, .tab-content-skills').
@@ -159,7 +159,7 @@ class _chapterui.UnitInfoWindow
         @itemInfoBox.init(item, @unit.canUse(item))
 
 
-class _cs.cui.UnitInfoWindow extends _cs.cui.Chapter
+class _cs.chapterui.UnitInfoWindow extends _cs.chapterui.Chapter
 
     constructor: (@ui, @windowObj) ->
 
@@ -174,7 +174,7 @@ class _cs.cui.UnitInfoWindow extends _cs.cui.Chapter
 
         else if sel.hasClass('tab-label-inventory')
             el = @windowObj.window.find('.inventory')
-            @ui.controlState = new _cs.cui.UnitInfoWindowInventory(@ui, el)
+            @ui.controlState = new _cs.chapterui.UnitInfoWindowInventory(@ui, el)
 
             el.children().first().addClass('selected')
             @windowObj.selectedItemChanged()
@@ -202,7 +202,7 @@ class _cs.cui.UnitInfoWindow extends _cs.cui.Chapter
         @windowObj.changeTab(tabId)
 
 
-class _cs.cui.UnitInfoWindowInventory extends _cs.cui.Menu
+class _cs.chapterui.UnitInfoWindowInventory extends _cs.chapterui.Menu
 
     constructor: (@ui, menu) ->
         super(@ui, {menu: menu})
@@ -213,4 +213,4 @@ class _cs.cui.UnitInfoWindowInventory extends _cs.cui.Menu
     d: ->
         @menuObj.menu.find('.selected').removeClass('selected')
         @ui.unitInfoWindow.itemInfoBox.hide()
-        @ui.controlState = new _cs.cui.UnitInfoWindow(@ui, @ui.unitInfoWindow)
+        @ui.controlState = new _cs.chapterui.UnitInfoWindow(@ui, @ui.unitInfoWindow)

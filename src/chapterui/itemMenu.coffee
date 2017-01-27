@@ -53,7 +53,7 @@ class _chapterui.ItemMenu
 
         @show()
         @menu.removeClass('in-submenu')
-        @ui.controlState = new _cs.cui.ItemMenu(@ui, this)
+        @ui.controlState = new _cs.chapterui.ItemMenu(@ui, this)
         
     getSelectedItem: ->
         return @menu.find('.selected .item-element').data('item')
@@ -78,7 +78,7 @@ class _chapterui.ItemMenu
         @actionMenuConfirm.hide()
         
         if @forceDiscard
-            @ui.controlState = new _cs.cui.Chapter(@ui)
+            @ui.controlState = new _cs.chapterui.Chapter(@ui)
             @hide()
             @callback()
         else
@@ -95,7 +95,7 @@ class _chapterui.ItemMenu
         @container.css('display', 'none')
 
         
-class _cs.cui.ItemMenu extends _cs.cui.Menu
+class _cs.chapterui.ItemMenu extends _cs.chapterui.Menu
 
     constructor: (@ui, @menuObj) ->
     
@@ -127,9 +127,9 @@ class _chapterui.ItemActionMenu extends _chapterui.ActionMenu
         super(menuItems)
         
         @itemMenu.menu.addClass('in-submenu')
-        @ui.controlState = new _cs.cui.ItemActionMenu(@ui, this)
+        @ui.controlState = new _cs.chapterui.ItemActionMenu(@ui, this)
         
-class _cs.cui.ItemActionMenu extends _cs.cui.Menu
+class _cs.chapterui.ItemActionMenu extends _cs.chapterui.Menu
 
     f: ->
         @menuObj.callSelectedHandler()
@@ -149,7 +149,7 @@ class _chapterui.ItemActionMenuConfirm extends _chapterui.ActionMenu
         menuItems = [(new _chapterui.ActionMenuItem('Yes, discard', @itemMenu.handleConfirmDiscard))]
         super(menuItems)
         
-        @ui.controlState = new _cs.cui.ItemActionMenuConfirm(@ui, this)
+        @ui.controlState = new _cs.chapterui.ItemActionMenuConfirm(@ui, this)
         
     show: ->
         super()
@@ -160,7 +160,7 @@ class _chapterui.ItemActionMenuConfirm extends _chapterui.ActionMenu
         @container.hide()
         
         
-class _cs.cui.ItemActionMenuConfirm extends _cs.cui.Menu
+class _cs.chapterui.ItemActionMenuConfirm extends _cs.chapterui.Menu
 
     f: ->
         @menuObj.callSelectedHandler()

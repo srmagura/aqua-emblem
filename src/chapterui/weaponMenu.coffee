@@ -26,7 +26,7 @@ class _chapterui.WeaponMenu
         @selectedItemChanged()
 
         @show()
-        @ui.controlState = new _cs.cui.WeaponMenu(@ui, this)
+        @ui.controlState = new _cs.chapterui.WeaponMenu(@ui, this)
 
     getSelectedItem: ->
         el = @menu.find('.selected .item-element')
@@ -43,7 +43,7 @@ class _chapterui.WeaponMenu
         @itemInfoBox.hide()
         @menu.css('display', 'none')
 
-class _cs.cui.WeaponMenu extends _cs.cui.Menu
+class _cs.chapterui.WeaponMenu extends _cs.chapterui.Menu
 
     constructor: (@ui, @menuObj) ->
         @playerTurn = @ui.chapter.playerTurn
@@ -57,7 +57,7 @@ class _cs.cui.WeaponMenu extends _cs.cui.Menu
         @ui.weaponMenu.hide()
 
         pt = @menuObj.playerTurn
-        @ui.controlState = new _cs.cui.ChooseAttackTarget(@ui, pt)
+        @ui.controlState = new _cs.chapterui.ChooseAttackTarget(@ui, pt)
         @ui.cursor.moveTo(pt.inAttackRange[0].pos)
         @ui.cursor.visible = true
 
