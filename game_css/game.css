@@ -12,11 +12,17 @@ div.wrapper
     padding-top: 15px;
 }
 
+.title-bar img
+{
+    height: 55px;
+    margin-left: 230px;
+}
+
 div.game-wrapper
 {
     display: none;
     height: 350px;
-    padding: 15px 0 35px;
+    padding: 5px 0 35px;
 }
 
 div.canvas-container

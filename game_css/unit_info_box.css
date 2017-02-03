@@ -6,7 +6,7 @@ div.unit-info
 .unit-info .image-wrapper
 {
     float: left;
-    height: 75px;
+    height: 70px;
     border: 1px none black;
     border-right-style: solid;
 }
@@ -31,6 +31,7 @@ div.unit-info
 div.unit-info img 
 {
     width: 60px;
+    margin-top: 1px;
 }
 
 div.unit-info .not-image
