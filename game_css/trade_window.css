@@ -13,13 +13,13 @@
 
 .trade-window .top
 {
-    height: 101px;
+    height: 66px;
 }
 
 .trade-window .top img
 {
-    width: 80px;
-    height: 100px;
+    width: 58px;
+    height: 66px;
     margin: 0 50px;
     border: 1px solid rgba(200, 200, 200, .3);
     border-bottom: none;
