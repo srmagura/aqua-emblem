@@ -6,10 +6,6 @@ lib/ui/controlState.js
 lib/ui/init.js
 lib/ui/util.js
 
-lib/startui/startUI.js
-lib/startui/menus.js
-lib/startui/file.js
-
 lib/chapterui/chapterUI.js
 lib/chapterui/menu.js
 lib/chapterui/cursor.js
@@ -66,5 +62,3 @@ lib/skill/aid.js
 lib/skill/attack.js
 
 lib/chapters/chapter1.js
-lib/chapters/chapter2.js
-lib/chapters/chapter3.js
