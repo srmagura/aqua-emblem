@@ -1,24 +1,25 @@
+<!-- Overall structure of the page. Will be interpreted as a Python
+format string and populated by compile.py. -->
+
 <!DOCTYPE HTML>
 <html>
 <head>
     <title>Aqua Emblem</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="game_css/terrain_box.css"/>
-<link rel="stylesheet" type="text/css" href="game_css/battle_stats_panel.css"/>
+    <link rel="stylesheet" type="text/css" href="game_css/battle_stats_panel.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/exp_bar.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/game.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/game_info.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/item_info_box.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/menu.css"/>
 <link rel="stylesheet" type="text/css" href="game_css/message.css"/>
 <link rel="stylesheet" type="text/css" href="game_css/normalize.css"/>
-<link rel="stylesheet" type="text/css" href="game_css/trade_window.css"/>
-<link rel="stylesheet" type="text/css" href="game_css/unit_info_window.css"/>
-<link rel="stylesheet" type="text/css" href="game_css/item_info_box.css"/>
-<link rel="stylesheet" type="text/css" href="game_css/game.css"/>
-<link rel="stylesheet" type="text/css" href="game_css/unit_info_box.css"/>
-<link rel="stylesheet" type="text/css" href="game_css/start.css"/>
 <link rel="stylesheet" type="text/css" href="game_css/skills.css"/>
-<link rel="stylesheet" type="text/css" href="game_css/exp_bar.css"/>
-<link rel="stylesheet" type="text/css" href="game_css/game_info.css"/>
-<link rel="stylesheet" type="text/css" href="game_css/menu.css"/>
-<link rel="stylesheet" type="text/css" href="game_css/vn.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/terrain_box.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/trade_window.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/unit_info_box.css"/>
+<link rel="stylesheet" type="text/css" href="game_css/unit_info_window.css"/>
 
     <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
@@ -26,31 +27,24 @@
 <script src="lib/ui/controlState.js"></script>
 <script src="lib/ui/init.js"></script>
 <script src="lib/ui/util.js"></script>
-<script src="lib/sui/startUI.js"></script>
-<script src="lib/sui/menus.js"></script>
-<script src="lib/sui/file.js"></script>
-<script src="lib/vn/vn.js"></script>
-<script src="lib/vn/fullTextbox.js"></script>
-<script src="lib/vn/chapterDisplay.js"></script>
-<script src="lib/vn/scene.js"></script>
-<script src="lib/cui/chapterUI.js"></script>
-<script src="lib/cui/menu.js"></script>
-<script src="lib/cui/cursor.js"></script>
-<script src="lib/cui/unitInfoBox.js "></script>
-<script src="lib/cui/unitInfoWindow.js"></script>
-<script src="lib/cui/skillsBox.js"></script>
-<script src="lib/cui/skillInfoBox.js"></script>
-<script src="lib/cui/levelUpWindow.js"></script>
-<script src="lib/cui/tradeWindow.js"></script>
-<script src="lib/cui/actionMenu.js"></script>
-<script src="lib/cui/weaponMenu.js"></script>
-<script src="lib/cui/itemMenu.js"></script>
-<script src="lib/cui/itemInfoBox.js"></script>
-<script src="lib/cui/battleStatsPanel.js"></script>
-<script src="lib/cui/message.js"></script>
-<script src="lib/cui/endTurn.js"></script>
-<script src="lib/cui/terrainBox.js"></script>
-<script src="lib/cui/expBar.js"></script>
+<script src="lib/chapterui/chapterUI.js"></script>
+<script src="lib/chapterui/menu.js"></script>
+<script src="lib/chapterui/cursor.js"></script>
+<script src="lib/chapterui/unitInfoBox.js"></script>
+<script src="lib/chapterui/unitInfoWindow.js"></script>
+<script src="lib/chapterui/skillsBox.js"></script>
+<script src="lib/chapterui/skillInfoBox.js"></script>
+<script src="lib/chapterui/levelUpWindow.js"></script>
+<script src="lib/chapterui/tradeWindow.js"></script>
+<script src="lib/chapterui/actionMenu.js"></script>
+<script src="lib/chapterui/weaponMenu.js"></script>
+<script src="lib/chapterui/itemMenu.js"></script>
+<script src="lib/chapterui/itemInfoBox.js"></script>
+<script src="lib/chapterui/battleStatsPanel.js"></script>
+<script src="lib/chapterui/message.js"></script>
+<script src="lib/chapterui/endTurn.js"></script>
+<script src="lib/chapterui/terrainBox.js"></script>
+<script src="lib/chapterui/expBar.js"></script>
 <script src="lib/map/map.js"></script>
 <script src="lib/map/chapter.js"></script>
 <script src="lib/map/csmap.js"></script>
@@ -82,12 +76,7 @@
 <script src="lib/skill/aid.js"></script>
 <script src="lib/skill/attack.js"></script>
 <script src="lib/chapters/chapter1.js"></script>
-<script src="lib/chapters/chapter2.js"></script>
-<script src="lib/chapters/chapter3.js"></script>
-<script src="lib/vn/fs/chapter1.js"></script>
-<script src="lib/vn/fs/chapter2.js"></script>
-<script src="lib/vn/fs/chapter3.js"></script>
- 
+
 </head>
 <body>
 <script>
@@ -95,6 +84,9 @@ $(window).load(init)
 </script>
 
 <div class="wrapper">
+    <div class="title-bar">
+        <img src="images/title_cropped.png" />
+    </div>
     <div class="game-wrapper">
         <div class="sidebar left-sidebar">
             <div class="unit-info">
@@ -466,74 +458,6 @@ $(window).load(init)
         </div>
     </div>
 
-    <div class="vn-wrapper">  
- 
-    <div class="start-menu-container">
-        <div class="start-menu">
-            <div class="message"></div>
-            <div class="items"></div>
-        </div>  
-        
-        <div class="save-backup" title="Save backup">
-            <div>
-                <p>
-                    Copy the text from the textbox below and save it on your computer.
-                    Use <b>Ctrl+A</b> to select all of the text.
-                </p>
-                <p>
-                    You can upload a backup later by choosing "Erase data" and then
-                    "Upload backup".
-                </p>
-            
-                <textarea readonly="readonly" rows="5"></textarea>
-            </div>
-        </div>
-        
-        <div class="upload-backup" title="Upload backup">
-            <div>
-                <p>
-                    If you have previously saved a backup, 
-                    paste the text into the box below and click "Upload".                 
-                </p>
-                
-                <textarea rows="5"></textarea>
-                <div class="error-div">
-                    <br />
-                    <span class="error"></span> 
-                </div>              
-            </div>
-            
-        </div>
-           
-    </div>
-        
-    <div class="full-textbox">
-        <div class="box">
-        </div>
-    </div>
-    
-    <div class="chapter-display">
-        <div class="title">
-            <span class="main">Chapter <span class="number"></span>:</span>
-            <span class="name"></span>
-        </div>
-    </div>
-    
-    <div class="scene">
-        <div class="location"></div>
-        
-        <div class="chatbox">
-            <div class="unit">
-                <div class="image"></div>
-                <div class="name"></div>
-            </div>
-            <div class="text"></div>
-        </div>
-    </div>
-    
-</div>
-
-
     <div class="game-info">
         <div class="two-column">
 <div class="controls">
@@ -574,32 +498,31 @@ $(window).load(init)
     </div>
 </a>
 <p>
-    Aqua Emblem is a lot like Fire Emblem. Use F to select your units (blue) and move them around the map.
+    Use F to select your units (blue) and move them around the map.
     Defeat the enemy army to beat the chapter. Click the button above to view the full Game Guide.
-</p> 
+</p>
 <ul class="how-to-play-list">
     <li><span class="defeat">You lose if ANY of your units die!</span></li>
-    <li><span class="first-aid">Use Arrow's First Aid skill to heal your units!</span> 
-        Units can even use healing skills on themselves unlike in Fire Emblem. 
+    <li><span class="first-aid">Use Arrow's First Aid skill to heal your units!</span>
+        Units can even use healing skills on themselves.
         You'll get more healing skills as the game goes on.</li>
 </ul>
 </div>
 </div>
 
-<h3>Supported browsers</h3> 
-Aqua Emblem is tested in Chrome, Firefox, and Internet Explorer 11. Mobile devices are not officially supported. The game probably works in Safari, but I don't test in Safari.
+<h3>Supported browsers</h3>
+The latest desktop versions of Chrome, Firefox, Safari, and Microsoft Edge are supported.
+<b>Mobile devices are not officially supported.</b>
 
 <h3>About</h3>
-Aqua Emblem was developed by me: Sam Magura, <b>srmagura AT ncsu.edu</b>.
-I originally planned for Aqua Emblem to be a 10 chapter game, but I had
-only gotten to Chapter 3 when school started. So I decided to just release
-what I had.
+Aqua Emblem was developed by me: <b>Sam Magura</b>, srmagura AT ncsu.edu. Special thanks to
+<b>Svetlana Kushnariova</b> (lana-chan@yandex.ru) for creating the
+<a href="http://opengameart.org/content/24x32-characters-with-faces-big-pack">character portraits</a>
+and releasing them under the Creative Commons license!
 
-<p>Aqua Emblem is open source. Please email me if you have feedback, or
-are interested in continuing the game's development. The code is online
+<p>Aqua Emblem is open source. The code is online
 at the <a href="https://github.com/srmagura/aqua-emblem">GitHub repository</a>.
-Special thanks to <a href="http://coffeescript.org">CoffeeScript</a>. 
-Aqua Emblem is copyright 2014 Sam Magura. Released under the GNU General 
+Aqua Emblem is copyright 2016 Sam Magura. Released under the GNU General
 Public License.</p>
 
     </div>
@@ -622,84 +545,82 @@ Public License.</p>
     </div>
 </div>
 
-    <img src="images/title_cropped.png" />
-<img src="images/up_arrow.png" />
-<img src="images/bandit_insignia.png" />
-<img src="images/list_arrow.png" />
-<img src="images/down_arrow.png" />
+    <img src="images/bandit_insignia.png" />
 <img src="images/crown.png" />
-<img src="images/skills/defend.png" />
-<img src="images/skills/first_aid.png" />
-<img src="images/skills/temper.png" />
-<img src="images/skills/heal.png" />
-<img src="images/skills/protect.png" />
-<img src="images/skills/poison_arrow.png" />
-<img src="images/skills/throwing_knives.png" />
-<img src="images/skills/meteor.png" />
-<img src="images/skills/flare.png" />
-<img src="images/skills/sword_rain.png" />
-<img src="images/vn/arrow.png" />
-<img src="images/vn/backgrounds/start.png" />
-<img src="images/vn/backgrounds/chapter_display.png" />
-<img src="images/vn/backgrounds/hellhounds_hq.png" />
-<img src="images/vn/backgrounds/forest.png" />
-<img src="images/game_guide/item_info_box.png" />
-<img src="images/game_guide/3x_speed.png" />
-<img src="images/game_guide/stats.png" />
-<img src="images/game_guide/enemy_range.png" />
-<img src="images/game_guide/status.png" />
-<img src="images/game_guide/end_turn.png" />
-<img src="images/game_guide/action_menu.png" />
-<img src="images/game_guide/use_skill.png" />
-<img src="images/game_guide/unit_info_window.png" />
-<img src="images/game_guide/battle_stats_panel.png" />
-<img src="images/game_guide/select.png" />
-<img src="images/dango/player/mercenary.png" />
-<img src="images/dango/player/soldier.png" />
-<img src="images/dango/player/archer.png" />
-<img src="images/dango/player/fighter.png" />
-<img src="images/dango/player/monk.png" />
-<img src="images/dango/done/mercenary.png" />
-<img src="images/dango/done/soldier.png" />
-<img src="images/dango/done/archer.png" />
-<img src="images/dango/done/fighter.png" />
-<img src="images/dango/done/monk.png" />
-<img src="images/dango/enemy/mercenary.png" />
-<img src="images/dango/enemy/soldier.png" />
-<img src="images/dango/enemy/archer.png" />
-<img src="images/dango/enemy/fighter.png" />
-<img src="images/dango/enemy/monk.png" />
-<img src="images/characters/shiina.png" />
+<img src="images/down_arrow.png" />
+<img src="images/list_arrow.png" />
+<img src="images/title_cropped.png" />
+<img src="images/up_arrow.png" />
 <img src="images/characters/ace.png" />
+<img src="images/characters/arrow.png" />
 <img src="images/characters/kenji.png" />
 <img src="images/characters/luciana.png" />
-<img src="images/characters/morgan.png" />
-<img src="images/characters/arrow.png" />
-<img src="images/terrain/rocks.png" />
-<img src="images/terrain/river.png" />
-<img src="images/terrain/bridge.png" />
-<img src="images/terrain/plain.png" />
-<img src="images/terrain/fort.png" />
-<img src="images/terrain/forest.png" />
-<img src="images/resources/logo.png" />
-<img src="images/resources/tree.png" />
-<img src="images/resources/promo_banner.png" />
-<img src="images/resources/throwing_knife.png" />
-<img src="images/resources/promo.png" />
+<img src="images/dango/done/archer.png" />
+<img src="images/dango/done/fighter.png" />
+<img src="images/dango/done/mercenary.png" />
+<img src="images/dango/done/monk.png" />
+<img src="images/dango/done/soldier.png" />
+<img src="images/dango/enemy/archer.png" />
+<img src="images/dango/enemy/fighter.png" />
+<img src="images/dango/enemy/mercenary.png" />
+<img src="images/dango/enemy/monk.png" />
+<img src="images/dango/enemy/soldier.png" />
+<img src="images/dango/player/archer.png" />
+<img src="images/dango/player/fighter.png" />
+<img src="images/dango/player/mercenary.png" />
+<img src="images/dango/player/monk.png" />
+<img src="images/dango/player/soldier.png" />
+<img src="images/game_guide/3x_speed.png" />
+<img src="images/game_guide/action_menu.png" />
+<img src="images/game_guide/battle_stats_panel.png" />
+<img src="images/game_guide/end_turn.png" />
+<img src="images/game_guide/enemy_range.png" />
+<img src="images/game_guide/item_info_box.png" />
+<img src="images/game_guide/select.png" />
+<img src="images/game_guide/stats.png" />
+<img src="images/game_guide/status.png" />
+<img src="images/game_guide/unit_info_window.png" />
+<img src="images/game_guide/use_skill.png" />
 <img src="images/items/aquabolt.png" />
+<img src="images/items/brave_lance.png" />
+<img src="images/items/fire.png" />
+<img src="images/items/hand_axe.png" />
+<img src="images/items/iron_axe.png" />
 <img src="images/items/iron_bow.png" />
 <img src="images/items/iron_lance.png" />
-<img src="images/items/killer_bow.png" />
-<img src="images/items/iron_axe.png" />
-<img src="images/items/steel_lance.png" />
-<img src="images/items/brave_lance.png" />
-<img src="images/items/hand_axe.png" />
 <img src="images/items/iron_sword.png" />
+<img src="images/items/killer_bow.png" />
 <img src="images/items/shine.png" />
-<img src="images/items/steel_sword.png" />
 <img src="images/items/steel_axe.png" />
 <img src="images/items/steel_bow.png" />
-<img src="images/items/fire.png" />
+<img src="images/items/steel_lance.png" />
+<img src="images/items/steel_sword.png" />
+<img src="images/resources/logo.png" />
+<img src="images/resources/promo.png" />
+<img src="images/resources/promo_banner.png" />
+<img src="images/resources/throwing_knife.png" />
+<img src="images/resources/tree.png" />
+<img src="images/skills/defend.png" />
+<img src="images/skills/first_aid.png" />
+<img src="images/skills/flare.png" />
+<img src="images/skills/heal.png" />
+<img src="images/skills/meteor.png" />
+<img src="images/skills/poison_arrow.png" />
+<img src="images/skills/protect.png" />
+<img src="images/skills/sword_rain.png" />
+<img src="images/skills/temper.png" />
+<img src="images/skills/throwing_knives.png" />
+<img src="images/terrain/bridge.png" />
+<img src="images/terrain/forest.png" />
+<img src="images/terrain/fort.png" />
+<img src="images/terrain/plain.png" />
+<img src="images/terrain/river.png" />
+<img src="images/terrain/rocks.png" />
+<img src="images/vn/arrow.png" />
+<img src="images/vn/backgrounds/chapter_display.png" />
+<img src="images/vn/backgrounds/forest.png" />
+<img src="images/vn/backgrounds/hellhounds_hq.png" />
+<img src="images/vn/backgrounds/start.png" />
 
 </div>
 </body>
